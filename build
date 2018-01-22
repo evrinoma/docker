@@ -1,0 +1,28 @@
+#!/bin/bash
+####build network
+#docker network create lamp
+
+####build php 7
+#docker build -t evrinoma/php7 docker/php7/.
+#docker build --no-cache -t evrinoma/php7 docker/php7/.
+#docker run --rm -t -p 80:80 -v /opt/DISK/Develop/Docker/src/webldap5:/opt/WWW/container.ite-ng.ru/webldap5 --net lamp --name webldap5 -d evrinoma/php7
+docker push evrinoma/php7
+
+####build mariadb
+#docker build -t evrinoma/containerdb docker/containerdb/.
+#docker build --no-cache -t evrinoma/containerdb docker/containerdb/.
+#docker run -p 3306:3306 -v /opt/DISK/Develop/Docker/db/:/var/lib/mysql --net=lamp --name=containerdb -d evrinoma/
+docker push evrinoma/containerdb
+
+####help
+#docker ps -a
+#docker rm $(docker ps -a -q -f status=exited)
+#docker exec -it 19a93ae69843 bash -1
+#docker network inspect lamp
+#docker container stop 6
+#docker rm $(docker ps -a -q -f status=exited)
+#docker images
+#docker rmi d30969b16a73
+#docker push evrinoma/php7
+
+
