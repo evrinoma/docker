@@ -1,0 +1,34 @@
+version: '2'
+services:
+    containerdb:
+        container_name: "containerdb"
+        image: "evrinoma/containerdb"
+        cpu_shares: 100
+        mem_limit: 262144000
+        build:
+            context: docker/containerdb/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/db/:/var/lib/mysql"
+        ports:
+            - "3306:3306"
+        networks:
+            - "lamp"
+    php7:
+        container_name: "php7"
+        image: "evrinoma/php7"
+        cpu_shares: 100
+        mem_limit: 262144000
+        build:
+            context: docker/php7/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/webldap5:/opt/WWW/container.ite-ng.ru/webldap5"
+        ports:
+            - "80:80"
+        networks:
+            - "lamp"
+networks:
+    lamp:
+        external:
+            name: "lamp"
