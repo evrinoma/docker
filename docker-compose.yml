@@ -23,7 +23,7 @@ services:
             context: docker/php7/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/src/webldap5:/opt/WWW/container.ite-ng.ru/webldap5"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         ports:
             - "80:80"
         networks:

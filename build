@@ -5,7 +5,7 @@
 ####build php 7
 #docker build -t evrinoma/php7 docker/php7/.
 #docker build --no-cache -t evrinoma/php7 docker/php7/.
-#docker run --rm -t -p 80:80 -v /opt/DISK/Develop/Docker/src/webldap5:/opt/WWW/container.ite-ng.ru/webldap5 --net lamp --name webldap5 -d evrinoma/php7
+#docker run --rm -t -p 80:80 -v /opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/ --net lamp --name webldap5 -d evrinoma/php7
 #docker push evrinoma/php7
 
 ####build mariadb
