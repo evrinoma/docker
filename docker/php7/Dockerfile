@@ -50,7 +50,8 @@ RUN	yum -y install php71w \
 	php71w-pecl-xdebug \
 	php71w-pecl-zip;
 
-RUN	yum -y install git;
+RUN	yum -y install git \
+	openssh-server;
 
 RUN	yum -y autoremove && \
 	yum clean metadata && \
