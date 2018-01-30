@@ -78,13 +78,16 @@ RUN	ls /etc/httpd/conf.d/
 RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN	ls /usr/local/bin/
 
+COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
+RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
+	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
+
+ENTRYPOINT ["/usr/bin/supervisord","-n"]
+EXPOSE 22 80
+
 #CMD exec /usr/sbin/apachectl -D FOREGROUND
-ENTRYPOINT ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
-
-#specify the port number the container should expose
-EXPOSE 80
-
+#ENTRYPOINT ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
+#EXPOSE 80
 #CMD exec /usr/sbin/sshd -D
-ENTRYPOINT ["/usr/sbin/sshd", "-D"]
-
-EXPOSE 22
+#ENTRYPOINT ["/usr/sbin/sshd", "-D"]
+#EXPOSE 22
