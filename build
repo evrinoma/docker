@@ -26,3 +26,6 @@
 #docker push evrinoma/php7
 
 
+#docker-compose build
+#docker-compose up -d
+#docker-compose down
