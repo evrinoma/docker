@@ -19,36 +19,94 @@ RUN	yum -y install mc wget && \
 RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
 	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
 
+#RUN	yum -y install php71w \
+#	php71w-cli \
+#	php71w-fpm \
+#	php71w-bcmath \
+#	php71w-common \
+#	php71w-gd \
+#	php71w-gmp \
+#	php71w-imap \
+#	php71w-intl \
+#	php71w-ldap \
+#	php71w-mbstring \
+#	php71w-mcrypt \
+#	php71w-mysqli \
+#	php71w-mysqlnd \
+#	php71w-opcache \
+#	php71w-pdo \
+#	php71w-pear \
+#	php71w-pgsql \
+#	php71w-pspell \
+#	php71w-recode \
+#	php71w-soap \
+#	php71w-tidy \
+#	php71w-xml \
+#	php71w-xmlrpc \
+#	php71w-pecl-apcu \
+#	php71w-pecl-imagick \
+#	php71w-pecl-memcached \
+#	php71w-pecl-mongodb \
+#	php71w-pecl-xdebug \
+#	php71w-pecl-zip;
+
+
 RUN	yum -y install php72w \
-	php72w-cli \
-	php72w-fpm \
 	php72w-bcmath \
+	php72w-cli \
 	php72w-common \
+	php72w-dba \
+	php72w-devel \
+	php72w-embedded \
+	php72w-enchant \
+	php72w-fpm \
 	php72w-gd \
-	php72w-gmp \
 	php72w-imap \
+	php72w-interbase \
 	php72w-intl \
 	php72w-ldap \
 	php72w-mbstring \
-	php72w-mcrypt \
-	php72w-mysqli \
-	php72w-mysqlnd \
+	php72w-mysql \
+	php72w-odbc \
 	php72w-opcache \
 	php72w-pdo \
+	php72w-pdo_dblib \
 	php72w-pear \
+	php72w-pecl-apcu \
+	php72w-pecl-geoip \
+	php72w-pecl-igbinary \
+	php72w-pecl-imagick \
+	php72w-pecl-libsodium \
+	php72w-pecl-memcached \
+	php72w-pecl-mongodb \
 	php72w-pgsql \
+	php72w-phpdbg \
+	php72w-process \
 	php72w-pspell \
 	php72w-recode \
+	php72w-snmp \
 	php72w-soap \
 	php72w-tidy \
 	php72w-xml \
-	php72w-xmlrpc \
-	php72w-pecl-apcu \
-	php72w-pecl-imagick \
-	php72w-pecl-memcached \
-	php72w-pecl-mongodb \
-	php72w-pecl-xdebug \
-	php72w-pecl-zip;
+	php72w-xmlrpc;
+
+#RUN	yum -y install php71w-pecl-xdebug;
+RUN	yum -y install gcc \
+	make;
+
+RUN	mkdir /opt/xdebug && \
+	wget -P /opt/xdebug https://pecl.php.net/get/xdebug-2.6.0.tgz && \
+	tar -xvf  /opt/xdebug/xdebug-2.6.0.tgz -C  /opt/xdebug;
+
+WORKDIR /opt/xdebug/xdebug-2.6.0
+
+RUN	/usr/bin/phpize && \
+	./configure --enable-xdebug && \
+	make && \
+	make install && \
+	rm -rf mkdir /opt/xdebug/
+
+WORKDIR /
 
 RUN	yum -y install git \
 	openssh-server \
@@ -72,7 +130,8 @@ RUN echo pwd
 #apache config
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
-RUN	ls /etc/httpd/conf.d/
+RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
+
 
 #composer
 RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
@@ -85,9 +144,9 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 RUN	git config --global user.email "evrinoma@gmail.com" && \
 	git config --global user.name "Nikolay Nikolaev";
 
-
 #RUN	sed -i -e "s/^error_reporting\ =\ E_ALL\ \&\ \~E_DEPRECATED\ \&\ \~E_STRICT/error_reporting\ =\ E_ALL\ \&\ \~E_DEPRECATED\ \&\ \~\!E_STRICT/" /etc/php.ini
-RUN	echo "xdebug.remote_host = 172.18.1.3" >> /etc/php.d/xdebug.ini && \
+RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
+	echo "xdebug.remote_host = 172.18.1.3" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_connect_back=1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_port = 9000" >> /etc/php.d/xdebug.ini && \
