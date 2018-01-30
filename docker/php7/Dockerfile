@@ -51,11 +51,16 @@ RUN	yum -y install php71w \
 	php71w-pecl-zip;
 
 RUN	yum -y install git \
-	openssh-server;
+	openssh-server \
+	supervisor;
 
 RUN	yum -y autoremove && \
 	yum clean metadata && \
 	yum clean all;
+
+RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa &&\
+	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa &&\
+	echo 0631 | passwd --stdin root;
 
 # edit php.ini 
 RUN sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini
@@ -78,3 +83,8 @@ ENTRYPOINT ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
 
 #specify the port number the container should expose
 EXPOSE 80
+
+#CMD exec /usr/sbin/sshd -D
+ENTRYPOINT ["/usr/sbin/sshd", "-D"]
+
+EXPOSE 22
