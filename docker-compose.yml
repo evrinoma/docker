@@ -10,26 +10,41 @@ services:
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/db/:/var/lib/mysql"
-        ports:
-            - "3306:3306"
+#        ports:
+#            - "3306:3306"
         networks:
             lamp:
                 ipv4_address: 172.18.1.2
-    php7:
-        container_name: "php7"
-        image: "evrinoma/php7"
+    php71:
+        container_name: "php71"
+        image: "evrinoma/php71"
         cpu_shares: 100
         mem_limit: 262144000
         build:
-            context: docker/php7/.
+            context: docker/php71/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        ports:
-            - "80:80"
+#        ports:
+#            - "80:80"
         networks:
             lamp:
                 ipv4_address: 172.18.1.3
+    php72:
+        container_name: "php72"
+        image: "evrinoma/php72"
+        cpu_shares: 100
+        mem_limit: 262144000
+        build:
+            context: docker/php72/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        ports:
+#            - "80:80"
+        networks:
+            lamp:
+                ipv4_address: 172.18.1.4
 
 networks:
     lamp:

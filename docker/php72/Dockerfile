@@ -19,37 +19,12 @@ RUN	yum -y install mc wget && \
 RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
 	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
 
-#RUN	yum -y install php71w \
-#	php71w-cli \
-#	php71w-fpm \
-#	php71w-bcmath \
-#	php71w-common \
-#	php71w-gd \
-#	php71w-gmp \
-#	php71w-imap \
-#	php71w-intl \
-#	php71w-ldap \
-#	php71w-mbstring \
-#	php71w-mcrypt \
-#	php71w-mysqli \
-#	php71w-mysqlnd \
-#	php71w-opcache \
-#	php71w-pdo \
-#	php71w-pear \
-#	php71w-pgsql \
-#	php71w-pspell \
-#	php71w-recode \
-#	php71w-soap \
-#	php71w-tidy \
-#	php71w-xml \
-#	php71w-xmlrpc \
-#	php71w-pecl-apcu \
-#	php71w-pecl-imagick \
-#	php71w-pecl-memcached \
-#	php71w-pecl-mongodb \
-#	php71w-pecl-xdebug \
-#	php71w-pecl-zip;
+RUN	yum -y install gcc \
+	make;
 
+RUN	yum -y install git \
+	openssh-server \
+	supervisor;
 
 RUN	yum -y install php72w \
 	php72w-bcmath \
@@ -90,9 +65,9 @@ RUN	yum -y install php72w \
 	php72w-xml \
 	php72w-xmlrpc;
 
-#RUN	yum -y install php71w-pecl-xdebug;
-RUN	yum -y install gcc \
-	make;
+RUN	yum -y autoremove && \
+	yum clean metadata && \
+	yum clean all;
 
 RUN	mkdir /opt/xdebug && \
 	wget -P /opt/xdebug https://pecl.php.net/get/xdebug-2.6.0.tgz && \
@@ -108,50 +83,36 @@ RUN	/usr/bin/phpize && \
 
 WORKDIR /
 
-RUN	yum -y install git \
-	openssh-server \
-	supervisor;
-
-RUN	yum -y autoremove && \
-	yum clean metadata && \
-	yum clean all;
-
-RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa &&\
-	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa &&\
-	echo 0631 | passwd --stdin root;
-
-# edit php.ini 
-RUN sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini
-RUN sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/httpd/conf/httpd.conf
-
-RUN pwd
-RUN echo pwd
-
-#apache config
-RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
-COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
-RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
-
-
 #composer
 RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN	ls /usr/local/bin/
 
+#git
+RUN	git config --global user.email "evrinoma@gmail.com" && \
+	git config --global user.name "Nikolay Nikolaev";
+#ssh
+RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa &&\
+	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa &&\
+	echo 0631 | passwd --stdin root;
+#httpd
+RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini
+RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/httpd/conf/httpd.conf
+RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
+COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
+#history
+RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
+#supervisor
 COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
 RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
-
-RUN	git config --global user.email "evrinoma@gmail.com" && \
-	git config --global user.name "Nikolay Nikolaev";
-
-#RUN	sed -i -e "s/^error_reporting\ =\ E_ALL\ \&\ \~E_DEPRECATED\ \&\ \~E_STRICT/error_reporting\ =\ E_ALL\ \&\ \~E_DEPRECATED\ \&\ \~\!E_STRICT/" /etc/php.ini
+#php extension
 RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_host = 172.18.1.3" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_connect_back=1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_port = 9000" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.extended_info = 1" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.scream = 1" >> /etc/php.d/xdebug.ini && \
+#	echo "xdebug.scream = 1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.var_display_max_depth = 16" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.var_display_max_children = 256" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.max_nesting_level = 1024" >> /etc/php.d/xdebug.ini && \
@@ -160,9 +121,3 @@ RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
 
-#CMD exec /usr/sbin/apachectl -D FOREGROUND
-#ENTRYPOINT ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
-#EXPOSE 80
-#CMD exec /usr/sbin/sshd -D
-#ENTRYPOINT ["/usr/sbin/sshd", "-D"]
-#EXPOSE 22
