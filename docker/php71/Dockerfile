@@ -57,6 +57,11 @@ RUN	yum -y install php71w \
 	php71w-pecl-xdebug \
 	php71w-pecl-zip;
 
+RUN	wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo && \
+	yum -y install yarn;
+
+RUN	yum -y install phpMyAdmin;
+
 RUN	yum -y autoremove && \
 	yum clean metadata && \
 	yum clean all;
