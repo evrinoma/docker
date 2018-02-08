@@ -122,6 +122,9 @@ RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.var_display_max_children = 256" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.max_nesting_level = 1024" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.idekey="PHPSTORM"" >> /etc/php.d/xdebug.ini;
+#phpMyAdmin
+RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.18\.1\.0\/24\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
+	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.1\.0\/24\ 172\.18\.1\.0\/24\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf;
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
