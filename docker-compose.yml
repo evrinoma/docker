@@ -10,8 +10,6 @@ services:
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/db/:/var/lib/mysql"
-#        ports:
-#            - "3306:3306"
         networks:
             lamp:
                 ipv4_address: 172.18.1.2
@@ -25,8 +23,6 @@ services:
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-#        ports:
-#            - "80:80"
         networks:
             lamp:
                 ipv4_address: 172.18.1.3
@@ -40,8 +36,6 @@ services:
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-#        ports:
-#            - "80:80"
         networks:
             lamp:
                 ipv4_address: 172.18.1.4
