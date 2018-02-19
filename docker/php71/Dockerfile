@@ -81,6 +81,7 @@ RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa &&\
 RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini
 RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/httpd/conf/httpd.conf
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
+
 COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
 #history
 RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
