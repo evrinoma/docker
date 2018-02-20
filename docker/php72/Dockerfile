@@ -113,7 +113,7 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
 #php extension
 RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_host = 172.18.1.3" >> /etc/php.d/xdebug.ini && \
+	echo "xdebug.remote_host = 172.18.1.72" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_connect_back=1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_port = 9000" >> /etc/php.d/xdebug.ini && \

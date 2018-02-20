@@ -2,6 +2,12 @@
 ####build network
 #docker network create lamp
 
+####build php 5
+#docker build -t evrinoma/php53 docker/php53/.
+#docker build --no-cache -t evrinoma/php71 docker/php71/.
+#docker run --rm -t -p 22:22 -v /opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/ --net lamp --name php53 -d evrinoma/php53
+#docker push evrinoma/php71
+
 ####build php 7
 #docker build -t evrinoma/php71 docker/php71/.
 #docker build --no-cache -t evrinoma/php71 docker/php71/.

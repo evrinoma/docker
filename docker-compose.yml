@@ -13,6 +13,19 @@ services:
         networks:
             lamp:
                 ipv4_address: 172.18.1.2
+    php53:
+        container_name: "php53"
+        image: "evrinoma/php53"
+        cpu_shares: 100
+        mem_limit: 262144000
+        build:
+            context: docker/php53/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.1.53
     php71:
         container_name: "php71"
         image: "evrinoma/php71"
@@ -25,7 +38,7 @@ services:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             lamp:
-                ipv4_address: 172.18.1.3
+                ipv4_address: 172.18.1.71
     php72:
         container_name: "php72"
         image: "evrinoma/php72"
@@ -38,7 +51,7 @@ services:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             lamp:
-                ipv4_address: 172.18.1.4
+                ipv4_address: 172.18.1.72
 
 networks:
     lamp:

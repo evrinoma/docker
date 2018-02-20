@@ -1,23 +1,23 @@
 FROM \
-	centos:centos7
+	centos:centos6
 
 MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma PHP 7.0 Image" \
-	image="php-7" \
+	name="evrinoma PHP 5.3 Image" \
+	image="php-5.3" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2017-12-30"
+	build-date="2017-02-20"
 
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
 	yum -y install iproute && \
 	yum -y update;
 
-RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
-	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
+RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm && \
+	rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm;
 
 RUN	yum -y install gcc \
 	make;
@@ -26,44 +26,39 @@ RUN	yum -y install git \
 	openssh-server \
 	supervisor;
 
-RUN	yum -y install php71w \
-	php71w-cli \
-	php71w-fpm \
-	php71w-bcmath \
-	php71w-common \
-	php71w-gd \
-	php71w-gmp \
-	php71w-imap \
-	php71w-intl \
-	php71w-ldap \
-	php71w-mbstring \
-	php71w-mcrypt \
-	php71w-mysqli \
-	php71w-mysqlnd \
-	php71w-opcache \
-	php71w-pdo \
-	php71w-pear \
-	php71w-pgsql \
-	php71w-pspell \
-	php71w-recode \
-	php71w-soap \
-	php71w-tidy \
-	php71w-xml \
-	php71w-xmlrpc \
-	php71w-pecl-apcu \
-	php71w-pecl-imagick \
-	php71w-pecl-memcached \
-	php71w-pecl-mongodb \
-	php71w-pecl-xdebug \
-	php71w-pecl-zip;
-
 RUN	wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo && \
 	yum -y install yarn;
 
+RUN	yum -y install php  \ 
+	php-mysql \
+	php-mbstring \
+	php-gd \
+	php-cli \
+	php-ldap \
+	php-pear \
+	php-devel \
+	php-mcrypt \
+	php-mbstring \
+	php-snmp \
+	php-xml \
+	php-bcmath \
+	php-rrdtool \
+	php-pdo \
+	php-odbc \
+	php-mssql \
+	php-ldap \
+	php-pecl-xdebug \
+	php-pecl-apc \
+	php-pecl-runkit \
+	php-unit \
+	php-phpunit \
+	php-phpunit-PHPUnit \
+	php-pecl-imagick \
+	php-soap
+
 RUN	yum -y install phpMyAdmin;
 
-RUN	yum -y autoremove && \
-	yum clean metadata && \
+RUN	yum clean metadata && \
 	yum clean all;
 
 #composer
@@ -86,22 +81,22 @@ COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
 #history
 RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
 #supervisor
-COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
-RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
-	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
+RUN	mv -v /etc/supervisord.conf{,.bak}
+COPY	supervisord.conf /etc/supervisord.conf
+
 #php extension
-RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_host = 172.18.1.71" >> /etc/php.d/xdebug.ini && \
+RUN	echo "xdebug.remote_host = 172.18.1.53" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_connect_back=1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_port = 9000" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.extended_info = 1" >> /etc/php.d/xdebug.ini && \
-#	echo "xdebug.scream = 1" >> /etc/php.d/xdebug.ini && \
+##	echo "xdebug.scream = 1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.var_display_max_depth = 16" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.var_display_max_children = 256" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.max_nesting_level = 1024" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.idekey="PHPSTORM"" >> /etc/php.d/xdebug.ini;
-#phpMyAdmin
+
+#hpMyAdmin
 RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.18\.1\.0\/24\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.1\.0\/24\ 172\.18\.1\.0\/24\ 172\.20\.1\.0\/24\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/'localhost'\;/'172\.18\.1\.2'\;/" /etc/phpMyAdmin/config.inc.php;
