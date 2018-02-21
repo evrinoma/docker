@@ -16,8 +16,8 @@ services:
     php53:
         container_name: "php53"
         image: "evrinoma/php53"
-        cpu_shares: 100
-        mem_limit: 262144000
+#        cpu_shares: 100
+#        mem_limit: 262144000
         build:
             context: docker/php53/.
             dockerfile: Dockerfile

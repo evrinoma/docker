@@ -73,7 +73,7 @@ RUN	yum -y install phpMyAdmin;
 RUN	yum -y autoremove && \
 	yum clean metadata && \
 	yum clean all;
-
+#build xdebug
 RUN	mkdir /opt/xdebug && \
 	wget -P /opt/xdebug https://pecl.php.net/get/xdebug-2.6.0.tgz && \
 	tar -xvf  /opt/xdebug/xdebug-2.6.0.tgz -C  /opt/xdebug;

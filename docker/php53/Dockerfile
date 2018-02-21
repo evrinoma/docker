@@ -47,7 +47,7 @@ RUN	yum -y install php  \
 	php-odbc \
 	php-mssql \
 	php-ldap \
-	php-pecl-xdebug \
+#	php-pecl-xdebug \
 	php-pecl-apc \
 	php-pecl-runkit \
 	php-unit \
@@ -66,6 +66,21 @@ RUN	yum makecache && \
 RUN	yum clean metadata && \
 	yum clean all;
 
+#build xdebug 2.2.7 support php 5.3.29
+RUN	mkdir /opt/xdebug && \
+	wget -P /opt/xdebug https://xdebug.org/files/xdebug-2.2.7.tgz && \
+	tar -xvf  /opt/xdebug/xdebug-2.2.7.tgz -C  /opt/xdebug;
+
+WORKDIR	/opt/xdebug/xdebug-2.2.7
+
+RUN	/usr/bin/phpize && \
+	./configure --enable-xdebug && \
+	make && \
+	make install && \
+	rm -rf mkdir /opt/xdebug/
+
+WORKDIR /
+
 #composer
 RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN	ls /usr/local/bin/
@@ -77,9 +92,17 @@ RUN	git config --global user.email "evrinoma@gmail.com" && \
 RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa &&\
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa &&\
 	echo 0631 | passwd --stdin root;
-#httpd
-RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini
+#php.ini
+RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
+	sed -i -e "s/\;date\.timezone\ \=/date\.timezone\ \=\ \"Europe\/Moscow\"/g" /etc/php.ini && \
+	sed -i -e "s/memory_limit\ \=\ 128M/memory_limit\ \=\ 4096M/g" /etc/php.ini
+#apc.ini
+RUN	sed -i -e "s/apc\.shm_size\=64M/apc\.shm_size\=3G/g" /etc/php.d/apc.ini && \
+	sed -i -e "s/apc\.max_file_size\=1M/apc\.max_file_size\=64M/g" /etc/php.d/apc.ini
+
+
 RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/httpd/conf/httpd.conf
+
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
 COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
@@ -96,6 +119,7 @@ RUN	echo "xdebug.remote_host = 172.18.1.53" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_port = 9000" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.extended_info = 1" >> /etc/php.d/xdebug.ini && \
 ##	echo "xdebug.scream = 1" >> /etc/php.d/xdebug.ini && \
+#echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.var_display_max_depth = 16" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.var_display_max_children = 256" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.max_nesting_level = 1024" >> /etc/php.d/xdebug.ini && \
