@@ -58,6 +58,11 @@ RUN	yum -y install php  \
 
 RUN	yum -y install phpMyAdmin;
 
+#install php 5.3.29
+RUN	wget -O /etc/yum.repos.d/centosup.repo http://centosup.ispsystem.info/centosup.repo;
+RUN	yum makecache && \ 
+	yum -y update php-\*
+
 RUN	yum clean metadata && \
 	yum clean all;
 
