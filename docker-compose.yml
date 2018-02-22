@@ -25,7 +25,8 @@ services:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             lamp:
-                ipv4_address: 172.18.1.53
+                ipv4_address: 172.18.53.53
+
     php71:
         container_name: "php71"
         image: "evrinoma/php71"
@@ -38,7 +39,8 @@ services:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             lamp:
-                ipv4_address: 172.18.1.71
+                ipv4_address: 172.18.71.71
+            
     php72:
         container_name: "php72"
         image: "evrinoma/php72"
@@ -51,7 +53,103 @@ services:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             lamp:
-                ipv4_address: 172.18.1.72
+                ipv4_address: 172.18.72.72
+            
+    php53_kis_ite-ng_ru:
+        container_name: "php53.kis.ite-ng.ru"
+        image: "evrinoma/php53.kis.ite-ng.ru"
+        build:
+            context: docker/php53/sites/kis.ite-ng.ru/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.53.3
+            
+    php53_kis_ite-ng_new:
+        container_name: "php53.kis.ite-ng.new"
+        image: "evrinoma/php53.kis.ite-ng.new"
+        build:
+            context: docker/php53/sites/kis.ite-ng.new/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.53.4
+            
+    php71_empty:
+        container_name: "php71.empty"
+        image: "evrinoma/php71.empty"
+        build:
+            context: docker/php71/sites/empty/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.71.3
+            
+    php71_tools:
+        container_name: "php71.tools"
+        image: "evrinoma/php71.tools"
+        build:
+            context: docker/php71/sites/tools/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.71.4
+            
+    php71_webldap5:
+        container_name: "php71.webldap5"
+        image: "evrinoma/php71.webldap5"
+        build:
+            context: docker/php71/sites/webldap5/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.71.5
+    php72_empty:
+        container_name: "php72.empty"
+        image: "evrinoma/php72.empty"
+        build:
+            context: docker/php72/sites/empty/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.72.3
+            
+    php72_tools:
+        container_name: "php72.tools"
+        image: "evrinoma/php72.tools"
+        build:
+            context: docker/php72/sites/tools/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.72.4
+            
+    php72_webldap5:
+        container_name: "php72.webldap5"
+        image: "evrinoma/php72.webldap5"
+        build:
+            context: docker/php72/sites/webldap5/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.72.5
+            
 
 networks:
     lamp:
@@ -59,4 +157,6 @@ networks:
         ipam:
             driver: default
             config:
-                - subnet: 172.18.1.0/24
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
+

@@ -99,36 +99,31 @@ RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 #apc.ini
 RUN	sed -i -e "s/apc\.shm_size\=64M/apc\.shm_size\=3G/g" /etc/php.d/apc.ini && \
 	sed -i -e "s/apc\.max_file_size\=1M/apc\.max_file_size\=64M/g" /etc/php.d/apc.ini
-
-
+#httpd
 RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/httpd/conf/httpd.conf
-
-RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
-
-COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
 #history
 RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
 #supervisor
 RUN	mv -v /etc/supervisord.conf{,.bak}
 COPY	supervisord.conf /etc/supervisord.conf
-
 #php extension
-RUN	echo "xdebug.remote_host = 172.18.1.53" >> /etc/php.d/xdebug.ini && \
+RUN	echo "xdebug.remote_host = 172.18.53.53" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_connect_back=1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_port = 9000" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.extended_info = 1" >> /etc/php.d/xdebug.ini && \
 ##	echo "xdebug.scream = 1" >> /etc/php.d/xdebug.ini && \
-#echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.var_display_max_depth = 16" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.var_display_max_children = 256" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.max_nesting_level = 1024" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.idekey="PHPSTORM"" >> /etc/php.d/xdebug.ini;
-
-#hpMyAdmin
-RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.18\.1\.0\/24\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
-	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.1\.0\/24\ 172\.18\.1\.0\/24\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
+#phpMyAdmin
+RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.18\.53\.0\/24\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
+	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.1\.0\/24\ 172\.18\.53\.0\/24\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/'localhost'\;/'172\.18\.1\.2'\;/" /etc/phpMyAdmin/config.inc.php;
+#mount
+RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
+COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
