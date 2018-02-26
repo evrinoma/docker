@@ -9,6 +9,6 @@ LABEL \
 	image="php-7.2" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2017-02-20"
+	build-date="2017-02-26"
 
 COPY	empty.conf /etc/httpd/conf.d/vhost.conf

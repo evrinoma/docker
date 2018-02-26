@@ -9,7 +9,7 @@ services:
             context: docker/containerdb/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/db/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/db/:/var/lib/mysql"
         networks:
             lamp:
                 ipv4_address: 172.18.1.2
