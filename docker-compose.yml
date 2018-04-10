@@ -114,6 +114,19 @@ services:
         networks:
             lamp:
                 ipv4_address: 172.18.71.5
+
+    php71_cont:
+        container_name: "php71.cont"
+        image: "evrinoma/php71.cont"
+        build:
+            context: docker/php71/sites/cont/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.71.6
+
     php72_empty:
         container_name: "php72.empty"
         image: "evrinoma/php72.empty"
@@ -150,6 +163,18 @@ services:
             lamp:
                 ipv4_address: 172.18.72.5
             
+    php72_cont:
+        container_name: "php72.cont"
+        image: "evrinoma/php72.cont"
+        build:
+            context: docker/php72/sites/cont/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            lamp:
+                ipv4_address: 172.18.72.6
+
 
 networks:
     lamp:
