@@ -11,7 +11,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/db/:/var/lib/mysql"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.1.2
     php53:
         container_name: "php53"
@@ -24,7 +24,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.53.53
 
     php71:
@@ -38,7 +38,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.71.71
             
     php72:
@@ -52,7 +52,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.72.72
             
     php53_kis_ite-ng_ru:
@@ -64,7 +64,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.53.3
             
     php53_kis_ite-ng_new:
@@ -76,7 +76,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.53.4
             
     php71_empty:
@@ -88,7 +88,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.71.3
             
     php71_tools:
@@ -100,7 +100,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.71.4
             
     php71_webldap5:
@@ -112,7 +112,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.71.5
 
     php71_cont:
@@ -124,7 +124,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.71.6
 
     php72_empty:
@@ -136,7 +136,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.72.3
             
     php72_tools:
@@ -148,7 +148,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.72.4
             
     php72_webldap5:
@@ -160,7 +160,7 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.72.5
             
     php72_cont:
@@ -172,12 +172,12 @@ services:
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
-            lamp:
+            virt:
                 ipv4_address: 172.18.72.6
 
 
 networks:
-    lamp:
+    virt:
         driver: bridge
         ipam:
             driver: default
