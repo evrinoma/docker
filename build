@@ -39,3 +39,9 @@
 #udpate docker-compose
 #docker-compose --version
 #curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+#create attachable network
+#docker network create --attachable --driver bridge --subnet 172.18.0.1/16 --ip-range 172.18.0.0/24 --gateway 172.18.0.1 -o com.docker.network.bridge.name=docker1 -o com.docker.network.driver.mtu=1500 docker1
+#ip address show
+#docker network ls
+#docker network rm docker1
