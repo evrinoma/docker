@@ -55,6 +55,8 @@ RUN	yum -y install rabbitmq-server;
 RUN	yum -y install python34-pip && \
 	pip3 install pika;
 
+RUN	echo 'export HOSTNAME="rabbitmq"' > /etc/profile.d/rabbitmq.sh;
+
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 
 # 
