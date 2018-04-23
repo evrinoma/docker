@@ -13,6 +13,21 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.1.2
+
+    rabbitmq:
+        container_name: "rabbitmq"
+        image: "evrinoma/rabbitmq"
+        cpu_shares: 100
+        mem_limit: 262144000
+        build:
+            context: docker/rabbitmq/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.3
+
     php53:
         container_name: "php53"
         image: "evrinoma/php53"
