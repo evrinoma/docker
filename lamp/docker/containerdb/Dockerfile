@@ -38,7 +38,8 @@ RUN	systemctl enable mariadb.service
 RUN	mysql_install_db --user=mysql --ldata=/var/lib/mysql/
 RUN	sed -i '/\[mysqld\]/aport=3306' /etc/my.cnf && \
 	sed -i '/\[mysqld\]/askip-external-locking' /etc/my.cnf && \
-	sed -i '/\[mysqld\]/amax_allowed_packet=256M' /etc/my.cnf && \
+#	sed -i '/\[mysqld\]/amax_allowed_packet=256M' /etc/my.cnf && \
+	sed -i '/\[mysqld\]/amax_allowed_packet=4096M' /etc/my.cnf && \
 	sed -i '/\[mysqld\]/atable_cache=4096' /etc/my.cnf && \
 	sed -i '/\[mysqld\]/asort_buffer_size=128M' /etc/my.cnf && \
 	sed -i '/\[mysqld\]/aread_buffer_size=64M' /etc/my.cnf && \
