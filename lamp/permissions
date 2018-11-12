@@ -1,0 +1,3 @@
+#!/bin/bash
+chown -R 27.27 src/db
+chown -R daemon daemon src/jira

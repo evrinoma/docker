@@ -10,6 +10,7 @@ services:
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/lamp/src/db/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/lamp/src/logs/mariadb/:/var/log/mariadb"
         networks:
             virt:
                 ipv4_address: 172.18.1.2
@@ -30,7 +31,6 @@ services:
 
     jiracore:
         container_name: "jiracore"
-#        image: cptactionhank/atlassian-jira:latest
         image: cptactionhank/atlassian-jira-software:latest
 #        cpu_shares: 100
 #        mem_limit: 262144000
@@ -169,8 +169,8 @@ services:
                 ipv4_address: 172.18.71.5
 
     php71_cont:
-        container_name: "php71.cont"
-        image: "evrinoma/php71.cont"
+        container_name: "php71.cont.ite-ng.ru"
+        image: "evrinoma/php71.cont.ite-ng.ru"
         build:
             context: docker/php71/sites/cont/.
             dockerfile: Dockerfile
@@ -217,8 +217,8 @@ services:
                 ipv4_address: 172.18.72.5
             
     php72_cont:
-        container_name: "php72.cont"
-        image: "evrinoma/php72.cont"
+        container_name: "php72.cont.ite-ng.ru"
+        image: "evrinoma/php72.cont.ite-ng.ru"
         build:
             context: docker/php72/sites/cont/.
             dockerfile: Dockerfile

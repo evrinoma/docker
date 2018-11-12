@@ -10,6 +10,7 @@ PREFIX53=$PREFIX"53"
 PREFIX71=$PREFIX"71"
 PREFIX72=$PREFIX"72"
 
+
 echo ""$MYSQL"	containerdb" >> /etc/hosts
 echo ""$RABBIT"	rabbitmq" >> /etc/hosts
 
@@ -32,3 +33,5 @@ echo ""$PHP72"3	$PREFIX72.empty" >> /etc/hosts
 echo ""$PHP72"4	$PREFIX72.tools" >> /etc/hosts
 echo ""$PHP72"5	$PREFIX72.webldap5" >> /etc/hosts
 echo ""$PHP72"6	$PREFIX72.cont.ite-ng.ru" >> /etc/hosts
+
+echo ""$PHP72"3	pma" >> /etc/hosts

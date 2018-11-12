@@ -9,7 +9,7 @@ LABEL \
 	image="php-7" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2017-12-30"
+	build-date="2018-11-09"
 
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
@@ -26,6 +26,10 @@ RUN	yum -y install git \
 	openssh-server \
 	supervisor;
 
+RUN	yum -y install telnel \
+	exim.x86_64 \
+	mailx;
+
 RUN	yum -y install php71w \
 	php71w-cli \
 	php71w-fpm \
@@ -39,7 +43,7 @@ RUN	yum -y install php71w \
 	php71w-mbstring \
 	php71w-mcrypt \
 	php71w-mysqli \
-	php71w-mysqlnd \
+#	php71w-mysqlnd \
 	php71w-opcache \
 	php71w-pdo \
 	php71w-pear \
@@ -75,8 +79,8 @@ RUN     ln -s /opt/WWW/container.ite-ng.ru/.composer /root/.composer
 RUN	git config --global user.email "evrinoma@gmail.com" && \
 	git config --global user.name "Nikolay Nikolaev";
 #ssh
-RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa &&\
-	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa &&\
+RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
+	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
 	echo 0631 | passwd --stdin root;
 #php.ini
 RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini
@@ -108,7 +112,16 @@ RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.
 	echo "?>" >> /etc/phpMyAdmin/config.inc.php;
 #mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
+#httpd hosts
 COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
+#mail
+RUN	mv -v /etc/exim/exim.conf{,.bak} && \
+	mv -v /usr/sbin/sendmail{,.bak} && \
+	cp /usr/sbin/exim /usr/sbin/sendmail && \
+	chmod 4755 /usr/sbin/sendmail && \
+	mv /bin/mail{,.bak} && \
+	ln -s /bin/mailx /bin/mail
+COPY	exim.conf /etc/exim/exim.conf
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
