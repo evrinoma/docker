@@ -108,7 +108,8 @@ RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 #php.ini
 RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/\;date\.timezone\ \=/date\.timezone\ \=\ \"Europe\/Moscow\"/g" /etc/php.ini && \
-	sed -i -e "s/memory_limit\ \=\ 128M/memory_limit\ \=\ -1/g" /etc/php.ini
+	sed -i -e "s/memory_limit\ \=\ 128M/memory_limit\ \=\ -1/g" /etc/php.ini && \
+	sed -i -e "s/session.gc_maxlifetime\ \=\ 1440/session.gc_maxlifetime\ \=\ 360000/g" /etc/php.ini
 #apcu.ini
 RUN     sed -i -e "s/apc\.shm_size\=64M/apc\.shm_size\=3G/g" /etc/php.d/apcu.ini
 #httpd
@@ -135,8 +136,9 @@ RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/'localhost'\;/'172\.18\.1\.2'\;/" /etc/phpMyAdmin/config.inc.php && \
-	sed -i -e "s/\?>/\$cfg\['Servers'\]\[\$i\]\['LoginCookieValidity'\]\ = 360000\;/" /etc/phpMyAdmin/config.inc.php && \
-	echo "?>" >> /etc/phpMyAdmin/config.inc.php;
+	sed -i -e "s/\?>//" /etc/phpMyAdmin/config.inc.php && \
+	echo "?>" >> /etc/phpMyAdmin/config.inc.php && \
+	sed -i -e "s/\?>/\$cfg\['Servers'\]\[\$i\]\['LoginCookieValidity'\]\ = 360000\;/" /etc/phpMyAdmin/config.inc.php
 #mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 #httpd hosts
