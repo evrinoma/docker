@@ -73,7 +73,7 @@ RUN	yum -y autoremove && \
 #composer
 RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN	ls /usr/local/bin/
-RUN     ln -s /opt/WWW/container.ite-ng.ru/.composer /root/.composer
+RUN	ln -s /opt/WWW/container.ite-ng.ru/.composer /root/.composer
 
 #git
 RUN	git config --global user.email "evrinoma@gmail.com" && \
@@ -83,7 +83,11 @@ RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
 	echo 0631 | passwd --stdin root;
 #php.ini
-RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini
+RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
+	sed -i -e "s/\;date\.timezone\ \=/date\.timezone\ \=\ \"Europe\/Moscow\"/g" /etc/php.ini && \
+	sed -i -e "s/memory_limit\ \=\ 128M/memory_limit\ \=\ -1/g" /etc/php.ini
+#apcu.ini
+RUN	sed -i -e "s/apc\.shm_size\=64M/apc\.shm_size\=3G/g" /etc/php.d/apcu.ini
 #httpd
 RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/httpd/conf/httpd.conf
 #history
@@ -108,7 +112,7 @@ RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/'localhost'\;/'172\.18\.1\.2'\;/" /etc/phpMyAdmin/config.inc.php && \
-	sed -i -e "s/\?>/\$cfg\['Servers'\]\[\$i\]\['LoginCookieValidity'\]\ = 3600\;/" /etc/phpMyAdmin/config.inc.php && \
+	sed -i -e "s/\?>/\$cfg\['Servers'\]\[\$i\]\['LoginCookieValidity'\]\ = 360000\;/" /etc/phpMyAdmin/config.inc.php && \
 	echo "?>" >> /etc/phpMyAdmin/config.inc.php;
 #mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
