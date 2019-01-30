@@ -2,6 +2,8 @@
 SUBNET="172.18."
 MYSQL=$SUBNET"1.2"
 RABBIT=$SUBNET"1.3"
+JIRA=$SUBNET"1.4"
+TEST=$SUBNET"1.5"
 PHP53=$SUBNET"53."
 PHP71=$SUBNET"71."
 PHP72=$SUBNET"72."
@@ -10,9 +12,10 @@ PREFIX53=$PREFIX"53"
 PREFIX71=$PREFIX"71"
 PREFIX72=$PREFIX"72"
 
-
 echo ""$MYSQL"	containerdb" >> /etc/hosts
 echo ""$RABBIT"	rabbitmq" >> /etc/hosts
+echo ""$JIRA"	jira" >> /etc/hosts
+echo ""$TEST"	test.cont.ite-ng.ru" >> /etc/hosts
 
 echo ""$PHP53"53	$PREFIX53" >> /etc/hosts
 echo ""$PHP71"71	$PREFIX71" >> /etc/hosts
