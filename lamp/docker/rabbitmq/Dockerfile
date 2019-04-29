@@ -49,9 +49,10 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
-RUN	yum -y install rabbitmq-server && \
-	yum -y install python34-pip && \
-	pip3 install pika;
+RUN	yum -y install rabbitmq-server
+
+RUN	yum -y install python34-pip && \
+	pip3.4 install pika;
 
 RUN	echo 'export HOSTNAME="rabbitmq"' > /etc/profile.d/rabbitmq.sh && \
 	echo "nameserver 172.20.1.5" > /etc/resolv.conf
