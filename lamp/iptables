@@ -3,6 +3,7 @@
 SERVERS=([8080]=172.18.1.5 [8090]=172.18.1.6)
 bridge=$(iptables -L -v -n  | grep 1.4 | awk '{print $7}')
 
+echo $bridge
 for index in ${!SERVERS[*]}
 do
     iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport $index -j DNAT --to-destination ${SERVERS[$index]}:80

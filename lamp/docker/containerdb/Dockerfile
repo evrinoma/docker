@@ -65,7 +65,8 @@ RUN	sed -i '/\[mysqld\]/aport=3306' /etc/my.cnf && \
 
 #	sed -ire 's/max_allowed_packet.*=.*/max_allowed_packet = /g' /etc/mysql/my.cnf
 
-RUN	chown -R mysql.mysql /var/lib/mysql/
+RUN	chown -R mysql.mysql /var/lib/mysql/ && \
+	echo "nameserver 172.20.1.5" > /etc/resolv.conf
 
 EXPOSE 3306
 

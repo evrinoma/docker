@@ -153,6 +153,10 @@ RUN	mv -v /etc/exim/exim.conf{,.bak} && \
 	chmod 4755 /usr/sbin/sendmail && \
 	mv /bin/mail{,.bak} && \
 	ln -s /bin/mailx /bin/mail
+#clean
+RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
+	rm -f /var/run/httpd/httpd.pid
+
 COPY	exim.conf /etc/exim/exim.conf
 
 #webpack

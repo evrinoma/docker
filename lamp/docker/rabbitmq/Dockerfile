@@ -49,13 +49,12 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
-RUN	yum -y install rabbitmq-server;
-
-#test connaction rabbitMq
-RUN	yum -y install python34-pip && \
+RUN	yum -y install rabbitmq-server && \
+	yum -y install python34-pip && \
 	pip3 install pika;
 
-RUN	echo 'export HOSTNAME="rabbitmq"' > /etc/profile.d/rabbitmq.sh;
+RUN	echo 'export HOSTNAME="rabbitmq"' > /etc/profile.d/rabbitmq.sh && \
+	echo "nameserver 172.20.1.5" > /etc/resolv.conf
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 
