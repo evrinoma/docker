@@ -252,6 +252,18 @@ services:
             virt:
                 ipv4_address: 172.18.72.6
 
+    php53_webldap:
+        container_name: "php53.webldap"
+        image: "evrinoma/php53.webldap"
+        build:
+            context: docker/php53/sites/webldap/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.11
+
     php72_portal:
         container_name: "php72.portal.ite-ng.ru"
         image: "evrinoma/php72.portal.ite-ng.ru"
@@ -263,7 +275,6 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.72.7
-
 
 networks:
     virt:

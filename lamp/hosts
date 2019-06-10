@@ -27,9 +27,10 @@ echo ""$PHP72"72	$PREFIX72" >> /etc/hosts
 
 echo ""$PHP53"3	$PREFIX53.kis.ite-ng.ru" >> /etc/hosts
 echo ""$PHP53"4	$PREFIX53.kisnew.ite-ng.ru" >> /etc/hosts
-
 echo ""$PHP53"5	$PREFIX53.kis.nekeng.ru" >> /etc/hosts
 echo ""$PHP53"6	$PREFIX53.kisnew.nekeng.ru" >> /etc/hosts
+
+echo ""$PHP53"11	$PREFIX53.webldap" >> /etc/hosts
 
 echo ""$PHP71"3	$PREFIX71.empty" >> /etc/hosts
 echo ""$PHP71"4	$PREFIX71.tools" >> /etc/hosts
