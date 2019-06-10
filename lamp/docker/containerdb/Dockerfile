@@ -9,7 +9,7 @@ LABEL \
 		image="Container" \
 		vendor="evrinoma@gmail.com" \
 		license="MIT" \
-		build-date="2017-12-30"
+		build-date="2019-05-21"
 
 ENV	container docker
 
@@ -23,6 +23,9 @@ RUN	(cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == system
 	rm -f /lib/systemd/system/anaconda.target.wants/*;
 	VOLUME [ "/sys/fs/cgroup" ]
 CMD	["/usr/sbin/init"]
+
+RUN	echo "nameserver 172.20.1.5" >> /etc/resolv.conf && \
+	echo "nameserver 8.8.8.8" > /etc/resolv.conf 
 
 RUN	yum -y install mc && \
 	yum -y install git && \

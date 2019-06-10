@@ -1,0 +1,86 @@
+#!/bin/bash
+
+
+setIpTable () {
+    local sport=$1
+    local src=$2
+    local dport=$3
+    local dst=$4
+    bridge=$(brctl show | grep -e "br" | grep -e "veth" | awk {'print $1'})
+#echo $sport $src $dport $dst
+    if [ -n "$(ip address show | grep $dst)" ]; then
+	if [ -z "$(iptables -vL -t nat | grep $dst)" ]; then 
+		iptables -t nat -A DOCKER -d $dst/32 ! -i $bridge -p tcp -m tcp --dport $dport -j DNAT --to-destination $src:$sport
+	fi
+	if [ -z "$(iptables -vL -t filter | grep $dst)" ]; then
+		iptables -t filter -A DOCKER -d $src/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport $dport -j ACCEPT
+	fi
+    fi
+}
+
+
+#container_name: "containerdb"
+#ipv4_address: 172.18.1.2
+SPORT=3306
+SRC=172.18.1.2
+DPORT=3306
+DST=172.20.1.160
+setIpTable $SPORT $SRC $DPORT $DST
+
+#container_name: "php53.kis.ite-ng.ru"
+#ipv4_address: 172.18.53.3
+SPORT=80
+SRC=172.18.53.3
+DPORT=80
+DST=172.20.1.161
+setIpTable $SPORT $SRC $DPORT $DST
+
+#container_name: "php53.kisnew.ite-ng.ru"
+#ipv4_address: 172.18.53.4
+SPORT=80
+SRC=172.18.53.4
+DPORT=80
+DST=172.20.1.162
+setIpTable $SPORT $SRC $DPORT $DST
+
+#container_name: "php53.kis.nekeng.ru"
+#ipv4_address: 172.18.72.5
+SPORT=80
+SRC=172.18.53.5
+DPORT=80
+DST=172.20.1.163
+setIpTable $SPORT $SRC $DPORT $DST
+
+#container_name: "php53.kisnew.nekeng.ru"
+#ipv4_address: 172.18.53.6
+SPORT=80
+SRC=172.18.53.6
+DPORT=80
+DST=172.20.1.164
+setIpTable $SPORT $SRC $DPORT $DST
+
+#container_name: "php72.webldap5"
+#ipv4_address: 172.18.72.5
+SPORT=80
+SRC=172.18.72.5
+DPORT=80
+DST=172.20.1.165
+setIpTable $SPORT $SRC $DPORT $DST
+
+#container_name: "php72.cont.ite-ng.ru"
+#ipv4_address: 172.18.72.6
+SPORT=80
+SRC=172.18.72.6
+DPORT=80
+DST=172.20.1.166
+setIpTable $SPORT $SRC $DPORT $DST
+
+#container_name: "php72.portal.nekeng.ru"
+#ipv4_address: 172.18.72.7
+SPORT=80
+SRC=172.18.72.7
+DPORT=80
+DST=172.20.1.167
+setIpTable $SPORT $SRC $DPORT $DST
+
+

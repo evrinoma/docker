@@ -9,7 +9,10 @@ LABEL \
 	image="rabbit" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2018-04-23"
+	build-date="2019-05-21"
+
+RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
+	echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \

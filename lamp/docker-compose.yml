@@ -252,6 +252,18 @@ services:
             virt:
                 ipv4_address: 172.18.72.6
 
+    php72_portal:
+        container_name: "php72.portal.ite-ng.ru"
+        image: "evrinoma/php72.portal.ite-ng.ru"
+        build:
+            context: docker/php72/sites/portal/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.7
+
 
 networks:
     virt:

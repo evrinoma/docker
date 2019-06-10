@@ -9,7 +9,10 @@ LABEL \
 	image="php-5.3" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2018-11-09"
+	build-date="2019-05-21"
+
+RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
+	echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
@@ -107,7 +110,8 @@ RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/memory_limit\ \=\ 128M/memory_limit\ \=\ -1/g" /etc/php.ini && \
 	sed -i -e "s/max_input_time\ \=\ 60/max_input_time\ \=\ -1/g" /etc/php.ini && \
 	sed -i -e "s/max_execution_time\ \=\ 30/max_execution_time\ \=\ 10000/g" /etc/php.ini && \
-	sed -i -e "s/post_max_size \=\ 8/post_max_size\ \=\ 1024/g" /etc/php.ini && \
+	sed -i -e "s/post_max_size \=\ 8/post_max_size\ \=\ 4096/g" /etc/php.ini && \
+	sed -i -e "s/upload_max_filesize \=\ 2/upload_max_filesize\ \=\ 4096/g" /etc/php.ini && \
 	sed -i -e "s/session.gc_maxlifetime\ \=\ 1440/session.gc_maxlifetime\ \=\ 36000/g" /etc/php.ini
 #apc.ini
 RUN	sed -i -e "s/apc\.shm_size\=64M/apc\.shm_size\=3G/g" /etc/php.d/apc.ini && \
