@@ -97,6 +97,19 @@ services:
             virt:
                 ipv4_address: 172.18.72.7
 
+    php72_msadmin:
+        container_name: "php72.phpmsadmin"
+        image: "evrinoma/php72.phpmsadmin"
+        build:
+            context: docker/php72/sites/phpmsadmin/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.10
+
+
 networks:
     virt:
         driver: bridge
@@ -105,4 +118,3 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
-

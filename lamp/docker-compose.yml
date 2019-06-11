@@ -276,6 +276,42 @@ services:
             virt:
                 ipv4_address: 172.18.72.7
 
+#    php72_lansystem:
+#        container_name: "php72.lansystem"
+#        image: "evrinoma/php72.lansystem.ru"
+#        build:
+#            context: docker/php72/sites/lansystem/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.8
+
+#    php72_lazurnoe:
+#        container_name: "php72.lazurnoe"
+#        image: "evrinoma/php72.lazurnoe.ru"
+#        build:
+#            context: docker/php72/sites/lazurnoe/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.9
+
+    php72_msadmin:
+        container_name: "php72.phpmsadmin"
+        image: "evrinoma/php72.phpmsadmin"
+        build:
+            context: docker/php72/sites/phpmsadmin/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.10
+
 networks:
     virt:
         driver: bridge
@@ -284,4 +320,5 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
+
 

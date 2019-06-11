@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 setIpTable () {
     local sport=$1
     local src=$2
@@ -27,7 +26,7 @@ DPORT=3306
 DST=172.20.1.160
 setIpTable $SPORT $SRC $DPORT $DST
 
-#container_name: "php53.kis.ite-ng.ru"
+#container_name: "php53.kis"
 #ipv4_address: 172.18.53.3
 SPORT=80
 SRC=172.18.53.3
@@ -35,7 +34,7 @@ DPORT=80
 DST=172.20.1.161
 setIpTable $SPORT $SRC $DPORT $DST
 
-#container_name: "php53.kisnew.ite-ng.ru"
+#container_name: "php53.kisnew"
 #ipv4_address: 172.18.53.4
 SPORT=80
 SRC=172.18.53.4
@@ -43,7 +42,7 @@ DPORT=80
 DST=172.20.1.162
 setIpTable $SPORT $SRC $DPORT $DST
 
-#container_name: "php53.kis.nekeng.ru"
+#container_name: "php53.kis.nekeng"
 #ipv4_address: 172.18.72.5
 SPORT=80
 SRC=172.18.53.5
@@ -51,7 +50,7 @@ DPORT=80
 DST=172.20.1.163
 setIpTable $SPORT $SRC $DPORT $DST
 
-#container_name: "php53.kisnew.nekeng.ru"
+#container_name: "php53.kisnew.nekeng"
 #ipv4_address: 172.18.53.6
 SPORT=80
 SRC=172.18.53.6
@@ -67,7 +66,7 @@ DPORT=80
 DST=172.20.1.165
 setIpTable $SPORT $SRC $DPORT $DST
 
-#container_name: "php72.cont.ite-ng.ru"
+#container_name: "php72.cont"
 #ipv4_address: 172.18.72.6
 SPORT=80
 SRC=172.18.72.6
@@ -75,12 +74,20 @@ DPORT=80
 DST=172.20.1.166
 setIpTable $SPORT $SRC $DPORT $DST
 
-#container_name: "php72.portal.nekeng.ru"
+#container_name: "php72.portal"
 #ipv4_address: 172.18.72.7
 SPORT=80
 SRC=172.18.72.7
 DPORT=80
 DST=172.20.1.167
+setIpTable $SPORT $SRC $DPORT $DST
+
+#container_name: "php72.phpmsadmin"
+#ipv4_address: 172.18.72.10
+SPORT=80
+SRC=172.18.72.10
+DPORT=80
+DST=172.20.1.168
 setIpTable $SPORT $SRC $DPORT $DST
 
 
