@@ -97,11 +97,11 @@ services:
             virt:
                 ipv4_address: 172.18.72.7
 
-    php72_msadmin:
-        container_name: "php72.phpmsadmin"
-        image: "evrinoma/php72.phpmsadmin"
+    php72_sqladmin:
+        container_name: "php72.sqladmin"
+        image: "evrinoma/php72.sqladmin"
         build:
-            context: docker/php72/sites/phpmsadmin/.
+            context: docker/php72/sites/sqladmin/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
