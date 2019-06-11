@@ -35,7 +35,7 @@ echo ""$PHP53"11	$PREFIX53.webldap" >> /etc/hosts
 echo ""$PHP71"3	$PREFIX71.empty" >> /etc/hosts
 echo ""$PHP71"4	$PREFIX71.tools" >> /etc/hosts
 echo ""$PHP71"5	$PREFIX71.webldap5" >> /etc/hosts
-echo ""$PHP71"6	$PREFIX71.cont.ite-ng.ru" >> /etc/hosts
+echo ""$PHP71"6	$PREFIX71.cont" >> /etc/hosts
 
 echo ""$PHP72"3	$PREFIX72.empty" >> /etc/hosts
 echo ""$PHP72"4	$PREFIX72.tools" >> /etc/hosts
