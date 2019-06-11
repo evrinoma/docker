@@ -82,7 +82,7 @@ DPORT=80
 DST=172.20.1.167
 setIpTable $SPORT $SRC $DPORT $DST
 
-#container_name: "php72.phpmsadmin"
+#container_name: "php72.sqladmin"
 #ipv4_address: 172.18.72.10
 SPORT=80
 SRC=172.18.72.10
