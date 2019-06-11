@@ -1,0 +1,24 @@
+version: '2'
+services:
+    containerdb:
+        container_name: "containerdb"
+        image: "evrinoma/containerdb"
+        build:
+            context: docker/containerdb/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/lamp/src/db/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/lamp/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.2
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
+

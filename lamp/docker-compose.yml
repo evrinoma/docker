@@ -29,18 +29,18 @@ services:
             virt:
                 ipv4_address: 172.18.1.3
 
-    jiracore:
-        container_name: "jiracore"
-        image: cptactionhank/atlassian-jira-software:latest
-#        cpu_shares: 100
-#        mem_limit: 262144000
-        ports:
-            - '80:8080'
-        volumes:
-            - "/opt/DISK/Develop/Docker/lamp/src/jira/:/var/atlassian/jira"
-        networks:
-            virt:
-                ipv4_address: 172.18.1.4
+#    jiracore:
+#        container_name: "jiracore"
+#        image: cptactionhank/atlassian-jira-software:latest
+##        cpu_shares: 100
+##        mem_limit: 262144000
+#        ports:
+#            - '80:8080'
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/lamp/src/jira/:/var/atlassian/jira"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.1.4
 
     master_cont:
         container_name: "master.cont.ite-ng.ru"

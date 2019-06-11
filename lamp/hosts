@@ -18,17 +18,17 @@ sed -i -e "/^172.18/ d" /etc/hosts
 echo ""$MYSQL"	containerdb" >> /etc/hosts
 echo ""$RABBIT"	rabbitmq" >> /etc/hosts
 echo ""$JIRA"	jira" >> /etc/hosts
-echo ""$TEST"	test.cont.ite-ng.ru" >> /etc/hosts
-echo ""$MASTER_CONT"	master.cont.ite-ng.ru" >> /etc/hosts
+echo ""$TEST"	test.cont" >> /etc/hosts
+echo ""$MASTER_CONT"	master.cont" >> /etc/hosts
 
 echo ""$PHP53"53	$PREFIX53" >> /etc/hosts
 echo ""$PHP71"71	$PREFIX71" >> /etc/hosts
 echo ""$PHP72"72	$PREFIX72" >> /etc/hosts
 
-echo ""$PHP53"3	$PREFIX53.kis.ite-ng.ru" >> /etc/hosts
-echo ""$PHP53"4	$PREFIX53.kisnew.ite-ng.ru" >> /etc/hosts
-echo ""$PHP53"5	$PREFIX53.kis.nekeng.ru" >> /etc/hosts
-echo ""$PHP53"6	$PREFIX53.kisnew.nekeng.ru" >> /etc/hosts
+echo ""$PHP53"3	$PREFIX53.kis" >> /etc/hosts
+echo ""$PHP53"4	$PREFIX53.kisnew" >> /etc/hosts
+echo ""$PHP53"5	$PREFIX53.kis.nekeng" >> /etc/hosts
+echo ""$PHP53"6	$PREFIX53.kisnew.nekeng" >> /etc/hosts
 
 echo ""$PHP53"11	$PREFIX53.webldap" >> /etc/hosts
 
@@ -40,6 +40,7 @@ echo ""$PHP71"6	$PREFIX71.cont.ite-ng.ru" >> /etc/hosts
 echo ""$PHP72"3	$PREFIX72.empty" >> /etc/hosts
 echo ""$PHP72"4	$PREFIX72.tools" >> /etc/hosts
 echo ""$PHP72"5	$PREFIX72.webldap5" >> /etc/hosts
-echo ""$PHP72"6	$PREFIX72.cont.ite-ng.ru" >> /etc/hosts
+echo ""$PHP72"6	$PREFIX72.cont" >> /etc/hosts
+echo ""$PHP72"7	$PREFIX72.portal" >> /etc/hosts
 
 echo ""$PHP72"3	pma" >> /etc/hosts
