@@ -43,7 +43,7 @@ services:
 #                ipv4_address: 172.18.1.4
 
     master_cont:
-        container_name: "master.cont.ite-ng.ru"
+        container_name: "master.cont"
         image: "evrinoma/master.cont.ite-ng.ru"
         build:
             context: docker/master/cont/.
@@ -55,7 +55,7 @@ services:
                 ipv4_address: 172.18.1.5
 
     test_cont:
-        container_name: "test.cont.ite-ng.ru"
+        container_name: "test.cont"
         image: "evrinoma/test.cont.ite-ng.ru"
         build:
             context: docker/test/sites/cont/.
@@ -109,7 +109,7 @@ services:
                 ipv4_address: 172.18.72.72
 
     php53_kis_nekeng_ru:
-        container_name: "php53.kis.nekeng.ru"
+        container_name: "php53.kis.nekeng"
         image: "evrinoma/php53.kis.nekeng.ru"
         build:
             context: docker/php53/sites/kis.nekeng.ru/.
@@ -121,7 +121,7 @@ services:
                 ipv4_address: 172.18.53.5
             
     php53_kis_new_nekeng_ru:
-        container_name: "php53.kisnew.nekeng.ru"
+        container_name: "php53.kisnew.nekeng"
         image: "evrinoma/php53.kisnew.nekeng.ru"
         build:
             context: docker/php53/sites/kisnew.nekeng.ru/.
@@ -133,7 +133,7 @@ services:
                 ipv4_address: 172.18.53.6
             
     php53_kis_ite-ng_ru:
-        container_name: "php53.kis.ite-ng.ru"
+        container_name: "php53.kis"
         image: "evrinoma/php53.kis.ite-ng.ru"
         build:
             context: docker/php53/sites/kis.ite-ng.ru/.
@@ -145,7 +145,7 @@ services:
                 ipv4_address: 172.18.53.3
             
     php53_kis_new_ite-ng_ru:
-        container_name: "php53.kisnew.ite-ng.ru"
+        container_name: "php53.kisnew"
         image: "evrinoma/php53.kisnew.ite-ng.ru"
         build:
             context: docker/php53/sites/kisnew.ite-ng.ru/.
@@ -193,7 +193,7 @@ services:
                 ipv4_address: 172.18.71.5
 
     php71_cont:
-        container_name: "php71.cont.ite-ng.ru"
+        container_name: "php71.cont"
         image: "evrinoma/php71.cont.ite-ng.ru"
         build:
             context: docker/php71/sites/cont/.
@@ -241,7 +241,7 @@ services:
                 ipv4_address: 172.18.72.5
             
     php72_cont:
-        container_name: "php72.cont.ite-ng.ru"
+        container_name: "php72.cont"
         image: "evrinoma/php72.cont.ite-ng.ru"
         build:
             context: docker/php72/sites/cont/.
@@ -265,7 +265,7 @@ services:
                 ipv4_address: 172.18.53.11
 
     php72_portal:
-        container_name: "php72.portal.ite-ng.ru"
+        container_name: "php72.portal"
         image: "evrinoma/php72.portal.ite-ng.ru"
         build:
             context: docker/php72/sites/portal/.

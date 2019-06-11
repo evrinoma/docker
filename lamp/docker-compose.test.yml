@@ -13,6 +13,19 @@ services:
             virt:
                 ipv4_address: 172.18.1.2
 
+            
+    php72_cont:
+        container_name: "php72.cont"
+        image: "evrinoma/php72.cont.ite-ng.ru"
+        build:
+            context: docker/php72/sites/cont/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.6
+
 networks:
     virt:
         driver: bridge
