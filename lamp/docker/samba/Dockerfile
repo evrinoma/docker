@@ -26,6 +26,7 @@ RUN	yum -y install gcc \
 	make;
 
 RUN	yum -y install git \
+	supervisor \
 	openssh-server;
 
 RUN	yum -y install \
@@ -51,8 +52,7 @@ COPY	supervisord.conf /etc/supervisord.conf
 
 #mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
-#httpd hosts
-COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
+
 #mail
 RUN	mv -v /etc/exim/exim.conf{,.bak} && \
 	mv -v /usr/sbin/sendmail{,.bak} && \
@@ -61,21 +61,35 @@ RUN	mv -v /etc/exim/exim.conf{,.bak} && \
 	mv /bin/mail{,.bak} && \
 	ln -s /bin/mailx /bin/mail
 #clean
-RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
+RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf
 
 COPY	exim.conf /etc/exim/exim.conf
 
+#ntp
+RUN	yum -y install ntp && \
+	mv -v /etc/ntp.conf{,.bak} && \
+	cat /etc/ntp.conf.bak | sed 's;\\(.*\\)server;\\1#server;' > /etc/ntp.conf && \
+	echo "server 172.20.1.6" >> /etc/ntp.conf && \
+	chkconfig ntpd --level 35 on && \
+	service ntpd start;
 
 RUN	yum -y install \
 	samba \
 	samba-client \
-	samba-common;
+	samba-common \
+	samba-winbind \
+	samba-winbind-clients \
+	system-config-samba \
+	system-config-samba-docs;
 
-RUN	chkconfig smb on && \
-	service smb start && \
-	smbstatus
+RUN	mv -v /etc/krb5.conf{,.bak}
+COPY	krb5.conf /etc/krb5.conf
+
+RUN	cp /etc/nsswitch.conf{,.bak} && \
+	sed -i -e "s/passwd:     files/passwd:     files winbind/g" /etc/nsswitch.conf && \
+	sed -i -e "s/group:      files/group:      files winbind/g" /etc/nsswitch.conf
 
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
-EXPOSE 22 80
+EXPOSE 22 139 445 137 138
 

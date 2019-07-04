@@ -66,6 +66,28 @@ services:
             virt:
                 ipv4_address: 172.18.1.6
 
+    samba:
+        container_name: "samba.kis"
+        image: "evrinoma/samba.kis"
+#        cpu_shares: 100
+#        mem_limit: 262144000
+        hostname: "SMB_KIS"
+        ports:
+            - "137:137/udp"
+            - "138:138/udp"
+            - "139:139/tcp"
+            - "445:445/tcp"
+        build:
+            context: docker/samba/servers/kis/.
+            dockerfile: Dockerfile
+        volumes:
+#            - "/etc/timezone:/etc/timezone:ro"
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.7
+
     php53:
         container_name: "php53"
         image: "evrinoma/php53"
@@ -168,17 +190,17 @@ services:
 #            virt:
 #                ipv4_address: 172.18.71.3
             
-#    php71_tools:
-#        container_name: "php71.tools"
-#        image: "evrinoma/php71.tools"
-#        build:
-#            context: docker/php71/sites/tools/.
-#            dockerfile: Dockerfile
-#        volumes:
-#            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.71.4
+    php71_tools:
+        container_name: "php71.tools"
+        image: "evrinoma/php71.tools"
+        build:
+            context: docker/php71/sites/tools/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.71.4
             
 #    php71_webldap5:
 #        container_name: "php71.webldap5"

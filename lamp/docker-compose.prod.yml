@@ -13,6 +13,28 @@ services:
             virt:
                 ipv4_address: 172.18.1.2
 
+    samba:
+        container_name: "samba.kis"
+        image: "evrinoma/samba.kis"
+#        cpu_shares: 100
+#        mem_limit: 262144000
+        hostname: "SMB_KIS"
+        ports:
+            - "137:137/udp"
+            - "138:138/udp"
+            - "139:139/tcp"
+            - "445:445/tcp"
+        build:
+            context: docker/samba/servers/kis/.
+            dockerfile: Dockerfile
+        volumes:
+#            - "/etc/timezone:/etc/timezone:ro"
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.7
+
     php53_kis_nekeng_ru:
         container_name: "php53.kis.nekeng"
         image: "evrinoma/php53.kis.nekeng.ru"
@@ -118,3 +140,6 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
+
+
+
