@@ -10,6 +10,7 @@ MASTER_CONT=$SUBNET"1.5"
 TEST=$SUBNET"1.6"
 SQUID7=$SUBNET"1.7"
 SAMBA=$SUBNET"1.8"
+C1=$SUBNET"1.83"
 
 PHP53=$SUBNET"53."
 PHP71=$SUBNET"71."
@@ -26,6 +27,8 @@ echo ""$RABBIT"	rabbitmq" >> /etc/hosts
 echo ""$JIRA"	jira" >> /etc/hosts
 echo ""$SQUID7"	squid.7" >> /etc/hosts
 echo ""$SAMBA"	samba.kis" >> /etc/hosts
+echo ""$C1"	1c.v83" >> /etc/hosts
+
 echo ""$TEST"	test.cont" >> /etc/hosts
 echo ""$MASTER_CONT"	master.cont" >> /etc/hosts
 

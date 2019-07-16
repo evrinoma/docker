@@ -7,8 +7,8 @@ services:
             context: docker/containerdb/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/lamp/src/db/:/var/lib/mysql"
-            - "/opt/DISK/Develop/Docker/lamp/src/logs/mariadb/:/var/log/mariadb"
+            - "/opt/DISK/Develop/Docker/services/src/db/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/services/src/logs/mariadb/:/var/log/mariadb"
         networks:
             virt:
                 ipv4_address: 172.18.1.2
@@ -21,7 +21,7 @@ services:
             context: docker/php72/sites/cont/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.6
