@@ -166,5 +166,19 @@ COPY	exim.conf /etc/exim/exim.conf
 #webpack
 RUN	npm install -g webpack webpack-cli;
 
+#mssql php
+RUN	curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo && \
+	ACCEPT_EULA=Y yum install msodbcsql17 -y && \
+	ACCEPT_EULA=Y yum install mssql-tools -y
+RUN	echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile && \
+	echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc && \
+	source ~/.bashrc
+RUN	yum install re2c gcc-c++ gcc unixODBC-devel -y  && \
+	pecl install sqlsrv  && \
+	pecl install pdo_sqlsrv  && \
+	echo 'extension=pdo_sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/pdo_sqlsrv.ini  && \
+	echo 'extension=sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/sqlsrv.ini
+
+
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80

@@ -66,12 +66,28 @@ services:
             virt:
                 ipv4_address: 172.18.1.6
 
-    samba:
+    squid_7:
+        container_name: "squid.7"
+        image: "evrinoma/squid.7"
+        hostname: "DOCK_SMB_SQUID_7"
+        ports:
+            - "3128:3128/tcp"
+        build:
+            context: docker/squid/servers/7/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.7
+
+    samba_kis:
         container_name: "samba.kis"
         image: "evrinoma/samba.kis"
 #        cpu_shares: 100
 #        mem_limit: 262144000
-        hostname: "SMB_KIS"
+        hostname: "DOCK_SMB_KIS"
         ports:
             - "137:137/udp"
             - "138:138/udp"
@@ -86,7 +102,9 @@ services:
             - "/opt/DISK/Develop/Docker/lamp/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.1.7
+                ipv4_address: 172.18.1.8
+
+
 
     php53:
         container_name: "php53"

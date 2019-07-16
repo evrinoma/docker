@@ -8,7 +8,8 @@ RABBIT=$SUBNET"1.3"
 JIRA=$SUBNET"1.4"
 MASTER_CONT=$SUBNET"1.5"
 TEST=$SUBNET"1.6"
-SAMBA=$SUBNET"1.7"
+SQUID7=$SUBNET"1.7"
+SAMBA=$SUBNET"1.8"
 
 PHP53=$SUBNET"53."
 PHP71=$SUBNET"71."
@@ -23,7 +24,8 @@ sed -i -e "/^172.18/ d" /etc/hosts
 echo ""$MYSQL"	containerdb" >> /etc/hosts
 echo ""$RABBIT"	rabbitmq" >> /etc/hosts
 echo ""$JIRA"	jira" >> /etc/hosts
-echo ""$SAMBA"	samba" >> /etc/hosts
+echo ""$SQUID7"	squid.7" >> /etc/hosts
+echo ""$SAMBA"	samba.kis" >> /etc/hosts
 echo ""$TEST"	test.cont" >> /etc/hosts
 echo ""$MASTER_CONT"	master.cont" >> /etc/hosts
 

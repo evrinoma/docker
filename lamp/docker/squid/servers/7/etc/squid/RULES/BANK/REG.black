@@ -1,0 +1,6 @@
+(.+andyblog+)
+^http://\.+andyblog+\.
+^http://\andyblog+\.
+(.+keybtc+)
+^http://\.+keybtc+\.
+^http://\keybtc+\.

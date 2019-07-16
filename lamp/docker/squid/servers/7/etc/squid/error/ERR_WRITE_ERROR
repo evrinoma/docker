@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<title>Write Error.</title> 
+<style type="text/css">
+<!--
+div#back{
+background-image: url('http://app.ite-ng.ru/ban/error.jpg');
+background-repeat: no-repeat;
+background-position:  center center;
+background-size: contain;
+z-index: -1;
+width: 100%;
+height: 100%;
+position: absolute;
+left: 0;
+top: 0; } 
+
+%l  body :lang(fa) { direction: rtl; font-size: 100%; font-family: Tahoma, Roya, sans-serif; float: right; } :lang(he) { direction: rtl; float: right; }  -->
+</style>
+</head>
+<body> 
+<div id="back"></div>
+<div id="titles"> 
+<h1><font color="red" size="14">Write Error.</font></h1> 
+<h2>The requested URL: <a href="%U">%U</a></h2> 
+</div> 
+<div id="content"> 
+<p>
+You have the right to remain silent.<br>
+Anything you say or do can and will be held against you in a court of law.<br>
+You have the right to an attorney.<br>
+If you cannot afford an attorney, one will be provided for you.<br>
+Do you understand these rights I have just read to you?<br>
+</p>  
+<!-- <p>Your cache administrator is <a href="mailto:%w%W">%w</a>.</p> <br> -->
+</div> 
+<div id="footer"> <p>Time %T </p> </div>
+<div align="center"  style='width:480px;height:200px;'><br><b><font color="green" size="6">Do you have a problem with that?<br>please send LINK on my <br>mail to:nikolns@ite-ng.ru</font></b></br></div> 
+</body>
+</html> 

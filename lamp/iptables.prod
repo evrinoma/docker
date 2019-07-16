@@ -26,6 +26,14 @@ DPORT=3306
 DST=172.20.1.160
 setIpTable $SPORT $SRC $DPORT $DST
 
+#container_name: "squid"
+#ipv4_address: 172.18.1.7
+SPORT=3128
+SRC=172.18.1.7
+DPORT=3128
+DST=172.20.1.160
+setIpTable $SPORT $SRC $DPORT $DST
+
 #container_name: "php53.kis"
 #ipv4_address: 172.18.53.3
 SPORT=80
