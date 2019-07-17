@@ -101,12 +101,12 @@ services:
             virt:
                 ipv4_address: 172.18.1.8
 
-    1c_v83:
-        container_name: "1c.v83"
-        image: "evrinoma/1c"
+    1c_v83_deploy:
+        container_name: "1c.v83.deploy"
+        image: "evrinoma/1c.deploy"
         hostname: "DOCK_1C_V83"
         build:
-            context: docker/1c/.
+            context: docker/1c/servers/.
             dockerfile: Dockerfile
         extra_hosts:
             - "iteng26:172.20.1.26"
