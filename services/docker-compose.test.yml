@@ -3,6 +3,8 @@ services:
     containerdb:
         container_name: "containerdb"
         image: "evrinoma/containerdb"
+#        cpu_shares: 100
+#        mem_limit: 262144000
         build:
             context: docker/containerdb/.
             dockerfile: Dockerfile
@@ -13,18 +15,19 @@ services:
             virt:
                 ipv4_address: 172.18.1.2
 
-            
-    php72_cont:
-        container_name: "php72.cont"
-        image: "evrinoma/php72.cont.ite-ng.ru"
-        build:
-            context: docker/php72/sites/cont/.
-            dockerfile: Dockerfile
+    mssqldb:
+        container_name: "mssqldb"
+        image: "microsoft/mssql-server-linux:2017-latest"
+        ports:
+            - "1433:1433"
+        environment:
+            SA_PASSWORD: "rjk,fcf2008"
+            ACCEPT_EULA: "Y"
         volumes:
-            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/services/src/mssql.db/:/var/opt/mssql"
         networks:
             virt:
-                ipv4_address: 172.18.72.6
+                ipv4_address: 172.18.1.4
 
 networks:
     virt:
@@ -34,4 +37,5 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
+
 

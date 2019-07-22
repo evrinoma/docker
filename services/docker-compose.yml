@@ -29,6 +29,20 @@ services:
             virt:
                 ipv4_address: 172.18.1.3
 
+    mssqldb:
+        container_name: "mssqldb"
+        image: "microsoft/mssql-server-linux:2017-latest"
+        ports:
+            - "1433:1433"
+        environment:
+            SA_PASSWORD: "rjk,fcf2008"
+            ACCEPT_EULA: "Y"
+        volumes:
+            - "/opt/DISK/Develop/Docker/services/src/mssql.db/:/var/opt/mssql"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.4
+
 #    jiracore:
 #        container_name: "jiracore"
 #        image: cptactionhank/atlassian-jira-software:latest
@@ -371,5 +385,4 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
-
 
