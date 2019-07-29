@@ -42,6 +42,7 @@ echo ""$PHP53"5	$PREFIX53.kis.nekeng" >> /etc/hosts
 echo ""$PHP53"6	$PREFIX53.kisnew.nekeng" >> /etc/hosts
 
 echo ""$PHP53"11	$PREFIX53.webldap" >> /etc/hosts
+echo ""$PHP53"12	$PREFIX53.webuseorg" >> /etc/hosts
 
 echo ""$PHP71"3	$PREFIX71.empty" >> /etc/hosts
 echo ""$PHP71"4	$PREFIX71.tools" >> /etc/hosts

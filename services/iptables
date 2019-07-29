@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SERVERS=([8070]=172.18.72.4 [8080]=172.18.1.5 [8090]=172.18.1.6)
+SERVERS=([8070]=172.18.72.4 [8080]=172.18.1.5 [8090]=172.18.1.6 [8100]=172.18.53.12)
 #bridge=$(iptables -L -v -n  | grep 1.4 | awk '{print $7}')
 bridge=$(brctl show | grep -e "br" | grep -e "veth" | awk {'print $1'})
 
