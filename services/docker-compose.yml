@@ -115,6 +115,18 @@ services:
             virt:
                 ipv4_address: 172.18.1.8
 
+    vnc_primavera:
+        container_name: "vnc.cont"
+        image: "evrinoma/vnc.primavera"
+        build:
+            context: docker/vnc/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.22
+
     1c_v83_deploy:
         container_name: "1c.v83.deploy"
         image: "evrinoma/1c.deploy"
@@ -233,17 +245,17 @@ services:
             virt:
                 ipv4_address: 172.18.53.11
 
-    php53_webuseorg:
-        container_name: "php53.webuseorg"
-        image: "evrinoma/php53.webuseorg"
-        build:
-            context: docker/php53/sites/webuseorg/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.53.12
+#   php53_webuseorg:
+#        container_name: "php53.webuseorg"
+#        image: "evrinoma/php53.webuseorg"
+#        build:
+#            context: docker/php53/sites/webuseorg/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.53.12
 
             
 #    php71_empty:
