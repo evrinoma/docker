@@ -116,16 +116,16 @@ services:
                 ipv4_address: 172.18.1.8
 
     vnc_primavera:
-        container_name: "vnc.cont"
-        image: "evrinoma/vnc.primavera"
+        container_name: "vnc.primavera.15"
+        image: "evrinoma/vnc.primavera.15"
         build:
-            context: docker/vnc/.
+            context: docker/primavera/15.1/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.1.22
+                ipv4_address: 172.18.22.15
 
     1c_v83_deploy:
         container_name: "1c.v83.deploy"

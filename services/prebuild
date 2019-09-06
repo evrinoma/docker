@@ -1,4 +1,5 @@
 #!/bin/bash
-docker build -t evrinoma/samba docker/samba/.
-docker build -t evrinoma/squid docker/squid/.
-docker build -t evrinoma/1c docker/1c/.
+#docker build -t evrinoma/samba docker/samba/.
+#docker build -t evrinoma/squid docker/squid/.
+#docker build -t evrinoma/1c docker/1c/.
+docker build -t evrinoma/vnc docker/vnc/.
