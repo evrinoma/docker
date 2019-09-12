@@ -5,7 +5,7 @@ MAINTAINER \
 		evrinoma@gmail.com
 
 LABEL \
-		name="evrinoma APP Image" \
+		name="evrinoma Maria SQL Image" \
 		image="Container" \
 		vendor="evrinoma@gmail.com" \
 		license="MIT" \

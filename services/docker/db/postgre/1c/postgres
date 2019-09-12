@@ -1,0 +1,16 @@
+#!/bin/bash 
+
+PGINSTALL=/usr/pgsql-10/
+PGSQL=/var/lib/pgsql/10
+PGDATA=$PGSQL/data/
+
+if [ ! -d "$PGSQL"  ] ; then 
+    export PGSETUP_INITDB_OPTIONS="--locale='ru_RU.UTF-8'"; 
+    $PGINSTALL/bin/postgresql-10-setup initdb; 
+    cp $PGDATA/pg_hba.conf{,.bak}; 
+    sed -i -e 's/0\.0\.0\.0\/0            ident/0\.0\.0\.0\/0            trust/' $PGDATA/pg_hba.conf;  
+    su - postgres -c 'psql -U postgres -d postgres -c \"alter user postgres with password 'postgres';\"'
+fi; 
+
+su - postgres -c "nohup /usr/pgsql-10/bin/postgresql-10-check-db-dir  ${PGDATA} 2>&1 > /dev/null &"
+su - postgres -c "nohup /usr/pgsql-10/bin/postmaster -D ${PGDATA} 2>&1 > /dev/null &"

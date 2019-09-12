@@ -65,5 +65,9 @@ WORKDIR	/
 #1c configs
 RUN	touch /etc/httpd/conf.d/1c.conf && mkdir /opt/WWW/1c.ite-ng.ru
 
+RUN	mkdir --parent /var/log/1C /home/usr1cv8/.1cv8/1C/1cv8/conf && chown --recursive usr1cv8:grp1cv8 /var/log/1C /home/usr1cv8
+COPY	logcfg.xml /home/usr1cv8/.1cv8/1C/1cv8/conf
+
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
-EXPOSE 22 80
+EXPOSE 22 80 1540-1541 1560-1591
+

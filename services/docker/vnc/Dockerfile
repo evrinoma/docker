@@ -5,7 +5,7 @@ MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma МТС Image" \
+	name="evrinoma VNC Image" \
 	image="vnc" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
@@ -59,6 +59,7 @@ RUN	groupadd oracle && \
 	useradd -g oracle -s /bin/bash -d /home/oracle oracle && \
 	echo 'oracle' |passwd oracle --stdin
 
+RUN	export LANG=en_US.UTF-8
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80

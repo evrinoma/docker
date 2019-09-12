@@ -3,14 +3,15 @@
 PREFIX="php"
 SUBNET="172.18."
 
-MYSQL=$SUBNET"1.2"
 RABBIT=$SUBNET"1.3"
 MSSQL=$SUBNET"1.4"
 MASTER_CONT=$SUBNET"1.5"
 TEST=$SUBNET"1.6"
 SQUID7=$SUBNET"1.7"
 SAMBA=$SUBNET"1.8"
-C1=$SUBNET"1.83"
+
+MARIASQL=$SUBNET"2."
+
 PRIMAVERA15=$SUBNET"22.15"
 
 PHP53=$SUBNET"53."
@@ -21,14 +22,18 @@ PREFIX53=$PREFIX"53"
 PREFIX71=$PREFIX"71"
 PREFIX72=$PREFIX"72"
 
+C1_83=$SUBNET"83."
+
 sed -i -e "/^172.18/ d" /etc/hosts
 
-echo ""$MYSQL"	containerdb" >> /etc/hosts
+echo ""$MARIASQL"1	maria.db" >> /etc/hosts
+echo ""$MARIASQL"2	postgre.1c.db" >> /etc/hosts
+
 echo ""$RABBIT"	rabbitmq" >> /etc/hosts
 echo ""$MSSQL"	mssql" >> /etc/hosts
 echo ""$SQUID7"	squid.7" >> /etc/hosts
 echo ""$SAMBA"	samba.kis" >> /etc/hosts
-echo ""$C1"	1c.v83" >> /etc/hosts
+
 echo ""$PRIMAVERA15"	vnc.primavera.15" >> /etc/hosts
 
 echo ""$TEST"	test.cont" >> /etc/hosts
@@ -59,3 +64,6 @@ echo ""$PHP72"7	$PREFIX72.portal" >> /etc/hosts
 echo ""$PHP72"10	$PREFIX72.sqladmin" >> /etc/hosts
 
 echo ""$PHP72"3	pma" >> /etc/hosts
+
+echo ""$C1_83"1	1c.work.v83" >> /etc/hosts
+echo ""$C1_83"2	1c.ws.v83" >> /etc/hosts
