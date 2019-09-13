@@ -1,0 +1,15 @@
+[Unit]
+Description=docker service
+After=docker.service
+
+[Service]
+Type=forking
+ExecStartPre=/usr/bin/docker-compose -f /opt/docker/services/docker-compose.yml up -d
+ExecStart=/usr/bin/sleep 1
+ExecStartPost=/opt/docker/services/iptables_up
+
+#ExecStop=/opt/docker/services/iptables_up
+#ExecStopPost=/usr/bin/docker-compose -f /opt/docker/services/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target
