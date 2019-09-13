@@ -1,0 +1,64 @@
+#!/bin/bash
+
+bridge=$(brctl show | grep -e "br" | grep -e "veth" | awk {'print $1'})
+
+echo $bridge
+
+IP=172.18.83.1
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1540 -j DNAT --to-destination $IP:1540
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1540 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1541 -j DNAT --to-destination $IP:1541
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1541 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1545 -j DNAT --to-destination $IP:1545
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1545 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1560 -j DNAT --to-destination $IP:1560
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1560 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1561 -j DNAT --to-destination $IP:1561
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1561 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1562 -j DNAT --to-destination $IP:1562
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1562 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1563 -j DNAT --to-destination $IP:1563
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1563 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1564 -j DNAT --to-destination $IP:1564
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1564 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1565 -j DNAT --to-destination $IP:1565
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1565 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1566 -j DNAT --to-destination $IP:1566
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1566 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1567 -j DNAT --to-destination $IP:1567
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1567 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1568 -j DNAT --to-destination $IP:1568
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1568 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1569 -j DNAT --to-destination $IP:1569
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1569 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1570 -j DNAT --to-destination $IP:1570
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1570 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1571 -j DNAT --to-destination $IP:1571
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1571 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1572 -j DNAT --to-destination $IP:1572
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1572 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1573 -j DNAT --to-destination $IP:1573
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1573 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1433 -j DNAT --to-destination 172.18.2.3:1433
+iptables -t filter -A DOCKER -d 172.18.2.3/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1433 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 5432 -j DNAT --to-destination 172.18.2.2:5432
+iptables -t filter -A DOCKER -d 172.18.2.2/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 5432 -j ACCEPT
