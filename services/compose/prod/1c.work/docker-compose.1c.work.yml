@@ -8,8 +8,8 @@ services:
             dockerfile: Dockerfile
         volumes:
             - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-            - "/opt/DISK/Develop/Docker/services/src/db/postgre/1c/:/var/lib/pgsql"
-            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/services/src/db/postgre/1c/:/var/lib/pgsql"
+            - "/opt/docker/services/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.2.2
@@ -28,7 +28,7 @@ services:
         extra_hosts:
             - "iteng26:172.20.1.26"
         volumes:
-            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/services/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.83.1
