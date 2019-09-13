@@ -19,3 +19,4 @@ RUN	chkconfig --del srv1cv83
 RUN	echo "" >> /etc/supervisord.d/supervisor.conf && \
 	echo "[program:1C_Enterprise83-server]" >> /etc/supervisord.d/supervisor.conf && \
 	echo "command=/usr/local/bin/srv1cv83" >> /etc/supervisord.d/supervisor.conf
+ADD	init.1c /usr/local/bin
