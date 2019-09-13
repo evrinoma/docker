@@ -17,7 +17,7 @@ services:
     1c_work_v83_deploy:
         container_name: "1c.work.v83.deploy"
         image: "evrinoma/1c.work.deploy"
-        hostname: "doc.1c.test.ite-ng.ru"
+        hostname: "dock.1c.work.ite-ng.ru"
         cap_add:
             - SYS_ADMIN
         security_opt:
