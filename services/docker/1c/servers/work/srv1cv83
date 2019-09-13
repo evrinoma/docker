@@ -1,0 +1,5 @@
+#!/bin/bash 
+mkdir -v /home/usr1cv8/.1cv8
+chown usr1cv8.grp1cv8 /home/usr1cv8/.1cv8
+mount --bind /opt/WWW/container.ite-ng.ru/conf/1c/.1cv8 /home/usr1cv8/.1cv8
+/etc/init.d/srv1cv83 start

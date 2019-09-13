@@ -16,7 +16,8 @@ RUN	yum install squid -y
 
 RUN	rm -f /etc/squid/*.default
 
-RUN	echo "[program:squid]" >> /etc/supervisord.conf && \
-	echo "command=service squid start" >> /etc/supervisord.conf
+RUN	echo "" >> /etc/supervisord.d/supervisor.conf && \
+	echo "[program:squid]" >> /etc/supervisord.d/supervisor.conf && \
+	echo "command=service squid start" >> /etc/supervisord.d/supervisor.conf
 
 EXPOSE 3128

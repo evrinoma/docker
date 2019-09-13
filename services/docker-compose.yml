@@ -19,10 +19,11 @@ services:
         build:
             context: docker/db/postgre/1c/.
             dockerfile: Dockerfile
+        privileged: true
         volumes:
-             - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-#            - "/opt/DISK/Develop/Docker/services/src/db/postgre/1c/:/var/lib/postgresql"
-#            - "/opt/DISK/Develop/Docker/services/src/logs/postgre/:/var/log/postgresql"
+            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+            - "/opt/DISK/Develop/Docker/services/src/db/postgre/1c/:/var/lib/pgsql"
+            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.2.2
