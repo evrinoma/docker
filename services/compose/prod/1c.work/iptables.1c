@@ -7,7 +7,7 @@ bridge=${bridge%*:}
 echo $bridge
 
 IP=172.18.83.1
-echo '[$IP]'
+echo '['$IP']'
 
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1540 -j DNAT --to-destination $IP:1540
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1540 -j ACCEPT
@@ -22,7 +22,7 @@ iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1560:1591 -j DNAT -
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1560:1591 -j ACCEPT
 
 IP=172.18.2.2
-echo '[$IP]'
+echo '['$IP']'
 
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 5432 -j DNAT --to-destination $IP:5432
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 5432 -j ACCEPT
