@@ -119,7 +119,7 @@ RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 #phpMyAdmin
 RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
-	sed -i -e "s/'localhost'\;/'172\.18\.1\.2'\;/" /etc/phpMyAdmin/config.inc.php && \
+	sed -i -e "s/'localhost'\;/'172\.18\.2\.1'\;/" /etc/phpMyAdmin/config.inc.php && \
 	sed -i -e "s/\?>/\$cfg\['Servers'\]\[\$i\]\['LoginCookieValidity'\]\ = 36000\;/" /etc/phpMyAdmin/config.inc.php && \
 	echo "?>" >> /etc/phpMyAdmin/config.inc.php;
 #mount

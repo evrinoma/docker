@@ -1,68 +1,46 @@
 version: '2'
 services:
-    postgre_1c_db:
-        container_name: "postgre.1c.db"
-        image: "evrinoma/db/postgre.1c"
+    maria_db:
+        container_name: "maria.db"
+        image: "evrinoma/db/maria"
         build:
-            context: docker/db/postgre/1c/.
+            context: docker/db/maria/.
             dockerfile: Dockerfile
-#        privileged: true
         volumes:
-            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-            - "/opt/DISK/Develop/Docker/services/src/db/postgre/1c/:/var/lib/pgsql"
-            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/services/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/services/src/logs/mariadb/:/var/log/mariadb"
         networks:
             virt:
-                ipv4_address: 172.18.2.2
+                ipv4_address: 172.18.2.1
 
-    mssqldb:
-        container_name: "mssqldb"
-        image: "microsoft/mssql-server-linux:2017-latest"
-        ports:
-            - "1433:1433"
-        environment:
-            SA_PASSWORD: "rjk,fcf2008"
-            ACCEPT_EULA: "Y"
-        volumes:
-            - "/opt/DISK/Develop/Docker/services/src/mssql.db/:/var/opt/mssql"
-        networks:
-            virt:
-                ipv4_address: 172.18.2.3
-
-    1c_work_v83_deploy:
-        container_name: "1c.work.v83.deploy"
-        image: "evrinoma/1c.work.deploy"
-        hostname: "DOCK_1C_V83"
-        cap_add:
-            - SYS_ADMIN
-        security_opt:
-            - apparmor:unconfined
+    php72:
+        container_name: "php72"
+        image: "evrinoma/php72"
+        cpu_shares: 100
+        mem_limit: 262144000
         build:
-            context: docker/1c/servers/work/.
+            context: docker/php72/.
             dockerfile: Dockerfile
-        extra_hosts:
-            - "iteng26:172.20.1.26"
         volumes:
             - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.83.1
+                ipv4_address: 172.18.72.72
 
-    1c_ws_v83_deploy:
-        container_name: "1c.ws.v83.deploy"
-        image: "evrinoma/1c.ws.deploy"
-        hostname: "DOCK_1C_WS_V83"
+            
+    php72_postfixadmin:
+        container_name: "php72.postfixadmin"
+        image: "evrinoma/php72.postfixadmin"
         build:
-            context: docker/1c/servers/ws/.
+            context: docker/php72/sites/postfixadmin/.
             dockerfile: Dockerfile
-        extra_hosts:
-            - "iteng26:172.20.1.26"
+        hostname: "postfixadmin"
         volumes:
             - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.83.2
-
+                ipv4_address: 172.18.72.11
+            
 
 networks:
     virt:

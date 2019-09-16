@@ -1,0 +1,57 @@
+#!/bin/bash
+pass=$1
+serverSql=172.18.2.1
+serverName=`hostname`
+if [ ! -z "$pass" ]; then
+	DIR="/opt/WWW/container.ite-ng.ru/projects/postfixadmin"
+	INIT_SQL="/tmp/init.sql"
+	if [ ! -d "$DIR" ]; then
+		mkdir -v $DIR
+		git clone https://github.com/postfixadmin/postfixadmin.git $DIR
+		cd $DIR
+		git checkout postfixadmin-3.2.2
+		echo "
+		CREATE DATABASE postfix;
+		CREATE USER 'postfix'@'localhost' IDENTIFIED BY 'postfix';
+		GRANT ALL PRIVILEGES ON \`postfix\` . * TO 'postfix'@'localhost';
+		CREATE USER 'postfix'@'%' IDENTIFIED BY 'postfix';
+		GRANT ALL PRIVILEGES ON \`postfix\` . * TO 'postfix'@'%';
+		" > $INIT_SQL
+		mariaInstall=`yum list installed | grep "mariadb\."`
+		if [ ! -z "mariaInstall" ]; then 
+			yum install mysql -y
+			mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
+			yum remove mysql -y
+		else
+			mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
+		fi
+		rm -f $INIT_SQL
+		SRC="config.inc.php"
+		FILE="config.local.php"
+		cp $DIR/$SRC $DIR/$FILE
+		sed -i -e "s/\$CONF\['database_type'\] \= 'mysqli'\;/\$CONF['database_type'] \= 'mysqli'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['database_host'\] \= 'localhost'\;/\$CONF['database_host'] \= '$serverSql'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['database_user'\] \= 'postfix'\;/\$CONF['database_user'] \= 'postfix'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['database_password'\] \= 'postfixadmin'\;/\$CONF['database_password'] \= 'postfix'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['database_name'\] \= 'postfix'\;/\$CONF['database_name'] \= 'postfix'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['configured'\] \= false\;/\$CONF['configured'] \= true\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['default_language'\] \= 'en'\;/\$CONF['default_language'] \= 'ru'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['admin_email'\] \= ''\;/\$CONF['admin_email'] \= 'admin@ite-ng.ru'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['smtp_server'\] \= 'localhost'\;/\$CONF['smtp_server'] \= 'email.ite-ng.ru'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['encrypt'\] \= 'md5crypt'\;/\$CONF['encrypt'] \= 'cleartext'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['generate_password'\] \= 'NO'\;/\$CONF['generate_password'] \= 'YES'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['show_password'\] \= 'NO'\;/\$CONF['show_password'] \= 'YES'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['page_size'\] \= '10'\;/\$CONF['page_size'] \= '100'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['aliases'\] \= '10'\;/\$CONF['aliases'] \= '300'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['mailboxes'\] \= '10'\;/\$CONF['mailboxes'] \= '300'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['maxquota'\] \= '10'\;/\$CONF['maxquota'] \= '3000'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['domain_quota_default'\] \= '2048'\;/\$CONF['domain_quota_default'] \= '16384'\;/" $DIR/$FILE
+		sed -i -e "s/\$CONF\['vacation_domain'\] \= 'autoreply.change-this-to-your.domain.tld'\;/\$CONF['vacation_domain'] \= 'autoreply.email.ite-ng.ru'\;/" $DIR/$FILE
+		sed -i -e "s/'\/\.{5}\/'                \=> 'password_too_short 5'/'\/\.{4}\/'                \=> 'password_too_short 4'/" $DIR/$FILE
+		sed -i -e "s/'\/(\[0-9\]\.\*){2}\/'/\/\/'\/(\[0-9\]\.\*){2}\/'/" $DIR/$FILE
+		sed -i -e "s/@change-this-to-your\.domain\.tld/@ite-ng\.ru/" $DIR/$FILE
+		mkdir -p templates_c
+		chown apache.apache $DIR
+		chown -R apache.apache $DIR/templates_c/
+	fi
+fi
