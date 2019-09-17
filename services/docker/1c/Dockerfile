@@ -62,6 +62,7 @@ RUN	rpm -ivh 1C_Enterprise83-common-8.3.13-1644.x86_64.rpm && \
 	rm -rf /opt/WWW/install
 WORKDIR	/
 
+RUN	yum install fontconfig -y
 #1c configs
 RUN	touch /etc/httpd/conf.d/1c.conf && mkdir /opt/WWW/1c.ite-ng.ru
 
