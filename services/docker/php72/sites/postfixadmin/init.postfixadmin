@@ -1,7 +1,6 @@
 #!/bin/bash
 pass=$1
 serverSql=172.18.2.1
-serverName=`hostname`
 if [ ! -z "$pass" ]; then
 	DIR="/opt/WWW/container.ite-ng.ru/projects/postfixadmin"
 	INIT_SQL="/tmp/init.sql"

@@ -1,0 +1,136 @@
+#!/bin/bash
+pass=$1
+serverSql=172.18.2.1
+if [ ! -z "$pass" ]; then
+	DIR="/opt/WWW/container.ite-ng.ru/projects/roundcubemail"
+	INIT_SQL="/tmp/init.sql"
+	if [ ! -d "$DIR" ]; then
+		mkdir -v $DIR
+		git clone https://github.com/roundcube/roundcubemail.git $DIR
+		cd $DIR
+		echo "
+		CREATE DATABASE roundcubemail;
+		CREATE USER 'roundcubemail'@'172.18.0.0/255.255.0.0' IDENTIFIED BY 'roundcubemail';
+		GRANT ALL PRIVILEGES ON \`roundcubemail\` . * TO 'roundcubemail'@'172.18.0.0/255.255.0.0';
+		" > $INIT_SQL
+		mariaInstall=`yum list installed | grep "mariadb\."`
+		if [ ! -z "mariaInstall" ]; then 
+			yum install mysql -y
+			mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
+			mysql -h$serverSql -uroot -p$pass roundcubemail < /opt/WWW/container.ite-ng.ru/projects/roundcubemail/SQL/mysql.initial.sql
+			yum remove mysql -y
+		else
+			mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
+			mysql -h$serverSql -uroot -p$pass roundcubemail < /opt/WWW/container.ite-ng.ru/projects/roundcubemail/SQL/mysql.initial.sql
+		fi
+		rm -f $INIT_SQL
+		SRC="/config/config.inc.php.sample"
+		FILE="/config/config.inc.php"
+		cp $DIR/$SRC $DIR/$FILE
+		SRC="/config/defaults.inc.php"
+		DEFAULT="/config/defaults.inc.php.bak"
+		cp $DIR/$SRC $DIR/$DEFAULT
+		sed -i -e "s/\$config\['db_dsnw'\] \= 'mysql\:\/\/roundcube\:pass@localhost\/roundcubemail'\;/\$config\['db_dsnw'\] \= 'mysql\:\/\/roundcubemail\:roundcubemail@$serverSql\/roundcubemail'\;/" $DIR/$FILE
+		sed -i -e "s/\$config\['default_host'\] \= 'localhost'\;/\$config\['default_host'\] \= '$serverSql'\;/" $DIR/$FILE
+		sed -i -e "s/\$config\['product_name'\] \= 'Roundcube Webmail'\;/\$config\['product_name'\] \= 'Email Webmail'\;/" $DIR/$FILE
+		sed -i -e "s/\$config\['smtp_server'\] \= 'localhost'\;/\$config\['smtp_server'\] \= 'email.ite-ng.ru'\;/" $DIR/$FILE
+		sed -i -e "/\$config\['plugins'\] \= array(/s/.*/&\n\t'newmail_notifier',\n\t'managesieve',\n\t'carddav',\n\t'calendar',/" $DIR/$FILE
+		sed -i -e "s/\$config\['db_dsnw'\] \= 'mysql\:\/\/roundcube\:@localhost\/roundcubemail'\;/\$config\['db_dsnw'\] \= 'mysql\:\/\/roundcubemail\:roundcubemail@$serverSql\/roundcubemail'\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['log_driver'\] \= 'file'\;/\$config\['log_driver'\] \= 'syslog'\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['skin_logo'\] \= null\;/\$config\['skin_logo'\] \= '\.\.\/\.\.\/ite-ng\.ru\/images\/logo\.png'\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['force_https'\] \= 'true'\;/\$config\['force_https'\] \= false \;/" $DIR/$SRC
+		sed -i -e "s/\$config\['message_sort_col'\] \= 'date'\;/\$config\['message_sort_col'\] \= ''\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['language'\] \= null\;/\$config\['language'\] \= 'ru_RU'\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['drafts_mbox'\] \= 'Drafts'\;/\$config\['drafts_mbox'\] \= 'Черновики'\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['junk_mbox'\] \= 'Junk'\;/\$config\['junk_mbox'\] \= 'Нежелательная почта'\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['sent_mbox'\] \= 'Sent'\;/\$config\['sent_mbox'\] \= 'Отправленные'\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['trash_mbox'\] \= 'Trash'\;/\$config\['trash_mbox'\] \= 'Удаленные'\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['create_default_folders'\] \= false\;/\$config\['create_default_folders'\] \= true\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['address_book_type'\] \= 'sql'\;/\$config\['address_book_type'\] \= 'ldap'\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['ldap_public'\] \= array()\;/\/\/\$config\['ldap_public'\] \= array()\;/" $DIR/$SRC
+		echo "
+		\$config['ldap_public']['ite-ng.ru'] = array(
+		  'name'          => 'ite-ng.ru',
+		  'hosts'         => array('ldap://172.20.1.6','ldap://172.20.1.20'),
+		  'port'          => 636,
+		  'use_tls'       => false,
+		  'ldap_version'  => 3,       // using LDAPv3
+		  'network_timeout' => 10,    // The timeout (in seconds) for connect + bind arrempts. This is only supported in PHP >= 5.3.0 with OpenLDAP 2.x
+		  'user_specific' => true,   // If true the base_dn, bind_dn and bind_pass default to the user's IMAP login.
+		  'base_dn'       => 'OU=MSK,DC=ite-ng,DC=ru',
+		  'bind_dn'       => 'ldap@ite-ng.ru',
+		  'bind_pass'     => 'ldap',
+		  'search_base_dn' => 'OU=MSK,DC=ite-ng,DC=ru',
+		  'search_filter'  => '',   // e.g. '(&(objectClass=posixAccount)(uid=%u))'
+		  'search_bind_dn' => '',
+		  'search_bind_pw' => '',
+		  'domain_base_dn' => '',
+		  'domain_filter'  => '',
+		  'search_bind_attrib' => array(),  // e.g. array('%udc' => 'ou')
+		  'search_dn_default' => '',
+		  'auth_cid'       => '',
+		  'auth_method'    => '',
+		  'hidden'        => false,
+		  'searchonly'    => false,
+		  'writable'       => false,
+		  'LDAP_Object_Classes' => array('organizationalperson'),
+		  'LDAP_rdn'       => 'cn',
+		  'required_fields' => array(	'mobile', 'homePhone', 'cn', 'sn', 'c', 'l', 'st', 'title', 'description', 'postalcode', 'physicaldeliveryofficename', 'telephonenumber', 
+						'givenname', 'distinguishedname', 'displayname', 'othertelephone', 'co', 'department', 'company', 'streetaddress', 'wwwhomepage', 
+						'useraccountcontrol', 'mail', 'userprincipalname',  'samaccountname', 'manager', 'directreports', 'itnumber', 'info', 'jpegphoto', 'fname'),
+		  'search_fields'   => array('mail', 'cn','sAMAccountName','telephonenumber','homePhone','mobile','othertelephone'),  // fields to search in
+		  'fieldmap' => array(
+		    'name'        => 'cn',
+		    'surname'     => 'sn',
+		    'firstname'   => 'givenName',
+		    'jobtitle'    => 'title',
+		    'email'       => 'mail:*',
+		    'phone:home'  => 'homePhone',
+		    'phone:work'  => 'othertelephone',
+		    'phone:mobile' => 'mobile',
+		    'phone:pager' => 'telephonenumber',
+		    'phone:workfax' => 'facsimileTelephoneNumber',
+		    'zipcode'     => 'postalcode',
+		    'street'      => 'streetaddress',
+		    'region'      => 'st',
+		    'locality'    => 'physicaldeliveryofficename',
+		    'country'      => 'co',
+		    'organization' => 'o',
+		    'department'   => 'ou',
+		    'jobtitle'     => 'title',
+		    'notes'        => 'description',
+		    'photo'        => 'jpegphoto',
+		  ),
+		  'sub_fields' => array(),
+		  'autovalues' => array(
+		  ),
+		  'sort'           => 'cn',         // The field to sort the listing by.
+		  'scope'          => 'sub',        // search mode: sub|base|list
+		  'filter'         => '(&(objectclass=organizationalperson)(!(!(mail=*)))(!(telephonenumber=null)))',      // used for basic listing (if not empty) and will be &'d with search queries. example: status=act
+		  'fuzzy_search'   => true,         // server allows wildcard search
+		  'vlv'            => false,        // Enable Virtual List View to more efficiently fetch paginated data (if server supports it)
+		  'vlv_search'     => false,        // Use Virtual List View functions for autocompletion searches (if server supports it)
+		  'numsub_filter'  => '',   // with VLV, we also use numSubOrdinates to query the total number of records. Set this filter to get all numSubOrdinates attributes for counting
+		  'config_root_dn' => 'cn=config',  // Root DN to search config entries (e.g. vlv indexes)
+		  'sizelimit'      => '0',          // Enables you to limit the count of entries fetched. Setting this to 0 means no limit.
+		  'timelimit'      => '0',          // Sets the number of seconds how long is spend on the search. Setting this to 0 means no limit.
+		  'referrals'      => false,        // Sets the LDAP_OPT_REFERRALS option. Mostly used in multi-domain Active Directory setups
+		  'dereference'    => 0,            // Sets the LDAP_OPT_DEREF option. One of: LDAP_DEREF_NEVER, LDAP_DEREF_SEARCHING, LDAP_DEREF_FINDING, LDAP_DEREF_ALWAYS
+		                                    // Used where addressbook contains aliases to objects elsewhere in the LDAP tree.
+		  // this configuration replaces the regular groups listing in the directory tree with
+		  // a hard-coded list of groups, each listing entries with the configured base DN and filter.
+		  // if the 'groups' option from above is set, it'll be shown as the first entry with the name 'Groups'
+		);
+		" >> $DIR/$SRC
+		SRC="plugins/managesieve/config.inc.php.dist"
+		FILE="plugins/managesieve/config.inc.php"
+		cp $DIR/$SRC $DIR/$FILE
+		sed -i -e "s/\$config\['managesieve_port'\] \= null\;/\$config['managesieve_port'] \= 4190\;/" $DIR/$FILE
+		sed -i -e "s/\$config\['managesieve_host'\] \= 'localhost'\;/\$config['managesieve_host'] \= '$serverSql'\;/" $DIR/$FILE
+		sed -i -e "s/\$config\['managesieve_vacation'\] \= 0\;/\$config['managesieve_vacation'] \= 1\;/" $DIR/$FILE
+		
+		cp -r /opt/WWW/ite-ng.ru $DIR
+		rm -rf /opt/WWW/ite-ng.ru
+		chown -R apache.apache $DIR
+	fi
+fi

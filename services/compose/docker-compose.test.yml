@@ -27,20 +27,29 @@ services:
             virt:
                 ipv4_address: 172.18.72.72
 
-            
     php72_postfixadmin:
         container_name: "php72.postfixadmin"
         image: "evrinoma/php72.postfixadmin"
         build:
             context: docker/php72/sites/postfixadmin/.
             dockerfile: Dockerfile
-        hostname: "postfixadmin"
         volumes:
             - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.11
-            
+
+    php72_roundcubemail:
+        container_name: "php72.roundcubemail"
+        image: "evrinoma/php72.roundcubemail"
+        build:
+            context: docker/php72/sites/roundcubemail/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.12
 
 networks:
     virt:
@@ -50,4 +59,3 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
-
