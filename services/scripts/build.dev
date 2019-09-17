@@ -1,0 +1,10 @@
+#!/bin/bash
+docker-compose -f ../docker-compose.dev.yml down
+docker-compose -f ../docker-compose.dev.yml build
+docker-compose -f ../docker-compose.dev.yml up -d 
+
+docker rm $(docker ps -a -q -f status=exited)
+for variable in `docker images | grep '<none>' | awk '{ print $3}'`
+do
+docker rmi "$variable"
+done
