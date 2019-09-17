@@ -122,15 +122,25 @@ if [ ! -z "$pass" ]; then
 		  // if the 'groups' option from above is set, it'll be shown as the first entry with the name 'Groups'
 		);
 		" >> $DIR/$SRC
+		
 		SRC="plugins/managesieve/config.inc.php.dist"
 		FILE="plugins/managesieve/config.inc.php"
 		cp $DIR/$SRC $DIR/$FILE
 		sed -i -e "s/\$config\['managesieve_port'\] \= null\;/\$config['managesieve_port'] \= 4190\;/" $DIR/$FILE
 		sed -i -e "s/\$config\['managesieve_host'\] \= 'localhost'\;/\$config['managesieve_host'] \= '$serverSql'\;/" $DIR/$FILE
 		sed -i -e "s/\$config\['managesieve_vacation'\] \= 0\;/\$config['managesieve_vacation'] \= 1\;/" $DIR/$FILE
-		
+
 		cp -r /opt/WWW/ite-ng.ru $DIR
 		rm -rf /opt/WWW/ite-ng.ru
+
+		FDR="public_html/skins/larry"
+		SRC=$FDR/"styles.css"
+		cp $DIR/$SRC{,.bak}
+		cp $DIR/ite-ng.ru/styles.css.patch $DIR/$FDR
+		cd $DIR/$FDR
+		git apply styles.css.patch
+		cd $DIR
+
 		chown -R apache.apache $DIR
 	fi
 fi

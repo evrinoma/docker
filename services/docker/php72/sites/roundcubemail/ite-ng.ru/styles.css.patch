@@ -1,0 +1,39 @@
+--- styles.css.bak	2019-09-17 14:47:49.113284817 +0000
++++ styles.css	2019-09-17 14:52:25.449467162 +0000
+@@ -711,7 +711,9 @@
+ 	height: 46px;
+ 	margin-bottom: 10px;
+ 	padding: 0 0 0 10px;
+-	background: #1c1c1c;
++	background: -webkit-gradient(linear, left center, right center, color-stop(0%, #d7853f), color-stop(100%, #4789cf));
++	background: -ms-linear-gradient(left, #d7853f 0%, #4789cf 100%);
++	background: linear-gradient(to left, #d7853f 0%, #4789cf 100%);
+ }
+ 
+ #topline a,
+@@ -1720,6 +1722,11 @@
+ }
+ 
+ /*** Login form ***/
++#logo {
++	display: block;
++	margin-left: auto;
++	margin-right: auto;
++}
+ 
+ #login-form {
+ 	position: relative;
+@@ -1729,10 +1736,9 @@
+ 
+ #login-form .box-inner {
+ 	width: 430px;
+-	background: #404040;
+-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #404040), color-stop(100%, #2e2e2e));
+-	background: -ms-linear-gradient(top, #404040 0%, #2e2e2e 100%);
+-	background: linear-gradient(to bottom, #404040 0%, #2e2e2e 100%);
++	background: -webkit-gradient(linear, left center, right center, color-stop(0%, #d7853f), color-stop(100%, #4789cf));
++	background: -ms-linear-gradient(left, #d7853f 0%, #4789cf 100%);
++	background: linear-gradient(to left, #d7853f 0%, #4789cf 100%);
+ 	margin: 0 50px;
+ 	padding: 10px 24px 24px 24px;
+ 	border-radius: 6px;
