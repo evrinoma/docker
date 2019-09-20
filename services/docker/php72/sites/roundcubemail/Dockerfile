@@ -11,8 +11,19 @@ LABEL \
 	license="MIT" \
 	build-date="2019-09-17"
 
+RUN	yum -y install mod_ssl && \
+	mv /etc/httpd/conf.d/ssl.conf{,.bak} && \
+	sed -n '1,/<Virtual/ p' /etc/httpd/conf.d/ssl.conf.bak >> /etc/httpd/conf.d/ssl.conf && sed -i '$ d' /etc/httpd/conf.d/ssl.conf && \
+	sed -n '/<\/Virtual/,$ p' /etc/httpd/conf.d/ssl.conf.bak > /etc/httpd/conf.d/ssl.conf.end && sed -i '1d' /etc/httpd/conf.d/ssl.conf.end && \
+	cat /etc/httpd/conf.d/ssl.conf.end >> /etc/httpd/conf.d/ssl.conf && rm -f /etc/httpd/conf.d/ssl.conf.end
+
 COPY	roundcubemail.conf /etc/httpd/conf.d/vhost.conf
 COPY	ite-ng.ru /opt/WWW/ite-ng.ru
 
 ADD	init.roundcubemail /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.roundcubemail
+
+RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.key /etc/pki/CA/certs/ && \
+	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.pem /etc/pki/CA/certs/
+
+EXPOSE 443

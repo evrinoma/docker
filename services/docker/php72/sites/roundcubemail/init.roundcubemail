@@ -1,6 +1,7 @@
 #!/bin/bash
 pass=$1
 serverSql=172.18.2.1
+serverSmtp=172.18.4.2
 if [ ! -z "$pass" ]; then
 	DIR="/opt/WWW/container.ite-ng.ru/projects/roundcubemail"
 	INIT_SQL="/tmp/init.sql"
@@ -36,7 +37,7 @@ if [ ! -z "$pass" ]; then
 		sed -i -e "s/\$config\['smtp_server'\] \= 'localhost'\;/\$config\['smtp_server'\] \= 'email.ite-ng.ru'\;/" $DIR/$FILE
 		sed -i -e "/\$config\['plugins'\] \= array(/s/.*/&\n\t'newmail_notifier',\n\t'managesieve',\n\t'carddav',\n\t'calendar',/" $DIR/$FILE
 		sed -i -e "s/\$config\['db_dsnw'\] \= 'mysql\:\/\/roundcube\:@localhost\/roundcubemail'\;/\$config\['db_dsnw'\] \= 'mysql\:\/\/roundcubemail\:roundcubemail@$serverSql\/roundcubemail'\;/" $DIR/$SRC
-		sed -i -e "s/\$config\['log_driver'\] \= 'file'\;/\$config\['log_driver'\] \= 'syslog'\;/" $DIR/$SRC
+		sed -i -e "s/\$config\['log_driver'\] \= 'file'\;/\$config\['log_driver'\] \= 'stdout'\;/" $DIR/$SRC
 		sed -i -e "s/\$config\['skin_logo'\] \= null\;/\$config\['skin_logo'\] \= '\.\.\/\.\.\/ite-ng\.ru\/images\/logo\.png'\;/" $DIR/$SRC
 		sed -i -e "s/\$config\['force_https'\] \= 'true'\;/\$config\['force_https'\] \= false \;/" $DIR/$SRC
 		sed -i -e "s/\$config\['message_sort_col'\] \= 'date'\;/\$config\['message_sort_col'\] \= ''\;/" $DIR/$SRC
@@ -126,6 +127,9 @@ if [ ! -z "$pass" ]; then
 		SRC="plugins/managesieve/config.inc.php.dist"
 		FILE="plugins/managesieve/config.inc.php"
 		cp $DIR/$SRC $DIR/$FILE
+		sed -i -e "s/\$config\['default_host'\] \= 'localhost'\;/\$config\['default_host'\] \= '$serverSmtp'\;/" $DIR/$FILE
+		sed -i -e "s/\$config\['smtp_server'\] \= 'localhost'\;/\$config\['smtp_server'\] \= '$serverSmtp'\;/" $DIR/$FILE
+		sed -i -e "s/\$config\['smtp_port'\] \= 587\;/\$config\['smtp_port'\] \= 465\;/" $DIR/$FILE
 		sed -i -e "s/\$config\['managesieve_port'\] \= null\;/\$config['managesieve_port'] \= 4190\;/" $DIR/$FILE
 		sed -i -e "s/\$config\['managesieve_host'\] \= 'localhost'\;/\$config['managesieve_host'] \= '$serverSql'\;/" $DIR/$FILE
 		sed -i -e "s/\$config\['managesieve_vacation'\] \= 0\;/\$config['managesieve_vacation'] \= 1\;/" $DIR/$FILE

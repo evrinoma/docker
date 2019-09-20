@@ -14,7 +14,8 @@ CHECKPASSWORD_REPLY_BINARY="$1"
 INPUT_FD=3
 
 # Messages to stderr will end up in mail log (prefixed with "dovecot: auth: Error:")
-LOG=/opt/etc/dovecot/logs/auth.log
+#LOG=/var/log/dovecot/auth.log
+LOG=/tmp/auth.log
 
 # Error return codes.
 ERR_PERMFAIL=1
@@ -26,7 +27,7 @@ read -d $'\x0' -r -u $INPUT_FD USER
 read -d $'\x0' -r -u $INPUT_FD PASS
 read -d $'\x0' -r -u $INPUT_FD IP
 
-check=$(/usr/bin/php /opt/etc/dovecot/checker.php --mail=$USER --pass=$PASS --ip=$IP)
+check=$(/usr/bin/php /etc/dovecot/checker.php --mail=$USER --pass=$PASS --ip=$IP)
 
 if [ -n '$check' ]; then
     read -ra arr <<< "$check"

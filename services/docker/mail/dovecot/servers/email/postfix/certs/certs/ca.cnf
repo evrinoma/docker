@@ -54,7 +54,8 @@ organizationName	= Intertechelectro CJSC.
 #0.organizationName	= Intertechelectro CJSC.
 organizationalUnitName	= Intertechelectro CJSC.
 emailAddress		= admin@ite-ng.ru
-commonName		= email.ite-ng.ru
+#commonName		= email.ite-ng.ru
+commonName		= php72.roundcubemail
 
 [v3_ca]
 subjectKeyIdentifier	= hash

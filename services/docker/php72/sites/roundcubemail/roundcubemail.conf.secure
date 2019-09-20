@@ -1,0 +1,47 @@
+<VirtualHost *:443>
+	SSLEngine On
+	
+	SSLProtocol all -SSLv2
+	
+	SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA
+	
+	SSLCertificateFile /etc/pki/CA/certs/ca.pem
+	SSLCertificateKeyFile /etc/pki/CA/certs/ca.key
+	
+	Alias /email /opt/WWW/email.ite-ng.ru/roundcubemail
+	ServerAdmin nikolns@ite-ng.ru
+
+	ServerName email.ite-ng.ru
+	ServerAlias email.nekeng.ru
+	ServerAlias email.kzkt45.ru
+	
+	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/roundcubemail"
+	
+	ServerAlias /roundcubemail
+	ErrorLog /var/log/httpd/error-roundcubemail.log
+	CustomLog /var/log/httpd/access-roundcubemail.log combined
+<Files ~ "\.(cgi|shtml|phtml|php3?)$">
+    SSLOptions +StdEnvVars
+    </Files>
+    
+	<Directory "/opt/WWW/container.ite-ng.ru/projects/roundcubemail/">
+		SSLOptions +StdEnvVars
+		AllowOverride All
+		Options -Indexes +FollowSymLinks
+		<IfModule mod_authz_core.c>
+		# Apache 2.4
+		<RequireAny>
+			Require all granted
+		</RequireAny>
+		</IfModule>
+		<IfModule !mod_authz_core.c>
+		# Apache 2.2
+			Order allow,deny
+			Allow from all
+		</IfModule>
+	</Directory>
+	
+	php_admin_value upload_max_filesize     20M
+	php_admin_value post_max_size           20M
+	BrowserMatch "MSIE [2-5]" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
+</VirtualHost>
