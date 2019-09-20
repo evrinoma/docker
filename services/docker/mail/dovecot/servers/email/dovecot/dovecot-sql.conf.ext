@@ -1,0 +1,6 @@
+driver = mysql
+#default_pass_scheme = CRYPT
+default_pass_scheme = PLAIN
+connect = host=172.18.2.1 dbname=postfix user=postfix password=postfix
+password_query = SELECT username as user, password, '/opt/WWW/container.ite-ng.ru/data/Mail/Domains/%d/%u' as userdb_home, 'maildir:/opt/WWW/container.ite-ng.ru/data/Mail/Domains/%d/%u' as userdb_mail, 2000 as userdb_uid, 2000 as userdb_gid, concat('*:bytes=', quota) AS userdb_quota_rule FROM mailbox WHERE username = '%u' AND active = '1'
+user_query = SELECT '/opt/WWW/container.ite-ng.ru/data/Mail/Domains/%d/%u' as home, 'maildir:/opt/WWW/container.ite-ng.ru/data/Mail/Domains/%d/%u' as mail, 2000 AS uid, 2000 AS gid, concat('*:bytes=', quota) AS quota_rule FROM mailbox WHERE username = '%u' AND active = '1'

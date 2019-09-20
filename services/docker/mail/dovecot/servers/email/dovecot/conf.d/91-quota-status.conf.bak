@@ -1,0 +1,20 @@
+##
+## Quota-Status configuration.
+##
+ 
+# Load Module quota-status and listen on TCP/IP Port for connections.
+service quota-status {
+    executable = quota-status -p postfix
+    inet_listener {
+	address = 172.18.2.1
+	port = 12340
+    }
+    client_limit = 1
+}
+# Plugin configuration.
+# Return messages for requests by quota status: success, nouser and overquota.
+plugin {
+    quota_status_success = DUNNO
+    quota_status_nouser = DUNNO
+    quota_status_overquota = "552 5.2.2 Mailbox is over quota"
+}

@@ -3,13 +3,12 @@
 docerComposeFile=$1
 if [ ! -z "$docerComposeFile" ]; then
 	docker-compose -f $docerComposeFile down
-	docker-compose -f $docerComposeFile build
+	docker-compose -f $docerComposeFile build #--no-cache
 	docker-compose -f $docerComposeFile up -d 
 	remove=$(docker ps -a -q -f status=exited)
 	if [ ! -z "$remove" ]; then
 		docker rm $remove
 	fi
-
 	for variable in `docker images | grep '<none>' | awk '{ print $3}'`
 	do
 		if [ ! -z "$variable" ]; then

@@ -6,12 +6,12 @@ MAINTAINER \
 
 LABEL \
 		name="evrinoma Maria SQL Image" \
-		image="Container" \
+		image="maria.db" \
 		vendor="evrinoma@gmail.com" \
 		license="MIT" \
 		build-date="2019-05-21"
 
-ENV	container docker
+#ENV	container docker
 
 RUN	(cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
 	rm -f /lib/systemd/system/multi-user.target.wants/*;\
@@ -24,8 +24,8 @@ RUN	(cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == system
 	VOLUME [ "/sys/fs/cgroup" ]
 CMD	["/usr/sbin/init"]
 
-RUN	echo "nameserver 172.20.1.5" >> /etc/resolv.conf && \
-	echo "nameserver 8.8.8.8" > /etc/resolv.conf 
+RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf
+#	echo "nameserver 8.8.8.8" > /etc/resolv.conf 
 
 RUN	yum -y install mc && \
 	yum -y install git && \
@@ -37,8 +37,9 @@ RUN	yum -y install mariadb-server mariadb && \
 
 RUN	systemctl enable mariadb.service
 
+RUN	echo 'HOSTNAME=maria.db' >> /etc/sysconfig/network && \
+	echo '172.18.2.1 maria.db' >> /etc/hosts
 
-RUN	mysql_install_db --user=mysql --ldata=/var/lib/mysql/
 RUN	sed -i '/\[mysqld\]/aport=3306' /etc/my.cnf && \
 	sed -i '/\[mysqld\]/askip-external-locking' /etc/my.cnf && \
 #	sed -i '/\[mysqld\]/amax_allowed_packet=256M' /etc/my.cnf && \
@@ -68,8 +69,9 @@ RUN	sed -i '/\[mysqld\]/aport=3306' /etc/my.cnf && \
 
 #	sed -ire 's/max_allowed_packet.*=.*/max_allowed_packet = /g' /etc/mysql/my.cnf
 
-RUN	chown -R mysql.mysql /var/lib/mysql/ && \
-	echo "nameserver 172.20.1.5" > /etc/resolv.conf
+RUN	chown -R mysql.mysql /var/lib/mysql/
+
+RUN	mysql_install_db --force --user=mysql --ldata=/var/lib/mysql/
 
 EXPOSE 3306
 

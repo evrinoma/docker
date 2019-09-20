@@ -28,8 +28,8 @@ services:
             virt:
                 ipv4_address: 172.18.2.2
 
-    mssqldb:
-        container_name: "mssqldb"
+    mssql_db:
+        container_name: "mssqldb.db"
         image: "microsoft/mssql-server-linux:2017-latest"
         ports:
             - "1433:1433"

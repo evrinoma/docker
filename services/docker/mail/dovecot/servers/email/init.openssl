@@ -1,0 +1,8 @@
+#!/bin/bash
+
+pass=$1
+if [ ! -z "$pass" ]; then
+    openssl rsa -in /etc/postfix/certs/certs/ca.key -out /etc/postfix/certs/certs/ca.rsa.key -passin 'pass:'$pass
+    cp /etc/postfix/certs/certs/ca.rsa.key /etc/dovecot/ca.key
+fi
+

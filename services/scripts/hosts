@@ -4,13 +4,13 @@ PREFIX="php"
 SUBNET="172.18."
 
 RABBIT=$SUBNET"1.3"
-MSSQL=$SUBNET"1.4"
 MASTER_CONT=$SUBNET"1.5"
 TEST=$SUBNET"1.6"
 SQUID7=$SUBNET"1.7"
 SAMBA=$SUBNET"1.8"
 
-MARIASQL=$SUBNET"2."
+SQL=$SUBNET"2."
+MAIL=$SUBNET"4."
 
 PRIMAVERA15=$SUBNET"22.15"
 
@@ -26,46 +26,50 @@ C1_83=$SUBNET"83."
 
 sed -i -e "/^172.18/ d" /etc/hosts
 
-echo ""$MARIASQL"1	maria.db" >> /etc/hosts
-echo ""$MARIASQL"2	postgre.1c.db" >> /etc/hosts
+echo $SQL"1	maria.db" >> /etc/hosts
+echo $SQL"2	postgre.1c.db" >> /etc/hosts
+echo $SQL"3	mssql.db" >> /etc/hosts
 
-echo ""$RABBIT"	rabbitmq" >> /etc/hosts
-echo ""$MSSQL"	mssql" >> /etc/hosts
-echo ""$SQUID7"	squid.7" >> /etc/hosts
-echo ""$SAMBA"	samba.kis" >> /etc/hosts
+echo $MAIL"1	dovecot" >> /etc/hosts
+echo $MAIL"2	dovecot.email" >> /etc/hosts
 
-echo ""$PRIMAVERA15"	vnc.primavera.15" >> /etc/hosts
+echo $RABBIT"	rabbitmq" >> /etc/hosts
 
-echo ""$TEST"	test.cont" >> /etc/hosts
-echo ""$MASTER_CONT"	master.cont" >> /etc/hosts
+echo $SQUID7"	squid.7" >> /etc/hosts
+echo $SAMBA"	samba.kis" >> /etc/hosts
 
-echo ""$PHP53"53	$PREFIX53" >> /etc/hosts
-echo ""$PHP71"71	$PREFIX71" >> /etc/hosts
-echo ""$PHP72"72	$PREFIX72" >> /etc/hosts
+echo $PRIMAVERA15"	vnc.primavera.15" >> /etc/hosts
 
-echo ""$PHP53"3	$PREFIX53.kis" >> /etc/hosts
-echo ""$PHP53"4	$PREFIX53.kisnew" >> /etc/hosts
-echo ""$PHP53"5	$PREFIX53.kis.nekeng" >> /etc/hosts
-echo ""$PHP53"6	$PREFIX53.kisnew.nekeng" >> /etc/hosts
+echo $TEST"	test.cont" >> /etc/hosts
+echo $MASTER_CONT"	master.cont" >> /etc/hosts
 
-echo ""$PHP53"11	$PREFIX53.webldap" >> /etc/hosts
-echo ""$PHP53"12	$PREFIX53.webuseorg" >> /etc/hosts
+echo $PHP53"53	$PREFIX53" >> /etc/hosts
+echo $PHP71"71	$PREFIX71" >> /etc/hosts
+echo $PHP72"72	$PREFIX72" >> /etc/hosts
 
-echo ""$PHP71"3	$PREFIX71.empty" >> /etc/hosts
-echo ""$PHP71"4	$PREFIX71.tools" >> /etc/hosts
-echo ""$PHP71"5	$PREFIX71.webldap5" >> /etc/hosts
-echo ""$PHP71"6	$PREFIX71.cont" >> /etc/hosts
+echo $PHP53"3	$PREFIX53.kis" >> /etc/hosts
+echo $PHP53"4	$PREFIX53.kisnew" >> /etc/hosts
+echo $PHP53"5	$PREFIX53.kis.nekeng" >> /etc/hosts
+echo $PHP53"6	$PREFIX53.kisnew.nekeng" >> /etc/hosts
 
-echo ""$PHP72"3	$PREFIX72.empty" >> /etc/hosts
-echo ""$PHP72"4	$PREFIX72.tools" >> /etc/hosts
-echo ""$PHP72"5	$PREFIX72.webldap5" >> /etc/hosts
-echo ""$PHP72"6	$PREFIX72.cont" >> /etc/hosts
-echo ""$PHP72"7	$PREFIX72.portal" >> /etc/hosts
-echo ""$PHP72"10	$PREFIX72.sqladmin" >> /etc/hosts
-echo ""$PHP72"11	$PREFIX72.postfixadmin" >> /etc/hosts
-echo ""$PHP72"12	$PREFIX72.roundcubemail" >> /etc/hosts
+echo $PHP53"11	$PREFIX53.webldap" >> /etc/hosts
+echo $PHP53"12	$PREFIX53.webuseorg" >> /etc/hosts
 
-echo ""$PHP72"3	pma" >> /etc/hosts
+echo $PHP71"3	$PREFIX71.empty" >> /etc/hosts
+echo $PHP71"4	$PREFIX71.tools" >> /etc/hosts
+echo $PHP71"5	$PREFIX71.webldap5" >> /etc/hosts
+echo $PHP71"6	$PREFIX71.cont" >> /etc/hosts
 
-echo ""$C1_83"1	1c.work.v83" >> /etc/hosts
-echo ""$C1_83"2	1c.ws.v83" >> /etc/hosts
+echo $PHP72"3	$PREFIX72.empty" >> /etc/hosts
+echo $PHP72"4	$PREFIX72.tools" >> /etc/hosts
+echo $PHP72"5	$PREFIX72.webldap5" >> /etc/hosts
+echo $PHP72"6	$PREFIX72.cont" >> /etc/hosts
+echo $PHP72"7	$PREFIX72.portal" >> /etc/hosts
+echo $PHP72"10	$PREFIX72.sqladmin" >> /etc/hosts
+echo $PHP72"11	$PREFIX72.postfixadmin" >> /etc/hosts
+echo $PHP72"12	$PREFIX72.roundcubemail" >> /etc/hosts
+
+echo $PHP72"3	pma" >> /etc/hosts
+
+echo $C1_83"1	1c.work.v83" >> /etc/hosts
+echo $C1_83"2	1c.ws.v83" >> /etc/hosts

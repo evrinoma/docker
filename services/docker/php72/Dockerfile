@@ -16,8 +16,7 @@ RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
 
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
-	yum -y install iproute && \
-	yum -y update;
+	yum -y install iproute;
 
 RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
 	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
@@ -158,8 +157,7 @@ RUN	mv -v /etc/exim/exim.conf{,.bak} && \
 	mv /bin/mail{,.bak} && \
 	ln -s /bin/mailx /bin/mail
 #clean
-RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
-	rm -f /var/run/httpd/httpd.pid
+RUN	rm -f /var/run/httpd/httpd.pid
 
 COPY	exim.conf /etc/exim/exim.conf
 

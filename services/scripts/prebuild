@@ -3,3 +3,5 @@
 #docker build -t evrinoma/squid ../docker/squid/.
 #docker build -t evrinoma/1c ../docker/1c/.
 #docker build -t evrinoma/vnc ../docker/vnc/.
+docker build -t evrinoma/dovecot ../docker/mail/dovecot/.
+#docker build -t evrinoma/php72 ../docker/php72/.

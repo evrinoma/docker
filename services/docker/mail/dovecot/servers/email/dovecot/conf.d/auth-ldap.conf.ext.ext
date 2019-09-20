@@ -1,0 +1,12 @@
+# Authentication for LDAP users. Included from 10-auth.conf.
+
+passdb {
+    driver = checkpassword
+    args = /etc/dovecot/checkpassword.sh
+    skip = never
+}
+
+userdb {
+  driver = static
+  args = uid=vmail gid=vmail
+}

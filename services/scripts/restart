@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docerComposeFile=$1
+if [ ! -z "$docerComposeFile" ]; then
+	docker-compose -f $docerComposeFile down
+	docker-compose -f $docerComposeFile up -d 
+fi

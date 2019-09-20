@@ -1,0 +1,38 @@
+#uris = ldap://172.20.1.6:389
+hosts = 172.16.45.12 172.20.1.6 172.20.1.20
+
+# LDAP account
+#dn = ldap@ite-ng.ru
+#dn = 'cn=%Ln@ite-ng.ru,dc=ite-ng,dc=ru'
+#dnpass = ldap
+
+debug_level = 255
+auth_bind = yes
+#auth_bind_userdn = %Ln@ite-ng.ru
+auth_bind_userdn = cn=%Ln@ite-ng.ru,dc=ite-ng,dc=ru
+
+# LDAP protocol version to use. Likely 2 or 3.
+ldap_version = 3
+
+# LDAP base. %variables can be used here.
+# For example: dc=mail, dc=example, dc=org
+base = DC=ite-ng,DC=ru
+
+# Search scope: base, onelevel, subtree
+scope = subtree
+
+# Dereference: never, searching, finding, always
+deref = never
+
+# Password check 
+#pass_filter = (&(objectclass=organizationalperson)(mail=%Lu))
+#pass_attrs = userPrincipalName=user
+#pass_filter = (&(objectclass=organizationalperson)(sAMAccountName=%Ln@ite-ng.ru))
+pass_attrs = uid=user, muserPassword=password,
+
+# Users check
+#user_filter = (&(objectclass=organizationalperson)(sAMAccountName=%n))
+user_filter = (&(objectclass=organizationalperson)(sAMAccountName=%Ln@ite-ng.ru))
+
+#default_pass_scheme = CRYPT
+default_pass_scheme = MD5

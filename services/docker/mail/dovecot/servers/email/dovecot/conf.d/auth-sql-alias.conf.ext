@@ -1,0 +1,16 @@
+passdb {
+ driver = sql
+ args = /etc/dovecot/dovecot-sql-alias.conf.ext
+
+ skip = never
+ result_failure = continue
+ result_internalfail = continue
+ result_success = continue
+}
+
+userdb {
+ driver = sql
+ args = /etc/dovecot/dovecot-sql-alias.conf.ext
+
+ skip = notfound
+}

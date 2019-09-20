@@ -1,0 +1,6 @@
+driver = mysql
+#default_pass_scheme = CRYPT
+default_pass_scheme = PLAIN
+connect = host=172.18.2.1 dbname=postfix user=postfix password=postfix
+password_query = SELECT goto as user, active as password FROM `alias` where `address` = '%u' AND active = '%p'
+#user_query = SELECT IFNULL((SELECT `domain` FROM `domain` WHERE `domain` = '%d'), null)

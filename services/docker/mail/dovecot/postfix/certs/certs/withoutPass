@@ -1,0 +1,2 @@
+#!/bin/bash
+openssl rsa -in ca.key -out new.key

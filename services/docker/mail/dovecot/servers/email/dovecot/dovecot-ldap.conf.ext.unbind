@@ -1,0 +1,35 @@
+#uris = ldap://172.20.1.6
+hosts = 172.20.1.6 
+#172.20.1.20
+
+# LDAP account
+dn = backupadmin@ite-ng.ru
+dnpass = rjk,fcf2008
+
+debug_level = 1
+auth_bind = no
+#sasl_bind = yes
+#sasl_mech = DIGEST-MD5
+#auth_username_format = %Ln@ite-ng.ru
+#auth_bind_userdn = %Ln@ite-ng.ru
+
+# LDAP protocol version to use. Likely 2 or 3.
+ldap_version = 3
+# LDAP base. %variables can be used here.
+# For example: dc=mail, dc=example, dc=org
+base = DC=ite-ng,DC=ru
+# Search scope: base, onelevel, subtree
+scope = subtree
+# Dereference: never, searching, finding, always
+deref = never
+
+# Password check 
+pass_filter = (&(objectclass=organizationalperson)(mail=%Lu))
+#pass_filter = (&(objectclass=organizationalperson)(uid=%Lu))
+#pass_attrs = mail=user,userPassword=password
+pass_attrs = postOfficeBox=password
+
+# Users check
+user_filter = (&(objectclass=organizationalperson)(sAMAccountName=%n))
+
+default_pass_scheme = MD5 #CRYPT 

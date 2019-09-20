@@ -1,0 +1,5 @@
+hosts = email.ite-ng.ru
+user = postfix
+password = postfix
+dbname = postfix
+query = SELECT maildir FROM mailbox WHERE username='%s' AND active = '1'
