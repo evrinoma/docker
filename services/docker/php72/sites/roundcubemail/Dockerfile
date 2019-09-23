@@ -23,6 +23,13 @@ COPY	ite-ng.ru /opt/WWW/ite-ng.ru
 ADD	init.roundcubemail /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.roundcubemail
 
+ADD	init.install /usr/local/bin
+ADD	init.sql /usr/local/bin
+ADD	init.conf /usr/local/bin
+RUN	chmod +x /usr/local/bin/init.install && \
+	chmod +x /usr/local/bin/init.sql && \
+	chmod +x /usr/local/bin/init.conf
+
 RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.key /etc/pki/CA/certs/ && \
 	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.pem /etc/pki/CA/certs/
 

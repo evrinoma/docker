@@ -1,0 +1,25 @@
+#!/bin/bash
+pass=$1
+srcLink=$2
+serverSql=172.18.2.1
+serverSmtp=172.18.4.2
+DIR="/opt/WWW/container.ite-ng.ru/projects/roundcubemail"
+if [ ! -z "$pass" ]; then
+	if [ ! -d "$DIR" ]; then
+		mkdir -v $DIR
+		if [ -z "$srcLink" ]; then
+			git clone https://github.com/roundcube/roundcubemail.git $DIR
+		else
+			wget $srcLink -O /tmp/roundcube.src
+			tar -zxf /tmp/roundcube.src -C $DIR
+			roundcubemail=$(ls $DIR)
+			echo $roundcubemail
+			cp -rp $DIR/$roundcubemail/* $DIR
+			rm -r $DIR/$roundcubemail
+			rm -r /tmp/roundcube.src
+		fi
+		cd $DIR
+		init.sql $pass $serverSql $DIR
+		init.conf $serverSql $serverSmtp $DIR
+	fi
+fi
