@@ -60,8 +60,17 @@ RUN	groupadd  -g 2000 vmail && \
 #	chown -R vmail.vmail /var/run/dovecot/
 	chown -R vmail.vmail /var/log/dovecot/
 
-RUN	yum -y install php72w php72w-mysql php72w-cli php72w-ldap
+#postfixadmin install
+RUN	yum -y install httpd php72w php72w-mysql php72w-cli php72w-ldap php72w-mbstring php72w-imap
 RUN	systemctl enable dovecot && systemctl enable postfix
+
+COPY	postfixadmin/postfixadmin.conf /etc/httpd/conf.d/vhost.conf
+ADD	postfixadmin/init.install /usr/local/bin
+ADD	postfixadmin/init.sql /usr/local/bin
+ADD	postfixadmin/init.conf /usr/local/bin
+RUN	chmod +x /usr/local/bin/init.install && \
+	chmod +x /usr/local/bin/init.sql && \
+	chmod +x /usr/local/bin/init.conf
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80

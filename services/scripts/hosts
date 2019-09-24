@@ -32,6 +32,7 @@ echo $SQL"3	mssql.db" >> /etc/hosts
 
 echo $MAIL"1	dovecot" >> /etc/hosts
 echo $MAIL"2	dovecot.email" >> /etc/hosts
+echo $MAIL"2	$PREFIX72.postfixadmin" >> /etc/hosts
 
 echo $RABBIT"	rabbitmq" >> /etc/hosts
 
@@ -66,8 +67,7 @@ echo $PHP72"5	$PREFIX72.webldap5" >> /etc/hosts
 echo $PHP72"6	$PREFIX72.cont" >> /etc/hosts
 echo $PHP72"7	$PREFIX72.portal" >> /etc/hosts
 echo $PHP72"10	$PREFIX72.sqladmin" >> /etc/hosts
-echo $PHP72"11	$PREFIX72.postfixadmin" >> /etc/hosts
-echo $PHP72"12	$PREFIX72.roundcubemail" >> /etc/hosts
+echo $PHP72"11	$PREFIX72.roundcubemail" >> /etc/hosts
 
 echo $PHP72"3	pma" >> /etc/hosts
 
