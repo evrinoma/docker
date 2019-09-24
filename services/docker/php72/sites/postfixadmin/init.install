@@ -1,0 +1,14 @@
+#!/bin/bash
+pass=$1
+serverSql=172.18.2.1
+if [ ! -z "$pass" ]; then
+	DIR="/opt/WWW/container.ite-ng.ru/projects/postfixadmin"
+	if [ ! -d "$DIR" ]; then
+		mkdir -v $DIR
+		git clone https://github.com/postfixadmin/postfixadmin.git $DIR
+		cd $DIR
+		git checkout postfixadmin-3.2.2
+		init.sql $pass $serverSql
+		init.conf $serverSql
+	fi
+fi
