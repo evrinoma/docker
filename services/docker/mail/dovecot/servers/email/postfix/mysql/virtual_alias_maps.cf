@@ -1,4 +1,4 @@
-hosts = email.ite-ng.ru
+hosts = 172.18.2.1
 user = postfix
 password = postfix
 dbname = postfix

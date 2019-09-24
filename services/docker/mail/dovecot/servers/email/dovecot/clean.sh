@@ -6,3 +6,4 @@ echo "" > $FOLD_LOG/errors.log
 echo "" > $FOLD_LOG/info.log
 echo "" > $FOLD_LOG/main.log
 echo "" > $FOLD_LOG/auth.log
+chown -R vmail:vmail $FOLD_LOG
