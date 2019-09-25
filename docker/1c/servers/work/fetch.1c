@@ -1,3 +1,3 @@
 #!/bin/bash
 #включить отладку
-sed -i -e "/G_TITLE\=/s/.*/&\nSRV1CV8_DEBUG\=1/" srv1cv83
+sed -i -e "/G_TITLE\=/s/.*/&\nSRV1CV8_DEBUG\=1/" /etc/init.d/srv1cv83
