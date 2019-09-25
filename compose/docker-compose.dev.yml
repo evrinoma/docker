@@ -8,8 +8,8 @@ services:
             context: docker/db/maria/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/services/src/db/maria/:/var/lib/mysql"
-            - "/opt/DISK/Develop/Docker/services/src/logs/mariadb/:/var/log/mariadb"
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
             virt:
                 ipv4_address: 172.18.2.1
@@ -21,7 +21,7 @@ services:
             context: docker/php72/sites/roundcubemail/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.11
@@ -33,7 +33,7 @@ services:
 #            context: docker/mail/dovecot/.
 #            dockerfile: Dockerfile
 #        volumes:
-#            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
 #        networks:
 #            virt:
 #                ipv4_address: 172.18.4.1
@@ -48,7 +48,7 @@ services:
             dockerfile: Dockerfile
         volumes:
 #            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-            - "/opt/DISK/Develop/Docker/services/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.4.2
