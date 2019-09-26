@@ -24,8 +24,8 @@ iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --d
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 995 -j DNAT --to-destination $IP:995
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 995 -j ACCEPT
 
-iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8080 -j DNAT --to-destination $IP:8080
-iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 8080 -j ACCEPT
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8080 -j DNAT --to-destination $IP:80
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 80 -j ACCEPT
 
 IP=172.18.72.11
 echo '['$IP']'
