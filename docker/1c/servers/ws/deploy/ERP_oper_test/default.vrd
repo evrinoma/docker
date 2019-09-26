@@ -3,7 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/ERP_oper_test"
-		ib="Srvr=&quot;172.20.1.26&quot;;Ref=&quot;ERP_oper_test&quot;;">
+		ib="Srvr=&quot;iteng26&quot;;Ref=&quot;ERP_oper_test&quot;;">
 	<standardOdata enable="true"
 			reuseSessions="autouse"
 			sessionMaxAge="20"

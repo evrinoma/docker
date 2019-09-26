@@ -26,6 +26,7 @@ RUN	/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir upp2012 -dir /opt/WWW/1c.ite-ng
 	/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir erp_nek2019 -dir /opt/WWW/1c.ite-ng.ru/erp_nek2019/ -connstr "Srvr=172.20.1.26;Ref=erp_nek2019;" -confPath /etc/httpd/conf.d/1c.conf -descriptor /etc/httpd/deploy/default_erp_nek2019.vrd && \
 	/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir bp_kzet -dir /opt/WWW/1c.ite-ng.ru/bp_kzet/ -connstr "Srvr=172.20.1.26;Ref=bp_kzet;" -confPath /etc/httpd/conf.d/1c.conf -descriptor /etc/httpd/deploy/default_bp_kzet.vrd && \
 	/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir zup_kzet -dir /opt/WWW/1c.ite-ng.ru/zup_kzet/ -connstr "Srvr=172.20.1.26;Ref=zup_kzet;" -confPath /etc/httpd/conf.d/1c.conf -descriptor /etc/httpd/deploy/default_zup_kzet.vrd && \
-	/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir zup_nek -dir /opt/WWW/1c.ite-ng.ru/zup_nek/ -connstr "Srvr=172.20.1.26;Ref=zup_nek;" -confPath /etc/httpd/conf.d/1c.conf -descriptor /etc/httpd/deploy/default_zup_nek.vrd
+	/opt/1C/v8.3/x86_64/webinst -apache24 -wsdir zup_nek -dir /opt/WWW/1c.ite-ng.ru/zup_nek/ -connstr "Srvr=172.20.1.26;Ref=zup_nek;" -confPath /etc/httpd/conf.d/1c.conf -descriptor /etc/httpd/deploy/default_zup_nek.vrd && \
+	/opt/1C/v8.3/x86_64/webinst -apache22 -wsdir bp_nek -dir /opt/WWW/app.ite-ng.ru/1c/bp_nek/ -connstr "Srvr=172.20.1.94;Ref=bp_nek;" -confPath /etc/httpd/dump.d/1c.conf -descriptor 1c/default_bp_nek.vrd
 
 RUN	chown -R apache.apache /opt/WWW/1c.ite-ng.ru

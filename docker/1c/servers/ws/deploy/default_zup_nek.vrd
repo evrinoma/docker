@@ -3,23 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/zup_nek"
-		ib="Srvr=&quot;iteng26&quot;;Ref=&quot;zup_nek&quot;;">
-	<httpServices publishByDefault="false">
-		<service name="ChatbotsWebhook"
-				rootUrl="ChatbotsWebhook"
-				enable="false"
-				reuseSessions="autouse"
-				sessionMaxAge="20"
-				poolSize="10"
-				poolTimeout="5"/>
-		<service name="ПередачаДанных"
-				rootUrl="dt"
-				enable="false"
-				reuseSessions="use"
-				sessionMaxAge="20"
-				poolSize="10"
-				poolTimeout="5"/>
-	</httpServices>
+		ib="Srvr=&quot;1Cdebug&quot;;Ref=&quot;zup_nek&quot;;">
 	<standardOdata enable="true"
 			reuseSessions="autouse"
 			sessionMaxAge="20"
@@ -132,4 +116,20 @@
 				poolSize="10"
 				poolTimeout="5"/>
 	</ws>
+	<httpServices>
+		<service name="ChatbotsWebhook"
+				rootUrl="ChatbotsWebhook"
+				enable="true"
+				reuseSessions="autouse"
+				sessionMaxAge="20"
+				poolSize="10"
+				poolTimeout="5"/>
+		<service name="ПередачаДанных"
+				rootUrl="dt"
+				enable="true"
+				reuseSessions="use"
+				sessionMaxAge="20"
+				poolSize="10"
+				poolTimeout="5"/>
+	</httpServices>
 </point>

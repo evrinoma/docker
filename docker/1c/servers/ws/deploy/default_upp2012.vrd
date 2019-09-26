@@ -3,7 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/upp2012"
-		ib="Srvr=&quot;172.20.1.26&quot;;Ref=&quot;upp2012&quot;;">
+		ib="Srvr=&quot;iteng26&quot;;Ref=&quot;upp2012&quot;;">
 	<ws>
 		<point name="Buh1c"
 				alias="Buh1c.1cws"
