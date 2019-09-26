@@ -1,3 +1,5 @@
 #!/bin/bash
-chown -R 27.27 src/db
-chown -R daemon daemon src/jira
+ROOT='../src'
+chown -R 27.27 $ROOT/db/maria
+chown -R 27.27 $ROOT/logs/mariadb
+chown -R daemon daemon $ROOT/jira
