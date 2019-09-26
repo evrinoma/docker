@@ -1,10 +1,12 @@
 #!/bin/bash
 
 pass=$1
+DIR=/opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/
 if [ ! -z "$pass" ]; then
     openssl rsa -in /etc/postfix/certs/certs/ca.key -out /etc/postfix/certs/certs/ca.rsa.key -passin 'pass:'$pass
     cp /etc/postfix/certs/certs/ca.rsa.key /etc/dovecot/ca.key
-    cp /etc/dovecot/ca.pem /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/
-    cp /etc/dovecot/ca.key /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/
+    mkdir -p $DIR
+    cp /etc/dovecot/ca.pem $DIR
+    cp /etc/dovecot/ca.key $DIR
 fi
 
