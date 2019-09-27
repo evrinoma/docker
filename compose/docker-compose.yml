@@ -73,7 +73,7 @@ services:
         container_name: "master.cont"
         image: "evrinoma/master.cont.ite-ng.ru"
         build:
-            context: docker/master/cont/.
+            context: docker/tests/cont/master/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -85,7 +85,7 @@ services:
         container_name: "test.cont"
         image: "evrinoma/test.cont.ite-ng.ru"
         build:
-            context: docker/test/sites/cont/.
+            context: docker/tests/cont/test/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
