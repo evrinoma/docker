@@ -1,0 +1,57 @@
+version: '2'
+services:
+    containerdb:
+        container_name: "mysql8"
+        image: mysql:8.0.1
+        ports:
+            - 3306:3306
+        volumes:
+            - ./sql-data/mysql-8.0.1:/var/lib/mysql
+        environment:
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: 1234
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
+
+    cont_master:
+        container_name: "cont_master"
+        build:
+            context: docker/master/.
+            dockerfile: Dockerfile
+        ports:
+            - 8080:80
+            - 0.0.0.0:822:22
+        volumes:
+            - ./cont:/opt/WWW/container.ite-ng.ru
+        networks:
+            virt:
+                ipv4_address: 172.18.2.5
+
+    cont_test:
+        container_name: "cont_test"
+        build:
+            context: docker/test/.
+            dockerfile: Dockerfile
+        ports:
+            - 8090:80
+            - 0.0.0.0:922:22
+        volumes:
+            - ./cont:/opt/WWW/container.ite-ng.ru
+        networks:
+            virt:
+                ipv4_address: 172.18.2.6
+
+
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
+
+
