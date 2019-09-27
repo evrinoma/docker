@@ -42,8 +42,8 @@ emailAddress		= optional
 prompt			= no
 distinguished_name	= certificate_authority
 default_bits		= 4096
-input_password		= rjk,fcf2008
-output_password		= rjk,fcf2008
+input_password		= dovecotPassword
+output_password		= dovecotPassword
 x509_extensions		= v3_ca
 
 [certificate_authority]
@@ -51,11 +51,9 @@ countryName		= RU
 stateOrProvinceName	= Russia
 localityName		= Moscow
 organizationName	= Intertechelectro CJSC.
-#0.organizationName	= Intertechelectro CJSC.
 organizationalUnitName	= Intertechelectro CJSC.
 emailAddress		= admin@ite-ng.ru
-#commonName		= email.ite-ng.ru
-commonName		= php72.roundcubemail
+commonName		= email.ite-ng.ru
 
 [v3_ca]
 subjectKeyIdentifier	= hash

@@ -1,12 +1,23 @@
 #!/bin/bash
 
 pass=$1
-DIR=/opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/
+storeDir=/opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/
+keyFile=ca.key
+pemFile=ca.pem
+certPostfix=/etc/postfix/certs/certs
+certDovecot=/etc/dovecot
 if [ ! -z "$pass" ]; then
-    openssl rsa -in /etc/postfix/certs/certs/ca.key -out /etc/postfix/certs/certs/ca.rsa.key -passin 'pass:'$pass
-    cp /etc/postfix/certs/certs/ca.rsa.key /etc/dovecot/ca.key
-    mkdir -p $DIR
-    cp /etc/dovecot/ca.pem $DIR
-    cp /etc/dovecot/ca.key $DIR
+	sed -i -e "s/\= dovecotPassword/\= $pass/" $certPostfix/ca.cnf
+	sed -i -e "s/\= dovecotPassword/\= $pass/" $certPostfix/server.cnf
+	sed -i -e "s/\= dovecotPassword/\= $pass/" $certPostfix/client.cnf
+	cd $certPostfix && make ca && cp $certPostfix/$pemFile /etc/dovecot/$pemFile && \
+	openssl rsa -in $certPostfix/$keyFile -out $certPostfix/ca.rsa.key -passin 'pass:'$pass
+	cp $certPostfix/ca.rsa.key /etc/dovecot/$keyFile
+	mkdir -p $storeDir
+	cp $certPostfix/$pemFile $storeDir
+	cp $certPostfix/$keyFile $storeDir
 fi
-
+if [ -d "$storeDir" ]  && [ -e "$storeDir/$pemFile" ] && [ -e "$storeDir/$pemFile" ]; then
+	cp $storeDir/$pemFile $certDovecot
+	cp $storeDir/$keyFile $certDovecot
+fi

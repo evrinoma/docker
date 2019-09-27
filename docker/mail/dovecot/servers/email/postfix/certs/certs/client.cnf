@@ -41,15 +41,14 @@ emailAddress		= optional
 prompt			= no
 distinguished_name	= client
 default_bits		= 4096
-input_password		= rjk,fcf2008
-output_password		= rjk,fcf2008
+input_password		= dovecotPassword
+output_password		= dovecotPassword
 
 [client]
 countryName             = RU
 stateOrProvinceName     = Russia
 localityName            = Moscow
 organizationName        = Intertechelectro CJSC.
-#0.organizationName     = Intertechelectro CJSC.
 organizationalUnitName  = Intertechelectro CJSC.
 emailAddress            = admin@ite-ng.ru
 commonName              = email.ite-ng.ru

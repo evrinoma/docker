@@ -17,6 +17,7 @@ services:
     php72_roundcubemail:
         container_name: "php72.roundcubemail"
         image: "evrinoma/php72.roundcubemail"
+        hostname: "email.ite-ng.ru"
         build:
             context: docker/php72/sites/roundcubemail/.
             dockerfile: Dockerfile

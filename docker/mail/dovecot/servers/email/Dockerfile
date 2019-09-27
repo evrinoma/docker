@@ -22,9 +22,6 @@ COPY	dovecot /etc/dovecot
 COPY	init.openssl /usr/local/bin/init.openssl
 RUN	chmod +x /usr/local/bin/init.openssl
 
-RUN	cd /etc/postfix/certs/certs && make ca && cp /etc/postfix/certs/certs/ca.pem /etc/dovecot/ca.pem && \
-	openssl rsa -in /etc/postfix/certs/certs/ca.key -out /etc/postfix/certs/certs/ca.rsa.key -passin 'pass:rjk,fcf2008' && \
-	cp /etc/postfix/certs/certs/ca.rsa.key /etc/dovecot/ca.key && \
-	ln -s /tmp/auth.log /var/log/dovecot/
+RUN	ln -s /tmp/auth.log /var/log/dovecot/
 
 EXPOSE 25 110 143 993 995
