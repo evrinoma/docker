@@ -3,7 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/bp_kzet"
-		ib="Srvr=&quot;iteng26&quot;;Ref=&quot;bp_kzet&quot;;">
+		ib="Srvr=172.20.1.13;Ref=&quot;bp_kzet&quot;;">
 	<standardOdata enable="true"
 			reuseSessions="autouse"
 			sessionMaxAge="20"

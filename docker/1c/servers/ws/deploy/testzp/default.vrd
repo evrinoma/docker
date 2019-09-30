@@ -3,7 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/testzp"
-		ib="Srvr=172.20.1.26;Ref=testzp;Usr=SOAP;Pwd=1234567;">
+		ib="Srvr=172.20.1.13;Ref=testzp;Usr=SOAP;Pwd=1234567;">
 	<standardOdata enable="false"
 			reuseSessions="dontuse"
 			sessionMaxAge="20"

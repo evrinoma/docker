@@ -3,7 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/doc_nek2017"
-		ib="Srvr=&quot;iteng26&quot;;Ref=&quot;doc_nek2017&quot;;">
+		ib="Srvr=172.20.1.13;Ref=&quot;doc_nek2017&quot;;">
 	<httpServices publishByDefault="false"/>
 	<standardOdata enable="true"
 			reuseSessions="autouse"

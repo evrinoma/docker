@@ -3,7 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/doc2017"
-		ib="Srvr=172.20.1.26;Ref=doc2017;">
+		ib="Srvr=172.20.1.13;Ref=doc2017;">
 	<ws enable="false"/>
 	<standardOdata enable="false"
 			reuseSessions="autouse"

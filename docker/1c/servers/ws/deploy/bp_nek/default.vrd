@@ -3,8 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/bp_nek"
-		ib="Srvr=&quot;1cdebug&quot;;Ref=&quot;bp_nek&quot;;"
-		allowexecutescheduledjobs="">
+		ib="Srvr=&quot;1Cdebug&quot;;Ref=&quot;bp_nek&quot;;">
 	<standardOdata enable="true"
 			reuseSessions="autouse"
 			sessionMaxAge="20"
@@ -141,6 +140,13 @@
 				alias="RemoteControl.1cws"
 				enable="true"
 				reuseSessions="dontuse"
+				sessionMaxAge="20"
+				poolSize="10"
+				poolTimeout="5"/>
+		<point name="Buh1c"
+				alias="Buh1c.1cws"
+				enable="true"
+				reuseSessions="autouse"
 				sessionMaxAge="20"
 				poolSize="10"
 				poolTimeout="5"/>

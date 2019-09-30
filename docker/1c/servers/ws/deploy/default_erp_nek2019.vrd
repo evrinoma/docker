@@ -3,7 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/erp_nek2019"
-		ib="Srvr=&quot;iteng26&quot;;Ref=&quot;erp_nek2019&quot;;">
+		ib="Srvr=172.20.1.13;Ref=&quot;erp_nek2019&quot;;">
 	<httpServices publishByDefault="false">
 		<service name="ПередачаДанных"
 				rootUrl="dt"
