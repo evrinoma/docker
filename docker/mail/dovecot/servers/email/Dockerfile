@@ -25,7 +25,7 @@ RUN	chmod +x /usr/local/bin/init.openssl
 RUN	ln -s /tmp/auth.log /var/log/dovecot/
 
 RUN	sed -i '1s/^/\n/' /etc/supervisord.d/supervisor.conf && \
-	sed -i '1s/^/command=chown -R vmail.vmail /etc/dovecot/log/\n/' /etc/supervisord.d/supervisor.conf && \
+	sed -i '1s/^/command=chown -R vmail.vmail \/etc\/dovecot\/log\/\n/' /etc/supervisord.d/supervisor.conf && \
 	sed -i '1s/^/[program:permissions]\n/' /etc/supervisord.d/supervisor.conf
 
 RUN	sed -i '1s/^/\n/' /etc/supervisord.d/supervisor.conf && \
