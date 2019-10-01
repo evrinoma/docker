@@ -17,7 +17,9 @@ services:
     bind_slave:
         container_name: "bind.slave"
         image: "evrinoma/bind.slave"
-        hostname: "maria.db"
+        hostname: "bind.slave"
+#        dns:
+#            - 172.16.45.4
         build:
             context: docker/bind/server/email/.
             dockerfile: Dockerfile

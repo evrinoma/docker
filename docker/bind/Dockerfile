@@ -55,4 +55,4 @@ RUN	mkdir -p /var/named && \
 	chown -R named.named /var/log/named
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
-EXPOSE 53 8953
+EXPOSE 22 53 8953

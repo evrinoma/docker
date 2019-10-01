@@ -33,6 +33,9 @@ echo '['$IP']'
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 53 -j DNAT --to-destination $IP:53
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 53 -j ACCEPT
 
+iptables -t nat -A DOCKER ! -i $bridge -p udp -m udp --dport 53 -j DNAT --to-destination $IP:53
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p udp -m udp --dport 53 -j ACCEPT
+
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8953 -j DNAT --to-destination $IP:8953
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 8953 -j ACCEPT
 
