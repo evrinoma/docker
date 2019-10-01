@@ -18,8 +18,6 @@ services:
         container_name: "bind.slave"
         image: "evrinoma/bind.slave"
         hostname: "bind.slave"
-#        dns:
-#            - 172.16.45.4
         build:
             context: docker/bind/server/email/.
             dockerfile: Dockerfile
@@ -46,6 +44,7 @@ services:
         container_name: "dovecot.email"
         image: "evrinoma/dovecot.email"
         hostname: "email.ite-ng.ru"
+        dns: 172.18.5.2
         build:
             context: docker/mail/dovecot/servers/email/.
             dockerfile: Dockerfile
