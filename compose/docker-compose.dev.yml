@@ -25,6 +25,42 @@ services:
             virt:
                 ipv4_address: 172.18.72.6
 
+    php72_tools:
+        container_name: "php72.tools"
+        image: "evrinoma/php72.tools"
+        build:
+            context: docker/php72/sites/tools/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.4
+
+    php53_kis_ite-ng_ru:
+        container_name: "php53.kis"
+        image: "evrinoma/php53.kis.ite-ng.ru"
+        build:
+            context: docker/php53/sites/kis.ite-ng.ru/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.3
+
+    php53_kis_new_ite-ng_ru:
+        container_name: "php53.kisnew"
+        image: "evrinoma/php53.kisnew.ite-ng.ru"
+        build:
+            context: docker/php53/sites/kisnew.ite-ng.ru/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.4
+
 networks:
     virt:
         driver: bridge
