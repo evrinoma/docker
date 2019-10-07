@@ -8,8 +8,10 @@ services:
             context: docker/db/maria/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/docker/src/db/maria/:/var/lib/mysql"
-            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
+#            - "/opt/docker/src/db/maria/:/var/lib/mysql"
+#            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
             virt:
                 ipv4_address: 172.18.2.1
@@ -17,12 +19,13 @@ services:
     bind_master:
         container_name: "bind.slave"
         image: "evrinoma/bind.slave"
-        hostname: "bind.slave"
+        hostname: "bind.master"
         build:
             context: docker/bind/server/mail/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.5.1
