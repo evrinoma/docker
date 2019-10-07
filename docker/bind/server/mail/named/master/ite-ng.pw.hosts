@@ -1,0 +1,13 @@
+$ttl 38400
+ite-ng.pw.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
+			201712281
+			10800
+			3600
+			2419200
+			10800 )
+ite-ng.pw.		IN	NS		ns.ite-ng.ru.
+ite-ng.pw.		IN	NS		ns2.ite-ng.ru.
+ite-ng.pw.		IN	A		81.211.68.180
+www.ite-ng.pw.		IN	A		81.211.68.180
+eng.ite-ng.pw.		IN	A		81.211.68.180
+

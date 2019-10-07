@@ -1,0 +1,112 @@
+	zone "51.186.194.in-addr.arpa" {
+		type master;
+		file "/etc/named/master/194.186.51.rev";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "130.39.92.in-addr.arpa" {
+		type master;
+		file "/etc/named/master/92.39.130.rev";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "ite-ng.ru" {
+		type master;
+		file "/etc/named/master/ite-ng.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "ite-group.ru" {
+		type master;
+		file "/etc/named/master/ite-group.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "ite-ng.com" {
+		type master;
+		file "/etc/named/master/ite-ng.com.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "ite-eg.ru" {
+		type master;
+		file "/etc/named/master/ite-eg.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "intertechelectro.com" {
+		type master;
+		file "/etc/named/master/intertechelectro.com.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "intertechelectro.ru" {
+		type master;
+		file "/etc/named/master/intertechelectro.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "ipark45.ru" {
+		type master;
+		file "/etc/named/master/ipark45.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "xn--45-6kcasxbjkhse1aihhrq3nsa.xn--p1ai" {
+		type master;
+		file "/etc/named/master/industrialnypark45.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "lazurnoe.net" {
+		type master;
+		file "/etc/named/master/lazurnoe.net.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "citypoint-mf.ru" {
+		type master;
+		file "/etc/named/master/citypoint-mf.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "ite-ng.pw" {
+		type master;
+		file "/etc/named/master/ite-ng.pw.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "kzkt45.ru" {
+		type master;
+		file "/etc/named/master/kzkt45.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "XN--E1AAAJNELNNEPCE2BYI.XN--P1AI" {
+		type master;
+		file "/etc/named/master/intertekhelektro.rf.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "tts.ite-ng.ru" {
+		type master;
+		file "/etc/named/master/tts.ite-ng.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "tm.ite-ng.ru" {
+		type master;
+		file "/etc/named/master/tm.ite-ng.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "nekeng.ru" {
+		type master;
+		file "/etc/named/master/nekeng.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "xn--c1affbaajxccc8a3m.xn--p1ai" {
+		type master;
+		file "/etc/named/master/nekinzhiniring.rf.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "iteproject.ru" {
+		type master;
+		file "/etc/named/master/iteproject.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "xn----jtbhksfhng7h.xn--p1ai" {
+		type master;
+		file "/etc/named/master/ite-project.rf.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+	zone "kzet45.ru" {
+		type master;
+		file "/etc/named/master/kzet45.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
+
+

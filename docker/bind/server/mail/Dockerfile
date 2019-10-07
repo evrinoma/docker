@@ -6,18 +6,16 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma bind Image" \
-	image="email bind" \
+	image="mail bind" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2019-10-01"
+	build-date="2019-10-07"
 
 RUN	mv -v /etc/named.conf{,.bak} && \
-	mkdir -p /var/named/internal && \
-	mkdir -p /var/named/external && \
+	mv -v /etc/named{.bak} && \
 	chown -R named.named /var/named
-
 
 COPY	named.conf /etc
 COPY	named.external.zones /etc
-COPY	named.internal.zones /etc
+COPY	named/ /etc
 

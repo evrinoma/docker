@@ -1,0 +1,200 @@
+$ttl 38400
+ite-ng.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
+			2019092401
+			10800
+			3600
+			2419200
+			10800 )
+ite-ng.ru.		IN	NS		ns.ite-ng.ru.
+ite-ng.ru.		IN	NS		ns2.ite-ng.ru.
+ite-ng.ru.		IN	TXT		"v=spf1 mx ptr ip4:81.211.68.180 ip4:81.211.68.179 mx:mx1.ite-ng.ru a:mail.ite-ng.ru mx:mail.ite-ng.ru -all"
+ite-ng.ru.		IN	SPF		"v=spf1 mx ptr ip4:81.211.68.180 ip4:81.211.68.179 mx:mx1.ite-ng.ru a:mail.ite-ng.ru mx:mail.ite-ng.ru -all"
+_dmarc.ite-ng.ru.	3600	IN	TXT	"v=DMARC1; p=none; sp=none; rua=mailto:abuse@ite-ng.ru; rf=afrf; pct=100; ri=86400"
+_domainkey.ite-ng.ru.		IN	TXT	"t=y;o=~;"
+mail._domainkey.ite-ng.ru.	IN	TXT	(
+"v=DKIM1;k=rsa;"
+"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7N9nLFcA+Sb1GL33eSJVN"
+"nm+Ki8YLT5zOx3z8iKRFxmyt9Dhc0TGP3f0UDA5Wv8nOPsVWXDtv2n5L+p7mIVN4xXL"
+"ObTj9A3xjvq7DETG0D+uslhDeH2nIMl3A6LFvEAquhEDab1ruFSiNrPBD2aFE5tqzNa"
+"Svn8r4Q9XyIvoXuRkxADFovinv2iKdNUr9wr4XGN26xU/631XNjfp1B853M0KRmF3Cf"
+"STLWxZlNrww21euiS7Oj7bkjJ0vx8KNGTloGDfSaR1qZ84RgygIRkg//Clc+wQbUv7s"
+"Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
+)
+
+ite-ng.ru.		IN	A		81.211.68.180
+fw.ite-ng.ru.		IN	A		81.211.68.178
+vpn.ite-ng.ru.		IN	A		81.211.68.178
+mail.ite-ng.ru.		IN	A		81.211.68.179
+ns.ite-ng.ru.		IN	A		81.211.68.180
+mx1.ite-ng.ru.		IN	A		81.211.68.180
+www.ite-ng.ru.		IN	A		81.211.68.180
+git.ite-ng.ru.		IN	A		81.211.68.180
+rtsp.ite-ng.ru.		IN	A		81.211.68.180
+gw.ite-ng.ru.		IN	A		81.211.68.181
+admin.ite-ng.ru.	IN	A		81.211.68.190
+
+fw2.ite-ng.ru.		IN	A		217.22.164.2
+polycom.ite-ng.ru.	IN	A		217.22.164.3
+urbd.ite-ng.ru.		IN	A		217.22.164.4
+git.ite-ng.ru.		IN	A		217.22.164.5
+ns3.ite-ng.ru.		IN	A		217.22.164.7
+
+ns2.ite-ng.ru.		IN	A		92.62.129.23
+email.ite-ng.ru.	IN	A		92.62.129.23
+vpn2.ite-ng.ru.		IN	A		92.62.129.22
+vpbx.ite-ng.ru.		IN	A		92.62.129.29
+
+#git.ite-ng.ru.		IN	CNAME		ns2.ite-ng.ru.
+askue.ite-ng.ru.	IN	CNAME		ns.ite-ng.ru.
+jp.ite-ng.ru.		IN	CNAME		ns.ite-ng.ru.
+ecm.ite-ng.ru.		IN	CNAME		ns.ite-ng.ru.
+cam.ite-ng.ru.		IN	CNAME		ns.ite-ng.ru.
+cloud.ite-ng.ru.	IN	CNAME		ns.ite-ng.ru.
+eng.ite-ng.ru.		IN	CNAME		www.ite-ng.ru.
+
+ite-ng.ru.		IN	MX	10	mx1.ite-ng.ru.
+
+#tm.ite-ng.ru		IN	NS		ns.ite-ng.ru.
+tm			IN	A		91.144.130.88
+pdc2.tm			IN	A		91.144.130.88
+tm			IN	MX	10	mx1.ite-ng.ru.
+
+#tts.ite-ng.ru		IN	NS		ns.ite-ng.ru.
+tts			IN	A		91.144.130.88
+pdc2.tts		IN	A		91.144.130.88
+tts			IN	MX	10	mx1.ite-ng.ru.
+
+ur.ite-ng.ru.		IN	TXT		"v=spf1 a mx ptr a:mail.ur.ite-ng.ru mx:mx1.ur.ite-ng.ru ip4:62.168.240.3 ip4:81.211.68.180 ip4:81.211.68.179 -all"
+ur.ite-ng.ru.		IN	SPF		"v=spf1 a mx ptr a:mail.ur.ite-ng.ru mx:mx1.ur.ite-ng.ru ip4:62.168.240.3 ip4:81.211.68.180 ip4:81.211.68.179 -all"
+_dmarc.ur.ite-ng.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@ite-ng.ru"
+_domainkey.ur.ite-ng.ru.	IN	TXT	"t=y;o=~;"
+mail._domainkey.ur.ite-ng.ru.	IN	TXT	(
+"v=DKIM1;k=rsa;"
+"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7N9nLFcA+Sb1GL33eSJVN"
+"nm+Ki8YLT5zOx3z8iKRFxmyt9Dhc0TGP3f0UDA5Wv8nOPsVWXDtv2n5L+p7mIVN4xXL"
+"ObTj9A3xjvq7DETG0D+uslhDeH2nIMl3A6LFvEAquhEDab1ruFSiNrPBD2aFE5tqzNa"
+"Svn8r4Q9XyIvoXuRkxADFovinv2iKdNUr9wr4XGN26xU/631XNjfp1B853M0KRmF3Cf"
+"STLWxZlNrww21euiS7Oj7bkjJ0vx8KNGTloGDfSaR1qZ84RgygIRkg//Clc+wQbUv7s"
+"Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
+)
+#ur.ite-ng.ru		IN	NS		ns.ite-ng.ru.
+fw.ur			IN	A		62.168.240.2
+wmail.ur		IN	A		62.168.240.2
+mail.ur			IN	A		62.168.240.3
+ur			IN	A		62.168.240.3
+mx1.ur			IN	A		62.168.240.3
+ns.ur			IN	A		62.168.240.4
+ur			IN	MX	20	mx1.ur.ite-ng.ru.
+ur			IN	MX	10	mx1.ite-ng.ru.
+ns.ur.ite-ng.ru		IN	CAA	0	issue "letsencrypt.org"
+wmail.ur.ite-ng.ru	IN	CAA	0	issue "letsencrypt.org"
+
+#ite1.ite-ng.ru		IN	NS		ns.ite-ng.ru.
+ite1			IN	A		212.46.208.50
+fw2.ite1		IN	A		212.46.208.50
+fw1.ite1		IN	A		217.9.154.189
+mail.ite1		IN	A		212.46.208.50
+ite1			IN	MX	10	mx1.ite-ng.ru.
+
+#ite2.ite-ng.ru		IN	NS		ns.ite-ng.ru.
+ite2			IN	A		79.175.42.31
+fw1.ite2		IN	A		79.175.42.31
+mail.ite2		IN	A		79.175.42.31
+fw2.ite2		IN	A		79.175.42.83
+ite2			IN	MX	10	mx1.ite-ng.ru.
+ite4			IN	A		83.146.116.39
+
+fw.ite4			IN	A		83.146.116.39
+mail.ite4		IN	A		83.146.116.39
+video.ite4		IN	A		83.146.116.47
+cam1.ite4		IN	CNAME		video.ite4.ite-ng.ru.
+ite4			IN	MX	10	mx1.ite-ng.ru.
+ite4.ite-ng.ru.		IN	TXT		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+ite4.ite-ng.ru.		IN	SPF		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+_dmarc.ite4.ite-ng.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@ite-ng.ru"
+_domainkey.ite4.ite-ng.ru.		IN	TXT	"t=y;o=~;"
+mail._domainkey.ite4.ite-ng.ru.	IN	TXT	(
+"v=DKIM1;k=rsa;"
+"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7N9nLFcA+Sb1GL33eSJVN"
+"nm+Ki8YLT5zOx3z8iKRFxmyt9Dhc0TGP3f0UDA5Wv8nOPsVWXDtv2n5L+p7mIVN4xXL"
+"ObTj9A3xjvq7DETG0D+uslhDeH2nIMl3A6LFvEAquhEDab1ruFSiNrPBD2aFE5tqzNa"
+"Svn8r4Q9XyIvoXuRkxADFovinv2iKdNUr9wr4XGN26xU/631XNjfp1B853M0KRmF3Cf"
+"STLWxZlNrww21euiS7Oj7bkjJ0vx8KNGTloGDfSaR1qZ84RgygIRkg//Clc+wQbUv7s"
+"Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
+)
+
+ite3			IN	MX	10	mx1.ite-ng.ru.
+ite3.ite-ng.ru.		IN	TXT		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+ite3.ite-ng.ru.		IN	SPF		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+_dmarc.ite3.ite-ng.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@ite-ng.ru"
+_domainkey.ite3.ite-ng.ru.		IN	TXT	"t=y;o=~;"
+mail._domainkey.ite3.ite-ng.ru.	IN	TXT	(
+"v=DKIM1;k=rsa;"
+"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7N9nLFcA+Sb1GL33eSJVN"
+"nm+Ki8YLT5zOx3z8iKRFxmyt9Dhc0TGP3f0UDA5Wv8nOPsVWXDtv2n5L+p7mIVN4xXL"
+"ObTj9A3xjvq7DETG0D+uslhDeH2nIMl3A6LFvEAquhEDab1ruFSiNrPBD2aFE5tqzNa"
+"Svn8r4Q9XyIvoXuRkxADFovinv2iKdNUr9wr4XGN26xU/631XNjfp1B853M0KRmF3Cf"
+"STLWxZlNrww21euiS7Oj7bkjJ0vx8KNGTloGDfSaR1qZ84RgygIRkg//Clc+wQbUv7s"
+"Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
+)
+
+ite6			IN	MX	10	mx1.ite-ng.ru.
+ite6.ite-ng.ru.		IN	TXT		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+ite6.ite-ng.ru.		IN	SPF		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+_dmarc.ite6.ite-ng.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@ite-ng.ru"
+_domainkey.ite6.ite-ng.ru.		IN	TXT	"t=y;o=~;"
+mail._domainkey.ite6.ite-ng.ru.	IN	TXT	(
+"v=DKIM1;k=rsa;"
+"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7N9nLFcA+Sb1GL33eSJVN"
+"nm+Ki8YLT5zOx3z8iKRFxmyt9Dhc0TGP3f0UDA5Wv8nOPsVWXDtv2n5L+p7mIVN4xXL"
+"ObTj9A3xjvq7DETG0D+uslhDeH2nIMl3A6LFvEAquhEDab1ruFSiNrPBD2aFE5tqzNa"
+"Svn8r4Q9XyIvoXuRkxADFovinv2iKdNUr9wr4XGN26xU/631XNjfp1B853M0KRmF3Cf"
+"STLWxZlNrww21euiS7Oj7bkjJ0vx8KNGTloGDfSaR1qZ84RgygIRkg//Clc+wQbUv7s"
+"Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
+)
+
+ite7			IN	MX	10	mx1.ite-ng.ru.
+ite7.ite-ng.ru.		IN	TXT		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+ite7.ite-ng.ru.		IN	SPF		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+_dmarc.ite7.ite-ng.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@ite-ng.ru"
+_domainkey.ite7.ite-ng.ru.		IN	TXT	"t=y;o=~;"
+mail._domainkey.ite7.ite-ng.ru.	IN	TXT	(
+"v=DKIM1;k=rsa;"
+"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7N9nLFcA+Sb1GL33eSJVN"
+"nm+Ki8YLT5zOx3z8iKRFxmyt9Dhc0TGP3f0UDA5Wv8nOPsVWXDtv2n5L+p7mIVN4xXL"
+"ObTj9A3xjvq7DETG0D+uslhDeH2nIMl3A6LFvEAquhEDab1ruFSiNrPBD2aFE5tqzNa"
+"Svn8r4Q9XyIvoXuRkxADFovinv2iKdNUr9wr4XGN26xU/631XNjfp1B853M0KRmF3Cf"
+"STLWxZlNrww21euiS7Oj7bkjJ0vx8KNGTloGDfSaR1qZ84RgygIRkg//Clc+wQbUv7s"
+"Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
+)
+
+
+ite8			IN	MX	10	mx1.ite-ng.ru.
+ite8.ite-ng.ru.		IN	TXT		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+ite8.ite-ng.ru.		IN	SPF		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+_dmarc.ite8.ite-ng.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@ite-ng.ru"
+_domainkey.ite8.ite-ng.ru.		IN	TXT	"t=y;o=~;"
+mail._domainkey.ite8.ite-ng.ru.	IN	TXT	(
+"v=DKIM1;k=rsa;"
+"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7N9nLFcA+Sb1GL33eSJVN"
+"nm+Ki8YLT5zOx3z8iKRFxmyt9Dhc0TGP3f0UDA5Wv8nOPsVWXDtv2n5L+p7mIVN4xXL"
+"ObTj9A3xjvq7DETG0D+uslhDeH2nIMl3A6LFvEAquhEDab1ruFSiNrPBD2aFE5tqzNa"
+"Svn8r4Q9XyIvoXuRkxADFovinv2iKdNUr9wr4XGN26xU/631XNjfp1B853M0KRmF3Cf"
+"STLWxZlNrww21euiS7Oj7bkjJ0vx8KNGTloGDfSaR1qZ84RgygIRkg//Clc+wQbUv7s"
+"Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
+)
+
+ite9			IN	MX	10	mx1.ite-ng.ru.
+ite9.ite-ng.ru.		IN	TXT		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+ite9.ite-ng.ru.		IN	SPF		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+_dmarc.ite9.ite-ng.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@ite-ng.ru"
+_domainkey.ite9.ite-ng.ru.		IN	TXT	"t=y;o=~;"
+mail._domainkey.ite9.ite-ng.ru.	IN	TXT	(
+"v=DKIM1;k=rsa;"
+"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7N9nLFcA+Sb1GL33eSJVN"
+"nm+Ki8YLT5zOx3z8iKRFxmyt9Dhc0TGP3f0UDA5Wv8nOPsVWXDtv2n5L+p7mIVN4xXL"
+"ObTj9A3xjvq7DETG0D+uslhDeH2nIMl3A6LFvEAquhEDab1ruFSiNrPBD2aFE5tqzNa"
+"Svn8r4Q9XyIvoXuRkxADFovinv2iKdNUr9wr4XGN26xU/631XNjfp1B853M0KRmF3Cf"
+"STLWxZlNrww21euiS7Oj7bkjJ0vx8KNGTloGDfSaR1qZ84RgygIRkg//Clc+wQbUv7s"
+"Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
+)

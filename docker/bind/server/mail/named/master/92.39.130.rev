@@ -1,0 +1,9 @@
+$ttl 38400
+130.39.92.in-addr.arpa.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
+			2016060903
+			10800
+			3600
+			604800
+			38400 )
+130.39.92.in-addr.arpa.		IN	NS		ns.ite-ng.ru.
+115.130.39.92.in-addr.arpa.	IN	PTR		term.ite-ng.ru.

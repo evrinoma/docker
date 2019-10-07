@@ -1,0 +1,10 @@
+$ttl 38400
+xn--c1affbaajxccc8a3m.xn--p1ai.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
+			201712121
+			10800
+			3600
+			2419200
+			10800 )
+xn--c1affbaajxccc8a3m.xn--p1ai.		IN	NS		ns.ite-ng.ru.
+xn--c1affbaajxccc8a3m.xn--p1ai.		IN	NS		ns2.ite-ng.ru.
+xn--c1affbaajxccc8a3m.xn--p1ai.		IN	A		81.211.68.180
