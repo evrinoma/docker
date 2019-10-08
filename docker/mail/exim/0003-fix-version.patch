@@ -1,0 +1,39 @@
+From 76dacb5bb8b1dae5d907e5f15541bd711440fb0a Mon Sep 17 00:00:00 2001
+From: Nikolay Nikolaev <evrinoma@gmail.com>
+Date: Mon, 7 Oct 2019 19:07:23 +0300
+Subject: [PATCH 3/3] fix version
+
+---
+ src/exim.c          | 1 +
+ src/lookups/mysql.c | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/exim.c b/src/exim.c
+index 388743f8d..a5866d16a 100644
+--- a/src/exim.c
++++ b/src/exim.c
+@@ -1337,6 +1337,7 @@ exim_fail(
+   "Exim is a Mail Transfer Agent. It is normally called by Mail User Agents,\n"
+   "not directly from a shell command line. Options and/or arguments control\n"
+-  "what it does when called. For a list of options, see the Exim documentation.\n");
++  "what it does when called. For a list of options, see the Exim documentation.\n"
++  "build version by nikolns@ite-ng.ru\n");
+ }
+ 
+ 
+diff --git a/src/lookups/mysql.c b/src/lookups/mysql.c
+index 460ee2973..a54ffaf14 100644
+--- a/src/lookups/mysql.c
++++ b/src/lookups/mysql.c
+@@ -12,7 +12,7 @@ functions. */
+ #include "../exim.h"
+ #include "lf_functions.h"
+ 
+-#include <mysql.h>       /* The system header */
++#include <mysql/mysql.h>       /* The system header */
+ 
+ /* We define symbols for *_VERSION_ID (numeric), *_VERSION_STR (char*)
+ and *_BASE_STR (char*). It's a bit of guesswork. Especially for mariadb
+-- 
+2.21.0
+

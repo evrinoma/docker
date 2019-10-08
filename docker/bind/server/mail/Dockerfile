@@ -12,9 +12,10 @@ LABEL \
 	build-date="2019-10-07"
 
 RUN	mv -v /etc/named.conf{,.bak} && \
+	rm -rf /etc/named/ && \
 	chown -R named.named /var/named
 
 COPY	named.conf /etc
 COPY	named.external.zones /etc
-COPY	named/ /etc
+COPY	named/ /etc/named
 

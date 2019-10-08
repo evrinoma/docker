@@ -17,8 +17,8 @@ services:
                 ipv4_address: 172.18.2.1
 
     bind_master:
-        container_name: "bind.slave"
-        image: "evrinoma/bind.slave"
+        container_name: "bind.master"
+        image: "evrinoma/bind.master"
         hostname: "bind.master"
         build:
             context: docker/bind/server/mail/.
@@ -29,6 +29,22 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.5.1
+
+    mail_exim_mail:
+        container_name: "exim.mail"
+        image: "evrinoma/exim"
+        hostname: "mail.ite-ng.ru"
+        build:
+            context: docker/mail/exim/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.4.1
+
+
 
     php72_tools:
         container_name: "php72.tools"

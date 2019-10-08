@@ -152,8 +152,8 @@ services:
                 ipv4_address: 172.18.4.2
 
     bind_master:
-        container_name: "bind.slave"
-        image: "evrinoma/bind.slave"
+        container_name: "bind.master"
+        image: "evrinoma/bind.master"
         hostname: "bind.master"
         build:
             context: docker/bind/server/mail/.

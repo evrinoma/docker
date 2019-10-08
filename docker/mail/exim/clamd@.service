@@ -1,0 +1,16 @@
+[Unit]
+Description = clamd scanner (%i) daemon
+Documentation=man:clamd(8) man:clamd.conf(5) https://www.clamav.net/documents/
+# Check for database existence
+# ConditionPathExistsGlob=@DBDIR@/main.{c[vl]d,inc}
+# ConditionPathExistsGlob=@DBDIR@/daily.{c[vl]d,inc}
+After = syslog.target nss-lookup.target network.target
+
+[Service]
+Type = forking
+ExecStartPre = /bin/install -m 755 -o clamav -g clamav -d /var/run/clamd.scan/
+#ExecStart = /usr/sbin/clamd -c /etc/clamd.d/%i.conf --foreground=yes
+#ExecStart = /opt/clamav/sbin/clamd -c /opt/clamav/etc/%i.conf --foreground=yes
+ExecStart = /opt/clamav/sbin/clamd -c /opt/clamav/etc/scan.conf --foreground=yes 2>&1 > /dev/null 
+Restart = on-failure
+TimeoutStartSec=200
