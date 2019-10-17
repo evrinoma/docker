@@ -1,0 +1,3 @@
+# to change language of repo from JavaScript to PHP
+Dockerfile linguist-language=Dockerfile
+scripts/* linguist-vendored
