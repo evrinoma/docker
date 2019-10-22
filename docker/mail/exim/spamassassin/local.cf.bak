@@ -1,0 +1,44 @@
+rewrite_header Subject *****SPAM*****
+report_safe	0
+required_score 10
+
+auto_learn	1
+
+use_bayes 		1
+use_bayes_rules		1
+bayes_auto_learn 	1
+bayes_min_ham_num	200
+bayes_min_spam_num	200
+bayes_learn_during_report	1
+bayes_auto_learn_threshold_nonspam	-2
+bayes_auto_learn_threshold_spam	6
+
+
+# bayes_ignore_header X-Bogosity
+# bayes_ignore_header X-Spam-Flag
+# bayes_ignore_header X-Spam-Status
+# bayes_path              /etc/mail/spamassassin/bayes/bayes
+# bayes_file_mode 777
+
+use_auto_whitelist      1
+# auto_whitelist_path     /etc/mail/spamassassin/awlist/auto_whitelist
+# auto_whitelist_file_mode 777
+
+use_razor2              1
+use_dcc                 1
+use_pyzor               1
+
+ 
+score DCC_CHECK 4.000
+score RAZOR2_CHECK 2.500
+score BAYES_99 4.300
+score BAYES_90 3.500
+score BAYES_80 3.000 
+score FH_DATE_PAST_20XX  0.000
+ 
+# whitelist file
+include /data/spamassassin/etc/mail/spamassassin/whitelist.cf
+ 
+clear_report_template 
+report Content analysis details on host _HOSTNAME_: _HITS_ points, _REQD_ required 
+report _SUMMARY_

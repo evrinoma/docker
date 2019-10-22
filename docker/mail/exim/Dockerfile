@@ -51,7 +51,6 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 #mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
-
 #exim
 RUN	yum -y install sqlite-devel.i686 sqlite-devel.x86_64 \
 	pcre.i686 pcre.x86_64 \
@@ -67,11 +66,11 @@ RUN	yum -y install sqlite-devel.i686 sqlite-devel.x86_64 \
 RUN	adduser --user-group --system --no-create-home --shell /bin/false exim && \
 	usermod -L exim
 
-WORKDIR /opt
-RUN	git clone https://github.com/Exim/exim.git
 #exim
-RUN	mkdir -p /opt/exim/tmp /opt/exim/var/spool/exim
-WORKDIR /opt/exim/src
+RUN	mkdir -p /opt/exim/tmp /opt/exim/var/spool/exim /opt/exim/etc /opt/exim/build
+WORKDIR /opt/exim/build 
+RUN	git clone https://github.com/Exim/exim.git .
+WORKDIR /opt/exim/build/src
 RUN	mysql_config --help
 COPY	0001-initial-local.patch src
 COPY	0002-fix-local.patch src
@@ -79,10 +78,12 @@ COPY	0003-fix-version.patch src
 RUN	patch -Np1 -i src/0001-initial-local.patch  && \
 	patch -Np1 -i src/0002-fix-local.patch  && \
 	patch -Np1 -i src/0003-fix-version.patch
-RUN	make
+RUN	make && make install
+RUN	chown exim:exim -R /opt/exim/ && \
+	echo 'DAEMON=yes' >> /etc/sysconfig/exim && \
+	echo 'QUEUE=1h' >> /etc/sysconfig/exim
 COPY	exim.conf /opt/exim/etc
-RUN	chown exim:exim -R /opt/exim/
-	
+COPY	exim4.service /usr/lib/systemd/system
 WORKDIR /
 
 #spamassassin
@@ -90,7 +91,22 @@ RUN	yum install spamassassin.x86_64 -y && \
 	mv -v /etc/sysconfig/spamassassin{,.bak} && \
 	ls -la /etc/sysconfig/ && \
 	echo 'SPAMDOPTIONS="-d -c -m5 -H -s /opt/exim/tmp/spamd.log"' > /etc/sysconfig/spamassassin && \
-	systemctl enable spamassassin
+	systemctl enable spamassassin && \
+	mv -v /etc/mail/spamassassin/	/etc/mail/spamassassin.bak && \
+	mkdir -p /home/nobody/.spamassassin /home/nobody/.razor && \
+	chown -R nobody:nobody /home/nobody && \
+	chmod -R 755 /home/nobody && \
+	chmod -R 777 /home/nobody/.spamassassin && \
+	chmod -R 777 /home/nobody/.razor && \
+	ln -s /home/nobody/.razor/ /root/.razor && \
+	ln -s /home/nobody/.spamassassin/ /root/.spamassassin && \
+	usermod --home /home/nobody/ nobody && \
+	touch /etc/profile.d/exim.sh && \
+	chmod 755 /etc/profile.d/exim.sh && \
+	echo '#/etc/profile.d Exim set' >> /etc/profile.d/exim.sh && \
+	echo 'EXIM_HOME=/opt/exim' >> /etc/profile.d/exim.sh && \
+	echo 'export PATH=$EXIM_HOME/bin:$PATH' >> /etc/profile.d/exim.sh
+COPY	spamassassin/ /etc/mail/spamassassin/
 
 RUN	adduser --user-group --system --no-create-home --shell /bin/false clamav && \
 	usermod -L clamav
@@ -104,26 +120,33 @@ WORKDIR /opt/clamav/src
 RUN	./configure --prefix=/opt/clamav/ --disable-clamonacc && \
 	make && \
 	make install
-RUN	mkdir -p /opt/clamav/etc/ && \
+RUN	mkdir -p /opt/clamav/etc/ /var/log/clamav/ && \
 	mkdir -p /var/run/clamd.scan/ && chown -R clamav.clamav /var/run/clamd.scan && \
-	mkdir -p /var/lib/clamav/tmp && chown -R clamav.clamav /var/lib/clamav
+	mkdir -p /var/lib/clamav/tmp && chown -R clamav.clamav /var/lib/clamav  && \
+	touch  /var/log/clamav/freshclam.log && \
+	touch  /var/log/clamav/clamd.log && \
+	chown -R  clamav.clamav /var/log/clamav/ && \
+	chmod -R 700 /var/log/clamav
 
-COPY	clamav-daemon.service /usr/lib/systemd/system
-COPY	clamav-freshclam.service /usr/lib/systemd/system
-COPY	clamd@scan.service /usr/lib/systemd/system
-COPY	clamav-daemon.socket /usr/lib/systemd/system
-COPY	clamd@freshclam.service /usr/lib/systemd/system
-COPY	clamd@.service /usr/lib/systemd/system
+#COPY	exim4.service /usr/lib/systemd/system
+#COPY	clamav-daemon.service /usr/lib/systemd/system
+#COPY	clamav-freshclam.service /usr/lib/systemd/system
+#COPY	clamd@scan.service /usr/lib/systemd/system
+#COPY	clamav-daemon.socket /usr/lib/systemd/system
+#COPY	clamd@freshclam.service /usr/lib/systemd/system
+#COPY	clamd@.service /usr/lib/systemd/system
+
 COPY	freshclam.conf /opt/clamav/etc/
 COPY	scan.conf /opt/clamav/etc/
 
 #	/opt/clamav/bin/freshclam -d -c 4 && \
 #	chown -R clamav.clamav /var/run/clamd.scan && chown -R clamav.clamav /var/lib/clamav &&\
-RUN	systemctl enable clamd@freshclam.service && \
-	systemctl enable clamd@scan.service
-
+#RUN	systemctl enable exim4.service && \
+#	systemctl enable spamassassin.service && \
+#	systemctl enable clamd@freshclam.service && \
+#	systemctl enable clamd@scan.service
 
 WORKDIR /
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
-EXPOSE 22 80
+EXPOSE 22 25
