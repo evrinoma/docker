@@ -32,7 +32,7 @@ echo $SQL"2	postgre.1c.db" >> /etc/hosts
 echo $SQL"3	mssql.db" >> /etc/hosts
 
 echo $MAIL"1	exim" >> /etc/hosts
-echo $MAIL"1	exim.email" >> /etc/hosts
+echo $MAIL"1	exim.mail" >> /etc/hosts
 
 echo $MAIL"2	dovecot" >> /etc/hosts
 echo $MAIL"2	dovecot.email" >> /etc/hosts
