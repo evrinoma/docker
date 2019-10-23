@@ -27,23 +27,11 @@ services:
             virt:
                 ipv4_address: 172.18.1.4
 
-    master_cont:
-        container_name: "master.cont"
-        image: "evrinoma/master.cont.ite-ng.ru"
-        build:
-            context: docker/tests/cont/master/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.1.5
-
     test_cont:
         container_name: "test.cont"
         image: "evrinoma/test.cont.ite-ng.ru"
         build:
-            context: docker/tests/cont/test/.
+            context: docker/tests/servers/cont/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
