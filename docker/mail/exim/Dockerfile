@@ -83,7 +83,7 @@ RUN	chown exim:exim -R /opt/exim/ && \
 	echo 'DAEMON=yes' >> /etc/sysconfig/exim && \
 	echo 'QUEUE=1h' >> /etc/sysconfig/exim
 COPY	exim.conf /opt/exim/etc
-COPY	exim4.service /usr/lib/systemd/system
+RUN	setcap 'cap_net_bind_service=+ep' /opt/exim/bin/$(ls -la /opt/exim/bin |grep ^l | awk '{print $11}')
 WORKDIR /
 
 #spamassassin
@@ -128,23 +128,8 @@ RUN	mkdir -p /opt/clamav/etc/ /var/log/clamav/ && \
 	chown -R  clamav.clamav /var/log/clamav/ && \
 	chmod -R 700 /var/log/clamav
 
-#COPY	exim4.service /usr/lib/systemd/system
-#COPY	clamav-daemon.service /usr/lib/systemd/system
-#COPY	clamav-freshclam.service /usr/lib/systemd/system
-#COPY	clamd@scan.service /usr/lib/systemd/system
-#COPY	clamav-daemon.socket /usr/lib/systemd/system
-#COPY	clamd@freshclam.service /usr/lib/systemd/system
-#COPY	clamd@.service /usr/lib/systemd/system
-
 COPY	freshclam.conf /opt/clamav/etc/
 COPY	scan.conf /opt/clamav/etc/
-
-#	/opt/clamav/bin/freshclam -d -c 4 && \
-#	chown -R clamav.clamav /var/run/clamd.scan && chown -R clamav.clamav /var/lib/clamav &&\
-#RUN	systemctl enable exim4.service && \
-#	systemctl enable spamassassin.service && \
-#	systemctl enable clamd@freshclam.service && \
-#	systemctl enable clamd@scan.service
 
 WORKDIR /
 
