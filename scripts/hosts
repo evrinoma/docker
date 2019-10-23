@@ -8,9 +8,12 @@ MASTER_CONT=$SUBNET"1.5"
 TEST=$SUBNET"1.6"
 SQUID7=$SUBNET"1.7"
 SAMBA=$SUBNET"1.8"
+DANTE=$SUBNET"1.9"
+WOWZA=$SUBNET"1.10"
 
 SQL=$SUBNET"2."
 MAIL=$SUBNET"4."
+BIND=$SUBNET"5."
 
 PRIMAVERA15=$SUBNET"22.15"
 
@@ -30,14 +33,23 @@ echo $SQL"1	maria.db" >> /etc/hosts
 echo $SQL"2	postgre.1c.db" >> /etc/hosts
 echo $SQL"3	mssql.db" >> /etc/hosts
 
-echo $MAIL"1	dovecot" >> /etc/hosts
+echo $MAIL"1	exim" >> /etc/hosts
+echo $MAIL"1	exim.mail" >> /etc/hosts
+
+echo $MAIL"2	dovecot" >> /etc/hosts
 echo $MAIL"2	dovecot.email" >> /etc/hosts
 echo $MAIL"2	$PREFIX72.postfixadmin" >> /etc/hosts
+
+echo $BIND"1	bind.master" >> /etc/hosts
+echo $BIND"2	bind.slave" >> /etc/hosts
 
 echo $RABBIT"	rabbitmq" >> /etc/hosts
 
 echo $SQUID7"	squid.7" >> /etc/hosts
 echo $SAMBA"	samba.kis" >> /etc/hosts
+
+echo $DANTE"	dante" >> /etc/hosts
+echo $WOWZA"	wowza" >> /etc/hosts
 
 echo $PRIMAVERA15"	vnc.primavera.15" >> /etc/hosts
 

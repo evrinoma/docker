@@ -1,0 +1,458 @@
+# This file contains tokens found in russian spam (all in UTF-8 encoding).
+# The tokens are used to create rules for Spamassassin. Each line consists of 
+# a token and a score, separated by one or more blanks.
+# Lines starting with hash sign (#) and epmty lines are ignored.
+# Note, that first space is supposed to separate the token and the score, so
+# if your token is multi-word one, use Perl regexp pattern "[[:blank:][:punct:]]" to denote
+# whitespace
+
+# Most of spam messages are targeted at convincing the recipient to visit some
+# site.
+rawbody __SA_RUS_HLINK /http(s?)\:\/\/[[:alnum:]\.-]+([[:blank:]\/'"]|$)/i
+# Often spam messages contain several exclamatory sentences
+body __SA_RUS_3PLINGS /(([^!]+!){3,}([^!]|$))/
+# Other useful non-cyrillic rules are:
+# __HTML_LENGTH_512 (the body is less than 512 chars long)
+# __HTML_LENGTH_384 (the body is less than 384 chars long)
+
+# The following rules find messages that contain widely-used tricks, aimed to
+# fool content-filters. "Hidden digits" should hit on phone number with some
+# digits replaced by similar-looking letters. "Mixed cyrillic and latin" should
+# hit on messages there cyrillic and latin letters are mixed in one word.
+# "Gappy" should hit on m.e.s.s.a.g.e.s w.h.e.r.e. .l.e.t.t.e.r.s. .a.r.e.
+# .i.n.t.e.r.m.i.x.e.d. .w.i.t.h.  b l a n k s  .o.r. +s+o+m+e+
+# -p-u-n-c-t-u-a-t-i-o-n- |c|h|a|r|a|c|e|r|s
+
+# ATTENTION!!!
+# In the followin rule DO EDIT the output ".cf" file - pseudo-pattern <#DIGIT#>
+# will be replaced with regexp where bracket expression [[:digit:]] is combined
+# with digit-look-alike letters expressed in hex form (like this one for UTF-8:
+# (([[:digit:]]|(\xd0\xbe)|(\xd0\x9e)|o|O|I|l|(\xd0\xb7)|(\xd0\x97)|(\xd1\x87)|
+#(\xd0\xa7)|(\xd0\xb1)|(\xd0\xb2)|(\xd0\x92))([[:blank:][:punct:]]*))
+# DO REMOVE "[[:digit:]]|" from the resulting alternatives set (i.e. leave only
+# the hex expressions for letters.
+__RU_HIDDEN_DIGITS (<#DIGIT#>?)((([[:digit:]]([[:blank:][:punct:]]*)){1,3})(<#DIGIT#>{1,3})){2}
+
+# ATTENTION!!!
+# In the following rule DO EDIT the output ".cf" file - special pseudo-pattern
+# "<#4#>" will be replaced with regexp, including digit 4 - this digit MUST BE
+# removed manually. If you fail to do so, the rule will hit on legitimate
+# Moscow phone numbers (we want this rule to only hit on combinations
+# "<che>95" followed by 7 digits)
+__RU_HIDDEN_MSK_PHONE <#4#><#9#>((<#5#>)|(<#9#>))(<#DIGIT#>{7})
+body __SA_RUS_MIXED_CYR_LAT /((([a-zA-Z0-9]{1,3})([[:blank:][:punct:]]?)([^[:ascii:]]{1,3}))|(([^[:ascii:]]{1,3})([[:blank:][:punct:]]?)([a-zA-Z0-9]{1,3}))){3}/
+body __SA_RUS_GAPPY /(([a-zA-Z0-9]|([^[:ascii:]]{1,2}))[[:blank:][:punct:]]){5,}/
+meta __RU_SPAM_TRICKS __RU_HIDDEN_DIGITS || __SA_RUS_MIXED_CYR_LAT || __SA_RUS_GAPPY || __RU_HIDDEN_MSK_PHONE
+meta __RU_DIGIT_TRICKS __RU_HIDDEN_DIGITS || __RU_HIDDEN_MSK_PHONE
+meta RU_2_SPAM_TRICKS ( __RU_DIGIT_TRICKS + __SA_RUS_MIXED_CYR_LAT + __SA_RUS_GAPPY ) >=2
+score RU_2_SPAM_TRICKS 0.5
+
+# The following is a list of common words, often found in commercial
+# correspondence. Presence of these words does not definitely identify the
+# message as a spam, so use them only in combination with other rules. 
+__RU_PRICE [[:digit:]][[:blank:]]*((руб((\.)|(л((ь)|(и)|(я)|(е)))))|([[:digit:]][[:blank:][:punct:]]?у\.е\.)|(е((в)|u)((р)|r)о)|(долл((\.)|(ар)))|(ф((\.)|(унт((а)|(ов))?))[[:blank:][:punct:]]?ст((\.)|(ерл))))
+__RU_CHEAP (бесплатн)|(не([[:blank:][:punct:]]?)дорог)|(дёш((е)|(о))в)|(скид(о?)к)|(дисконт)|((рас)?цен((а)|(ы)|(е)|(о)|(к)))|(эконом((ь)|(н)))
+__RU_PAY (((без)|[[:digit:]][[:blank:]])наличн((ы)|(о)))|(оплат)|(наложенны)|(карточ((к)|(н)))
+__RU_EFFECT_1 (успе((шн)|(х)))|(эффективн)|(правильн)
+__RU_EFFECT_2 (качеств)|(результ)|(надёжн)|(удобн)|(выгодн)|(преимуществ)|(гаранти)|(отдач)
+__RU_EFFECT_3 (повы((с((и)|(я)))|(ш((а)|(е)))))|(увелич)
+meta __RU_EFFECT __RU_EFFECT_1 || __RU_EFFECT_2 || __RU_EFFECT_3
+__RU_ACTIVE (активн)
+__RU_HYPE (великолеп)(м((акс)|(ин))имальн)|(лучш)|(худш)|(любой)|(абсолютн)
+__RU_PROFI (квалифи)|(профессионал)|(опытн)|(специали)|(грамотн)|(мастер)
+__RU_COMPETITIVE (конкурен)|(опере((ди)|(ж)))
+__RU_APPLY (обра((щ((а)?)(((ю)|(е))?))|(т((и)|(я))))((м)|(шь)|(т(((и)|(ь))?))|(л(((и)|(о))?))|(вши((и)|(е)|(а)|(у))((й)|(го)|(м)|(ю)|(я)|(е)|(х))))с((ь)|(я)))
+__RU_INTERACT_1 (предл((ож)|(аг)))|(поможе((м)|(т)))|(курьер)|(вые((з((д)|(ж)))|(ха)))|(пригла((ш)|(c)))|(звони)|(контакт)|(адрес)|(зака((з)|(ж)))|(консульт)
+meta __RU_INTERACT __RU_INTERACT_1 || __RU_APPLY
+__RU_CORPORATE (корпоратив)|(бизнес)
+__RU_BARGAIN (сдел((о)?)к)|(контракт)
+__RU_DOCUMENTS_1 (документ((а((м(и)?)|(х)))|(ооборот.{0,3})|(ы)|(у)|(е))?[[:blank:][:punct:]])|(счёт(.{0,3})фактур)|(договор)|(отчёт)|(уведом((л)|(и)))
+meta __RU_DOCUMENTS __RU_DOCUMENTS_1 || __RU_BARGAIN
+__RU_CUSTOMER (клиент)|(потреб)|(посе((тит)|(щ)))|(заказчик)
+__RU_SALE_1A (прода((ж)|(ве)|(вц)|(ва)|(т)|(ё)|(ю)|(м)|(д)))
+__RU_SALE_1B (магазин)|(ассортимент)|(каталог)
+meta __RU_SALE_1 __RU_SALE_1A || __RU_SALE_1B
+__RU_SALE_2A (продви((га)|(же)))
+meta __RU_SALE_2B ( __RU_ACTIVE || __RU_EFFECT_3 ) && ( __RU_SALE_1A || __RU_BARGAIN )
+meta __RU_SALE_2 __RU_SALE_2A || __RU_SALE_2B
+meta __RU_SALE __RU_SALE_1 || __RU_SALE_2
+__RU_SERVICE (услуг)|(обслуж)|(сервис)|(предостав)|(круглосут)|(обеспечи)
+__RU_CARGO (достав((и)|(к)))|(перевоз)|(транспорт)
+__RU_DATE (январ)|(феврал)|(март)|(апрел)|([[:blank:][:punct:]]ма((й)|(я)|(е))[[:blank:][:punct:]])|([[:blank:][:punct:]]июн)|([[:blank:][:punct:]]июл)|(август)|(сентябр)|(октябр)|(ноябр)|(декабр)
+__RU_COMMUNICATE ((p|P)(h|(н))о((п)|N)е)|[[:blank:][:punct:]]тел((ефон)|[[:blank:][:punct:]])|((f|F|(ф))а((кс)|(х)))|((i|I|l|1)с(q|Q))|(((е)?)([[:blank:][:punct:]]?)((м)|m)а(i|I)(l|L|1))
+meta __RU_COMMERCIAL ( __RU_PRICE + __RU_CHEAP + __RU_PAY + __RU_EFFECT + __RU_HYPE + __RU_PROFI + __RU_COMPETITIVE + __RU_INTERACT + __RU_CORPORATE + __RU_DOCUMENTS + __RU_CUSTOMER + __RU_SALE + __RU_SERVICE + __RU_CARGO + __RU_DATE + __RU_COMMUNICATE ) >= 2
+
+__RU_MANY (мно((г)|(ж)))|(сот(е)н((я)|(и)|(ю)|(е)))|(тысяч)|(ми((л){1,2})ион)|(масс((а)|(ы)|(у)|(е)|([[:blank:][:punct:]])|(о)))|(толп((а)|(ы)))|(((нео)|(без))гранич)
+__RU_OPTIMIZE (оптимиз((ац)|(ир)))|(настр((о)|(а))й)
+__RU_UNFAIR (недобросовеств)|(злостн)|(умышлен)
+__RU_BUILD ((([[:blank:][:punct:]])|(^)(по)|(за)|(благоу))стро((й)|(ен)))
+__RU_FOREIGN (иностран)|(зарубежн)
+__RU_STRATEGY (стратеги)|(такти((к)|(че)))|(план((иров)))|(выстр((оит)|(аив)))|(прин((я)|(и))(.{0,8})решени)
+
+__RU_AUTHORING_1 (креатив)|(творчес)
+__RU_AUTHORING_2 (разработ)|(состав((л)|(и)))|(созда)|(вёрст((а((ю)|(л)|(е)))|(к((а)|(и)|(е)|(у)|(о)))))
+__RU_AUTHORING_3 (макет)|(шаблон)|(дизайн)|(содержан)|(текст)|(картинк)|(изобра((ж)|(з)))|(графи((к)|(ч)))
+meta __RU_AUTHORING __RU_AUTHORING_1 || __RU_AUTHORING_2 || __RU_AUTHORING_3
+
+__RU_ADVERTISING_1 (реклам)|(раскрут)|(продви((ж)|(г)|(н)))|(известн)|(знаменит)|([[:blank:][:punct:]]на[[:blank:][:punct:]]в((ес)|(сю)|(се)))
+__RU_ADVERTISING_2 (((при)|(за))вле((ч)|(к)))|(((при)|(от))ток)|(новы)|(заинтерес((ов)|(уе)))
+__RU_ADVERTISING_3 (информ((ац)|(ир)))|(заяви)|(расска((з)|(ж)))|(узна(((ю)|(е))?)т)|(донес((ти)|(ё)))|(интерес)
+meta __RU_ADVERTISING __RU_ADVERTISING_1 || ((  __RU_ADVERTISING_2 || __RU_MANY ) && __RU_CUSTOMER ) || __RU_ADVERTISING_3
+__RU_ADVERTISING_WEB (баннер)|(контекстн.{1,4}рекл)|(поисков((ик)|(ы.{1,5}сист)))
+
+__RU_EQUIPMENT (оборудовани)|(сервер)|(лвс)|(((l)|(L)|(1))а((n)|(N)))|(атс)
+__RU_IP (электронн((а)|(ы)))|([[:blank:][:punct:]]и((нтер)?)нет)|([[:blank:][:punct:]]сет((и)|(ь)))|(IP)
+__RU_TELECOM (связ((ь)|(и)))|(канал)|(коммуникац)
+
+__RU_CELEBRATE_1A (праздн((и((к)|(ч)))|(ов)|(у((ю)|(е)))))|(свад((ь)|(е))б)|(торжеств)
+__RU_CELEBRATE_1B (именин((н)|(ы)))|(юбил((ей)|(яр)))|(д((ень)|(н((ё)|(и)|(ю)|(я))(((й)|(м)|(х)){0,2})))([[:blank:][::punct]]*)рожден)|(выпускно)
+__RU_CELEBRATE_1C (вечеринк)|(утренник)
+__RU_CELEBRATE_1D (нов((ы)|(о))(.{0,5})год)|(рождеств)
+meta __RU_CELEBRATE_1 __RU_CELEBRATE_1A || __RU_CELEBRATE_1B || __RU_CELEBRATE_1C
+__RU_CELEBRATE_2 (отме((ти)|(ч)))|(прове((сти)|(дём)))
+meta __RU_CELEBRATE_RELATED __RU_CATER_2 || __RU_ENTERTAIN_2
+meta __RU_CELEBRATE ( __RU_CELEBRATE_1 + __RU_CELEBRATE_2 + __RU_CELEBRATE_RELATED ) >=3
+
+__RU_CATER_1 (питани)|(завтрак)|(обед)|(ужин)|(ланч)|(((ая)|(ой)|(ую))(.{1,2}кухн))
+__RU_CATER_2 (пикник)|(фуршет)|((([[:blank:][:punct:]])|(^))полян((а)|(у)))(банкет)|((([[:blank:][:punct:]])|(^))пир(([[:blank:][:punct:]])|($)))
+__RU_CATER_3 (меню)|(блюд((а)|([[:blank:][:punct:]])))|(напитк)|(алкогол)|(прохладит)|(тонизирующ)||(кух((о)?)н)
+meta __RU_CATER __RU_CATER_1 || __RU_CATER_2 || __RU_CATER_3
+
+__RU_MV_PIR (((45)|(70))[[:blank:][:punct:]]*чел)|(<#9#><#1#><#6#><#7#><#9#><#9#><#2#><#1#><#8#><#8#>)|(((теплоход)|(тх))(([[:blank:][:punct:]])*)\"пир\")
+meta __RU_MV_PIR_RELATED __RU_CATER || __RU_CELEBRATE
+meta RU_MV_PIR __RU_MV_PIR && __RU_MV_PIR_RELATED
+score RU_MV_PIR 2.0
+
+__RU_TRAVEL_1 (путешеств)|(поезд)|(круиз)|([[:blank:][:punct:]]тур(((а(((м((и)?))|(х))?))|(ы)|(о((в)|(м)))|(е)|(у))?)(([[:blank:][:punct:]])|($)))|(маршрут)
+__RU_TRAVEL_2 (трансфер)|(вылет)|(((при)|(от))бы((т)|(в)))|(паспортн(.{1,7})((визов)?)(.{1,7})контрол)|(регулярн(.{1,5})рейс)|(чартер)
+__RU_TRAVEL_3 (((аэро)|(^)|([[:blank:][:punct:]]))порт)|(самолёт)|(лайнер)|(авиа)|(железнодорожн)
+__RU_TRAVEL_4 (багаж)|(билет)|(касса)|(бронирова)|(путёвк)
+__RU_TRAVEL_5 (тур((и((ст)|(зм)))|(агент)|(операт)))|(спецпредложени)
+__RU_TRAVEL_6 (русскоговорящ)
+meta __RU_TRAVEL_RELATED __RU_CATER || __RU_ENTERTAIN || __RU_TOPICS_HOTELS_SINGLE || __RU_CELEBRATE
+meta __RU_TRAVEL_X3 ( __RU_TRAVEL_1 + __RU_TRAVEL_2 + __RU_TRAVEL_3 + __RU_TRAVEL_4 + __RU_TRAVEL_5 + __RU_TRAVEL_6 ) >=3
+meta __RU_TRAVEL_X2 ( __RU_TRAVEL_1 + __RU_TRAVEL_2 + __RU_TRAVEL_3 + __RU_TRAVEL_4 + __RU_TRAVEL_5 + __RU_TRAVEL_6 ) >=2
+meta __RU_TRAVEL __RU_TRAVEL_X3 || ( __RU_TRAVEL_X2 && __RU_TRAVEL_RELATED )
+meta RU_TRAVEL __RU_TRAVEL && __RU_COMMERCIAL
+score RU_TRAVEL 0.5
+
+__RU_ENTERTAIN_1 (экскурси)|(прогулк)|(посе((ще)|(ща)|(ти)))|(дайв((инг)|(ер)))|(сафари)|(рафтинг)|(пляж)|(горн(.{1,5})лыж)
+__RU_ENTERTAIN_2 (((гуля)|(ката))ни((е)|(я)|(ю)|(т)))|(фе((й)?)ервер)|(танц)
+__RU_ENTERTAIN_3 (шопинг)
+meta __RU_ENTERTAIN __RU_ENTERTAIN_1 || __RU_ENTERTAIN_2 || __RU_ENTERTAIN_3 
+
+#-------------
+__RU_CLASSES_1 (семинар)|(практикум)|(тренинг)|(цикл)|(курс)|(мастер-класс)|(заняти)|(форум)
+__RU_CLASSES_2 (лек((ци)|(тор)))|(трен((ер)|(инг)))(преподава)
+__RU_CLASSES_3 (програм)|(вопрос)|(проблем)|(аспект)|(практич)|(анализ)|(рассм((а)|(о)тр))|(кейс)|(((^)|([[:blank:]]))тем((а)|(у)|(ы)|(е))(([[:blank:][:punct:]])|($)))
+__RU_CLASSES_4 (((об)|(из)|(на))уч((ени)|(((и)|(а))т)))|(повышени)|(формирован)
+__RU_SKILLS_1 (зна((ни)|(ть)|(ю)|(е)))|(навык)|(умени)|(основ)|(принцип)|(метод)
+meta __RU_SKILLS __RU_SKILLS_1 || __RU_EFFECT_1
+__RU_ATTEND_1 (участ((н)|(и)|(в)))|(((про)|(^)|([[:blank:]]))слуша((т)|(е)|(ю)))
+__RU_ATTEND_2 (запис)|(регистр((аци)|(иро)))|(пров((ед)|(оди)|(ест)))|(прохожден)|(по((сле)?)[[:blank:]]((окончан)|(завершен)))
+meta __RU_ATTEND __RU_ATTEND_1 || __RU_ATTEND_2
+meta __RU_CLASSES ( __RU_CLASSES_1 + __RU_CLASSES_2 + __RU_CLASSES_3 + __RU_CLASSES_4 + __RU_SKILLS + __RU_ATTEND ) >= 3
+__RU_CLASSES_PHONE_1 <#4#><#9#><#5#>((<#2#><#2#><#9#><#0#><#4#><#3#><#3#>)|(<#5#><#0#><#6#><#3#><#0#><#7#><#8#>)|(<#7#><#4#><#1#><#8#><#7#><#0#><#5#>))
+__RU_CLASSES_PHONE_2 <#8#><#1#><#2#>(<#9#><#8#><#3#><#2#><#9#><#0#><#7#>)
+meta __RU_CLASSES_PHONE __RU_CLASSES_PHONE_1 || __RU_CLASSES_PHONE_2
+
+__RU_TOPICS_LAW_1 (юри((ст)|(сдикц)|(сконс)|(спруден)|(дическ)))|(право)|(адвокат)
+__RU_TOPICS_LAW_2A (оформлен)|(регистр((аци)|(иро)))|(разрешени)|(лицензи)|(сертифи)|(аккредит)|(порядок)
+__RU_TOPICS_LAW_2B (заключ((ен)|(ил)))|(исполн)|(растор((жен)|(г)))
+meta __RU_TOPICS_LAW_2 __RU_TOPICS_LAW_2A || __RU_TOPICS_LAW_2B
+__RU_TOPICS_LAW_3 (ликвидац)|(прекра((ща)|(ще)|(ти))(.{1,7})деятельн)|(реорганиз)
+__RU_TOPICS_LAW_4 (полномоч)|(норматив)|(власт)|(собственн((ост)|(ик)))|(((^)|([[:blank:][:punct:]]))имуществ)|(движим)
+__RU_TOPICS_LAW_5 (арбиртаж)|([[:blank:][:punct:]]суд((ебн)|(опроизвод)|((((а)|(у)|(е)|(ом)|(ы)|(ов)|(ам)|(ах)|(ами))?)[[:blank:][:punct:]])))
+__RU_TOPICS_LAW_6A (кодекс)|(приказ)|(постановлен)|(закон)|(распоряжен)|(положение)|(регламент)|(выписк)
+__RU_TOPICS_LAW_6B (устав(((a(((м((и?)))|(х))?))|(у)|(о(((м)|(в))))|(ы)|(е)|(н((ы((й)|(е)|(х)|(м((и)?))))|(о((м)|(го)|(й)))|(ую)|(ая))))?)(([[:blank:][:punct:]])|($)))
+meta __RU_TOPICS_LAW_6 __RU_TOPICS_LAW_6A || __RU_TOPICS_LAW_6B
+__RU_TOPICS_LAW_7 (банкрот)|(взыска)|([[:blank:][:punct:]]ис((к(((ом)|(ов)|(а))?)[[:blank:][:punct:]])|(т(е?)ц)))|(ответчик)
+__RU_TOPICS_LAW_8 (министерс)|(управлени)|(отдел)|(департамент)|(администра)|(служб)
+__RU_TOPICS_LAW_9A (учре((ж)?)д)|(((^)|([[:blank:][:punct:]]))о((о)|(а))о)|(зао)|(побоюл)|([[:blank:][:punct:]]ип[[:blank:][:punct:]])|(филиал)|(фирм)
+meta __RU_TOPICS_LAW_9 __RU_TOPICS_LAW_9A && __RU_TOPICS_LAW_2
+__RU_TOPICS_LAW_10 (нотари((альн)|(ус)))|(госпошлин)
+meta __RU_TOPICS_LAW ( __RU_TOPICS_LAW_1 + __RU_TOPICS_LAW_2 + __RU_TOPICS_LAW_3 + __RU_TOPICS_LAW_4 + __RU_TOPICS_LAW_5 + __RU_TOPICS_LAW_6 + __RU_TOPICS_LAW_7 + __RU_TOPICS_LAW_8 + __RU_TOPICS_LAW_9 + __RU_TOPICS_LAW_10 ) >= 3
+
+__RU_TOPICS_STAFF_1 (HR[[:blank:][:punct:]]{0,3}менеджер)|(работодател)|(персонал)|(кадр)|(сотрудник)|(работник)|(занят((ост)|(ы)|(и)))
+__RU_TOPICS_STAFF_2a (стимулировани)|(мотив((аци)|(ирова)))|(психолог)|(зарплат)|(инструкци)
+meta __RU_TOPICS_STAFF_2 __RU_TOPICS_STAFF_2a || __RU_CLASSES_4
+__RU_TOPICS_STAFF_3 (подразделени)|(трудов)|(увол((ить)|(ьнени)))|(стаж)|([[:blank:][:punct:]]тк[[:blank:][:punct:]])
+__RU_TOPICS_STAFF_4A (мигра((ц)|(нт)))|(граждан)|([[:blank:][:punct:]]виз((а)|(у)|(ы)|([[:blank:][:punct:]])))|(приглашени)
+meta __RU_TOPICS_STAFF_4 __RU_FOREIGN || __RU_FOREIGN
+meta __RU_TOPICS_STAFF ( __RU_TOPICS_STAFF_1 + __RU_TOPICS_STAFF_2 + __RU_TOPICS_STAFF_3 + __RU_TOPICS_STAFF_4 + __RU_TOPICS_LAW_2 + __RU_TOPICS_LAW_6 ) >= 2
+
+__RU_TOPICS_LOGISTICS_1 (логист)|(склад)|(снабжен)
+__RU_TOPICS_LOGISTICS_2A (закуп)|(сбыт)|(((от)?)гру((з)|(ж)))|(тамож)
+meta __RU_TOPICS_LOGISTICS_2 __RU_TOPICS_LOGISTICS_2A || __RU_SALE_1A 
+meta __RU_TOPICS_LOGISTICS ( __RU_TOPICS_LOGISTICS_1 && __RU_TOPICS_LOGISTICS_2 )
+
+__RU_TOPICS_FINANCE_1 (прибыл)|(убыто)|(доход)|(расход)|(затра((т)|(ч)))|(вложен)
+__RU_TOPICS_FINANCE_2 (инвести)|(бюджет)|(финанс)|(рентабель)|(капитал)|(актив((ы)|(а)|(о)))|(субсиди)|(дивиденд)
+__RU_TOPICS_FINANCE_3 (ресурс)|(ден((ьг)|(еж)|(ег)))|(валют)|(((зар(аботн..[[:blank:][:punct:]])?)|(вы))плат)
+__RU_TOPICS_TAXES (налог)|(ндс)|(добавленн.{1,2}([[:blank:][:punct:]]?)стоимость)|(ндфл)|(налог.{0,3}([[:blank:][:punct:]]?)((на)?)([[:blank:][:punct:]]?)доходы([[:blank:][:punct:]]?)физ.{0,9}лиц)|(есн)|(1с(\:))|(деклар)
+__RU_TOPICS_REGULAT (имнс)|(фсфр)|(егрюл)|(((^)|([[:blank:][:punct:]]))инн(([[:blank:][:punct:]])|($)))
+__RU_TOPICS_ACCOUNTING (бухгалт)|(((от)|(у))ч((ё)|(и))т)|(баланс)|(инвентар)|(списан)|(оценка)|(амортизаци)|(стоимост)
+__RU_LAUNDER (обналич)|(однодневк)|(((черн)|(сер)|(бел))((ая)|(о((й)|(го)|(м(у)?)))|(ую)|(ы((е)|(х)|(м(и)?)|(й))))([[:blank:][:punct:]]{1,3})((схем)(фирм)(зарпл)(нал)))
+__RU_COLLECT_1 ((просроч)|(пога((ш)|(с)))|(проблемн)|(безнадёжн))(.{2,9})((кредит)|((за)?дол((г)|(ж))))
+__RU_COLLECT_2 (сбор)|(возврат)|(взыска)
+meta __RU_COLLECT ( __RU_COLLECT_1 + __RU_COLLECT_1 + __RU_UNFAIR ) >= 2
+meta __RU_TOPICS_FINANCE ( __RU_TOPICS_FINANCE_1 + __RU_TOPICS_FINANCE_2 + __RU_TOPICS_FINANCE_3 + __RU_TOPICS_TAXES + __RU_TOPICS_ACCOUNTING + __RU_LAUNDER + __RU_COLLECT ) >= 2
+
+__RU_TOPICS_PICKUP_1 (женщин)|(девуш((е)?)к)
+__RU_TOPICS_PICKUP_2 (знаком((ств)|(ить)))|(соблазне)|(свидани)|(под((ход)|(ой((т)|(д)))))
+meta __RU_TOPICS_PICKUP ( __RU_TOPICS_PICKUP_1 && __RU_TOPICS_PICKUP_2 )
+
+__RU_TOPICS_MGMT_1 (управлен)|(органзац)|(директор)|(м((е)|(э))н((е)|(э))дж((ер)|(мент)))
+__RU_TOPICS_MGMT_2A (маркет)
+meta __RU_TOPICS_MGMT_2 __RU_TOPICS_MGMT_2A || __RU_STRATEGY
+
+__RU_TOPICS_RESTAURANT_1 (ресторан)|(кафе)|([[:blank:][:punct:]]бар)
+meta __RU_TOPICS_RESTAURANT __RU_TOPICS_RESTAURANT_1 && __RU_CATER
+
+__RU_TOPICS_HOTELS_1 (отел((ь)|(и)|(я)))|(гостини)|(турбаз)|(санатор)|(пансионат)|(а((п){1,2})артаме)
+__RU_TOPICS_HOTELS_2 (люкс)|(((одно)|(двух)|(рёх)|(ти))([[:blank:][:punct:]]?)((местн)|(комнатн)))
+__RU_TOPICS_HOTELS_3 (номер)|(сут((к)|(оч)))|(размеще)
+meta __RU_TOPICS_HOTELS_SINGLE __RU_TOPICS_HOTELS_1 || __RU_TOPICS_HOTELS_2 || __RU_TOPICS_HOTELS_3
+meta __RU_TOPICS_HOTELS ( __RU_TOPICS_HOTELS_1 + __RU_TOPICS_HOTELS_2 + __RU_TOPICS_HOTELS_3 ) >=2
+
+meta __RU_TOPICS_MGMT __RU_TOPICS_MGMT_1 && ( __RU_TOPICS_RESTAURANT || __RU_TOPICS_HOTELS || __RU_TOPICS_MGMT_2 )
+
+__RU_TOPICS_LAGUAGES_1A (разговорн)|(носител)|(язык)|(граммати)|(произношен)
+meta __RU_TOPICS_LAGUAGES_1 __RU_TOPICS_LAGUAGES_1A || __RU_FOREIGN
+__RU_TOPICS_LAGUAGES_ENG (англи((й)|(я)|(ю)))|(е((n)|(N))((g)|(G))((l)|(L))((((i)|(I)|(1))((s)|(S))н)|(а((n)|(N))((d)|(D)))))|(тое((f)|(F))((l)|(L)|(1)))|(в((r)|(R))((i)|(I)|(1))т((а)?)((i)|(I)|(1)))
+meta __RU_TOPICS_LAGUAGES __RU_TOPICS_LAGUAGES_1 && __RU_TOPICS_LAGUAGES_ENG
+
+__RU_TOPICS_TALKS_1 (переговор)
+__RU_TOPICS_TALKS_2A (убе((жд((а)|(е)))|(ди)))|(давлени)|(возра((ж)|(з)))|(манипул((я)|(и)))
+meta __RU_TOPICS_TALKS_2 __RU_TOPICS_TALKS_2A && __RU_SALE_2
+meta __RU_TOPICS_TALKS __RU_TOPICS_TALKS_1 || __RU_TOPICS_TALKS_2
+
+meta RU_CLASSES_1 __RU_CLASSES && ( __RU_TOPICS_LAGUAGES || __RU_TOPICS_MGMT || __RU_TOPICS_PICKUP || __RU_TOPICS_STAFF || __RU_TOPICS_LAW || __RU_TOPICS_LOGISTICS || __RU_TOPICS_FINANCE || __RU_TOPICS_TALKS )
+score RU_CLASSES_1 2.0
+meta RU_CLASSES_2 __RU_CLASSES_PHONE && ( __RU_CLASSES_1 || __RU_CLASSES_2 || __RU_CLASSES_3 || __RU_CLASSES_4 || __RU_SKILLS || __RU_ATTEND )
+score RU_CLASSES_2 3.0
+
+#-------------
+__RU_EMAIL (почт)|(((е)?)([[:blank:][:punct:]]?)((м)|m)а(i|I)(l|L|1))|(((i)|(I))с((q)|(Q)))
+
+__RU_SPAM_1A (ра(((з)|(с))?)сыл)|(разо((сла)|(шлё)|(шлю)))|(((с)|(S)|(s))((п)|(p)|(P))а((м)|(m)|(M)))
+__RU_SPAM_1B1 (пис((ь)|(е))м)|(сообщени)|(отправ((и)|(к)))
+meta __RU_SPAM_1B __RU_SPAM_1B1 || __RU_EMAIL
+__RU_SPAM_1C (адр((ес)|(\.)))|(ящик)|(а((к){1,2})каунт)|(получат)
+meta __RU_SPAM_1 __RU_SPAM_1A || __RU_SPAM_1B || __RU_SPAM_1C
+__RU_SPAM_2 (((об((ход)|(ой)))|(про((би)|(хо((ж)?)д)|(йт)|(йд)|(ник))))(.{1,10})((((люб)|(вс((е)|(я))))(.{1,12}))?)(фильтр))
+__RU_SPAM_3 (((свеж)|(((((об?))нов)|(полн))((ы)|(ейш)|(л)))|(актуальн)|(проверен))(.{1,7}баз))
+__RU_SPAM_4A (предприяти)|(организаци)|(частн)|(фирм)|(((юр((идич)?))|(физ((ич)?)))(.{0,7})лиц)
+__RU_SPAM_4B ([[:blank:][:punct:]]баз(((a((м(и?))|(x))?)|(е)|(у)|(ы))?)[[:blank:][:punct:]])|(отрасл)|(выбор((к)|(ок)|(оч)))
+__RU_SPAM_4C (москв)|(питер)|(росси)|(регион)|([[:blank:][:punct:]]снг[[:blank:][:punct:]])|(украин)|(беларус)
+meta  __RU_SPAM_4 ( __RU_SPAM_4A + __RU_SPAM_4B + __RU_SPAM_4C ) >=2
+__RU_SPAM_5 (((цен)|(стоимост)|(^)|([[:blank:][:punct:]])).{1,5}3[[:digit:]]{3}.{1,3}р((уб)|([[:blank:][:punct:]])|($)))|(((([[:digit:]]([[:blank:][:punct:]]?)){4,7})|(тысяч)|(миллион)).{,5}(((((е)?)([[:blank:][:punct:]]?)((м)|m)а(i|I)(l|L|1))|(почтовы))?)((адр((ес)|([[:blank:][:punct:]])))|(ящ((ик)|([[:blank:][:punct:]])))))
+# (495) 502-61-85, (495) 771-01-95, (495) 585-62-89, (495) 543-57-83,
+__RU_SPAM_6A <#4#><#9#><#5#>((<#5#><#0#><#2#><#6#><#1#><#8#><#5#>)|(<#7#><#7#><#1#><#0#><#1#><#9#><#5#>)|(<#5#><#8#><#5#><#6#><#2#><#8#><#9#>)|(<#5#><#4#><#3#><#5#><#7#><#8#><#3#>))
+__RU_SPAM_6B <#9#><#8#><#5#>((<#7#><#6#><#9#><#5#><#3#><#1#><#4#>))
+# ICQ 434-099-071
+__RU_SPAM_6C  (<#4#><#3#><#4#><#0#><#9#><#9#><#0#><#7#><#1#>)
+meta __RU_SPAM_6 __RU_SPAM_6A || __RU_SPAM_6B || __RU_SPAM_6C
+__RU_SPAM_7 (о([[:blank:][:punct:]]*)ва((с)|(ш(.{2,5})((товар)|(услуг)|(фирм))))(.{1,5})узна(.{2,5})((десят)|(сто)|(сотн)|(тысяч)|(миллион)|(вс((я)|(ё)))|(весь)))
+meta __RU_SPAM_RELATED __RU_ADVERTISING || __RU_ADVERTISING_WEB || __RU_AUTHORING || __RU_IP || __RU_WEBSITE_SINGLE || __RU_SPAM_TRICKS
+
+meta __RU_SPAM_EVIDENT1 ( __RU_SPAM_1A || __RU_SPAM_2 || __RU_SPAM_3 || __RU_SPAM_4A ) && ( __RU_COMMERCIAL || __RU_SPAM_RELATED )
+meta __RU_SPAM_EVIDENT2 ( __RU_SPAM_1 || __RU_SPAM_2 || __RU_SPAM_3 || __RU_SPAM_4 || __RU_SPAM_RELATED || __RU_COMMERCIAL ) && __RU_SPAM_7
+meta __RU_SPAM_X3 ( __RU_SPAM_1B + __RU_SPAM_1C + __RU_SPAM_3 + __RU_SPAM_4B + __RU_SPAM_4C + __RU_SPAM_5 + __RU_SPAM_6 + __RU_SPAM_RELATED ) >= 3
+meta __RU_SPAM_X2 ( __RU_SPAM_1B + __RU_SPAM_1C + __RU_SPAM_3 + __RU_SPAM_4B + __RU_SPAM_4C + __RU_SPAM_5 + __RU_SPAM_6 + __RU_SPAM_RELATED ) >= 2
+
+meta RU_SPAM __RU_SPAM_EVIDENT1 || __RU_SPAM_EVIDENT2 || ( __RU_SPAM_X3 && __RU_COMMERCIAL )
+score RU_SPAM 2.5
+meta RU_SUSPECTED_SPAM __RU_SPAM_X2 && __RU_COMMERCIAL
+score RU_SUSPECTED_SPAM 0.5
+
+# Web-design, hosting, search-engines optimization
+__RU_WEBSITE_1 (сайт)|(хостинг)|((c|C)(g|G)(i|I))|((p|P)(h|H)(p|H))|(в((е)|(э))б)|(wе((ь)|(в)))
+__RU_WEBSITE_2a (посе((тит)|(щ((ен)|(а)))))|(абузоустойчив)
+meta __RU_WEBSITE_2 __RU_WEBSITE_2a || __RU_OPTIMIZE
+__RU_WEBSITE_3A (пере((ход)|(йт)|(йд)))
+meta __RU_WEBSITE_3 __RU_WEBSITE_3A && ( __RU_WEBSITE_1 || __RU_WEBSITE_2 )
+__RU_WEBSITE_4 (([[:digit:]]([[:blank:][:punct:]]?)){2,3}((х)|(\*))([[:digit:]]([[:blank:][:punct:]]?)){2,3}[[:blank:][:punct:]]*((точ)|(пикс)|(pix)))
+meta __RU_WEBSITE_RELATED ( __RU_AUTHORING + __RU_ADVERTISING + __RU_ADVERTISING_WEB + __RU_EQUIPMENT + __RU_IP ) >=2
+meta __RU_WEBSITE ( __RU_WEBSITE_1 + __RU_WEBSITE_2 + __RU_WEBSITE_3 + __RU_WEBSITE_4 ) >=2
+meta __RU_WEBSITE_SINGLE  __RU_WEBSITE_1 || __RU_WEBSITE_2 || __RU_WEBSITE_3 || __RU_WEBSITE_4 || __RU_ADVERTISING_WEB
+meta RU_WEBSITE __RU_WEBSITE && __RU_WEBSITE_RELATED && __RU_COMMERCIAL
+score RU_WEBSITE 0.5
+
+#-------------
+__RU_REPLICATION (копи((ро)|(й)|(ю)|(ей)|(я((м)|(х)|([[:blank:][:punct:]])))))|(тираж)|(экземпляр)
+__RU_PRINTING_1 (полиграфи)|(печат)|(типограф)
+__RU_PRINTING_2A (((визит)|([[:blank:][:punct:]]листов))(о?)к)|(бланк)|(буклет)|(каталог)
+__RU_PRINTING_2B (((фут)|(бейс))бол(о?)к)|(ма((е)|(й))к)|(ежедневник)|(сувенир)
+__RU_PRINTING_2C (((круж)|(карточ)|(руч))(е?)к)|(пепельниц)|(календар)|(портфел)
+__RU_PRINTING_2D (конверт)|(((брел)|(зажигал)|(пап)|(сум))(о?)к)|(лого)|(символ)|(эмблем)
+meta __RU_PRINTING_2 __RU_PRINTING_2A || __RU_PRINTING_2B || __RU_PRINTING_2C || __RU_PRINTING_2D
+__RU_PRINTING_3 (оперативн)|(цветн)|(цифров)|(о((ф){1,2})сет)|(оттиск)
+meta __RU_PRINTING_X ( __RU_PRINTING_1 + __RU_PRINTING_2 + __RU_PRINTING_3 + __RU_REPLICATION ) >=3
+meta RU_PRINTING __RU_PRINTING_X && __RU_COMMERCIAL
+score RU_PRINTING 1.0
+
+#-------------
+__RU_REALTY_1 (недвижимост)|(риэлт)|(девелопер)
+__RU_REALTY_2 (аренд)|(агент)|((([[:blank:][:punct:]])|(^))снять)|(сним((е)|(у)))|(сда((ть)|(ёт)|(м)|(ю)))|(ипоте((к)|(чн)))
+meta __RU_REALTY ( __RU_REALTY_1 + __RU_REALTY_2 + __RU_BUILD ) >= 2
+__RU_REALTY_PHONE (<#9#><#2#><#9#><#6#><#3#><#2#><#2#><#9#><#1#><#6#>)|(<#9#><#8#><#5#><#1#><#3#><#4#><#1#><#9#><#3#><#0#>)|(<#9#><#0#><#5#><#7#><#8#><#8#><#7#><#8#><#7#><#3#>)|(<#9#><#1#><#6#><#0#><#5#><#6#><#7#><#3#><#6#><#2#>)|(<#4#><#9#><#9#><#7#><#6#><#3#><#3#><#0#><#1#><#3#>)
+__RU_REALTY_DESCRIPTION_1 (площад)|(этаж)|(подвал)|(цокол)|(черда)
+__RU_REALTY_DESCRIPTION_2 (ремонт)|(панель)|(кирпич)|(монолит)|(деревян)|(охраняемы)|(отапливаемы)|(подъезд)|(парков)|(стоян)|(((от)|(с)|(к))[[:blank:][:punct:]]метро)
+__RU_REALTY_DESCRIPTION_3 (склад)|(офис)|(квартир)|([[:blank:][:punct:]]дач(((а)|(и)|(у)|(е)|(н((ая)|(ую)|(о(й)|(го)|(е)|(м(у?)))|(ы(е)|(й)|(х)|(м)|(ми)))))?)[[:blank:][:punct:]])|(особняк)|(вилл)|(гараж)|(коттедж)|(таунхаус)
+__RU_REALTY_DESCRIPTION_4 (магазин)|(салон)|(цех)|(производственн)|(жил((о((й)|(е)|(го)|(м)))|(ы((е)|(х)|(м)))))|(торгов)
+__RU_REALTY_DESCRIPTION_5 (([[:blank:][:punct:][:digit:]]|(вы))сот((ок)|(к((и)|(а)))|(н)))|([[:blank:][:punct:][:digit:]]((га[[:blank:][:punct:]])|(гектар)))|(кв[[:blank:][:punct:]]{1,2}м)
+__RU_REALTY_DESCRIPTION_6 (помещени)|(комн)|(((^)|([[:blank:][:punct:]]))здани)|(участ(о?)к)|(зем((л((я)|(ю)|(и)|(ё)))|(ель)))
+meta __RU_REALTY_DESCRIPTION ( __RU_REALTY_DESCRIPTION_1 + __RU_REALTY_DESCRIPTION_2 + __RU_REALTY_DESCRIPTION_3 + __RU_REALTY_DESCRIPTION_4 + __RU_REALTY_DESCRIPTION_5 + __RU_REALTY_DESCRIPTION_6 ) >=2
+meta RU_REALTY __RU_REALTY && __RU_REALTY_DESCRIPTION && __RU_COMMERCIAL
+score RU_REALTY 2.0
+meta __RU_REALTY_ANY __RU_REALTY_1 || __RU_REALTY_2 || __RU_REALTY_DESCRIPTION_1 || __RU_REALTY_DESCRIPTION_2 || __RU_REALTY_DESCRIPTION_3 || __RU_REALTY_DESCRIPTION_4 || __RU_REALTY_DESCRIPTION_5 || __RU_REALTY_DESCRIPTION_6
+meta RU_REALTY_PHONE __RU_REALTY_PHONE && __RU_REALTY_ANY
+score RU_REALTY_PHONE 2.0
+#-------------
+__RU_LOADERS_1 (грузчик)|(переезд)
+__RU_LOADERS_2 (упак)|(((по)|(раз))груз)|(такелаж)|(пианин)|(роял)|(бережн)|(аккуратн)|(деликатн)
+meta RU_LOADERS __RU_LOADERS_1 && ( __RU_LOADERS_2 || __RU_REALTY_DESCRIPTION_3 ) && __RU_COMMERCIAL
+score RU_LOADERS 0.5
+
+#-------------
+meta RU_HOTELS __RU_TOPICS_HOTELS && __RU_COMMERCIAL
+score RU_HOTELS 0.1
+
+#-------------
+__RU_MMEDIA_1A (видео)|([[:blank:][:punct:]]кино)|(фильм)|(фот((о)|(к)))
+__RU_MMEDIA_1B (мультимед)|(аудио)|(изображен)|(картин)|(музык)|(альбом)
+meta __RU_MMEDIA_1 __RU_MMEDIA_1A || __RU_MMEDIA_1B
+__RU_MMEDIA_2 ((h|(н))(d|D){2})|((m|(м))((p)|(п))3)|((d|D)(v|V)(d|D))|((d|D)(i|I)(v|V)(х))|((h|(н))\.[[:digit:]]{3})|((а)(v|V)(i|I))|((j|J)|(m|(м))р(е?)g)|((t|(т))(i|I)(f|F){1,2})|(скача)|(dоwn((l)|(L)|(1)оаd))
+__RU_MMEDIA_3A (коллекци((я)|(ю)|(и)))|(архив)
+__RU_MMEDIA_3B (диск)|(носител)|(формат)|(темати)|(лента)
+meta __RU_MMEDIA_3 __RU_MMEDIA_3A || __RU_MMEDIA_3B
+__RU_MMEDIA_4A (советски)|(отечественн)|(блокбастер)|(((кино)|([[:blank:][:punct:]]))хит)
+__RU_MMEDIA_4B (жанр)|(драм)|(комеди)|(боевик)|(детектив)|(фантасти)|(мульт)|(аним((е)|(э)))|(х((е)|(э))нтай)|(триллер)|(сериал)
+__RU_MMEDIA_4C ([[:blank:][:punct:]]рок)|(рэп)|(джаз)|(класси((к)|(ч)))|(блюз)|(хип([[:blank:][:punct:]]?)хоп)|(эстрад)|(шансон)|(тан(е?)ц((ева)|(у)|(а)|(ы)))|(инструментал)
+meta __RU_MMEDIA_4 __RU_MMEDIA_4A || __RU_MMEDIA_4B || __RU_MMEDIA_4C || __RU_FOREIGN
+__RU_MMEDIA_5 (актер)|(режиссер)|(звезд)|(популярн)
+  
+meta __RU_MMEDIA_X ( __RU_MMEDIA_1 + __RU_MMEDIA_2 + __RU_MMEDIA_3 + __RU_MMEDIA_4 + __RU_MMEDIA_5 ) >=3
+meta RU_MMEDIA  __RU_MMEDIA_X && __RU_COMMERCIAL
+score RU_MMEDIA 1.0
+
+#-------------
+__RU_PORN_1 ([[:blank:][:punct:]]порн((о)|(у)))|(эроти((к)|(ч)))|(орги((я)|(и)|(ю)|(е)))|(([[:blank:][:punct:]]|(вы)|(ъ))ёб((л)|(а)|(у)|(ё)))|(лесби)|([[:blank:][:punct:]]((ан)|(ор))ал([[:blank:][:punct:]]|(а)|(о)|(у)|(е)|(ьн)))|(буккаке)|(ми(н){1,2}(ь)?т)|(клубничк)|(ххх)|([[:blank:][:punct:]]секс)|(бдсм)|(бордел)|([[:blank:][:punct:]]порев((о(м)?)|(а)|(у)|(е))[[:blank:][:punct:]])
+__RU_PORN_2A1 (страст)|(бессты((ж)|(д)))|(разврат)|(а((п){1,2})етитн)|(похот)|(возбуждён)|(ненасытн)|(соблазн)|(обнажён)
+__RU_PORN_2A2 (горяч)|(молод((ень)|(о)|(а)|(ы)))|([[:blank:][:punct:]]юн((ая)|(ую)|(о((й)|(г)|(м)))|(ы((е)|(м)|(х)))))|(голод((ав)|(н)))
+__RU_PORN_2B1 ([[:blank:][:punct:]]су(ч(е)?)?к)|(любовн)|(шлю((ш(е)?к)|(х)))
+__RU_PORN_2B2 (цып((а)|(о)))|(кис(о?)к)|(кошечк)|(тёл(о(ч(е)?)?)?к)|(персик)
+__RU_PORN_2B3 (блондин)|(шатен)|([[:blank:][:punct:]]рыж((и)|(ы)|(е)|(а)))|(брюнет)
+__RU_PORN_2B4 ([[:blank:][:punct:]]дев((о)|(ч)|(уш)|(иц)|(к)))|(студентк)|(домохозяйк)|(мам((аш)|(очк)))|(крошк)|(малышк)|(крас((от)|(ав)|(ив)))|(тёт((я)|(к)|(и)|(ю)|(е)|(ь)))|(учи((лк)|(тель)))
+__RU_PORN_2B5 (пар(е)?н((ь)|(и)|(я)|(е)|(ю)))|(жереб(е)?ц)
+__RU_PORN_3A1 (сис((ь)|(и)|(е)|(я)|(ю)))|(сос(о)?к)|([[:blank:][:punct:]]поп(к?)((а)|(у)|(и)|(о)|(ы)))|([[:blank:][:punct:]]зад((а((м(и)?)|(х))?)|(о((м)|(в)))|(у)|(ы)|(е)|(ниц.{1,4}))?[[:blank:][:punct:]])|(пизд)|(вагин)|(клитор)|(анус)
+__RU_PORN_3A2 (груд((ь)|(и)|(я)|(е)))|(бюст)|([[:blank:][:punct:]]губ([[:blank:][:punct:]]|(ы)|(ок)|((к)?((а((м)|(х)))|(и)))))|(горл((о)|(а)|(у)|(е)))|(глотк)
+__RU_PORN_3A3 (дыр(оч)?((к)|(а)|(ы)|(у)))|(отверст(ь)?и)|(бул(о(ч)?)?к)
+__RU_PORN_3B1 (дилд)|(фалло)|(пенис)|((!((вер)|(ти)|(су)))ху((й)|(ё)|(я)|(ю)))|(елда)|(сперм)
+__RU_PORN_3B2 (член)|(ствол)|([[:blank:][:punct:]]яй((чк)|(ц)))
+__RU_PORN_4A1 (онани((р)|(ст)|(зм)))|(дрочи)|(сос((а)|(ё)|(у)))|(((от)|[[:blank:][:punct:]])трах((н)|(а)))|(отыме((т)|(л)|(е)|(ю)))
+__RU_PORN_4A2 (заса((ди)|(ж)))|(((в)|(за)|(при))сун((у)|(е)|(ь)))|(проник)|(раздви((н)|(г)))|(группов)|(((об)|[[:blank:][:punct:]])конч((и)|(а)))|(ласк)|(цел((ова)|(ую)|(уе)))|(((об)|(вы)|([[:blank:][:punct:]]))ли((з)|(ж)))|(шлёп((а)|(н)))|(име((ть)|(л((а)|(и))?)|(ю(т)?)|(е((т(е)?)|(ш(ь)?)|(м))))[[:blank:][:punct:]])
+__RU_PORN_4A3 (удов((летвор)|(ольств)))|(наслажд)|(развлеч)|(ублаж((а)|(и)))|(фантази)|(извива)|(пор((е((т)|(м)|(шь)))|(ю(т)?)|(о((л((а)|(и))?)|(т((ь)|(а)|(ы))?))))[[:blank:][:punct:]])|(неж((н)|(и)|(а)))|(обильн)
+__RU_PORN_5A1 (вздыблен)|(могуч)|(заря((д)|(ж)))
+__RU_PORN_5A2 (глубок)|(влажн)|(мокр((а)|(о)|(у)|(ы)))|(упруг)|(туг((и)|(а)|(о)|(у)))|(сладк)
+__RU_PORN_5A3 (неистов)|(неприкрыт)|(((от)|(со))кровен)|(дерзк)|(грязн)|((не)?традицион)|(искуш((ё)|(о))н)|(постел((ь)|(и)|(я)))|(взросл)
+__RU_UNDERCLOTHES (трус((ы)|(ик)|(ел)))|(чул(о)?((к)|(ч)))|(фетиш)|(бель((ё)|(ю)|(я)))|(кружев)
+__RU_RELAX (расслаб)|(бассейн)|(саун((а)|(е)|(ы)|(у)|(о)|[[:blank:][:punct:]]))|([[:blank:][:punct:]]бан((я)|(и)|(е)|(ю)|(ь)|(но)|(ны)))|(джакузи)|(масс((аж)|(ир)))
+
+# There are a lot of euphemisms in porn messages. To awoid false positives,
+# euphemisms are considered as a "conditional" signs of spam, i.e. they will
+# hit only if at least one evident porn-related word is found, or there are
+# too many euphemisms or other words, somehow related to porn.
+meta __RU_PORN_1_EVIDENT __RU_PORN_1 || __RU_PORN_2A1 || __RU_PORN_2B1 || __RU_PORN_3A1 || __RU_PORN_3B1 || __RU_PORN_4A1 || __RU_PORN_5A1
+meta __RU_PORN_2_EVIDENT ( __RU_PORN_1 + __RU_PORN_2A1 + __RU_PORN_2B1 + __RU_PORN_3A1 + __RU_PORN_3B1 + __RU_PORN_4A1 + __RU_PORN_5A1 ) >=2
+meta __RU_PORN_RELATED __RU_UNDERCLOTHES || __RU_RELAX || __RU_MMEDIA_1A || __RU_MMEDIA_3A
+meta __RU_PORN_2_EUPHS ( __RU_PORN_2A2 + __RU_PORN_2B2 + __RU_PORN_2B3 + __RU_PORN_2B4 + __RU_PORN_2B5 + __RU_PORN_3A2 + __RU_PORN_3A3 + __RU_PORN_3B2 + __RU_PORN_4A2 + __RU_PORN_4A3 + __RU_PORN_5A1 + __RU_PORN_5A2 + __RU_PORN_5A3 + __RU_PORN_RELATED ) >=2
+meta __RU_PORN_4_EUPHS ( __RU_PORN_2A2 + __RU_PORN_2B2 + __RU_PORN_2B3 + __RU_PORN_2B4 + __RU_PORN_2B5 + __RU_PORN_3A2 + __RU_PORN_3A3 + __RU_PORN_3B2 + __RU_PORN_4A2 + __RU_PORN_4A3 + __RU_PORN_5A1 + __RU_PORN_5A2 + __RU_PORN_5A3 + __RU_PORN_RELATED ) >=4
+
+meta RU_PORN1 __RU_PORN_2_EVIDENT && __SA_RUS_HLINK
+score RU_PORN1 5.0
+meta RU_PORN2 __RU_PORN_1_EVIDENT && __RU_PORN_2_EUPHS && __SA_RUS_HLINK
+score RU_PORN2 5.0
+meta RU_PORN3 __RU_PORN_4_EUPHS && __SA_RUS_HLINK
+score RU_PORN3 5.0
+
+#-------------
+__RU_OUTSOURCE_COMMON (переда((т)|(ч)))|(ведени)|(сопровождени)|(консульт)
+__RU_ACCOUNTING_OUTSOURCE_1 (((штатн)|(собственн)(.{2,3}))[[:blank:][:punct:]](бухгалтер))|(подготов(.{2,3})[[:blank:][:punct:]](((бухгалтерск(.{2,3})([[:blank:][:punct:]]и[[:blank:][:punct:]]налогов(.{2,3})))|(налогов(.{2,3})))?)[[:blank:][:punct:]]отчётност)
+__RU_ACCOUNTING_OUTSOURCE_2A (помещени)|(техник)|(программ)
+meta __RU_ACCOUNTING_OUTSOURCE_2 __RU_ACCOUNTING_OUTSOURCE_2A || __RU_OUTSOURCE_COMMON
+meta RU_ACCOUNTING_OUTSOURCE __RU_ACCOUNTING_OUTSOURCE_1 && __RU_ACCOUNTING_OUTSOURCE_2 && __RU_COMMERCIAL
+score RU_ACCOUNTING_OUTSOURCE 0.5
+
+#-------------
+meta __RU_LAWYERS_1 ( __RU_TOPICS_LAW_1 + __RU_TOPICS_LAW_2 + __RU_TOPICS_LAW_3 + __RU_TOPICS_LAW_4 + __RU_TOPICS_LAW_5 + __RU_TOPICS_LAW_6 + __RU_TOPICS_LAW_7 + __RU_TOPICS_LAW_8 + __RU_TOPICS_LAW_9 + __RU_TOPICS_LAW_10 + __RU_OUTSOURCE_COMMON ) >=3
+meta RU_LAWYERS_1 __RU_LAWYERS_1 && __RU_COMMERCIAL
+score RU_LAWYERS_1 1.0
+__RU_LAWYERS_2 (<#4#><#9#><#5#><#5#><#1#><#8#><#3#><#5#><#1#><#9#>)
+meta __RU_LAWYERS_2A ( __RU_TOPICS_LAW_1 + __RU_TOPICS_LAW_2 + __RU_TOPICS_LAW_3 + __RU_TOPICS_LAW_4 + __RU_TOPICS_LAW_5 + __RU_TOPICS_LAW_6 + __RU_TOPICS_LAW_7 + __RU_TOPICS_LAW_8 + __RU_TOPICS_LAW_9 + __RU_TOPICS_LAW_10 + __RU_OUTSOURCE_COMMON + __RU_TOPICS_REGULAT ) >=2
+meta RU_LAWYERS_2 __RU_LAWYERS_2 && ( __RU_COMMERCIAL || __RU_LAWYERS_2A )
+score RU_LAWYERS_2 1.0
+
+#-------------
+__RU_IMPEX (вэд)|(тамож(е?)н)|(((экс)|(им))порт)
+
+
+#-------------
+__RU_BREED_1A ([[:blank:][:punct:]]род((ословн..)?)[[:blank:][:punct:]])|(фамил((и)|(ь)))
+meta __RU_BREED_1 __RU_BREED_1A || __RU_CELEBRATE_1B
+meta RU_BREED __RU_BREED_1 && __RU_COMMERCIAL
+score RU_BREED 0.4
+
+#-------------
+__RU_PHONE_TARIFFS_1 (безлимит)|(тариф)
+__RU_PHONE_TARIFFS_2 (меж((ду)?)((го)|(на))род)
+meta RU_PHONE_TARIFFS __RU_PHONE_TARIFFS_1 && __RU_PHONE_TARIFFS_2 && __RU_COMMERCIAL
+score RU_PHONE_TARIFFS 0.5
+
+#-------------
+__RU_IT_1A (поддержк)|(х((е)|(э))лпд((е)|(э))ск)|(((с((а)|(у))(п){1,2})|(((s)|(S))((u)|(U))(р){1,2}))орт)
+meta __RU_IT_1 __RU_IT_1A || __RU_SERVICE
+__RU_IT_2A (1с)
+meta __RU_IT_2 __RU_IT_2A || __RU_EMAIL || __RU_IP || __RU_EQUIPMENT
+__RU_IT_3A (разв((одк)|(ест)|(едё)|(еду)))|(про((клад)|(лож)))|(подключ((ен)|(ит)|(ае)))
+meta __RU_IT_3 __RU_IT_3A || __RU_BUILD
+__RU_IT_4 (кабел)|(провод)|(мед((ь)|(н)|(и[[:blank:][:punct:]])))|(опти((к)|(ч)))|(волс)|(радио)|(беспроводн)|(((w)|(W))((i)|(I)|(1))([[:blank:][:punct:]]?)((((f)|(F))((i)|(I)|(1)))|(мах)))
+meta __RU_IT_X ( __RU_IT_2 +  __RU_IT_3 + __RU_IT_4 + __RU_PHONE_TARIFFS_1 ) >=3
+meta RU_IT __RU_IT_1 && __RU_IT_X && __RU_COMMERCIAL
+score RU_IT 0.5
+
+#-------------
+__RU_WATCH_1 (хронометр)|([[:blank:][:punct:]]час((ы)|(ов)|(ам)|(ах)))
+__RU_WATCH_2 (копи((я)|(й)|(ю)))|(реплик)|(модел((ь[[:blank:][:punct:]])|(ью)|(и)|(я)|(ей)))
+__RU_WATCH_3 (Rаdо)|(Rоlех)|(раtек[[:blank:][:punct:]]рhiliрре)|(вvlgаri)|(вrеguеt)|(Vасhеrоn[[:blank:][:punct:]]соnstаntin)|(сhораrd)|(Zеnith)
+__RU_WATCH_4 (швейцар((ск)|(и)))|(эксклюзив)|(престиж)
+meta __RU_WATCH_X ( __RU_WATCH_1 + __RU_WATCH_2 + __RU_WATCH_3 + __RU_WATCH_4 ) >=3
+meta RU_WATCH __RU_WATCH_X && __RU_COMMERCIAL
+score RU_WATCH 0.5
+
+#-------------
+__RU_DENTIST_1 (стоматолог)|(дантист)|([[:blank:][:punct:]]зуб)
+__RU_DENTIST_2 (удал((ени)|(ит)|(яе)))|(реставр)|(отбели((ва)|(т)))|(установ)|([[:blank:][:punct:]]леч((ен)|(ит)))|(диагности)
+__RU_DENTIST_3 (керами)|(прикус)|(брекет)|(имплант)
+meta __RU_DENTIST_X ( __RU_DENTIST_1 + __RU_DENTIST_2 + __RU_DENTIST_3 ) >=2
+meta RU_DENTIST __RU_DENTIST_X && __RU_COMMERCIAL
+score RU_DENTIST 0.5
+
+#-------------
+__RU_COSMETICS_1 (волос)|([[:blank:][:punct:]]кож((а)|(и)|(е)|(у)))|([[:blank:][:punct:]]губ(ы?)[[:blank:][:punct:]])|(ресниц)|(ногт)|([[:blank:][:punct:]]век((а)|(и))([[:blank:][:punct:]]?))|([[:blank:][:punct:]]бров((ь)|(и)|(е)))
+__RU_COSMETICS_2 (макияж)|(наращива)|(((де)|(э))пиляция)|(((ман)|(пед))икюр)|(завивк)|(тату)|(кра((шен)|(шив)|(сит)|(ск)))|(причёс)|(укладк)
+__RU_COSMETICS_3 (воск)|([[:blank:][:punct:]]гел((ь)|(и)|(я)|(е)))
+__RU_COSMETICS_4 (целю((л){1,2})ит)|((([[:blank:][:punct:]])|(о))жир)|(морщин)|([[:blank:][:punct:]]угр((е)|(и)))|(бородав)
+__RU_COSMETICS_5A (салон)|([[:blank:][:punct:]]студи)
+__RU_COSMETICS_5B (космети)|(красот)
+meta __RU_COSMETICS_5 __RU_COSMETICS_5A && __RU_COSMETICS_5B
+meta __RU_COSMETICS ( __RU_COSMETICS_1 + __RU_COSMETICS_2 + __RU_COSMETICS_3 + __RU_COSMETICS_4 + __RU_COSMETICS_5 ) >=3
+meta RU_COSMETICS __RU_COSMETICS && __RU_COMMERCIAL
+
+#-------------
+__RU_CERTIFICATE_1 (гигиенич)|(сан((итарн)|(эпид)))|(эпидем)|(пожар)|(надзор)
+__RU_CERTIFICATE_2 (испыта)|(соответств)|(качеств)|(гост)|([[:blank:][:punct:]]ту[[:blank:][:punct:][:digit:]])|(исо)|(((i)|(I)|(1))((S)|(s))о)
+meta __RU_CERTIFICATE_X ( __RU_TOPICS_LAW_2A + __RU_CERTIFICATE_1 + __RU_CERTIFICATE_2 ) >=2
+meta RU_CERTIFICATE __RU_CERTIFICATE_X && __RU_COMMERCIAL
+score RU_CERTIFICATE 0.5

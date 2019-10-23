@@ -2,4 +2,4 @@ docker-compose.yml
 iptables_up
 iptables_down
 src
-copy
+tmp

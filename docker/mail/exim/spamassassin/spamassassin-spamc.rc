@@ -1,0 +1,4 @@
+# send mail through spamassassin
+DROPPRIVS=yes
+:0fw
+| /usr/bin/spamc

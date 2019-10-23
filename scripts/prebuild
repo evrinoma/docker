@@ -4,6 +4,6 @@
 docker build -t evrinoma/1c ../docker/1c/.
 #docker build -t evrinoma/vnc ../docker/vnc/.
 #docker build -t evrinoma/dovecot ../docker/mail/dovecot/.
-#docker build -t evrinoma/php72 ../docker/php72/.
+docker build -t evrinoma/php53 ../docker/php53/.
 #docker build -t evrinoma/bind ../docker/bind/.
 #docker build -t evrinoma/exim ../docker/mail/exim/.

@@ -136,6 +136,18 @@ services:
             virt:
                 ipv4_address: 172.18.2.3
 
+    mail_exim_mail:
+        container_name: "exim.mail"
+        image: "evrinoma/exim"
+        hostname: "mail.ite-ng.ru"
+        build:
+            context: docker/mail/exim/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.4.1
 
     mail_dovecot_email:
         container_name: "dovecot.email"
@@ -156,7 +168,7 @@ services:
         image: "evrinoma/bind.master"
         hostname: "bind.master"
         build:
-            context: docker/bind/server/mail/.
+            context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -169,7 +181,7 @@ services:
         image: "evrinoma/bind.slave"
         hostname: "bind.slave"
         build:
-            context: docker/bind/server/email/.
+            context: docker/bind/servers/email/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -500,5 +512,3 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
-
-
