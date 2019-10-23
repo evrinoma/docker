@@ -21,7 +21,7 @@ services:
         image: "evrinoma/bind.master"
         hostname: "bind.master"
         build:
-            context: docker/bind/server/mail/.
+            context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"

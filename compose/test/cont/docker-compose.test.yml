@@ -16,9 +16,9 @@ services:
                 ipv4_address: 172.18.2.1
 
     cont_master:
-        container_name: "cont_master"
+        container_name: "cont.master"
         build:
-            context: ../../../docker/tests/cont/master/.
+            context: ../../../docker/php72/sites/cont/.
             dockerfile: Dockerfile
         ports:
             - 8080:80
@@ -30,9 +30,9 @@ services:
                 ipv4_address: 172.18.202.5
 
     cont_test:
-        container_name: "cont_test"
+        container_name: "cont.test"
         build:
-            context: ../../../docker/tests/cont/test/.
+            context: ../../../docker/tests/servers/cont/.
             dockerfile: Dockerfile
         ports:
             - 8090:80
@@ -47,7 +47,7 @@ services:
         container_name: "php53.kisnew_test"
         image: "evrinoma/php53.kisnew.ite-ng.ru"
         build:
-            context: ../../../docker/tests/kis.
+            context: ../../../docker/php53/sites/kis.ite-ng.ru/.
             dockerfile: Dockerfile
         ports:
             - 8585:80

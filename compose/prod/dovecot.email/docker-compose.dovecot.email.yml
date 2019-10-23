@@ -19,7 +19,7 @@ services:
         image: "evrinoma/bind.slave"
         hostname: "bind.slave"
         build:
-            context: docker/bind/server/email/.
+            context: docker/bind/servers/email/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
