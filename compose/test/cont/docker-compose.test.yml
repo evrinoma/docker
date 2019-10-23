@@ -27,7 +27,7 @@ services:
             - ../../../../cont:/opt/WWW/container.ite-ng.ru
         networks:
             virt:
-                ipv4_address: 172.18.2.5
+                ipv4_address: 172.18.202.5
 
     cont_test:
         container_name: "cont_test"
@@ -41,7 +41,22 @@ services:
             - ../../../../cont:/opt/WWW/container.ite-ng.ru
         networks:
             virt:
-                ipv4_address: 172.18.2.6
+                ipv4_address: 172.18.202.6
+
+    php53_kis_new_ite-ng_ru_test:
+        container_name: "php53.kisnew_test"
+        image: "evrinoma/php53.kisnew.ite-ng.ru"
+        build:
+            context: ../../../docker/tests/kis.
+            dockerfile: Dockerfile
+        ports:
+            - 8585:80
+            - 0.0.0.0:522:22
+        volumes:
+            - ../../../../kis:/opt/WWW/container.ite-ng.ru
+        networks:
+            virt:
+                ipv4_address: 172.18.202.99
 
 
 
