@@ -8,6 +8,8 @@ MASTER_CONT=$SUBNET"1.5"
 TEST=$SUBNET"1.6"
 SQUID7=$SUBNET"1.7"
 SAMBA=$SUBNET"1.8"
+DANTE=$SUBNET"1.9"
+WOWZA=$SUBNET"1.10"
 
 SQL=$SUBNET"2."
 MAIL=$SUBNET"4."
@@ -45,6 +47,9 @@ echo $RABBIT"	rabbitmq" >> /etc/hosts
 
 echo $SQUID7"	squid.7" >> /etc/hosts
 echo $SAMBA"	samba.kis" >> /etc/hosts
+
+echo $DANTE"	dante" >> /etc/hosts
+echo $WOWZA"	wowza" >> /etc/hosts
 
 echo $PRIMAVERA15"	vnc.primavera.15" >> /etc/hosts
 
