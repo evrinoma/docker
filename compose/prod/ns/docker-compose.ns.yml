@@ -32,7 +32,7 @@ services:
 
     mail_exim_mail:
         container_name: "exim.mail"
-        image: "evrinoma/dovecot.email"
+        image: "evrinoma/exim.mail"
         hostname: "mail.ite-ng.ru"
         dns: 172.18.5.1
         build:
