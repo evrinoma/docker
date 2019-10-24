@@ -5,10 +5,10 @@ MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma PHP 7.2 sqladmin" \
-	image="php-7.2.sqladmin" \
+	name="evrinoma PHP 7.2 kodexplorer" \
+	image="php-7.2.kodexplorer" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2017-02-26"
 
-COPY	sqladmin.conf /etc/httpd/conf.d/vhost.conf
+COPY	kodexplorer.conf /etc/httpd/conf.d/vhost.conf

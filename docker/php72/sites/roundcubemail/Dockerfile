@@ -6,7 +6,7 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma PHP 7.2 roundcubemail" \
-	image="php-7.2" \
+	image="php-7.2.roundcubemail" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-09-17"

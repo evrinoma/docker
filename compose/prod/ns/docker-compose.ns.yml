@@ -60,18 +60,31 @@ services:
             virt:
                 ipv4_address: 172.18.72.4
 
-    wowza:
-        container_name: "wowza"
-        image: "evrinoma/wowza"
+    wowza_4_7_7:
+        container_name: "wowza.4.7.7"
+        image: "evrinoma/wowza/versions/4.7.7"
         build:
-            context: docker/wowza/.
+            context: docker/wowza/versions/4.7.7/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
     #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.1.10
+                ipv4_address: 172.18.14.77
+
+    php72_kodexplorer:
+        container_name: "php72.kodexplorer"
+        image: "evrinoma/php72.kodexplorer"
+        build:
+            context: docker/php72/sites/kodexplorer/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.12
 
 networks:
     virt:

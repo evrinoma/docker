@@ -6,7 +6,7 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma wowza Image" \
-	image="exim" \
+	image="wowza" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-10-23"

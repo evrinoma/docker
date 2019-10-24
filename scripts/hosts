@@ -9,13 +9,14 @@ TEST=$SUBNET"1.6"
 SQUID7=$SUBNET"1.7"
 SAMBA=$SUBNET"1.8"
 DANTE=$SUBNET"1.9"
-WOWZA=$SUBNET"1.10"
 
 SQL=$SUBNET"2."
 MAIL=$SUBNET"4."
 BIND=$SUBNET"5."
 
-PRIMAVERA15=$SUBNET"22.15"
+WOWZA=$SUBNET"14."
+
+PRIMAVERA=$SUBNET"22."
 
 PHP53=$SUBNET"53."
 PHP71=$SUBNET"71."
@@ -49,9 +50,9 @@ echo $SQUID7"	squid.7" >> /etc/hosts
 echo $SAMBA"	samba.kis" >> /etc/hosts
 
 echo $DANTE"	dante" >> /etc/hosts
-echo $WOWZA"	wowza" >> /etc/hosts
+echo $WOWZA"77	wowza.477" >> /etc/hosts
 
-echo $PRIMAVERA15"	vnc.primavera.15" >> /etc/hosts
+echo $PRIMAVERA"15	vnc.primavera.15" >> /etc/hosts
 
 echo $TEST"	test.cont" >> /etc/hosts
 echo $MASTER_CONT"	master.cont" >> /etc/hosts
@@ -80,8 +81,9 @@ echo $PHP72"6	$PREFIX72.cont" >> /etc/hosts
 echo $PHP72"7	$PREFIX72.portal" >> /etc/hosts
 echo $PHP72"10	$PREFIX72.sqladmin" >> /etc/hosts
 echo $PHP72"11	$PREFIX72.roundcubemail" >> /etc/hosts
+echo $PHP72"12	$PREFIX72.kodexplorer" >> /etc/hosts
 
-echo $PHP72"3	pma" >> /etc/hosts
+#echo $PHP72"3	pma" >> /etc/hosts
 
 echo $C1_83"1	1c.work.v83" >> /etc/hosts
 echo $C1_83"2	1c.ws.v83" >> /etc/hosts

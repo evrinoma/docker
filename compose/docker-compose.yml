@@ -177,6 +177,19 @@ services:
             virt:
                 ipv4_address: 172.18.5.2
 
+    wowza_4_7_7:
+        container_name: "wowza.4.7.7"
+        image: "evrinoma/wowza/versions/4.7.7"
+        build:
+            context: docker/wowza/versions/4.7.7/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.14.77
+
     vnc_primavera:
         container_name: "vnc.primavera.15"
         image: "evrinoma/vnc.primavera.15"
@@ -492,6 +505,19 @@ services:
             virt:
                 ipv4_address: 172.18.72.11
 
+    php72_kodexplorer:
+        container_name: "php72.kodexplorer"
+        image: "evrinoma/php72.kodexplorer"
+        build:
+            context: docker/php72/sites/kodexplorer/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.12
+
 networks:
     virt:
         driver: bridge
@@ -500,3 +526,4 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
+
