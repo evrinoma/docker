@@ -13,6 +13,19 @@ services:
             virt:
                 ipv4_address: 172.18.14.77
 
+    sftp:
+        container_name: "sftp"
+        image: "evrinoma/sftp"
+        build:
+            context: docker/sftp/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.15.1
+
 networks:
     virt:
         driver: bridge
@@ -21,3 +34,4 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
+

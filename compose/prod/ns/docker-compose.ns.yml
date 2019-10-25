@@ -73,18 +73,18 @@ services:
             virt:
                 ipv4_address: 172.18.14.77
 
-    php72_elfinder:
-        container_name: "php72.elfinder"
-        image: "evrinoma/php72.elfinder"
+    sftp:
+        container_name: "sftp"
+        image: "evrinoma/sftp"
         build:
-            context: docker/php72/sites/elfinder/.
+            context: docker/sftp/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
     #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.13
+                ipv4_address: 172.18.15.1
 
 networks:
     virt:
