@@ -51,25 +51,34 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 #mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
-RUN	echo 'Match Group sftpg' >> /etc/ssh/sshd_config && \
-	echo '	ChrootDirectory /home/%u' >> /etc/ssh/sshd_config && \
-	echo '	ForceCommand internal-sftp' >> /etc/ssh/sshd_config
-
-RUN	groupadd sftpg && \
-	useradd -g sftpg seenisftp && \
-	echo 1234 | passwd --stdin seenisftp;
-
-RUN	mkdir -p /data/seenisftp/upload && \
-	chown -R root.sftpg /data/seenisftp && \
-	chown -R seenisftp.sftpg /data/seenisftp/upload
+#sftpdg - localuser group for sftp access 
+#sftp_linux - ldapuser group for sftp access 
+RUN	groupadd sftpg
+#	useradd -g sftpg seenisftp && \
+#	echo 1234 | passwd --stdin seenisftp;
 
 RUN	yum -y install authconfig sssd sssd-tools sssd-ldap openldap-clients
 COPY	sssd.conf /etc/sssd/
 COPY	krb5.conf /etc/
+COPY	ssh-user-perm /usr/local/bin/
 RUN	authconfig --enablesssd --enablesssdauth --enablemkhomedir --updateall && \
+	echo 'session     [success=ok default=1]    pam_exec.so /usr/local/bin/ssh-user-perm' >> /etc/pam.d/password-auth-ac && \
 	chmod 600 /etc/sssd/sssd.conf && \
+	chmod 700 /usr/local/bin/ssh-user-perm && \
 	sed -i -e "s/#AuthorizedKeysCommand .*/AuthorizedKeysCommand \/usr\/bin\/sss_ssh_authorizedkeys /" /etc/ssh/sshd_config && \
-	sed -i -e "s/#AuthorizedKeysCommandUser .*/AuthorizedKeysCommandUser root/" /etc/ssh/sshd_config 
+	sed -i -e "s/#AuthorizedKeysCommandUser .*/AuthorizedKeysCommandUser root/" /etc/ssh/sshd_config && \
+	sed -i -e "s/HostKey \/etc\/ssh\/ssh_host_ecdsa_key/#&/" /etc/ssh/sshd_config && \
+	sed -i -e "s/HostKey \/etc\/ssh\/ssh_host_ed25519_key/#&/" /etc/ssh/sshd_config && \
+	echo 'Match Group sftp_linux' >> /etc/ssh/sshd_config && \
+	echo '	ChrootDirectory /home/%u' >> /etc/ssh/sshd_config && \
+	echo '	ForceCommand internal-sftp' >> /etc/ssh/sshd_config && \
+	echo '	X11Forwarding no' >> /etc/ssh/sshd_config && \
+	echo '' >> /etc/ssh/sshd_config && \
+	echo 'Match Group sftpg' >> /etc/ssh/sshd_config && \
+	echo '	ChrootDirectory /home/%u' >> /etc/ssh/sshd_config && \
+	echo '	ForceCommand internal-sftp' >> /etc/ssh/sshd_config && \
+	echo '	X11Forwarding no' >> /etc/ssh/sshd_config
+
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22

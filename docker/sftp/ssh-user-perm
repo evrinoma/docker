@@ -1,0 +1,5 @@
+#!/bin/bash
+chown root.root /home/${PAM_USER}
+chmod 755 /home/${PAM_USER}
+mkdir -p /home/${PAM_USER}/disk
+chmod 777 /home/${PAM_USER}/disk
