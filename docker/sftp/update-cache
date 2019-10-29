@@ -1,0 +1,6 @@
+#!/bin/bash
+count=60
+while [ true ]; do
+    /usr/sbin/sss_cache -E
+    sleep $count
+done
