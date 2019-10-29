@@ -6,7 +6,7 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma PHP 7.2 tools" \
-	image="php-7.2.tools" \
+	image="php72.tools" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2017-02-26"

@@ -1,5 +1,5 @@
 FROM \
-	evrinoma/php72:latest
+	evrinoma/php72.cont:latest
 
 MAINTAINER \
 	evrinoma@gmail.com
@@ -11,4 +11,6 @@ LABEL \
 	license="MIT" \
 	build-date="2018-04-18"
 
-COPY	cont.conf /etc/httpd/conf.d/vhost.conf
+COPY	hide /usr/local/bin/
+RUN	chmod 700 hide /usr/local/bin/hide && \
+	hide

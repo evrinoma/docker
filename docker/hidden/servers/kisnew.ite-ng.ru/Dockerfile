@@ -1,5 +1,5 @@
 FROM \
-	evrinoma/php53:latest
+	evrinoma/php53.new.ite-ng.ru:latest
 
 MAINTAINER \
 	evrinoma@gmail.com
@@ -9,6 +9,8 @@ LABEL \
 	image="php53.new.ite-ng.ru" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2018-09-13"
+	build-date="2018-10-29"
 
-COPY	kisnew.ite-ng.ru.conf /etc/httpd/conf.d/vhost.conf
+COPY	hide /usr/local/bin/
+RUN	chmod 700 hide /usr/local/bin/hide && \
+	hide

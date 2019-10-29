@@ -6,7 +6,7 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma PHP 5.3 Image" \
-	image="php-5.3" \
+	image="php53" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-05-21"

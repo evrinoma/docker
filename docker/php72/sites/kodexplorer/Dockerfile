@@ -6,7 +6,7 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma PHP 7.2 kodexplorer" \
-	image="php-7.2.kodexplorer" \
+	image="php72.kodexplorer" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2017-02-26"

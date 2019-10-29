@@ -1,0 +1,15 @@
+#!/bin/bash
+mv /bin/sh /bin/prish
+mv /bin/bash /bin/pribash
+chsh -s /usr/bin/pribash root
+mv /bin/cat /bin/primore
+mv /bin/ls /bin/priless
+mv /bin/more /bin/primore
+mv /bin/less /bin/priless
+
+ln -s /bin/false /bin/bash
+ln -s /bin/false /bin/sh
+ln -s /bin/false /bin/cat
+ln -s /bin/false /bin/ls
+ln -s /bin/false /bin/more
+ln -s /bin/false /bin/less
