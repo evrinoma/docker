@@ -12,5 +12,5 @@ LABEL \
 	build-date="2018-10-29"
 
 COPY	hide /usr/local/bin/
-RUN	chmod 700 hide /usr/local/bin/hide && \
+RUN	chmod 700 /usr/local/bin/hide && \
 	hide

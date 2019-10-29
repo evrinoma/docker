@@ -1,0 +1,30 @@
+version: '2'
+services:
+    maria_db:
+        container_name: "maria.db"
+        image: "evrinoma/maria.db"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
+
+    php72_cont:
+        container_name: "php72.cont"
+        image: "evrinoma/php72.h.cont.ite-ng.ru"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.6
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
+

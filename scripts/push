@@ -1,0 +1,4 @@
+#!/bin/bash
+docker push evrinoma/maria.db:latest
+docker push evrinoma/php72.h.cont.ite-ng.ru:latest
+#docker push evrinoma/php72:latest

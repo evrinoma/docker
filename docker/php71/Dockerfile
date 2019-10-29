@@ -141,5 +141,8 @@ COPY	exim.conf /etc/exim/exim.conf
 
 RUN	npm install -g webpack webpack-cli;
 
+RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
+	chown apache.apache /etc/httpd/logs/
+
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
