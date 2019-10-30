@@ -162,6 +162,12 @@ RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
 
 COPY	exim.conf /etc/exim/exim.conf
 
+RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
+	chown -R apache.apache /var/log/httpd/
+
+COPY	init.container /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container
+
 #RUN	npm install -g webpack webpack-cli;
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]

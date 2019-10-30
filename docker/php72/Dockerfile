@@ -178,7 +178,10 @@ RUN	yum install re2c gcc-c++ gcc unixODBC-devel -y  && \
 	echo 'extension=sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/sqlsrv.ini
 
 RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
-	chown apache.apache /etc/httpd/logs/
+	chown -R apache.apache /var/log/httpd/
+
+COPY	init.container /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80

@@ -31,9 +31,35 @@ RUN	yum -y install mc && \
 	yum -y install git && \
 	yum -y install wget;
 
+RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
+
+RUN	yum -y install gcc \
+	make;
+
+RUN	yum -y install git \
+	supervisor \
+	openssh-server;
+
+RUN	yum -y install \
+	telnet;
+
+#git
+RUN	git config --global user.email "evrinoma@gmail.com" && \
+	git config --global user.name "Nikolay Nikolaev";
+
+#ssh
+RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
+	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
+	echo 0631 | passwd --stdin root;
+
 RUN	yum -y install mariadb-server mariadb && \
 	yum -y install php php-mysql php-gd && \
 	yum clean all;
+
+COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
+RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
+	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
 
 RUN	systemctl enable mariadb.service
 
@@ -72,8 +98,12 @@ RUN	sed -i '/\[mysqld\]/aport=3306' /etc/my.cnf && \
 RUN	chown -R mysql.mysql /var/lib/mysql/
 
 RUN	mysql_install_db --force --user=mysql --ldata=/var/lib/mysql/
+COPY	init.container /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container
 
-EXPOSE 3306
+#ENTRYPOINT ["/usr/bin/supervisord","-n"]
+#CMD	["/usr/bin/mysqld_safe"]
+#ENTRYPOINT ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord"]
 
-CMD	["/usr/bin/mysqld_safe"]
-
+EXPOSE 22 3306
