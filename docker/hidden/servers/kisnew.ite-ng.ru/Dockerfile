@@ -14,3 +14,4 @@ LABEL \
 COPY	hide /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/hide && \
 	hide
+#RUN	cat /etc/supervisord.d/supervisor.conf >> /etc/supervisord.conf

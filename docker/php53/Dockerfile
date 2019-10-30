@@ -123,7 +123,11 @@ RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
 #supervisor
 COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
 RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
-	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
+	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf && \
+	cat /etc/supervisord.d/supervisor.conf >> /etc/supervisord.conf
+#	doesn't work 
+#	echo '[include]' >> /etc/supervisord.conf && \
+#	echo 'files = /etc/supervisord.d/supervisor.conf' >> /etc/supervisord.conf
 #php extension
 RUN	echo "xdebug.remote_host = 172.18.53.53" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
