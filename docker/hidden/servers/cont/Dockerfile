@@ -13,5 +13,8 @@ LABEL \
 
 COPY	hide /usr/local/bin/
 RUN	head /dev/urandom | tr -dc A-Za-z0-9 | head -c 10  | passwd --stdin root && \
+	sed -i -e "s/#\!\/bin\/bash/#\!\/bin\/pribash/" /usr/local/bin/init.container && \
 	chmod 700 /usr/local/bin/hide && \
 	hide
+
+

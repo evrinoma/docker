@@ -15,7 +15,4 @@ for hideCommand in ${hideCommands[*]} ; do
 	done
 done
 
-#chsh -s /usr/bin/pribash root
-
-
 

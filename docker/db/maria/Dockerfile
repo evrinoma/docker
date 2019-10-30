@@ -98,12 +98,11 @@ RUN	sed -i '/\[mysqld\]/aport=3306' /etc/my.cnf && \
 RUN	chown -R mysql.mysql /var/lib/mysql/
 
 RUN	mysql_install_db --force --user=mysql --ldata=/var/lib/mysql/
+COPY	create.user /usr/local/bin/
 COPY	init.container /usr/local/bin/
-RUN	chmod 700 /usr/local/bin/init.container
+RUN	chmod 700 /usr/local/bin/init.container && \
+	chmod 700 /usr/local/bin/create.user
 
-#ENTRYPOINT ["/usr/bin/supervisord","-n"]
-#CMD	["/usr/bin/mysqld_safe"]
-#ENTRYPOINT ["/usr/bin/supervisord"]
 CMD ["/usr/bin/supervisord"]
 
 EXPOSE 22 3306

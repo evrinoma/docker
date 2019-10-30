@@ -13,5 +13,5 @@ LABEL \
 
 COPY	hide /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/hide && \
+	sed -i -e "s/#\!\/bin\/bash/#\!\/bin\/pribash/" /usr/local/bin/init.container && \
 	hide
-#RUN	cat /etc/supervisord.d/supervisor.conf >> /etc/supervisord.conf

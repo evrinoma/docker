@@ -1,0 +1,13 @@
+#!/bin/bash
+TARGET='/tmp/create.user.sql'
+created=$(mysql -sse "SELECT EXISTS(SELECT 1 FROM mysql.user WHERE user = 'root');");
+
+if [ "$RESULT_VARIABLE" != 1 ]; then
+        echo "
+        CREATE USER 'root' IDENTIFIED BY '1234';
+        GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' ;
+        FLUSH PRIVILEGES;
+        " > $TARGET
+    mysql < $TARGET
+    rm -f $TARGET
+fi;
