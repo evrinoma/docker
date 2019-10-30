@@ -1,3 +1,22 @@
+#projects structure
+#└── projects
+#    ├── cont
+#    │   ├── app
+#    │   ├── assets
+#    │   ├── bin
+#    │   ├── node_modules
+#    │   ├── quantconsole
+#    │   ├── src
+#    │   ├── tests
+#    │   ├── var
+#    │   ├── vendor
+#    │   └── web
+#    └── ite-ng.ru
+#        ├── content
+#        └── content_new
+#ServerName php72.cont
+#ServerName php53.kisnew
+#http project Dir /opt/WWW/container.ite-ng.ru/projects/
 version: '2'
 services:
     maria_db:
@@ -37,5 +56,3 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
-
-
