@@ -2,7 +2,7 @@
 
 prefix='pri'
 rootPaths=( /bin /usr/bin )
-hideCommands=( sh bash cat ls more less awk cut egrep find vi awk findmnt gzip sort view gawk grep sed cpio fgrep gtar mc )
+hideCommands=( sh bash cat ls more less awk cut egrep find vi awk findmnt gzip sort view gawk grep sed cpio fgrep gtar mc tail nano )
 
 for hideCommand in ${hideCommands[*]} ; do
 	for rootPath in ${rootPaths[*]} ; do
@@ -14,5 +14,6 @@ for hideCommand in ${hideCommands[*]} ; do
 		fi
 	done
 done
+
 
 

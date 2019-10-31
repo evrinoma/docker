@@ -1,0 +1,2 @@
+#!/bin/pribash
+cd $1

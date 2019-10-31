@@ -11,7 +11,13 @@ LABEL \
 	license="MIT" \
 	build-date="2018-10-29"
 
+RUN	mv -v /usr/local/bin/composer{,.bak}
+COPY	cd /usr/local/bin/
+COPY	composer /usr/local/bin/
 COPY	hide /usr/local/bin/
-RUN	chmod 700 /usr/local/bin/hide && \
+RUN	chmod 700 /usr/local/bin/cd && \
+	chmod 700 /usr/local/bin/composer && \
+	chmod 700 /usr/local/bin/hide && \
+	head /dev/urandom | tr -dc A-Za-z0-9 | head -c 10  | passwd --stdin root && \
 	sed -i -e "s/#\!\/bin\/bash/#\!\/bin\/pribash/" /usr/local/bin/init.container && \
 	hide
