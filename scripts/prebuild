@@ -16,5 +16,5 @@ docker build -t evrinoma/db.maria ../docker/db/maria/.
 #docker build -t evrinoma/php72.cont.ite-ng.ru ../docker/php72/sites/cont/.
 #docker build -t evrinoma/php72.h.cont.ite-ng.ru ../docker/hidden/servers/cont/.
 
-docker build -t evrinoma/wowza ../docker/wowza/.
+#docker build -t evrinoma/wowza ../docker/wowza/.
 
