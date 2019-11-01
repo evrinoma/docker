@@ -1,5 +1,7 @@
 #!/bin/bash
 ###WOWZA_INSERT
 
-echo "[LICENSE=$WOWZA_LICENSE USERNAME=$WOWZA_USERNAME PASSWORD=$WOWZA_PASSWORD WOWZA_INSTALL_PATH=$WOWZA_INSTALL_PATH]"
-/opt/wowza/wowza-installer.run --mode unattended --licensekey $WOWZA_LICENSE --username $WOWZA_USERNAME --password $WOWZA_PASSWORD --prefix $WOWZA_INSTALL_PATH
+echo "[LICENSE=$WOWZA_LICENSE LICENSE_SILENT=$WOWZA_LICENSE_SILENT USERNAME=$WOWZA_USERNAME PASSWORD=$WOWZA_PASSWORD WOWZA_INSTALL_PATH=$WOWZA_INSTALL_PATH]"
+echo "/opt/wowza/wowza-installer.run --mode unattended --licensekey $WOWZA_LICENSE --username $WOWZA_USERNAME --password $WOWZA_PASSWORD --prefix $WOWZA_INSTALL_PATH"
+#/opt/wowza/wowza-installer.run --mode unattended --licensekey $WOWZA_LICENSE --username $WOWZA_USERNAME --password $WOWZA_PASSWORD --prefix $WOWZA_INSTALL_PATH
+/opt/wowza/wowza-installer.run --optionfile /etc/sysconfig/wse4.opt

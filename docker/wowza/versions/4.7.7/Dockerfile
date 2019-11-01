@@ -13,6 +13,7 @@ LABEL \
 
 COPY	install/WowzaStreamingEngine-4.7.7-linux-x64-installer.run /opt/wowza/wowza-installer.run
 COPY	install/wowza /etc/sysconfig/wowza
+COPY	install/wse4.opt /etc/sysconfig/wse4.opt
 COPY	wowzaInstall /usr/local/bin
 RUN	sed -i '/###WOWZA_INSERT/r /etc/sysconfig/wowza' /usr/local/bin/wowzaInstall
 RUN	chmod 700 /opt/wowza/wowza-installer.run && \
