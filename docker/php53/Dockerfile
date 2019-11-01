@@ -160,6 +160,8 @@ RUN	mv -v /etc/exim/exim.conf{,.bak} && \
 RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
 	rm -f /var/run/httpd/httpd.pid 
 
+RUN	yum -y install bzip2 unzip
+
 COPY	exim.conf /etc/exim/exim.conf
 
 RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \

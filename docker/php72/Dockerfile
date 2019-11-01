@@ -177,6 +177,8 @@ RUN	yum install re2c gcc-c++ gcc unixODBC-devel -y  && \
 	echo 'extension=pdo_sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/pdo_sqlsrv.ini  && \
 	echo 'extension=sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/sqlsrv.ini
 
+RUN	yum -y install bzip2 unzip
+
 RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
 	chown -R apache.apache /var/log/httpd/
 

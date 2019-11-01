@@ -5,8 +5,11 @@ if [ ! -z "$pass" ]; then
 	DIR="/opt/WWW/container.ite-ng.ru/projects/owncloud"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
-		wget https://download.owncloud.org/community/owncloud-10.0.7.zip -O /tmp/
+		wget https://download.owncloud.org/community/owncloud-latest.tar.bz2 -P /tmp/
 		unzip -d $DIR/ /tmp/owncloud-10.0.7.zip
+		tar -xvfj /tmp/owncloud-latest.tar.bz2 -C $DIR
+		mv $DIR/owncloud $DIR
+		rm $DIR/owncloud
 		chown apache:apache -R $DIR
 		cd $DIR
 		init.sql $pass $serverSql

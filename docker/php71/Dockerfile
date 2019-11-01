@@ -139,6 +139,8 @@ RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
 
 COPY	exim.conf /etc/exim/exim.conf
 
+RUN	yum -y install bzip2 unzip
+
 RUN	npm install -g webpack webpack-cli;
 
 RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
