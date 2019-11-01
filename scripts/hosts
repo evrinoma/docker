@@ -86,6 +86,7 @@ echo $PHP72"10	$PREFIX72.sqladmin" >> /etc/hosts
 echo $PHP72"11	$PREFIX72.roundcubemail" >> /etc/hosts
 echo $PHP72"12	$PREFIX72.kodexplorer" >> /etc/hosts
 echo $PHP72"13	$PREFIX72.elfinder" >> /etc/hosts
+echo $PHP72"14	$PREFIX72.jp" >> /etc/hosts
 
 #echo $PHP72"3	pma" >> /etc/hosts
 
