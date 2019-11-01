@@ -71,6 +71,7 @@ echo $PHP53"6	$PREFIX53.kisnew.nekeng" >> /etc/hosts
 
 echo $PHP53"11	$PREFIX53.webldap" >> /etc/hosts
 echo $PHP53"12	$PREFIX53.webuseorg" >> /etc/hosts
+echo $PHP53"13	$PREFIX72.jp" >> /etc/hosts
 
 echo $PHP71"3	$PREFIX71.empty" >> /etc/hosts
 echo $PHP71"4	$PREFIX71.tools" >> /etc/hosts
@@ -86,7 +87,6 @@ echo $PHP72"10	$PREFIX72.sqladmin" >> /etc/hosts
 echo $PHP72"11	$PREFIX72.roundcubemail" >> /etc/hosts
 echo $PHP72"12	$PREFIX72.kodexplorer" >> /etc/hosts
 echo $PHP72"13	$PREFIX72.elfinder" >> /etc/hosts
-echo $PHP72"14	$PREFIX72.jp" >> /etc/hosts
 
 #echo $PHP72"3	pma" >> /etc/hosts
 

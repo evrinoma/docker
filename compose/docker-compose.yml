@@ -322,6 +322,19 @@ services:
             virt:
                 ipv4_address: 172.18.53.12
 
+    php53_jp:
+        container_name: "php53.jp.ite-ng.ru"
+        image: "evrinoma/php53.jp.ite-ng.ru"
+        build:
+            context: docker/php53/sites/jp.ite-ng.ru/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.13
+
     php71:
         container_name: "php71"
         image: "evrinoma/php71"

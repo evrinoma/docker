@@ -37,7 +37,7 @@ services:
     #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.14
+                ipv4_address: 172.18.53.13
 
 networks:
     virt:
