@@ -1,5 +1,20 @@
 version: '2'
 services:
+    mysql:
+        container_name: "mysql"
+        image: mysql:8.0.1
+        ports:
+            - 3306:3306
+        volumes:
+            - ../../../sql-data/mysql-8.0.1:/var/lib/mysql
+        environment:
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: 1234
+        networks:
+            virt:
+                ipv4_address: 172.18.2.4
+
     maria_db:
         container_name: "db.maria"
         image: evrinoma/db.maria
@@ -58,6 +73,23 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.202.99
+
+    php72_kodexplorer:
+        container_name: "php72.kodexplorer"
+        image: "evrinoma/php72.kodexplorer"
+        build:
+            context: ../../docker/php72/sites/kodexplorer/.
+            dockerfile: Dockerfile
+        ports:
+            - 8085:80
+            - 0.0.0.0:222:22
+        volumes:
+            - ../../../kodexplorer:/opt/WWW/container.ite-ng.ru
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.202.12
+
 
 
 networks:
