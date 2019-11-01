@@ -2,7 +2,7 @@ version: '2'
 services:
     postgre_1c_db:
         container_name: "postgre.1c.db"
-        image: "evrinoma/db/postgre.1c"
+        image: "evrinoma/db.postgre.1c"
         build:
             context: docker/db/postgre/1c/.
             dockerfile: Dockerfile

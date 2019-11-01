@@ -21,7 +21,7 @@ version: '2'
 services:
     maria_db:
         container_name: "maria.db"
-        image: "evrinoma/maria.db"
+        image: "evrinoma/db.maria"
         volumes:
             - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
             - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"

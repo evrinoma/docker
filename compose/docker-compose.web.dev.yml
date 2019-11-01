@@ -2,7 +2,7 @@ version: '2'
 services:
     maria_db:
         container_name: "maria.db"
-        image: "evrinoma/db/maria"
+        image: "evrinoma/db.maria"
         build:
             context: docker/db/maria/.
             dockerfile: Dockerfile

@@ -2,7 +2,7 @@ version: '2'
 services:
     maria_db:
         container_name: "maria.db"
-        image: "evrinoma/db/maria"
+        image: "evrinoma/db.maria"
         hostname: "maria.db"
         build:
             context: docker/db/maria/.
@@ -62,7 +62,7 @@ services:
 
     wowza_4_7_7:
         container_name: "wowza.4.7.7"
-        image: "evrinoma/wowza/versions/4.7.7"
+        image: "evrinoma/wowza.versions.4.7.7"
         build:
             context: docker/wowza/versions/4.7.7/.
             dockerfile: Dockerfile
