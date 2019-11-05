@@ -1,5 +1,21 @@
 version: '2'
 services:
+    maria_db:
+        container_name: "maria.db"
+        image: "evrinoma/db.maria"
+        hostname: "maria.db"
+        build:
+            context: docker/db/maria/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
+#            - "/opt/docker/src/db/maria/:/var/lib/mysql"
+#            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
+
 #    wowza_4_7_7:
 #        container_name: "wowza.4.7.7"
 #        image: "evrinoma/wowza.versions.4.7.7"
@@ -38,19 +54,6 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.72.14
-
-#    php53_jp:
-#        container_name: "php53.jp.ite-ng.ru"
-#        image: "evrinoma/php53.jp.ite-ng.ru"
-#        build:
-#            context: docker/php53/sites/jp.ite-ng.ru/.
-#            dockerfile: Dockerfile
-#        volumes:
-#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.53.13
 
 networks:
     virt:
