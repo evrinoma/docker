@@ -39,7 +39,7 @@ ENV	PASSWORD 0631
 #ssh
 RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
-	echo $PASSWORD | passwd --stdin $USER;
+	echo 1234 | passwd --stdin root;
 
 #build dante
 RUN	mkdir /opt/dante && \

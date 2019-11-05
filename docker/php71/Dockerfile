@@ -11,9 +11,6 @@ LABEL \
 	license="MIT" \
 	build-date="2019-05-21"
 
-RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
-	echo "nameserver 8.8.8.8" >> /etc/resolv.conf
-
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
 	yum -y install iproute && \
@@ -84,7 +81,7 @@ RUN	git config --global user.email "evrinoma@gmail.com" && \
 #ssh
 RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
-	echo 0631 | passwd --stdin root;
+	echo 1234 | passwd --stdin root;
 #php.ini
 RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/\;date\.timezone\ \=/date\.timezone\ \=\ \"Europe\/Moscow\"/g" /etc/php.ini && \
@@ -134,8 +131,7 @@ RUN	mv -v /etc/exim/exim.conf{,.bak} && \
 	mv /bin/mail{,.bak} && \
 	ln -s /bin/mailx /bin/mail
 #clean
-RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
-	rm -f /var/run/httpd/httpd.pid
+RUN	rm -f /var/run/httpd/httpd.pid
 
 COPY	exim.conf /etc/exim/exim.conf
 

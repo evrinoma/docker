@@ -24,9 +24,6 @@ RUN	(cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == system
 	VOLUME [ "/sys/fs/cgroup" ]
 CMD	["/usr/sbin/init"]
 
-RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf
-#	echo "nameserver 8.8.8.8" > /etc/resolv.conf 
-
 RUN	yum -y install mc && \
 	yum -y install git && \
 	yum -y install wget;
@@ -51,7 +48,7 @@ RUN	git config --global user.email "evrinoma@gmail.com" && \
 #ssh
 RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
-	echo 0631 | passwd --stdin root;
+	echo 1234 | passwd --stdin root;
 
 RUN	yum -y install mariadb-server mariadb && \
 	yum -y install php php-mysql php-gd && \
