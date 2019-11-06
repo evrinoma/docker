@@ -6,12 +6,10 @@ user=$4
 basepass=$5
 INIT_SQL="/tmp/init.sql"
 	echo "
-	CREATE DATABASE $base;
-	CREATE USER '$user'@'localhost' IDENTIFIED BY '$basepass';
-	GRANT ALL PRIVILEGES ON \`$user\` . * TO '$user'@'localhost';
-	CREATE USER '$user'@'172.18.0.0/255.255.0.0' IDENTIFIED BY '$basepass';
-	GRANT ALL PRIVILEGES ON \`$base\` . * TO '$user'@'172.18.0.0/255.255.0.0';
-	FLUSH PRIVILEGES;
+	INSERT INTO \`$base\`.\`oc_appconfig\` (\`appid\`, \`configkey\`, \`configvalue\`) VALUES
+	('core', 'enable_external_storage', 'yes'),
+	('files_external', 'allow_user_mounting', 'yes'),
+	('files_external', 'user_mounting_backends', 'sftp,\\\OC\\\Files\\\Storage\\\SFTP_Key');
 	" > $INIT_SQL
 	mariaInstall=`yum list installed | grep "mariadb\."`
 	if [ ! -z "mariaInstall" ]; then 

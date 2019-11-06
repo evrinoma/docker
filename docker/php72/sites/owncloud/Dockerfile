@@ -11,11 +11,22 @@ LABEL \
 	license="MIT" \
 	build-date="2019-11-01"
 
+ADD	owncloud/0001-we-have-done-sftp-automounting-and-disable-local-sto.patch /opt/
 ADD	owncloud/init.install /usr/local/bin
 ADD	owncloud/init.sql /usr/local/bin
+ADD	owncloud/init.ldap.sql /usr/local/bin
+ADD	owncloud/init.sftp.sql /usr/local/bin
 ADD	owncloud/init.conf /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install && \
 	chmod +x /usr/local/bin/init.sql && \
+	chmod +x /usr/local/bin/init.ldap.sql && \
+	chmod +x /usr/local/bin/init.sftp.sql && \
 	chmod +x /usr/local/bin/init.conf
+
+RUN	yum -y install patch && \
+	mkdir -p /opt/WWW/container.ite-ng.ru/data/owncloud && \
+	chmod 770 /opt/WWW/container.ite-ng.ru/data/owncloud/ && \
+	chown -R apache.apache /opt/WWW/container.ite-ng.ru/data/owncloud/
+	
 
 COPY	owncloud.conf /etc/httpd/conf.d/vhost.conf
