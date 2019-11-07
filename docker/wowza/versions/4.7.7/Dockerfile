@@ -19,11 +19,6 @@ RUN	chmod 700 /opt/wowza/wowza-installer.run && \
 	chmod 700 /usr/local/bin/wowzaInstall
 RUN	wowzaInstall
 
-#COPY	install/wowzaInstall /usr/local/bin
-#COPY	install/WowzaStreamingEngine-4.7.7-linux-x64-installer.run /opt/wowza/
-#RUN	chmod 700 /opt/wowza/WowzaStreamingEngine-4.7.7-linux-x64-installer.run && \
-#	chmod 700 /usr/local/bin/wowzaInstall && \
-#	wowzaInstall
 
 
 
