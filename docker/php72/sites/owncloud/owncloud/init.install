@@ -1,23 +1,26 @@
 #!/bin/bash
 pass=$1
+passOwncloud=$2
 serverSql=172.18.2.1
 serverName='php72\.owncloud'
 base=owncloud
 user=owncloud
 basepass=owncloud
 if [ ! -z "$pass" ]; then
-	DIR="/opt/WWW/container.ite-ng.ru/projects/owncloud"
-	if [ ! -d "$DIR" ]; then
-		mkdir -p $DIR
-		wget https://download.owncloud.org/community/owncloud-latest.tar.bz2 -P /tmp/
-		tar -xvf /tmp/owncloud-latest.tar.bz2 -C $DIR
-		mv $DIR/owncloud/*  $DIR/owncloud/.[^.]* $DIR/
-		rm -rf $DIR/owncloud
-		chown apache:apache -R $DIR
-		cd $DIR
-		init.sql $pass $serverSql $base $user $basepass
-		init.conf $serverSql $serverName
-		init.ldap.sql $pass $serverSql $base $user $basepass
-		init.sftp.sql $pass $serverSql $base $user $basepass
+	if [ ! -z "$passOwncloud" ]; then
+		DIR="/opt/WWW/container.ite-ng.ru/projects/owncloud"
+		if [ ! -d "$DIR" ]; then
+			mkdir -p $DIR
+			wget https://download.owncloud.org/community/owncloud-latest.tar.bz2 -P /tmp/
+			tar -xvf /tmp/owncloud-latest.tar.bz2 -C $DIR
+			mv $DIR/owncloud/*  $DIR/owncloud/.[^.]* $DIR/
+			rm -rf $DIR/owncloud
+			chown apache:apache -R $DIR
+			cd $DIR
+			init.sql $pass $serverSql $base $user $basepass
+			init.conf $serverSql $serverName $passOwncloud
+			init.ldap.sql $pass $serverSql $base $user $basepass
+			init.sftp.sql $pass $serverSql $base $user $basepass
+		fi
 	fi
 fi
