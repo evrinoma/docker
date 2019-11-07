@@ -158,6 +158,8 @@ RUN	rm -f /var/run/httpd/httpd.pid
 
 RUN	yum -y install bzip2 unzip
 
+RUN	yum -y install patch
+
 COPY	exim.conf /etc/exim/exim.conf
 
 RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \

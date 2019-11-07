@@ -23,10 +23,8 @@ RUN	chmod +x /usr/local/bin/init.install && \
 	chmod +x /usr/local/bin/init.sftp.sql && \
 	chmod +x /usr/local/bin/init.conf
 
-RUN	yum -y install patch && \
-	mkdir -p /opt/WWW/container.ite-ng.ru/data/owncloud && \
+RUN	mkdir -p /opt/WWW/container.ite-ng.ru/data/owncloud && \
 	chmod 770 /opt/WWW/container.ite-ng.ru/data/owncloud/ && \
 	chown -R apache.apache /opt/WWW/container.ite-ng.ru/data/owncloud/
-	
 
 COPY	owncloud.conf /etc/httpd/conf.d/vhost.conf

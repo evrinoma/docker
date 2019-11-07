@@ -137,6 +137,8 @@ COPY	exim.conf /etc/exim/exim.conf
 
 RUN	yum -y install bzip2 unzip
 
+RUN	yum -y install patch
+
 RUN	npm install -g webpack webpack-cli;
 
 RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \

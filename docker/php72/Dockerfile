@@ -176,6 +176,8 @@ RUN	yum install re2c gcc-c++ gcc unixODBC-devel -y  && \
 
 RUN	yum -y install bzip2 unzip
 
+RUN	yum -y install patch
+
 RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
 	chown -R apache.apache /var/log/httpd/
 
