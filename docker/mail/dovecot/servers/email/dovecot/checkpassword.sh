@@ -36,13 +36,13 @@ if [ -n '$check' ]; then
     PASS="${arr[2]}"
     AUTH="${arr[3]}"
     LOGIN="${arr[4]}"
-
+    DATE=`date`
 	export USER
 	export HOME
 	export password="{PLAIN}$PASS"
 	export EXTRA="password vmail vmail"
 
-	echo $USER $PASS $HOME $AUTH $LOGIN $IP >> $LOG
+	echo $USER $PASS $HOME $AUTH $LOGIN $IP $DATE >> $LOG
 
 	exec $CHECKPASSWORD_REPLY_BINARY
 	exit 0;
