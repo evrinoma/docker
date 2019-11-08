@@ -1,0 +1,4 @@
+DIRECTORY="/opt/WWW/container.ite-ng.ru/data/owncloud"
+if [ ! -d "$DIRECTORY" ]; then
+	mkdir -p $DIRECTORY
+fi 

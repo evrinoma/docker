@@ -27,4 +27,8 @@ RUN	mkdir -p /opt/WWW/container.ite-ng.ru/data/owncloud && \
 	chmod 770 /opt/WWW/container.ite-ng.ru/data/owncloud/ && \
 	chown -R apache.apache /opt/WWW/container.ite-ng.ru/data/owncloud/
 
+ADD	init.container.part /usr/local/bin
+RUN	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
+	rm -rf /usr/local/bin/init.container.part
+
 COPY	owncloud.conf /etc/httpd/conf.d/vhost.conf
