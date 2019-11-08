@@ -6,9 +6,3 @@ iptables -t nat -F
 iptables -t mangle -F
 iptables -F
 iptables -X
-
-service docker restart
-
-sleep 10
-
-docker rm $(docker ps -a -q -f status=exited)

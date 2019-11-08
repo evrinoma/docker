@@ -5,7 +5,7 @@
 #docker build -t evrinoma/vnc ../docker/vnc/.
 #docker build -t evrinoma/dovecot ../docker/mail/dovecot/.
 #docker build -t evrinoma/bind ../docker/bind/.
-docker build -t evrinoma/exim ../docker/mail/exim/.
+#docker build -t evrinoma/exim ../docker/mail/exim/.
 #docker build -t evrinoma/db.maria ../docker/db/maria/.
 
 #docker build -t evrinoma/php53 ../docker/php53/.
@@ -13,7 +13,7 @@ docker build -t evrinoma/exim ../docker/mail/exim/.
 #docker build -t evrinoma/php53.h.kisnew.ite-ng.ru ../docker/php53/sites/kisnew.ite-ng.ru/.
 #docker build -t evrinoma/php53.h.kisnew.ite-ng.ru ../docker/hidden/servers/kisnew.ite-ng.ru/.
 
-#docker build -t evrinoma/php72 ../docker/php72/.
+docker build -t evrinoma/php72 ../docker/php72/.
 #docker build -t evrinoma/php72.cont.ite-ng.ru ../docker/php72/sites/cont/.
 #docker build -t evrinoma/php72.h.cont.ite-ng.ru ../docker/php72/sites/cont/.
 #docker build -t evrinoma/php72.h.cont.ite-ng.ru ../docker/hidden/servers/cont/.
