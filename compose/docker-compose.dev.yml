@@ -29,9 +29,9 @@ services:
 #            virt:
 #                ipv4_address: 172.18.14.77
 
-    sftp_iscsi:
-        container_name: "sftp.iscsi"
-        image: "evrinoma/sftp.iscsi"
+    sftp:
+        container_name: "sftp"
+        image: "evrinoma/sftp"
         build:
             context: docker/sftp/.
             dockerfile: Dockerfile
@@ -40,7 +40,7 @@ services:
     #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.15.1
+                ipv4_address: 172.18.20.1
 
 #    php72_owncloud:
 #        container_name: "php72.owncloud"

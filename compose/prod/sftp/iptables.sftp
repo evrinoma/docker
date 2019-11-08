@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#bridge=$(brctl show | grep -e "br" | grep -e "veth" | awk {'print $1'})
+bridge=$(ip link show type bridge | grep -e 'br' | grep -e 'UP' | awk {'print $2'})
+bridge=${bridge%*:}
+
+echo $bridge
+
+IP=172.18.20.1
+echo '['$IP']'
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 22 -j DNAT --to-destination $IP:22
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 22 -j ACCEPT
+
+IP=172.18.72.14
+echo '['$IP']'
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 80 -j DNAT --to-destination $IP:80
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 80 -j ACCEPT
+
+echo 'done'

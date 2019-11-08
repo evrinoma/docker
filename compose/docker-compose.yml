@@ -189,6 +189,18 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.14.77
+    sftp:
+        container_name: "sftp"
+        image: "evrinoma/sftp"
+        build:
+            context: docker/sftp/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.20.1
 
     vnc_primavera:
         container_name: "vnc.primavera.15"
@@ -543,6 +555,19 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.72.13
+
+    php72_owncloud:
+        container_name: "php72.owncloud"
+        image: "evrinoma/php72.owncloud"
+        build:
+            context: docker/php72/sites/owncloud/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.14
 
 networks:
     virt:
