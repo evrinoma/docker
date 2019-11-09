@@ -1,6 +1,9 @@
 [Unit]
-Description=docker service
+Description=docker stfp service
 After=docker.service
+After=remote-fs.target
+Requires=mysql.service
+Requires=remote-fs.target
 
 [Service]
 Type=forking

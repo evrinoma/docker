@@ -1,5 +1,1 @@
 #!/bin/bash
-DIRECTORY="/opt/WWW/container.ite-ng.ru/data/sftp"
-if [ ! -d "$DIRECTORY" ]; then
-	mkdir -p $DIRECTORY
-fi 

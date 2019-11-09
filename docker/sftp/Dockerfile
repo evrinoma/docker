@@ -80,8 +80,8 @@ RUN	authconfig --enablesssd --enablesssdauth --enablemkhomedir --updateall && \
 	echo '	ForceCommand internal-sftp' >> /etc/ssh/sshd_config && \
 	echo '	X11Forwarding no' >> /etc/ssh/sshd_config
 
-RUN	rm -rf /home && \
-	ln -s /opt/WWW/container.ite-ng.ru/data/sftp /home
+#RUN	rm -rf /home && \
+#	ln -s /opt/WWW/container.ite-ng.ru/data/sftp /home
 
 COPY    init.container /usr/local/bin/
 RUN     chmod 700 /usr/local/bin/init.container

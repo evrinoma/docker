@@ -21,7 +21,8 @@ services:
             context: docker/sftp/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK_ISCSI/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK_ISCSI/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK_ISCSI/data/sftp/:/home/"
         networks:
             virt:
                 ipv4_address: 172.18.20.1
