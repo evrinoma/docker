@@ -1,20 +1,20 @@
 version: '2'
 services:
-#    maria_db:
-#        container_name: "maria.db"
-#        image: "evrinoma/db.maria"
-#        hostname: "maria.db"
-#        build:
-#            context: docker/db/maria/.
-#            dockerfile: Dockerfile
-#        volumes:
-#            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
-#            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
-##            - "/opt/docker/src/db/maria/:/var/lib/mysql"
-##            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.2.1
+    maria_db:
+        container_name: "maria.db"
+        image: "evrinoma/db.maria"
+        hostname: "maria.db"
+        build:
+            context: docker/db/maria/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
+#            - "/opt/docker/src/db/maria/:/var/lib/mysql"
+#            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
 
 #    wowza_4_7_7:
 #        container_name: "wowza.4.7.7"
@@ -42,18 +42,18 @@ services:
             virt:
                 ipv4_address: 172.18.20.1
 
-#    php72_owncloud:
-#        container_name: "php72.owncloud"
-#        image: "evrinoma/php72.owncloud"
-#        build:
-#            context: docker/php72/sites/owncloud/.
-#            dockerfile: Dockerfile
-#        volumes:
-#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.72.14
+    php72_owncloud:
+        container_name: "php72.owncloud"
+        image: "evrinoma/php72.owncloud"
+        build:
+            context: docker/php72/sites/owncloud/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.14
 
 networks:
     virt:

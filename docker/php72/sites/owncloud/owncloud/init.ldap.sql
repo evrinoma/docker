@@ -43,7 +43,7 @@ INIT_SQL="/tmp/init.sql"
 		('user_ldap', 'ldap_paging_size', '500'),
 		('user_ldap', 'ldap_port', '389'),
 		('user_ldap', 'ldap_quota_attr', ''),
-		('user_ldap', 'ldap_quota_def', ''),
+		('user_ldap', 'ldap_quota_def', '50G'),
 		('user_ldap', 'ldap_tls', '0'),
 		('user_ldap', 'ldap_turn_off_cert_check', '0'),
 		('user_ldap', 'ldap_user_display_name_2', ''),
