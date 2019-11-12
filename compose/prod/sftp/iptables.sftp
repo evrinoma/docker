@@ -18,4 +18,7 @@ echo '['$IP']'
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 80 -j DNAT --to-destination $IP:80
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 80 -j ACCEPT
 
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 443 -j DNAT --to-destination $IP:443
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 443 -j ACCEPT
+
 echo 'done'
