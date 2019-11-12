@@ -18,6 +18,6 @@ if [ ! -z "$pass" ]; then
 	cp $certPostfix/$keyFile $storeDir
 fi
 if [ -d "$storeDir" ]  && [ -e "$storeDir/$pemFile" ] && [ -e "$storeDir/$pemFile" ]; then
-	cp $storeDir/$pemFile $certDovecot
-	cp $storeDir/$keyFile $certDovecot
+	cp $storeDir/$pemFile $certDovecot/
+	cp $storeDir/$keyFile $certDovecot/
 fi
