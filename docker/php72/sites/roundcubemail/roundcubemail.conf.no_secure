@@ -2,10 +2,15 @@
 	Alias /email /opt/WWW/container.ite-ng.ru/projects/roundcubemail
 	ServerAdmin nikolns@ite-ng.ru
 	ServerName email.ite-ng.ru
-	ServerAlias email.nekeng.ru
-	ServerAlias email.kzkt45.ru
+	ServerAlias email.citypoint-mf.ru
+	ServerAlias email.ipark45.ru
 	ServerAlias email.ite-eg.ru
-	
+	ServerAlias email.ite-group.ru
+	ServerAlias email.kzet45.ru
+	ServerAlias email.kzkt45.ru
+	ServerAlias email.lazurnoe.net
+	ServerAlias email.nekeng.ru
+
 	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/roundcubemail"
 	
 #	Alias /roundcubemail
