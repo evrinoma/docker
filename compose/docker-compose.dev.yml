@@ -16,44 +16,18 @@ services:
             virt:
                 ipv4_address: 172.18.2.1
 
-#    wowza_4_7_7:
-#        container_name: "wowza.4.7.7"
-#        image: "evrinoma/wowza.versions.4.7.7"
-#        build:
-#            context: docker/wowza/versions/4.7.7/.
-#            dockerfile: Dockerfile
-#        volumes:
-#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.14.77
-
-    sftp:
-        container_name: "sftp"
-        image: "evrinoma/sftp"
+    php72_ipark45:
+        container_name: "php72.ipark45"
+        image: "evrinoma/php72.ipark45"
         build:
-            context: docker/sftp/.
+            context: docker/php72/sites/ipark45/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
     #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.20.1
-
-    php72_owncloud:
-        container_name: "php72.owncloud"
-        image: "evrinoma/php72.owncloud"
-        build:
-            context: docker/php72/sites/owncloud/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.72.14
+                ipv4_address: 172.18.72.15
 
 networks:
     virt:
