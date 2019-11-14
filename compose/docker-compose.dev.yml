@@ -16,18 +16,44 @@ services:
             virt:
                 ipv4_address: 172.18.2.1
 
-    php72_ipark45:
-        container_name: "php72.ipark45"
-        image: "evrinoma/php72.ipark45"
+#    php72_ipark45:
+#        container_name: "php72.ipark45"
+#        image: "evrinoma/php72.ipark45"
+#        build:
+#            context: docker/php72/sites/ipark45/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.15
+
+#    php72_kzkt45:
+#        container_name: "php72.kzkt45"
+#        image: "evrinoma/php72.kzkt45"
+#        build:
+#            context: docker/php72/sites/kzkt45/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.16
+
+    php72_nekeng:
+        container_name: "php72.nekeng"
+        image: "evrinoma/php72.nekeng"
         build:
-            context: docker/php72/sites/ipark45/.
+            context: docker/php72/sites/nekeng/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
     #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.15
+                ipv4_address: 172.18.72.17
 
 networks:
     virt:

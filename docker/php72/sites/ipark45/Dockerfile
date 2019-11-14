@@ -18,8 +18,4 @@ ADD	ipark45/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install && \
 	chmod +x /usr/local/bin/init.sql
 
-#RUN	mkdir -p /opt/WWW/container.ite-ng.ru/data/owncloud && \
-#	chmod 770 /opt/WWW/container.ite-ng.ru/data/owncloud/ && \
-#	chown -R apache.apache /opt/WWW/container.ite-ng.ru/data/owncloud/
-
 COPY	ipark45.conf /etc/httpd/conf.d/vhost.conf
