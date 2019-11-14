@@ -1,0 +1,20 @@
+#!/bin/bash
+pass=$1
+passEnc=$2
+serverSql=172.18.2.1
+base=ite-ng
+user=ite-ng
+basepass=ite-ng
+if [ ! -z "$pass" ]; then
+		DIR="/opt/WWW/container.ite-ng.ru/projects/ite-ng.ru"
+		if [ ! -d "$DIR" ]; then
+			mkdir -p $DIR
+			tar -zxf /tmp/ite-ng.sql.tar.gz -C /tmp
+			tar -zxf /tmp/ite-ng.tar.gz -C $DIR
+			mv $DIR/ite-ng.ru/*  $DIR/ite-ng.ru/.[^.]* $DIR/
+			rm -rf $DIR/ite-ng.ru/
+			chown apache:apache -R $DIR
+			cd $DIR
+			init.sql $pass $serverSql $base $user $basepass
+		fi
+fi

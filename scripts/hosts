@@ -92,7 +92,7 @@ echo $PHP72"14	$PREFIX72.owncloud" >> /etc/hosts
 echo $PHP72"15	$PREFIX72.ipark45" >> /etc/hosts
 echo $PHP72"16	$PREFIX72.kzkt45" >> /etc/hosts
 echo $PHP72"17	$PREFIX72.nekeng" >> /etc/hosts
-
+echo $PHP72"18	$PREFIX72.ite-ng" >> /etc/hosts
 #echo $PHP72"3	pma" >> /etc/hosts
 
 echo $C1_83"1	1c.work.v83" >> /etc/hosts

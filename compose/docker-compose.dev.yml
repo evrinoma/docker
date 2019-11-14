@@ -42,18 +42,31 @@ services:
 #            virt:
 #                ipv4_address: 172.18.72.16
 
-    php72_nekeng:
-        container_name: "php72.nekeng"
-        image: "evrinoma/php72.nekeng"
+#    php72_nekeng:
+#        container_name: "php72.nekeng"
+#        image: "evrinoma/php72.nekeng"
+#        build:
+#            context: docker/php72/sites/nekeng/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.17
+
+    php72_ite_ng:
+        container_name: "php72.ite-ng"
+        image: "evrinoma/php72.ite-ng"
         build:
-            context: docker/php72/sites/nekeng/.
+            context: docker/php72/sites/ite-ng/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
     #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.17
+                ipv4_address: 172.18.72.18
 
 networks:
     virt:
