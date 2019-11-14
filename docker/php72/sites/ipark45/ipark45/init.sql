@@ -7,7 +7,7 @@ basepass=$5
 INIT_SQL="/tmp/init.sql"
 SERVER_SQL="/tmp/site_ipark45_ru_new_db.sql"
 	echo "
-	CREATE DATABASE $base;
+	CREATE DATABASE \`$base\`;
 	CREATE USER '$user'@'localhost' IDENTIFIED BY '$basepass';
 	GRANT ALL PRIVILEGES ON \`$user\` . * TO '$user'@'localhost';
 	CREATE USER '$user'@'172.18.0.0/255.255.0.0' IDENTIFIED BY '$basepass';

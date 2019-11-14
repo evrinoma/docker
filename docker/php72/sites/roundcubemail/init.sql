@@ -5,7 +5,7 @@
 	INIT_SQL="/tmp/init.sql"
 	cd $DIR
 	echo "
-	CREATE DATABASE roundcubemail;
+	CREATE DATABASE \`roundcubemail\`;
 	CREATE USER 'roundcubemail'@'172.18.0.0/255.255.0.0' IDENTIFIED BY 'roundcubemail';
 	GRANT ALL PRIVILEGES ON \`roundcubemail\` . * TO 'roundcubemail'@'172.18.0.0/255.255.0.0';
 	" > $INIT_SQL

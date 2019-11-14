@@ -3,7 +3,7 @@ pass=$1
 serverSql=$2
 INIT_SQL="/tmp/init.sql"
 	echo "
-	CREATE DATABASE postfix;
+	CREATE DATABASE \`postfix\`;
 	CREATE USER 'postfix'@'localhost' IDENTIFIED BY 'postfix';
 	GRANT ALL PRIVILEGES ON \`postfix\` . * TO 'postfix'@'localhost';
 	CREATE USER 'postfix'@'172.18.0.0/255.255.0.0' IDENTIFIED BY 'postfix';
