@@ -1,6 +1,5 @@
 #!/bin/bash
 pass=$1
-passEnc=$2
 serverSql=172.18.2.1
 base=nekeng
 user=nekeng

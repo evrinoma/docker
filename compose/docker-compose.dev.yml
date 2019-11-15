@@ -54,19 +54,32 @@ services:
 #        networks:
 #            virt:
 #                ipv4_address: 172.18.72.17
+#
+#    php72_ite_ng:
+#        container_name: "php72.ite-ng"
+#        image: "evrinoma/php72.ite-ng"
+#        build:
+#            context: docker/php72/sites/ite-ng/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.18
 
-    php72_ite_ng:
-        container_name: "php72.ite-ng"
-        image: "evrinoma/php72.ite-ng"
+    php72_web:
+        container_name: "php72.web"
+        image: "evrinoma/php72.web"
         build:
-            context: docker/php72/sites/ite-ng/.
+            context: docker/php72/sites/bundle/web/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
     #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.18
+                ipv4_address: 172.18.24.1
 
 networks:
     virt:
