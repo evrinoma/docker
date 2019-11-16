@@ -52,4 +52,4 @@ RUN	chmod +x /usr/local/bin/init.install.ite-ng && \
 ADD	init.install /usr/local/bin/init.install
 RUN	chmod +x /usr/local/bin/init.install
 
-COPY	ite-ng/ite-ng.conf /etc/httpd/conf.d/
+COPY	ite-ng/ite-ng.conf /etc/httpd/conf.d/aite-ng.conf
