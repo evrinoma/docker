@@ -18,6 +18,8 @@ ADD	nekeng/nekeng/init.sql /usr/local/bin/init.sql.nekeng
 RUN	chmod +x /usr/local/bin/init.install.nekeng && \
 	chmod +x /usr/local/bin/init.sql.nekeng && \
 	sed -i -e "s/init.sql/init.sql.nekeng/" /usr/local/bin/init.install.nekeng 
+	
+RUN	sed -i -e "s/'172\.18\.2\.1'\;/'172\.18\.2\.4'\;/" /etc/phpMyAdmin/config.inc.php
 
 COPY	nekeng/nekeng.conf /etc/httpd/conf.d/
 
