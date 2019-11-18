@@ -14,11 +14,11 @@ services:
             virt:
                 ipv4_address: 172.18.2.4
 
-    php72_web:
-        container_name: "php72.web"
-        image: "evrinoma/php72.web"
+    php54_web:
+        container_name: "php54.web"
+        image: "evrinoma/php54.web"
         build:
-            context: docker/php72/sites/bundle/web/.
+            context: docker/php54/sites/bundle/web/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"

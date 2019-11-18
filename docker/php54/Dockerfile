@@ -15,8 +15,9 @@ RUN	yum -y install mc wget && \
 	yum -y install httpd && \
 	yum -y install iproute;
 
-RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
-	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
+RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+# && \
+#	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
 
 RUN	yum -y install gcc \
 	make;
@@ -79,10 +80,10 @@ RUN	yum -y autoremove && \
 	yum clean all;
 #build xdebug
 RUN	mkdir /opt/xdebug && \
-	wget -P /opt/xdebug https://pecl.php.net/get/xdebug-2.6.0.tgz && \
-	tar -xvf  /opt/xdebug/xdebug-2.6.0.tgz -C  /opt/xdebug;
+	wget -P /opt/xdebug https://pecl.php.net/get/xdebug-2.4.1.tgz && \
+	tar -xvf  /opt/xdebug/xdebug-2.4.1.tgz -C  /opt/xdebug;
 
-WORKDIR /opt/xdebug/xdebug-2.6.0
+WORKDIR /opt/xdebug/xdebug-2.4.1
 
 RUN	/usr/bin/phpize && \
 	./configure --enable-xdebug && \
@@ -124,8 +125,8 @@ COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
 RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
 #php extension
-RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_host = 172.18.72.72" >> /etc/php.d/xdebug.ini && \
+RUN	echo "zend_extension=/usr/lib64/php/modules/xdebug.so" >> /etc/php.d/xdebug.ini && \
+	echo "xdebug.remote_host = 172.18.54.54" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_connect_back=1" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_port = 9000" >> /etc/php.d/xdebug.ini && \
@@ -160,19 +161,6 @@ COPY	exim.conf /etc/exim/exim.conf
 
 #webpack
 RUN	npm install -g webpack webpack-cli;
-
-#mssql php
-RUN	curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo && \
-	ACCEPT_EULA=Y yum install msodbcsql17 -y && \
-	ACCEPT_EULA=Y yum install mssql-tools -y
-RUN	echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile && \
-	echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc && \
-	source ~/.bashrc
-RUN	yum install re2c gcc-c++ gcc unixODBC-devel -y  && \
-	pecl install sqlsrv  && \
-	pecl install pdo_sqlsrv  && \
-	echo 'extension=pdo_sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/pdo_sqlsrv.ini  && \
-	echo 'extension=sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/sqlsrv.ini
 
 RUN	yum -y install bzip2 unzip
 
