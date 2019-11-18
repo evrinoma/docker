@@ -18,8 +18,6 @@ ADD	nekeng/nekeng/init.sql /usr/local/bin/init.sql.nekeng
 RUN	chmod +x /usr/local/bin/init.install.nekeng && \
 	chmod +x /usr/local/bin/init.sql.nekeng && \
 	sed -i -e "s/init.sql/init.sql.nekeng/" /usr/local/bin/init.install.nekeng 
-	
-RUN	sed -i -e "s/'172\.18\.2\.1'\;/'172\.18\.2\.4'\;/" /etc/phpMyAdmin/config.inc.php
 
 COPY	nekeng/nekeng.conf /etc/httpd/conf.d/
 
@@ -55,3 +53,9 @@ ADD	init.install /usr/local/bin/init.install
 RUN	chmod +x /usr/local/bin/init.install
 
 COPY	ite-ng/ite-ng.conf /etc/httpd/conf.d/aite-ng.conf
+
+RUN	sed -i -e "s/'172\.18\.2\.1'\;/'172\.18\.2\.4'\;/" /etc/phpMyAdmin/config.inc.php && \
+	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.nekeng  && \
+	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.kzkt45  && \
+	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ipark45  && \
+	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ite-ng
