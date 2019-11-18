@@ -1,6 +1,6 @@
 version: '2'
 services:
-    maria_db:
+    maria_db_web:
         container_name: "maria.db.web"
         image: "evrinoma/db.maria.web"
         hostname: "maria.db.web"

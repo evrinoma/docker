@@ -1,20 +1,18 @@
 version: '2'
 services:
-    maria_db:
-        container_name: "maria.db"
-        image: "evrinoma/db.maria"
-        hostname: "maria.db"
+    maria_db_web:
+        container_name: "maria.db.web"
+        image: "evrinoma/db.maria.web"
+        hostname: "maria.db.web"
         build:
-            context: docker/db/maria/.
+            context: docker/db/maria/web/.
             dockerfile: Dockerfile
         volumes:
-#            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
-#            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
             - "/opt/docker/src/db/maria/:/var/lib/mysql"
             - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
             virt:
-                ipv4_address: 172.18.2.1
+                ipv4_address: 172.18.2.4
 
     php72_web:
         container_name: "php72.web"
@@ -23,7 +21,6 @@ services:
             context: docker/php72/sites/bundle/web/.
             dockerfile: Dockerfile
         volumes:
-#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:

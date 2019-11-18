@@ -124,6 +124,20 @@ services:
             virt:
                 ipv4_address: 172.18.2.3
 
+    maria_db_web:
+        container_name: "maria.db.web"
+        image: "evrinoma/db.maria.web"
+        hostname: "maria.db.web"
+        build:
+            context: docker/db/maria/web/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.4
+
     mail_exim_mail:
         container_name: "exim.mail"
         image: "evrinoma/exim"
