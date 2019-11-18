@@ -68,7 +68,10 @@ RUN	yum -y install php \
 	php-soap \
 	php-tidy \
 	php-xml \
-	php-xmlrpc;
+	php-xmlrpc \
+	php-mcrypt \
+	php-rrdtool \
+	php-pear-DB.noarch
 
 RUN	wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo && \
 	yum -y install yarn npm;

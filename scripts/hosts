@@ -66,17 +66,17 @@ echo $SFTP"1	sftp" >> /etc/hosts
 echo $TEST"	test.cont" >> /etc/hosts
 echo $MASTER_CONT"	master.cont" >> /etc/hosts
 
-echo $BUNDLE"1	$PREFIX_BUNDLE.web.$PREFIX_LOCAL" >> /etc/hosts
-echo $BUNDLE"1	$PREFIX_BUNDLE.ipark45.$PREFIX_LOCAL" >> /etc/hosts
-echo $BUNDLE"1	$PREFIX_BUNDLE.kzkt45.$PREFIX_LOCAL" >> /etc/hosts
-echo $BUNDLE"1	$PREFIX_BUNDLE.nekeng.$PREFIX_LOCAL" >> /etc/hosts
-echo $BUNDLE"1	$PREFIX_BUNDLE.ite-ng.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.web.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.ipark45.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.kzkt45.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.nekeng.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.ite-ng.$PREFIX_LOCAL" >> /etc/hosts
 
-echo $BUNDLE"2	$PREFIX_BUNDLE.web.$PREFIX_LOCAL" >> /etc/hosts
-echo $BUNDLE"2	$PREFIX_BUNDLE.ipark45.$PREFIX_LOCAL" >> /etc/hosts
-echo $BUNDLE"2	$PREFIX_BUNDLE.kzkt45.$PREFIX_LOCAL" >> /etc/hosts
-echo $BUNDLE"2	$PREFIX_BUNDLE.nekeng.$PREFIX_LOCAL" >> /etc/hosts
-echo $BUNDLE"2	$PREFIX_BUNDLE.ite-ng.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.web.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.ipark45.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.kzkt45.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.nekeng.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.ite-ng.$PREFIX_LOCAL" >> /etc/hosts
 
 echo $PHP53"53	$PREFIX_PHP53" >> /etc/hosts
 echo $PHP54"54	$PREFIX_PHP54" >> /etc/hosts
