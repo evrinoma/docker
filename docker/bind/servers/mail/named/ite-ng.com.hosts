@@ -1,15 +1,15 @@
 $ttl 38400
 ite-ng.com.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
-			201712121
+			2019111601
 			10800
 			3600
 			2419200
 			10800 )
 ite-ng.com.		IN	NS		ns.ite-ng.ru.
 ite-ng.com.		IN	NS		ns2.ite-ng.ru.
-ite-ng.com.		IN	A		81.211.68.180
+ite-ng.com.		IN	A		92.62.129.24
 mail.ite-ng.com.	IN	A		81.211.68.179
 fw.ite-ng.com.		IN	A		81.211.68.178
-www.ite-ng.com.		IN	A		81.211.68.180
+www.ite-ng.com.		IN	A		92.62.129.24
 eng.ite-ng.com.		IN	CNAME		www.ite-ng.com.
 ite-ng.com.		IN	MX	10	mx1.ite-ng.ru.

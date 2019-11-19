@@ -1,13 +1,19 @@
 $ttl 38400
 iteproject.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
-			2019042201
+			2019111601
 			10800
 			3600
 			2419200
 			10800 )
 iteproject.ru.		IN	NS		ns.ite-ng.ru.
 iteproject.ru.		IN	NS		ns2.ite-ng.ru.
-iteproject.ru.		IN	A		81.211.68.180
+iteproject.ru.		IN	MX	10	mx1.iteproject.ru.
+iteproject.ru.		IN	A		92.62.129.24
+wmail.iteproject.ru.	IN	A		62.168.240.2
+mail.iteproject.ru.	IN	A		81.211.68.180
+mx1.iteproject.ru.	IN	A		81.211.68.180
+
+
 iteproject.ru.			IN	TXT	"v=spf1 a mx ptr a:mail.iteproject.ru mx:mx1.iteproject.ru ip4:81.211.68.180 -all"
 iteproject.ru.			IN	SPF	"v=spf1 a mx ptr a:mail.iteproject.ru mx:mx1.iteproject.ru ip4:81.211.68.180 -all"
 _dmarc.iteproject.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@iteproject.ru"
@@ -21,7 +27,3 @@ mail._domainkey.iteproject.ru.	IN	TXT	(
 "STLWxZlNrww21euiS7Oj7bkjJ0vx8KNGTloGDfSaR1qZ84RgygIRkg//Clc+wQbUv7s"
 "Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
 )
-wmail.iteproject.ru.		IN	A		62.168.240.2
-mail.iteproject.ru.		IN	A		81.211.68.180
-mx1.iteproject.ru.		IN	A		81.211.68.180
-iteproject.ru.			IN	MX	10	mx1.iteproject.ru.

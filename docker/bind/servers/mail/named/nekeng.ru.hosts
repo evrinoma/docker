@@ -1,6 +1,6 @@
 $ttl 38400
 nekeng.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
-			2019041113
+			2019111601
 			10800
 			3600
 			2419200
@@ -8,7 +8,7 @@ nekeng.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
 nekeng.ru.		IN	NS		ns.ite-ng.ru.
 nekeng.ru.		IN	NS		ns2.ite-ng.ru.
 nekeng.ru.		IN	MX	10	mx1.ite-ng.ru.
-nekeng.ru.		IN	A		92.62.129.23
-www.nekeng.ru.		IN	A		81.211.68.180
+nekeng.ru.		IN	A		92.62.129.24
+www.nekeng.ru.		IN	A		92.62.129.24
 eng.nekeng.ru.		IN	CNAME		www.nekeng.ru.
 email.nekeng.ru.	IN	CNAME		92.62.129.23

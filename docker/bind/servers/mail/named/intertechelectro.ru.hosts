@@ -1,15 +1,15 @@
 $ttl 38400
 intertechelectro.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
-			201712121
+			2019111601
 			10800
 			3600
 			2419200
 			10800 )
 intertechelectro.ru.		IN	NS		ns.ite-ng.ru.
 intertechelectro.ru.		IN	NS		ns2.ite-ng.ru.
-intertechelectro.ru.		IN	A		81.211.68.180
+intertechelectro.ru.		IN	A		92.62.129.24
 mail.intertechelectro.ru.	IN	A		81.211.68.179
 fw.intertechelectro.ru.		IN	A		81.211.68.178
-www.intertechelectro.ru.	IN	A		81.211.68.180
+www.intertechelectro.ru.	IN	A		92.62.129.24
 eng.intertechelectro.ru.	IN	CNAME		www.intertechelectro.ru.
 intertechelectro.ru.		IN	MX	10	mx1.ite-ng.ru.

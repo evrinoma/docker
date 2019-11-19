@@ -1,6 +1,6 @@
 $ttl 38400
 citypoint-mf.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
-			201901221
+			2019111601
 			10800
 			3600
 			2419200
@@ -8,5 +8,5 @@ citypoint-mf.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
 citypoint-mf.ru.		IN	NS		ns.ite-ng.ru.
 citypoint-mf.ru.		IN	NS		ns2.ite-ng.ru.
 citypoint-mf.ru.		IN	MX	10	mx1.ite-ng.ru.
-citypoint-mf.ru.		IN	A		81.211.68.180
+citypoint-mf.ru.		IN	A		92.62.129.24
 mail.citypoint-mf.ru.		IN	CNAME		citypoint-mf.ru.

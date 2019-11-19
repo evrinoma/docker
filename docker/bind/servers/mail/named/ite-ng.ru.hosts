@@ -1,6 +1,6 @@
 $ttl 38400
 ite-ng.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
-			2019092401
+			2019111601
 			10800
 			3600
 			2419200
@@ -21,16 +21,17 @@ mail._domainkey.ite-ng.ru.	IN	TXT	(
 "Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
 )
 
-ite-ng.ru.		IN	A		81.211.68.180
+ite-ng.ru.		IN	A		92.62.129.24
 fw.ite-ng.ru.		IN	A		81.211.68.178
 vpn.ite-ng.ru.		IN	A		81.211.68.178
 mail.ite-ng.ru.		IN	A		81.211.68.179
 ns.ite-ng.ru.		IN	A		81.211.68.180
 mx1.ite-ng.ru.		IN	A		81.211.68.180
-www.ite-ng.ru.		IN	A		81.211.68.180
+www.ite-ng.ru.		IN	A		92.62.129.24
 git.ite-ng.ru.		IN	A		81.211.68.180
 rtsp.ite-ng.ru.		IN	A		81.211.68.180
 gw.ite-ng.ru.		IN	A		81.211.68.181
+cloud.ite-ng.ru.	IN	A		81.211.68.182
 admin.ite-ng.ru.	IN	A		81.211.68.190
 
 fw2.ite-ng.ru.		IN	A		217.22.164.2
@@ -44,22 +45,18 @@ email.ite-ng.ru.	IN	A		92.62.129.23
 vpn2.ite-ng.ru.		IN	A		92.62.129.22
 vpbx.ite-ng.ru.		IN	A		92.62.129.29
 
-#git.ite-ng.ru.		IN	CNAME		ns2.ite-ng.ru.
 askue.ite-ng.ru.	IN	CNAME		ns.ite-ng.ru.
 jp.ite-ng.ru.		IN	CNAME		ns.ite-ng.ru.
 ecm.ite-ng.ru.		IN	CNAME		ns.ite-ng.ru.
 cam.ite-ng.ru.		IN	CNAME		ns.ite-ng.ru.
-cloud.ite-ng.ru.	IN	CNAME		ns.ite-ng.ru.
 eng.ite-ng.ru.		IN	CNAME		www.ite-ng.ru.
 
 ite-ng.ru.		IN	MX	10	mx1.ite-ng.ru.
 
-#tm.ite-ng.ru		IN	NS		ns.ite-ng.ru.
 tm			IN	A		91.144.130.88
 pdc2.tm			IN	A		91.144.130.88
 tm			IN	MX	10	mx1.ite-ng.ru.
 
-#tts.ite-ng.ru		IN	NS		ns.ite-ng.ru.
 tts			IN	A		91.144.130.88
 pdc2.tts		IN	A		91.144.130.88
 tts			IN	MX	10	mx1.ite-ng.ru.

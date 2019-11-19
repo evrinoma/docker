@@ -1,6 +1,6 @@
 $ttl 38400
 kzet45.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
-			201907241
+			2019111601
 			10800
 			3600
 			2419200
@@ -8,7 +8,7 @@ kzet45.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
 kzet45.ru.		IN	NS		ns.ite-ng.ru.
 kzet45.ru.		IN	NS		ns2.ite-ng.ru.
 kzet45.ru.		IN	MX	10	mx1.ite-ng.ru.
-kzet45.ru.		IN	A		92.62.129.23
-www.kzet45.ru.		IN	A		81.211.68.180
+kzet45.ru.		IN	A		92.62.129.24
+www.kzet45.ru.		IN	A		92.62.129.24
 eng.kzet45.ru.		IN	CNAME		www.kzet45.ru.
 email.kzet45.ru.	IN	CNAME		92.62.129.23
