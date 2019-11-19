@@ -8,7 +8,6 @@ if [ ! -z "$pass" ]; then
 		DIR="/opt/WWW/container.ite-ng.ru/projects/tools"
 		if [ ! -d "$DIR" ]; then
 			mkdir -p $DIR
-			tar -zxf /tmp/kzkt45.sql.tar.gz -C /tmp
 			chown apache:apache -R $DIR
 			cd $DIR
 			init.sql $pass $serverSql $base $user $basepass
