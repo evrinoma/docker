@@ -14,7 +14,12 @@ LABEL \
 COPY	tools.conf /etc/httpd/conf.d/vhost.conf
 RUN	rm -rf /var/cache/yum && \
 	yum remove -y nodejs && \
-#	rm /etc/yum.repos.d/nodesource*  && \
 	yum clean all && \
 	curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -  && \
 	yum install -y nodejs yarn
+
+ADD	tools/init.install /usr/local/bin
+ADD	tools/init.sql /usr/local/bin
+RUN	chmod +x /usr/local/bin/init.install && \
+	chmod +x /usr/local/bin/init.sql
+
