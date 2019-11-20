@@ -8,10 +8,8 @@ services:
             context: docker/db/maria/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
-            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
-#            - "/opt/docker/src/db/maria/:/var/lib/mysql"
-#            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+            - "/opt/docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
             virt:
                 ipv4_address: 172.18.2.1
@@ -24,8 +22,7 @@ services:
             context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.5.1
@@ -39,13 +36,10 @@ services:
             context: docker/mail/exim/servers/mail/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.4.1
-
-
 
     php72_tools:
         container_name: "php72.tools"
@@ -54,8 +48,7 @@ services:
             context: docker/php72/sites/tools/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.4
@@ -67,37 +60,10 @@ services:
             context: docker/wowza/versions/4.7.7/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.14.77
-
-#    sftp:
-#        container_name: "sftp"
-#        image: "evrinoma/sftp"
-#        build:
-#            context: docker/sftp/.
-#            dockerfile: Dockerfile
-#        volumes:
-#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.20.1
-
-#    php53_jp:
-#        container_name: "php53.jp.ite-ng.ru"
-#        image: "evrinoma/php53.jp.ite-ng.ru"
-#        build:
-#            context: docker/php53/sites/jp.ite-ng.ru/.
-#            dockerfile: Dockerfile
-#        volumes:
-#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.53.13
 
 networks:
     virt:
