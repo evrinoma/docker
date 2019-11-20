@@ -40,10 +40,26 @@ RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 #history
 RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
 
+RUN	yum -y install which
+
+#RUN	touch /etc/profile.d/wowza.sh && \
+#	chmod 755 /etc/profile.d/wowza.sh && \
+#	echo '#/etc/profile.d wowza set' >> /etc/profile.d/wowza.sh && \
+#	echo 'JAVA_HOME=/usr/local/WowzaStreamingEngine/java' >> /etc/profile.d/wowza.sh && \
+#	echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile.d/wowza.sh
+
 #supervisor
 COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
 RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
 
+COPY	runWowza /usr/local/bin
+COPY	fetch.runWowza /usr/local/bin
+COPY    init.install /usr/local/bin/
+RUN	chmod 755  /usr/local/bin/runWowza && \
+	chmod 755  /usr/local/bin/fetch.runWowza && \
+	chmod 755 /usr/local/bin/init.install
+
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
-EXPOSE 22 1935 8088
+EXPOSE 22 1935 8084-8086 8088
+#6970-9999

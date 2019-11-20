@@ -19,6 +19,8 @@ RUN	chmod 700 /opt/wowza/wowza-installer.run && \
 	chmod 700 /usr/local/bin/wowzaInstall
 RUN	wowzaInstall
 
+COPY	install/wowza.tar.gz /usr/local/WowzaStreamingEngine
+#RUN	init.install
 
 
 
