@@ -1,57 +1,57 @@
 version: '2'
 services:
-    maria_db:
-        container_name: "maria.db"
-        image: "evrinoma/db.maria"
-        hostname: "maria.db"
-        build:
-            context: docker/db/maria/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/docker/src/db/maria/:/var/lib/mysql"
-            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
-        networks:
-            virt:
-                ipv4_address: 172.18.2.1
-
-    bind_master:
-        container_name: "bind.master"
-        image: "evrinoma/bind.master"
-        hostname: "bind.master"
-        build:
-            context: docker/bind/servers/mail/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.5.1
-
-    mail_exim_mail:
-        container_name: "exim.mail"
-        image: "evrinoma/exim.mail"
-        hostname: "mail.ite-ng.ru"
-        dns: 172.18.5.1
-        build:
-            context: docker/mail/exim/servers/mail/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.4.1
-
-    php72_tools:
-        container_name: "php72.tools"
-        image: "evrinoma/php72.tools"
-        build:
-            context: docker/php72/sites/tools/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.72.4
+#    maria_db:
+#        container_name: "maria.db"
+#        image: "evrinoma/db.maria"
+#        hostname: "maria.db"
+#        build:
+#            context: docker/db/maria/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/docker/src/db/maria/:/var/lib/mysql"
+#            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.2.1
+#
+#    bind_master:
+#        container_name: "bind.master"
+#        image: "evrinoma/bind.master"
+#        hostname: "bind.master"
+#        build:
+#            context: docker/bind/servers/mail/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.5.1
+#
+#    mail_exim_mail:
+#        container_name: "exim.mail"
+#        image: "evrinoma/exim.mail"
+#        hostname: "mail.ite-ng.ru"
+#        dns: 172.18.5.1
+#        build:
+#            context: docker/mail/exim/servers/mail/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.4.1
+#
+#    php72_tools:
+#        container_name: "php72.tools"
+#        image: "evrinoma/php72.tools"
+#        build:
+#            context: docker/php72/sites/tools/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.4
 
     wowza_4_7_7:
         container_name: "wowza.4.7.7"
