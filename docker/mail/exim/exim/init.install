@@ -1,0 +1,14 @@
+#!/bin/bash
+pass=$1
+serverSql=172.18.2.1
+base=contrspam
+user=contrspam
+basepass=contrspam
+targetbase=tools
+if [ ! -z "$pass" ]; then
+		DIR="/opt/WWW/container.ite-ng.ru/db/maria"
+		if [ -d "$DIR/$targetbase" ]; then
+			ln -s $DIR/$targetbase $DIR/$base
+			init.sql $pass $serverSql $base $user $basepass
+		fi
+fi
