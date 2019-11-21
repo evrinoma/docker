@@ -13,6 +13,20 @@ services:
             virt:
                 ipv4_address: 172.18.2.1
 
+    mail_exim_mail:
+        container_name: "exim.mail"
+        image: "evrinoma/exim.mail"
+        hostname: "mail.ite-ng.ru"
+        dns: 172.20.1.5
+        build:
+            context: docker/mail/exim/servers/mail/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.4.1
+
     php72_tools:
         container_name: "php72.tools"
         image: "evrinoma/php72.tools"

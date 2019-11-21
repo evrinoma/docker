@@ -128,6 +128,11 @@ RUN	mkdir -p /opt/clamav/etc/ /var/log/clamav/ && \
 COPY	freshclam.conf /opt/clamav/etc/
 COPY	scan.conf /opt/clamav/etc/
 
+COPY	exim/init.install /usr/local/bin/
+COPY	exim/init.sql /usr/local/bin/
+RUN	chmod -R 700 /usr/local/bin/init.install && \
+	chmod -R 700 /usr/local/bin/init.sql
+
 WORKDIR /
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]

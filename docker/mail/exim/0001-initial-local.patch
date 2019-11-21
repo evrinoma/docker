@@ -1712,7 +1712,7 @@ index e69de29..6a0c5e5 100755
 +#define MYSQLHOST "172.18.2.1"
 +#define MYSQLUSER "contrspam"
 +#define MYSQLPASS "contrspam"
-+#define MYSQLDB   "contrspam"
++#define MYSQLDB   "tools"
 +#define BLOCK_EXPIRE  10   /* minutes until email is accepted */
 +#define RECORD_EXPIRE 500  /* minutes until record expires */
 +#define RECORD_EXPIRE_GOOD  36 /* days until record expires after accepting email */
