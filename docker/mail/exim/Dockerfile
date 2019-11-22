@@ -142,6 +142,9 @@ RUN	mkdir -p  /var/tmp/clamav/ &&\
 	chown -R clamav.clamav /var/tmp/clamav &&\
 	chmod -R 777 /var/tmp/clamav
 
+COPY	spamlearn /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/spamlearn
+
 WORKDIR /
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
