@@ -138,6 +138,9 @@ COPY	init.container /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container
 
 RUN	usermod -a -G clamav exim && usermod -a -G exim clamav
+RUN	mkdir -p  /var/tmp/clamav/ &&\
+	chown -R clamav.clamav /var/tmp/clamav &&\
+	chmod -R 777 /var/tmp/clamav
 
 WORKDIR /
 
