@@ -137,6 +137,8 @@ RUN	chmod -R 700 /usr/local/bin/init.install && \
 COPY	init.container /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container
 
+RUN	usermod -a -G clamav exim && usermod -a -G exim clamav
+
 WORKDIR /
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
