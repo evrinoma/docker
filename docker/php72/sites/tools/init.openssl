@@ -1,0 +1,24 @@
+#!/bin/bash
+
+pass=$1
+storeDir=/opt/WWW/container.ite-ng.ru/conf/php72/sites/tools/certs/
+keyFile=ca.key
+pemFile=ca.pem
+certHttpd=/etc/pki/httpd/certs
+certTools=/etc/pki/httpd/tools
+mkdir -p $certTools
+if [ ! -z "$pass" ]; then
+	sed -i -e "s/\= toolsPassword/\= $pass/" $certHttpd/ca.cnf
+	sed -i -e "s/\= toolsPassword/\= $pass/" $certHttpd/server.cnf
+	sed -i -e "s/\= toolsPassword/\= $pass/" $certHttpd/client.cnf
+	cd $certHttpd && make ca && cp $certHttpd/$pemFile $certTools/$pemFile && \
+	openssl rsa -in $certHttpd/$keyFile -out $certHttpd/ca.rsa.key -passin 'pass:'$pass
+	cp $certHttpd/ca.rsa.key $certTools/$keyFile
+	mkdir -p $storeDir
+	cp $certTools/$pemFile $storeDir
+	cp $certTools/$keyFile $storeDir
+fi
+if [ -d "$storeDir" ]  && [ -e "$storeDir/$pemFile" ] && [ -e "$storeDir/$pemFile" ]; then
+	cp $storeDir/$pemFile $certTools/
+	cp $storeDir/$keyFile $certTools/
+fi

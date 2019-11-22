@@ -1,0 +1,20 @@
+####################################################
+### container.ite-ng.ru/tools
+####################################################
+<VirtualHost *:80>
+	Alias /tools /opt/WWW/container.ite-ng.ru/projects/tools/public
+	ServerName php72.tools
+	ServerAdmin nikolns@ite-ng.ru
+	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/tools/public"
+	ErrorLog /var/log/httpd/error-tools.log
+	CustomLog /var/log/httpd/access-tools.log combined
+	<Directory "/opt/WWW/container.ite-ng.ru/projects/tools/public/">
+		Require all granted
+		<IfModule mod_rewrite.c>
+			Options -MultiViews
+			RewriteEngine On
+			RewriteCond %{REQUEST_FILENAME} !-f
+			RewriteRule ^(.*)$ index.php [QSA,L]
+		</IfModule>
+	</Directory>
+</VirtualHost>
