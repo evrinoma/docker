@@ -1,0 +1,25 @@
+#!/bin/sh
+
+#SPAM_DIR='/var/mail/spam'
+#SPAM_BOX='spam.mbox'
+#SPAMD_BIN_DIR=/data/spamassassin/bin
+
+
+# Learn SPAM:
+##$SPAMD_BIN_DIR/sa-learn --showdots -u nobody --mbox --spam $SPAM_DIR/
+#$SPAM_BOX
+#/usr/bin/sa-learn --showdots --mbox --spam /var/CommuniGate/Accounts/learn-spam.macnt/SPAM.mbox
+
+# Learn HAM:
+#/usr/bin/sa-learn --showdots --mbox --ham  /var/CommuniGate/Accounts/learn-ham.macnt/INBOX.mbox
+#/usr/bin/sa-learn --showdots --mbox --ham  /var/CommuniGate/Accounts/learn-ham.macnt/SPAM.mbox
+
+# Rebuild bayes DB
+##$SPAMD_BIN_DIR/sa-learn -u nobody --sync --force-expire
+
+# Kill all letters older than 1 day:
+#/usr/local/bin/oldmail_del.pl
+#chown nobody:nobody /usr/local/etc/mail/spamassassin/bayes/*
+
+SPAM_DIR='/opt/WWW/container.ite-ng.ru'
+sa-learn --showdots -u nobody --mbox --spam $SPAM_DIR/
