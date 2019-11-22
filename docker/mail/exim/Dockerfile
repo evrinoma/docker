@@ -76,6 +76,7 @@ RUN	patch -Np1 -i src/0001-initial-local.patch  && \
 	patch -Np1 -i src/0002-fix-local.patch  && \
 	patch -Np1 -i src/0003-fix-version.patch
 RUN	make && make install
+RUN	mkdir -p /opt/exim/var/log && mkdir -p /opt/exim/tmp
 RUN	chown exim:exim -R /opt/exim/ && \
 	echo 'DAEMON=yes' >> /etc/sysconfig/exim && \
 	echo 'QUEUE=1h' >> /etc/sysconfig/exim
@@ -132,6 +133,9 @@ COPY	exim/init.install /usr/local/bin/
 COPY	exim/init.sql /usr/local/bin/
 RUN	chmod -R 700 /usr/local/bin/init.install && \
 	chmod -R 700 /usr/local/bin/init.sql
+
+COPY	init.container /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container
 
 WORKDIR /
 

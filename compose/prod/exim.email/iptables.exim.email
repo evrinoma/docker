@@ -12,20 +12,20 @@ echo '['$IP']'
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 25 -j DNAT --to-destination $IP:25
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 25 -j ACCEPT
 
-iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 110 -j DNAT --to-destination $IP:110
-iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 110 -j ACCEPT
+#iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 110 -j DNAT --to-destination $IP:110
+#iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 110 -j ACCEPT
 
-iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 143 -j DNAT --to-destination $IP:143
-iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 143 -j ACCEPT
+#iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 143 -j DNAT --to-destination $IP:143
+#iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 143 -j ACCEPT
 
-iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 465 -j DNAT --to-destination $IP:465
-iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 465 -j ACCEPT
+#iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 465 -j DNAT --to-destination $IP:465
+#iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 465 -j ACCEPT
 
-iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 993 -j DNAT --to-destination $IP:993
-iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 993 -j ACCEPT
+#iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 993 -j DNAT --to-destination $IP:993
+#iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 993 -j ACCEPT
 
-iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 995 -j DNAT --to-destination $IP:995
-iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 995 -j ACCEPT
+#iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 995 -j DNAT --to-destination $IP:995
+#iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 995 -j ACCEPT
 
 #IP=172.18.5.1
 #echo '['$IP']'

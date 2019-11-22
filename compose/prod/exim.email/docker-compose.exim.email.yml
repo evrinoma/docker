@@ -31,7 +31,7 @@ services:
         container_name: "exim.mail"
         image: "evrinoma/exim.mail"
         hostname: "mail.ite-ng.ru"
-        dns: 172.20.1.5
+        dns: 172.16.45.4
         build:
             context: docker/mail/exim/servers/mail/.
             dockerfile: Dockerfile

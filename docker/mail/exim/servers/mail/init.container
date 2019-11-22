@@ -1,0 +1,25 @@
+#!/bin/bash
+
+DIR='/opt/WWW/container.ite-ng.ru/logs/exim'
+EXIM='/opt/exim'
+
+if [ ! -d "$DIR" ]; then
+	mkdir -p $DIR/tmp
+	mkdir -p $DIR/var/log
+fi
+
+if ! [[ -L "$EXIM/tmp/" && -d "$EXIM/tmp/" ]]; then
+	if [ -d "$EXIM/tmp/" ]; then
+		rm -rf $EXIM/tmp/
+	fi
+	ln -s $DIR/tmp/ $EXIM
+fi
+
+if ! [[ -L "$EXIM/var/log/" && -d "$EXIM/var/log/" ]]; then
+	if [ -d "$EXIM/var/log/" ]; then
+		rm -rf $EXIM/var/log/
+	fi
+	ln -s $DIR/var/log/ $EXIM/var/
+fi
+
+chown exim:exim -R $DIR/
