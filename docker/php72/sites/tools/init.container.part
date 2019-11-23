@@ -1,0 +1,13 @@
+
+PERMISSION_GROUP='apache_exim_linux'
+DIRECTORY="/opt/WWW/container.ite-ng.ru/logs/"
+GROUP=$(ls -la $DIRECTORY | grep exim | awk '{print $4}')
+if [ ! -z "$GROUP" ]; then
+	APACHE=$(id apache | grep $GROUP | awk '{print $3}')
+	if [ -z "$APACHE" ]; then
+		if ! grep -q $GROUP /etc/group; then
+			groupadd -g $GROUP $PERMISSION_GROUP
+		fi
+		usermod -G $GROUP apache
+	fi
+fi 
