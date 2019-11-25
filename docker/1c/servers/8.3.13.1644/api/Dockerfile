@@ -1,12 +1,12 @@
 FROM \
-	evrinoma/1c:latest
+	evrinoma/1c.8.3.13.1644:latest
 
 MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
 	name="evrinoma 1C Image" \
-	image="1c.deploy" \
+	image="1c.8.3.13.1644.api" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-07-17"

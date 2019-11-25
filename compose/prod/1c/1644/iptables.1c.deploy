@@ -6,7 +6,7 @@ bridge=${bridge%*:}
 
 echo $bridge
 
-IP=172.18.83.1
+IP=172.18.83.13
 echo '['$IP']'
 
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1540 -j DNAT --to-destination $IP:1540

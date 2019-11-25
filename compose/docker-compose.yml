@@ -97,15 +97,15 @@ services:
 
     postgre_1c_10_5_24_db:
         container_name: "postgre.1c.10.5.24.db"
-        image: "evrinoma/db/postgre.1c.10.5.24"
+        image: "evrinoma/db.postgre.1c.10.5.24"
         build:
             context: docker/db/postgre/1c/10.5.24/.
             dockerfile: Dockerfile
         #privileged: true
         volumes:
             - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-            - "/opt/DISK/Develop/Docker/src/db/postgre/1c/:/var/lib/pgsql"
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/db/postgre/1c/:/var/lib/pgsql"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.2.2
@@ -228,39 +228,39 @@ services:
             virt:
                 ipv4_address: 172.18.22.15
 
-    1c_work_v83_deploy:
-        container_name: "1c.work.v83.deploy"
-        image: "evrinoma/1c.work.deploy"
-        hostname: "DOCK_1C_V83"
+    1c_83_13_1644_deploy:
+        container_name: "1c.83.13.1644.deploy"
+        image: "evrinoma/1c.83.13.1644.deploy"
+        hostname: "dock.1c.work.ite-ng.ru"
         cap_add:
             - SYS_ADMIN
         security_opt:
             - apparmor:unconfined
         build:
-            context: docker/1c/servers/work/.
+            context: /opt/docker/docker/1c/servers/8.3.13.1644/deploy/.
             dockerfile: Dockerfile
         extra_hosts:
             - "iteng26:172.20.1.26"
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.83.1
+                ipv4_address: 172.18.83.13
 
-    1c_ws_v83_deploy:
-        container_name: "1c.ws.v83.deploy"
-        image: "evrinoma/1c.ws.deploy"
-        hostname: "DOCK_1C_WS_V83"
+    1c_83_13_1644_api:
+        container_name: "1c.83.13.1644.api"
+        image: "evrinoma/1c.83.13.1644.api"
+        hostname: "dock.1c.api.ite-ng.ru"
         build:
-            context: docker/1c/servers/ws/.
+            context: /opt/docker/docker/1c/servers/8.3.13.1644/api/.
             dockerfile: Dockerfile
         extra_hosts:
             - "iteng26:172.20.1.26"
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.83.2
+                ipv4_address: 172.18.83.130
 
     php53:
         container_name: "php53"
@@ -668,4 +668,3 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
-
