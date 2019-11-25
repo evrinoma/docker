@@ -4,17 +4,17 @@ FROM \
 MAINTAINER \
 	evrinoma@gmail.com
 FROM \
-                centos:centos7
+	centos:centos7
 
 MAINTAINER \
-                evrinoma@gmail.com
+	evrinoma@gmail.com
 
 LABEL \
 	name="evrinoma Postgre SQL Image" \
-	image="postgre.1c" \
+	image="postgre.1c.10.5.24" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2019-09-11"
+	build-date="2019-11-25"
 
 RUN	yum -y install mc wget && \
 	yum -y install iproute && \

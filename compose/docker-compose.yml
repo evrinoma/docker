@@ -95,11 +95,11 @@ services:
             virt:
                 ipv4_address: 172.18.2.1
 
-    postgre_1c_db:
-        container_name: "postgre.1c.db"
-        image: "evrinoma/db/postgre.1c"
+    postgre_1c_10_5_24_db:
+        container_name: "postgre.1c.10.5.24.db"
+        image: "evrinoma/db/postgre.1c.10.5.24"
         build:
-            context: docker/db/postgre/1c/.
+            context: docker/db/postgre/1c/10.5.24/.
             dockerfile: Dockerfile
         #privileged: true
         volumes:
