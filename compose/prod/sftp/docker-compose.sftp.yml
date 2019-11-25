@@ -30,6 +30,7 @@ services:
     sftp:
         container_name: "sftp"
         image: "evrinoma/sftp"
+        dns: 172.20.1.6
         build:
             context: docker/sftp/.
             dockerfile: Dockerfile
