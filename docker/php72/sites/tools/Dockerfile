@@ -41,6 +41,10 @@ RUN	yum -y install mod_ssl && \
 RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/php72/sites/tools/certs/ca.key /etc/pki/CA/certs/ && \
 	ln -s /opt/WWW/container.ite-ng.ru/conf/php72/sites/tools/certs/ca.pem /etc/pki/CA/certs/
 
+ADD	init.container.part /usr/local/bin
+RUN	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
+	rm -rf /usr/local/bin/init.container.part
+
 COPY	tools.conf /etc/httpd/conf.d/vhost.conf
 
 EXPOSE 443
