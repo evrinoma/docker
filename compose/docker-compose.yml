@@ -138,6 +138,20 @@ services:
             virt:
                 ipv4_address: 172.18.2.4
 
+    postgre_1c_11_5_1_db:
+        container_name: "postgre.1c.11.5.1.db"
+        image: "evrinoma/db.postgre.1c.11.5.1"
+        build:
+            context: docker/db/postgre/1c/11.5.1/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+            - "/opt/docker/src/db/postgre/1c/:/var/lib/pgsql"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.5
+
     mail_exim_mail:
         container_name: "exim.mail"
         image: "evrinoma/exim"

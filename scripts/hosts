@@ -38,9 +38,10 @@ C1_83=$SUBNET"83."
 sed -i -e "/^172.18/ d" /etc/hosts
 
 echo $SQL"1	maria.db" >> /etc/hosts
-echo $SQL"2	postgre.1c.db" >> /etc/hosts
+echo $SQL"2	postgre.1c.10.db" >> /etc/hosts
 echo $SQL"3	mssql.db" >> /etc/hosts
 echo $SQL"4	mysql" >> /etc/hosts
+echo $SQL"5	postgre.1c.11.db" >> /etc/hosts
 
 echo $MAIL"1	exim" >> /etc/hosts
 echo $MAIL"1	exim.mail" >> /etc/hosts

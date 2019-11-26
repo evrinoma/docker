@@ -1,10 +1,10 @@
 version: '2'
 services:
-    postgre_1c_10_5_24_db:
-        container_name: "postgre.1c.10.5.24.db"
-        image: "evrinoma/db.postgre.1c.10.5.24"
+    postgre_1c_11_5_1_db:
+        container_name: "postgre.1c.11.5.1.db"
+        image: "evrinoma/db.postgre.1c.11.5.1"
         build:
-            context: docker/db/postgre/1c/10.5.24/.
+            context: docker/db/postgre/1c/11.5.1/.
             dockerfile: Dockerfile
         volumes:
             - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
@@ -12,7 +12,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.2.2
+                ipv4_address: 172.18.2.5
 
     1c_83_15_1700_deploy:
         container_name: "1c.83.15.1700.deploy"

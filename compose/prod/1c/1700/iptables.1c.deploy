@@ -21,7 +21,7 @@ iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --d
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 1560:1591 -j DNAT --to-destination $IP:1560-1591
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 1560:1591 -j ACCEPT
 
-IP=172.18.2.2
+IP=172.18.2.5
 echo '['$IP']'
 
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 5432 -j DNAT --to-destination $IP:5432
