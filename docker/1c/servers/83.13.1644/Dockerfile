@@ -6,7 +6,7 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma 1C Image" \
-	image="1c.8.3.13.1644" \
+	image="1c.83.13.1644" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-07-16"

@@ -48,6 +48,7 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 #mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
+RUN	yum -y install bzip2 unzip patch
 RUN	yum install fontconfig -y
 #1c configs
 RUN	touch /etc/httpd/conf.d/1c.conf && mkdir /opt/WWW/1c.ite-ng.ru

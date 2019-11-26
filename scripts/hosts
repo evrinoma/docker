@@ -114,5 +114,7 @@ echo $PHP72"18	$PREFIX_PHP72.ite-ng" >> /etc/hosts
 
 #echo $PHP72"3	pma" >> /etc/hosts
 
-echo $C1_83"13	1c.deploy.v83.13.1644" >> /etc/hosts
-echo $C1_83"130	1c.api.v83.13.1644" >> /etc/hosts
+echo $C1_83"13	deploy.13.1644" >> /etc/hosts
+echo $C1_83"130	api.13.1644" >> /etc/hosts
+echo $C1_83"15	deploy.15.1700" >> /etc/hosts
+echo $C1_83"150	api.15.1700" >> /etc/hosts

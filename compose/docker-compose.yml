@@ -231,7 +231,7 @@ services:
     1c_83_13_1644_deploy:
         container_name: "1c.83.13.1644.deploy"
         image: "evrinoma/1c.83.13.1644.deploy"
-        hostname: "dock.1c.work.ite-ng.ru"
+        hostname: "deploy.1c.ite-ng.ru"
         cap_add:
             - SYS_ADMIN
         security_opt:
@@ -261,6 +261,25 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.83.130
+
+    1c_83_15_1700_deploy:
+        container_name: "1c.83.15.1700.deploy"
+        image: "evrinoma/1c.83.15.1700.deploy"
+        hostname: "deploy.1с.ite-ng.ru"
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        build:
+            context: /opt/docker/docker/1c/servers/8.3.15.1700/deploy/.
+            dockerfile: Dockerfile
+        extra_hosts:
+            - "iteng26:172.20.1.26"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.83.15
 
     php53:
         container_name: "php53"
