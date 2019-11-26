@@ -17,7 +17,7 @@ services:
     1c_83_13_1644_deploy:
         container_name: "1c.83.13.1644.deploy"
         image: "evrinoma/1c.83.13.1644.deploy"
-        hostname: "deploy.1с.ite-ng.ru"
+        hostname: "deploy.1c.ite-ng.ru"
         cap_add:
             - SYS_ADMIN
         security_opt:
@@ -41,4 +41,3 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
-

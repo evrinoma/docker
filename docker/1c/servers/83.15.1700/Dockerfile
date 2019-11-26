@@ -12,7 +12,7 @@ LABEL \
 	build-date="2019-11-26"
 
 #1c install
-COPY	install /opt/WWW/install
+ADD     install/rpm64_8_3_15_1700.tar.gz /opt/WWW/install
 WORKDIR	/opt/WWW/install
 RUN	rpm -ivh 1C_Enterprise83-common-8.3.15-1700.x86_64.rpm && \
 	rpm -ivh 1C_Enterprise83-common-nls-8.3.15-1700.x86_64.rpm && \
