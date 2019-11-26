@@ -251,7 +251,7 @@ services:
         security_opt:
             - apparmor:unconfined
         build:
-            context: /opt/docker/docker/1c/servers/8.3.13.1644/deploy/.
+            context: /opt/docker/docker/1c/servers/83.13.1644/deploy/.
             dockerfile: Dockerfile
         extra_hosts:
             - "iteng26:172.20.1.26"
@@ -266,7 +266,7 @@ services:
         image: "evrinoma/1c.83.13.1644.api"
         hostname: "dock.1c.api.ite-ng.ru"
         build:
-            context: /opt/docker/docker/1c/servers/8.3.13.1644/api/.
+            context: /opt/docker/docker/1c/servers/83.13.1644/api/.
             dockerfile: Dockerfile
         extra_hosts:
             - "iteng26:172.20.1.26"
