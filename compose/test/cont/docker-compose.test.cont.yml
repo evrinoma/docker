@@ -1,0 +1,34 @@
+version: '2'
+services:
+    cont_master:
+        container_name: "cont.master.test"
+        build:
+            context: ../../../docker/php72/sites/cont/.
+            dockerfile: Dockerfile
+        ports:
+            - 8484:80
+            - 0.0.0.0:422:22
+        volumes:
+            - ../../../../servers/cont:/opt/WWW/container.ite-ng.ru
+        networks:
+            db_virt:
+                ipv4_address: 172.19.202.5
+
+    cont_test:
+        container_name: "cont.test.test"
+        build:
+            context: ../../../docker/tests/servers/cont/.
+            dockerfile: Dockerfile
+        ports:
+            - 8393:80
+            - 0.0.0.0:622:22
+        volumes:
+            - ../../../../servers/cont:/opt/WWW/container.ite-ng.ru
+        networks:
+            db_virt:
+                ipv4_address: 172.19.202.6
+
+networks:
+    db_virt:
+        external: true
+

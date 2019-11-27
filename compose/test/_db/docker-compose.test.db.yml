@@ -1,0 +1,30 @@
+version: '2'
+services:
+    maria_db:
+        container_name: "db.maria.test"
+        image: evrinoma/db.maria
+#        build:
+#            context: ../../docker/db/maria/.
+#            dockerfile: Dockerfile
+        ports:
+            - 0.0.0.0:3330:3306
+            - 0.0.0.0:122:22
+        volumes:
+            - ../../../../servers/db/sql-data/maria.db:/var/lib/mysql
+            - ../../../../servers/db/sql-data/logs:/var/log/mariadb
+        networks:
+            virt:
+                ipv4_address: 172.19.2.1
+
+
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.19.0.0/16
+                  gateway: 172.19.0.1
+
+

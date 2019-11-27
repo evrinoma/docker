@@ -1,0 +1,24 @@
+version: '2'
+services:
+    php53_kis_new_ite-ng_ru_test:
+        container_name: "php53.kisnew_test.test"
+        image: "evrinoma/php53.kisnew.ite-ng.ru"
+        build:
+            context: ../../../docker/php53/sites/kisnew.ite-ng.ru.
+            dockerfile: Dockerfile
+        ports:
+            - 8181:80
+            - 0.0.0.0:322:22
+        volumes:
+            - ../../../../servers/kis:/opt/WWW/container.ite-ng.ru
+        networks:
+            db_virt:
+                ipv4_address: 172.19.2.99
+                
+
+
+
+networks:
+    db_virt:
+        external: true
+
