@@ -11,9 +11,6 @@ LABEL \
 	license="MIT" \
 	build-date="2019-05-21"
 
-RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
-	echo "nameserver 8.8.8.8" >> /etc/resolv.conf
-
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
 	yum -y install iproute && \
@@ -40,7 +37,7 @@ RUN	git config --global user.email "evrinoma@gmail.com" && \
 #ssh
 RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa &&\
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa &&\
-	echo 0631 | passwd --stdin root;
+	echo 1234 | passwd --stdin root;
 
 #history
 RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
@@ -57,8 +54,7 @@ RUN	yum -y install rabbitmq-server
 RUN	yum -y install python34-pip && \
 	pip3.4 install pika;
 
-RUN	echo 'export HOSTNAME="rabbitmq"' > /etc/profile.d/rabbitmq.sh && \
-	echo "nameserver 172.20.1.5" > /etc/resolv.conf
+RUN	echo 'export HOSTNAME="rabbitmq"' > /etc/profile.d/rabbitmq.sh
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 

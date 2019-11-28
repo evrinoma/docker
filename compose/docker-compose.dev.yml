@@ -1,29 +1,97 @@
 version: '2'
 services:
-    maria_db:
-        container_name: "maria.db"
-        image: "evrinoma/db/maria"
+    maria_db_web:
+        container_name: "maria.db.web"
+        image: "evrinoma/db.maria.web"
+        hostname: "maria.db.web"
         build:
-            context: docker/db/maria/.
+            context: docker/db/maria/web/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
             - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
+#            - "/opt/docker/src/db/maria/:/var/lib/mysql"
+#            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
             virt:
-                ipv4_address: 172.18.2.1
+                ipv4_address: 172.18.2.4
 
-    php72_cont:
-        container_name: "php72.cont"
-        image: "evrinoma/php72.cont.ite-ng.ru"
+#    php72_ipark45:
+#        container_name: "php72.ipark45"
+#        image: "evrinoma/php72.ipark45"
+#        build:
+#            context: docker/php72/sites/ipark45/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.15
+
+#    php72_kzkt45:
+#        container_name: "php72.kzkt45"
+#        image: "evrinoma/php72.kzkt45"
+#        build:
+#            context: docker/php72/sites/kzkt45/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.16
+
+#    php72_nekeng:
+#        container_name: "php72.nekeng"
+#        image: "evrinoma/php72.nekeng"
+#        build:
+#            context: docker/php72/sites/nekeng/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.17
+#
+#    php72_ite_ng:
+#        container_name: "php72.ite-ng"
+#        image: "evrinoma/php72.ite-ng"
+#        build:
+#            context: docker/php72/sites/ite-ng/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.18
+    php54_web:
+        container_name: "php54.web"
+        image: "evrinoma/php54.web"
         build:
-            context: docker/php72/sites/cont/.
+            context: docker/php54/sites/bundle/web/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.6
+                ipv4_address: 172.18.24.1
+
+    php72_web:
+        container_name: "php72.web"
+        image: "evrinoma/php72.web"
+        build:
+            context: docker/php72/sites/bundle/web/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.24.2
 
 networks:
     virt:

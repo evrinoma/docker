@@ -24,16 +24,39 @@ RUN	(cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == system
 	VOLUME [ "/sys/fs/cgroup" ]
 CMD	["/usr/sbin/init"]
 
-RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf
-#	echo "nameserver 8.8.8.8" > /etc/resolv.conf 
-
 RUN	yum -y install mc && \
 	yum -y install git && \
 	yum -y install wget;
 
+RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
+
+RUN	yum -y install gcc \
+	make;
+
+RUN	yum -y install git \
+	supervisor \
+	openssh-server;
+
+RUN	yum -y install \
+	telnet;
+
+#git
+RUN	git config --global user.email "evrinoma@gmail.com" && \
+	git config --global user.name "Nikolay Nikolaev";
+
+#ssh
+RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
+	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
+	echo 1234 | passwd --stdin root;
+
 RUN	yum -y install mariadb-server mariadb && \
 	yum -y install php php-mysql php-gd && \
 	yum clean all;
+
+COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
+RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
+	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
 
 RUN	systemctl enable mariadb.service
 
@@ -57,7 +80,8 @@ RUN	sed -i '/\[mysqld\]/aport=3306' /etc/my.cnf && \
 	sed -i '/\[mysqld\]/amax_heap_table_size=256M' /etc/my.cnf && \
 	sed -i '/\[mysqld\]/amax_connection=100' /etc/my.cnf && \
 	sed -i '/\[mysqld\]/athread_concurrency=12' /etc/my.cnf && \
-	sed -i '/\[mysqld\]/amax_binlog_size=512M' /etc/my.cnf
+	sed -i '/\[mysqld\]/amax_binlog_size=512M' /etc/my.cnf &&\
+	sed -i -e 's/socket\=.*/socket\=\/var\/run\/mariadb\/mysql.sock/' /etc/my.cnf
 #	sed -i '/\[mysqld\]/askip-innodb' /etc/my.cnf && \
 #	sed -i '/\[mysqld\]/aslow_query_log=1' /etc/my.cnf && \
 #	sed -i '/\[mysqld\]/aslow_query_log_file=\/var\/log\/mysqld\.slow\.log' /etc/my.cnf && \
@@ -65,15 +89,22 @@ RUN	sed -i '/\[mysqld\]/aport=3306' /etc/my.cnf && \
 #	sed -i '/\[mysqld\]/alog-queries-not-using-indexes' /etc/my.cnf && \
 #	sed -i '/\[mysqld\]/alog-bin=mysql-bin' /etc/my.cnf && \
 #	sed -i '/\[mysqld\]/aexpire_logs_days=3' /etc/my.cnf && \
-#	sed -i '/\[mysqld\]/aserver-id=1' /etc/my.cnf
-
+#	sed -i '/\[mysqld\]/aserver-id=1' /etc/my.cnf && \
 #	sed -ire 's/max_allowed_packet.*=.*/max_allowed_packet = /g' /etc/mysql/my.cnf
+
+RUN	mkdir -p /var/run/mariadb && \
+	chown -R mysql.mysql /var/run/mariadb/ && \
+	echo '[client]' >> /etc/my.cnf && \
+	echo 'socket=/var/run/mariadb/mysql.sock' >> /etc/my.cnf
 
 RUN	chown -R mysql.mysql /var/lib/mysql/
 
 RUN	mysql_install_db --force --user=mysql --ldata=/var/lib/mysql/
+COPY	create.user /usr/local/bin/
+COPY	init.container /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container && \
+	chmod 700 /usr/local/bin/create.user
 
-EXPOSE 3306
+CMD ["/usr/bin/supervisord"]
 
-CMD	["/usr/bin/mysqld_safe"]
-
+EXPOSE 22 3306

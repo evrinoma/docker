@@ -1,5 +1,0 @@
-#!/bin/bash
-/opt/1C/v8.3/x86_64/ras --daemon cluster
-clusterID=$(/opt/1C/v8.3/x86_64/rac cluster list | grep -e 'cluster' | grep -v 'name' | awk {'print $3'})
-echo $clusterID
-/opt/1C/v8.3/x86_64/rac infobase --cluster=$clusterID create --create-database --name=1c_test_db --dbms=PostgreSQL --db-server=172.18.2.2 --db-name=1c_test_db --locale=ru --db-user=postgres  --db-pwd=postgres

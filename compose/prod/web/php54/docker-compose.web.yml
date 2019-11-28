@@ -1,0 +1,37 @@
+version: '2'
+services:
+    maria_db_web:
+        container_name: "maria.db.web"
+        image: "evrinoma/db.maria.web"
+        hostname: "maria.db.web"
+        build:
+            context: docker/db/maria/web/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.4
+
+    php54_web:
+        container_name: "php54.web"
+        image: "evrinoma/php54.web"
+        build:
+            context: docker/php54/sites/bundle/web/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.24.1
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
+

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+./iptables.flush
+
+service docker restart
+
+sleep 10
+
+docker rm $(docker ps -a -q -f status=exited)

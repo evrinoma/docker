@@ -1,0 +1,13 @@
+$ttl 38400
+lazurnoe.net.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
+			2019100201
+			10800
+			3600
+			604800
+			38400 )
+lazurnoe.net.		IN	NS		ns.ite-ng.ru.
+lazurnoe.net.		IN	NS		ns2.ite-ng.ru.
+lazurnoe.net.		IN	MX	10	mx1.ite-ng.ru.
+lazurnoe.net.		IN	A		217.22.164.5
+www.lazurnoe.net.	IN	A		217.22.164.5
+mail.lazurnoe.net.	IN	CNAME		lazurnoe.net.

@@ -1,0 +1,4 @@
+include /etc/mail/spamassassin/rule/99_russian_common_re.cf  
+include /etc/mail/spamassassin/rule/99_russian_koi8_re.cf
+include /etc/mail/spamassassin/rule/99_russian_utf8_re.cf
+include /etc/mail/spamassassin/rule/99_russian_win1251_re.cf

@@ -1,0 +1,18 @@
+#!/bin/bash
+storeDir=/opt/WWW/container.ite-ng.ru/conf/wowza
+DIR="/usr/local/WowzaStreamingEngine"
+CONF="wowza.tar.gz"
+
+if [ ! -d "$storeDir" ]; then
+	mkdir -p $storeDir
+	if [ -d "$DIR" ]; then
+		tar -xvf $DIR/$CONF -C $DIR
+		cp -Rfl $DIR/wowza/* $DIR/
+		rm -rf $DIR/wowza
+		rm -rf $DIR/$CONF
+		mv $DIR/conf $storeDir/
+		mv $DIR/content $storeDir/
+		ln -s $storeDir/conf $DIR
+		ln -s $storeDir/content $DIR
+	fi
+fi

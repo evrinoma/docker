@@ -1,0 +1,7 @@
+#!/bin/bash
+pass=$1
+
+/usr/local/bin/init.install.ipark45 $pass
+/usr/local/bin/init.install.nekeng $pass
+/usr/local/bin/init.install.kzkt45 $pass
+/usr/local/bin/init.install.ite-ng $pass

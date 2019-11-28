@@ -1,0 +1,10 @@
+$ttl 38400
+xn----jtbhksfhng7h.xn--p1ai.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
+			2019111601
+			10800
+			3600
+			2419200
+			10800 )
+xn----jtbhksfhng7h.xn--p1ai.		IN	NS		ns.ite-ng.ru.
+xn----jtbhksfhng7h.xn--p1ai.		IN	NS		ns2.ite-ng.ru.
+xn----jtbhksfhng7h.xn--p1ai.		IN	A		92.62.129.24

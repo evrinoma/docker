@@ -6,13 +6,10 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma PHP 7.2 Image" \
-	image="php-7" \
+	image="php72" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-05-21"
-
-RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
-	echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
@@ -106,7 +103,7 @@ RUN	git config --global user.email "evrinoma@gmail.com" && \
 #ssh
 RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
-	echo 0631 | passwd --stdin root;
+	echo 1234 | passwd --stdin root;
 #php.ini
 RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/\;date\.timezone\ \=/date\.timezone\ \=\ \"Europe\/Moscow\"/g" /etc/php.ini && \
@@ -177,6 +174,15 @@ RUN	yum install re2c gcc-c++ gcc unixODBC-devel -y  && \
 	echo 'extension=pdo_sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/pdo_sqlsrv.ini  && \
 	echo 'extension=sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/sqlsrv.ini
 
+RUN	yum -y install bzip2 unzip
+
+RUN	yum -y install patch
+
+RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
+	chown -R apache.apache /var/log/httpd/
+
+COPY	init.container /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80

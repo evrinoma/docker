@@ -1,0 +1,9 @@
+#!/bin/bash
+pass=$1
+serverSql=172.18.2.1
+base=tools
+user=contrspam
+basepass=contrspam
+if [ ! -z "$pass" ]; then
+	init.sql $pass $serverSql $base $user $basepass
+fi

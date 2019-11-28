@@ -1,0 +1,58 @@
+#projects structure
+#└── projects
+#    ├── cont
+#    │   ├── app
+#    │   ├── assets
+#    │   ├── bin
+#    │   ├── node_modules
+#    │   ├── quantconsole
+#    │   ├── src
+#    │   ├── tests
+#    │   ├── var
+#    │   ├── vendor
+#    │   └── web
+#    └── ite-ng.ru
+#        ├── content
+#        └── content_new
+#ServerName php72.cont
+#ServerName php53.kisnew
+#http project Dir /opt/WWW/container.ite-ng.ru/projects/
+version: '2'
+services:
+    maria_db:
+        container_name: "maria.db"
+        image: "evrinoma/db.maria"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
+
+
+    php72_cont:
+        container_name: "php72.cont"
+        image: "evrinoma/php72.h.cont.ite-ng.ru"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.6
+
+    php53_kis_new_ite-ng_ru:
+        container_name: "php53.kisnew"
+        image: "evrinoma/php53.h.kisnew.ite-ng.ru"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.4
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1

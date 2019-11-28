@@ -1,0 +1,17 @@
+#!/bin/bash
+
+PASSWORD=$1
+TARGET='/tmp/create.user.sql'
+
+if [ -z "$PASSWORD" ]; then
+	PASSWORD='1234'
+fi;
+
+echo "
+	GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$PASSWORD' WITH GRANT OPTION;
+	GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '$PASSWORD' WITH GRANT OPTION;
+	GRANT PROXY ON ''@'' TO 'root'@'localhost' WITH GRANT OPTION;
+	FLUSH PRIVILEGES;
+" > $TARGET
+mysql < $TARGET
+rm -f $TARGET

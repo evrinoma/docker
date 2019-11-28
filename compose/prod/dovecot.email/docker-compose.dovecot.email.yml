@@ -2,7 +2,7 @@ version: '2'
 services:
     maria_db:
         container_name: "maria.db"
-        image: "evrinoma/db/maria"
+        image: "evrinoma/db.maria"
         hostname: "maria.db"
         build:
             context: docker/db/maria/.
@@ -13,6 +13,19 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.2.1
+
+    bind_slave:
+        container_name: "bind.slave"
+        image: "evrinoma/bind.slave"
+        hostname: "bind.slave"
+        build:
+            context: docker/bind/servers/email/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.5.2
 
     php72_roundcubemail:
         container_name: "php72.roundcubemail"
@@ -31,6 +44,7 @@ services:
         container_name: "dovecot.email"
         image: "evrinoma/dovecot.email"
         hostname: "email.ite-ng.ru"
+        dns: 172.18.5.2
         build:
             context: docker/mail/dovecot/servers/email/.
             dockerfile: Dockerfile

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+storeDir="/opt/WWW/container.ite-ng.ru/conf/wowza"
+fileRun="run"
+
+mkdir -p $storeDir
+touch $storeDir/$fileRun

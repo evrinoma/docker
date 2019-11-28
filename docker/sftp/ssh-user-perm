@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ "root" != "${PAM_USER}" ]; then
+	chown root.root /home/${PAM_USER}
+	chmod 755 /home/${PAM_USER}
+	if [ ! -d "/home/${PAM_USER}/disk" ]; then
+		mkdir -p /home/${PAM_USER}/disk
+	fi
+	chmod 777 /home/${PAM_USER}/disk
+fi

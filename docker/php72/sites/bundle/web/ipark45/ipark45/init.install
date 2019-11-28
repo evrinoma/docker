@@ -1,0 +1,19 @@
+#!/bin/bash
+pass=$1
+serverSql=172.18.2.1
+base=ipark45
+user=ipark45
+basepass=ipark45
+if [ ! -z "$pass" ]; then
+		DIR="/opt/WWW/container.ite-ng.ru/projects/ipark45.ru"
+		if [ ! -d "$DIR" ]; then
+			mkdir -p $DIR
+			tar -zxf /tmp/ipark45.sql.tar.gz -C /tmp
+			tar -zxf /tmp/ipark45.tar.gz -C $DIR
+			mv $DIR/ipark45.ru/*  $DIR/ipark45.ru/.[^.]* $DIR/
+			rm -rf $DIR/ipark45.ru/
+			chown apache:apache -R $DIR
+			cd $DIR
+			init.sql $pass $serverSql $base $user $basepass
+		fi
+fi

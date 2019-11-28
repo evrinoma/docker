@@ -1,0 +1,18 @@
+$ttl 38400
+51.186.194.in-addr.arpa.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
+			2017100501
+			10800
+			3600
+			604800
+			38400 )
+51.186.194.in-addr.arpa.	IN	NS		ns.ite-ng.ru.
+66.51.186.194.in-addr.arpa.	IN	PTR		fw.ite-ng.ru.
+67.51.186.194.in-addr.arpa.	IN	PTR		mail.ite-ng.ru.
+68.51.186.194.in-addr.arpa.	IN	PTR		root.ite-ng.ru.
+69.51.186.194.in-addr.arpa.	IN	PTR		ns.ite-ng.ru.
+69.51.186.194.in-addr.arpa.	IN	PTR		mx1.ite-ng.ru.
+71.51.186.194.in-addr.arpa.	IN	PTR		sip.ite-ng.ru.
+72.51.186.194.in-addr.arpa.	IN	PTR		vpn.ite-ng.ru.
+73.51.186.194.in-addr.arpa.	IN	PTR		admin.ite-ng.ru.
+74.51.186.194.in-addr.arpa.	IN	PTR		urbd.ite-ng.ru.
+76.51.186.194.in-addr.arpa.	IN	PTR		kis.ite-ng.ru.

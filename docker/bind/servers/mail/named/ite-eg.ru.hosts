@@ -1,0 +1,14 @@
+$ttl 38400
+ite-eg.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
+			2019111602
+			10800
+			3600
+			2419200
+			10800 )
+ite-eg.ru.		IN	NS		ns.ite-ng.ru.
+ite-eg.ru.		IN	NS		ns2.ite-ng.ru.
+ite-eg.ru.		IN	MX	10	mx1.ite-ng.ru.
+ite-eg.ru.		IN	A		92.62.129.24
+www.ite-eg.ru.		IN	A		92.62.129.24
+eng.ite-eg.ru.		IN	CNAME		www.ite-eg.ru.
+email.ite-eg.ru.	IN	CNAME		92.62.129.23

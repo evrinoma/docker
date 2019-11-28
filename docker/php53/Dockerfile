@@ -6,13 +6,10 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma PHP 5.3 Image" \
-	image="php-5.3" \
+	image="php53" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-05-21"
-
-RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
-	echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
@@ -103,7 +100,7 @@ RUN	git config --global user.email "evrinoma@gmail.com" && \
 #ssh
 RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
-	echo 0631 | passwd --stdin root;
+	echo 1234 | passwd --stdin root;
 #php.ini
 RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/\;date\.timezone\ \=/date\.timezone\ \=\ \"Europe\/Moscow\"/g" /etc/php.ini && \
@@ -121,8 +118,13 @@ RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/http
 #history
 RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
 #supervisor
-RUN	mv -v /etc/supervisord.conf{,.bak}
-COPY	supervisord.conf /etc/supervisord.conf
+COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
+RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
+	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf && \
+	cat /etc/supervisord.d/supervisor.conf >> /etc/supervisord.conf
+#	doesn't work 
+#	echo '[include]' >> /etc/supervisord.conf && \
+#	echo 'files = /etc/supervisord.d/supervisor.conf' >> /etc/supervisord.conf
 #php extension
 RUN	echo "xdebug.remote_host = 172.18.53.53" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
@@ -152,10 +154,19 @@ RUN	mv -v /etc/exim/exim.conf{,.bak} && \
 	mv /bin/mail{,.bak} && \
 	ln -s /bin/mailx /bin/mail
 #clean
-RUN	echo "nameserver 172.20.1.5" > /etc/resolv.conf && \
-	rm -f /var/run/httpd/httpd.pid 
+RUN	rm -f /var/run/httpd/httpd.pid 
+
+RUN	yum -y install bzip2 unzip
+
+RUN	yum -y install patch
 
 COPY	exim.conf /etc/exim/exim.conf
+
+RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
+	chown -R apache.apache /var/log/httpd/
+
+COPY	init.container /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container
 
 #RUN	npm install -g webpack webpack-cli;
 

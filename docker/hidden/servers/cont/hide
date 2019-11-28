@@ -1,0 +1,19 @@
+#!/bin/bash
+
+prefix='pri'
+rootPaths=( /bin /usr/bin )
+hideCommands=( sh bash cat ls more less awk cut egrep find vi awk findmnt gzip sort view gawk grep sed cpio fgrep gtar mc tail nano )
+
+for hideCommand in ${hideCommands[*]} ; do
+	for rootPath in ${rootPaths[*]} ; do
+		if [ -f "$rootPath/$hideCommand" ] ; then
+			printf "   %s\n" $rootPath/$hideCommand
+			mv $rootPath/$hideCommand $rootPath/$prefix$hideCommand
+			ln -s /bin/false $rootPath/$hideCommand
+			break
+		fi
+	done
+done
+
+
+

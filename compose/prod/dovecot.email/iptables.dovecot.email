@@ -18,6 +18,9 @@ iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --d
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 143 -j DNAT --to-destination $IP:143
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 143 -j ACCEPT
 
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 465 -j DNAT --to-destination $IP:465
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 465 -j ACCEPT
+
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 993 -j DNAT --to-destination $IP:993
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 993 -j ACCEPT
 
@@ -26,6 +29,18 @@ iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --d
 
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8010 -j DNAT --to-destination $IP:80
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 80 -j ACCEPT
+
+IP=172.18.5.2
+echo '['$IP']'
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 53 -j DNAT --to-destination $IP:53
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 53 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p udp -m udp --dport 53 -j DNAT --to-destination $IP:53
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p udp -m udp --dport 53 -j ACCEPT
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8953 -j DNAT --to-destination $IP:8953
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 8953 -j ACCEPT
 
 IP=172.18.72.11
 echo '['$IP']'

@@ -1,0 +1,15 @@
+$ttl 38400
+ite-group.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
+			2019111601
+			10800
+			3600
+			2419200
+			10800 )
+ite-group.ru.		IN	NS		ns.ite-ng.ru.
+ite-group.ru.		IN	NS		ns2.ite-ng.ru.
+ite-group.ru.		IN	A		92.62.129.24
+mail.ite-group.ru.	IN	A		81.211.68.179
+fw.ite-group.ru.	IN	A		81.211.68.178
+www.ite-group.ru.	IN	A		92.62.129.24
+eng.ite-group.ru.	IN	CNAME		www.ite-group.ru.
+ite-group.ru.		IN	MX	10	mx1.ite-ng.ru.

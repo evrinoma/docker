@@ -1,0 +1,43 @@
+version: '2'
+services:
+    postgre_1c_10_5_24_db:
+        container_name: "postgre.1c.10.5.24.db"
+        image: "evrinoma/db.postgre.1c.10.5.24"
+        build:
+            context: docker/db/postgre/1c/10.5.24/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+            - "/opt/docker/src/db/postgre/1c/:/var/lib/pgsql"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.2
+
+    1c_83_13_1644_deploy:
+        container_name: "1c.83.13.1644.deploy"
+        image: "evrinoma/1c.83.13.1644.deploy"
+        hostname: "deploy.1c.ite-ng.ru"
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        build:
+            context: /opt/docker/docker/1c/servers/83.13.1644/deploy/.
+            dockerfile: Dockerfile
+        extra_hosts:
+            - "iteng26:172.20.1.26"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.83.13
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1

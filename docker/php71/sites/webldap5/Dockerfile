@@ -6,7 +6,7 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma PHP 7.1 webldap5" \
-	image="php-7.1" \
+	image="php71.webldap" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2017-02-20"

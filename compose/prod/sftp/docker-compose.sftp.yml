@@ -1,0 +1,63 @@
+version: '2'
+services:
+    maria_db:
+        container_name: "maria.db"
+        image: "evrinoma/db.maria"
+        hostname: "maria.db"
+        build:
+            context: docker/db/maria/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
+
+    bind_master:
+        container_name: "bind.master"
+        image: "evrinoma/bind.master"
+        hostname: "bind.master"
+        build:
+            context: docker/bind/servers/mail/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.5.1
+
+    sftp:
+        container_name: "sftp"
+        image: "evrinoma/sftp"
+        dns: 172.20.1.6
+        build:
+            context: docker/sftp/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK_ISCSI/data/sftp/:/home/"
+        networks:
+            virt:
+                ipv4_address: 172.18.20.1
+
+    php72_owncloud:
+        container_name: "php72.owncloud"
+        image: "evrinoma/php72.owncloud"
+        build:
+            context: docker/php72/sites/owncloud/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.14
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
+

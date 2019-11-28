@@ -1,0 +1,17 @@
+#!/bin/bash
+
+storeDir="/opt/WWW/container.ite-ng.ru/conf/wowza"
+DIR="/usr/local/WowzaStreamingEngine"
+fileRun="run"
+if [ -d "$storeDir" ]; then
+	if [ -d "$storeDir/conf" ] && [ -d "$storeDir/content" ]; then
+		rm -rf $DIR/conf
+		rm -rf $DIR/content
+		ln -s $storeDir/conf $DIR
+		ln -s $storeDir/content $DIR
+	fi
+	if [ -f "$storeDir/$fileRun" ]; then
+		/etc/init.d/WowzaStreamingEngine start
+		/etc/init.d/WowzaStreamingEngineManager start
+	fi
+fi

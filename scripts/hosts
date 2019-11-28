@@ -1,6 +1,8 @@
 #!/bin/bash
 
-PREFIX="php"
+PREFIX_PHP="php"
+PREFIX_BUNDLE="bundle"
+PREFIX_LOCAL="local"
 SUBNET="172.18."
 
 RABBIT=$SUBNET"1.3"
@@ -8,68 +10,112 @@ MASTER_CONT=$SUBNET"1.5"
 TEST=$SUBNET"1.6"
 SQUID7=$SUBNET"1.7"
 SAMBA=$SUBNET"1.8"
+DANTE=$SUBNET"1.9"
 
 SQL=$SUBNET"2."
 MAIL=$SUBNET"4."
+BIND=$SUBNET"5."
 
-PRIMAVERA15=$SUBNET"22.15"
+WOWZA=$SUBNET"14."
+
+SFTP=$SUBNET"20."
+
+PRIMAVERA=$SUBNET"22."
+BUNDLE=$SUBNET"24."
 
 PHP53=$SUBNET"53."
+PHP54=$SUBNET"54."
 PHP71=$SUBNET"71."
 PHP72=$SUBNET"72."
 
-PREFIX53=$PREFIX"53"
-PREFIX71=$PREFIX"71"
-PREFIX72=$PREFIX"72"
+PREFIX_PHP53=$PREFIX_PHP"53"
+PREFIX_PHP54=$PREFIX_PHP"54"
+PREFIX_PHP71=$PREFIX_PHP"71"
+PREFIX_PHP72=$PREFIX_PHP"72"
 
 C1_83=$SUBNET"83."
 
 sed -i -e "/^172.18/ d" /etc/hosts
 
 echo $SQL"1	maria.db" >> /etc/hosts
-echo $SQL"2	postgre.1c.db" >> /etc/hosts
+echo $SQL"2	postgre.1c.10.db" >> /etc/hosts
 echo $SQL"3	mssql.db" >> /etc/hosts
+echo $SQL"4	mysql" >> /etc/hosts
+echo $SQL"5	postgre.1c.11.db" >> /etc/hosts
 
-echo $MAIL"1	dovecot" >> /etc/hosts
+echo $MAIL"1	exim" >> /etc/hosts
+echo $MAIL"1	exim.mail" >> /etc/hosts
+
+echo $MAIL"2	dovecot" >> /etc/hosts
 echo $MAIL"2	dovecot.email" >> /etc/hosts
-echo $MAIL"2	$PREFIX72.postfixadmin" >> /etc/hosts
+echo $MAIL"2	$PREFIX_PHP72.postfixadmin" >> /etc/hosts
+
+echo $BIND"1	bind.master" >> /etc/hosts
+echo $BIND"2	bind.slave" >> /etc/hosts
 
 echo $RABBIT"	rabbitmq" >> /etc/hosts
 
 echo $SQUID7"	squid.7" >> /etc/hosts
 echo $SAMBA"	samba.kis" >> /etc/hosts
 
-echo $PRIMAVERA15"	vnc.primavera.15" >> /etc/hosts
+echo $DANTE"	dante" >> /etc/hosts
+echo $WOWZA"77	wowza.477" >> /etc/hosts
+
+echo $PRIMAVERA"15	vnc.primavera.15" >> /etc/hosts
+echo $SFTP"1	sftp" >> /etc/hosts
 
 echo $TEST"	test.cont" >> /etc/hosts
 echo $MASTER_CONT"	master.cont" >> /etc/hosts
 
-echo $PHP53"53	$PREFIX53" >> /etc/hosts
-echo $PHP71"71	$PREFIX71" >> /etc/hosts
-echo $PHP72"72	$PREFIX72" >> /etc/hosts
+echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.web.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.ipark45.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.kzkt45.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.nekeng.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.ite-ng.$PREFIX_LOCAL" >> /etc/hosts
 
-echo $PHP53"3	$PREFIX53.kis" >> /etc/hosts
-echo $PHP53"4	$PREFIX53.kisnew" >> /etc/hosts
-echo $PHP53"5	$PREFIX53.kis.nekeng" >> /etc/hosts
-echo $PHP53"6	$PREFIX53.kisnew.nekeng" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.web.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.ipark45.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.kzkt45.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.nekeng.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.ite-ng.$PREFIX_LOCAL" >> /etc/hosts
 
-echo $PHP53"11	$PREFIX53.webldap" >> /etc/hosts
-echo $PHP53"12	$PREFIX53.webuseorg" >> /etc/hosts
+echo $PHP53"53	$PREFIX_PHP53" >> /etc/hosts
+echo $PHP54"54	$PREFIX_PHP54" >> /etc/hosts
+echo $PHP71"71	$PREFIX_PHP71" >> /etc/hosts
+echo $PHP72"72	$PREFIX_PHP72" >> /etc/hosts
 
-echo $PHP71"3	$PREFIX71.empty" >> /etc/hosts
-echo $PHP71"4	$PREFIX71.tools" >> /etc/hosts
-echo $PHP71"5	$PREFIX71.webldap5" >> /etc/hosts
-echo $PHP71"6	$PREFIX71.cont" >> /etc/hosts
+echo $PHP53"3	$PREFIX_PHP53.kis" >> /etc/hosts
+echo $PHP53"4	$PREFIX_PHP53.kisnew" >> /etc/hosts
+echo $PHP53"5	$PREFIX_PHP53.kis.nekeng" >> /etc/hosts
+echo $PHP53"6	$PREFIX_PHP53.kisnew.nekeng" >> /etc/hosts
 
-echo $PHP72"3	$PREFIX72.empty" >> /etc/hosts
-echo $PHP72"4	$PREFIX72.tools" >> /etc/hosts
-echo $PHP72"5	$PREFIX72.webldap5" >> /etc/hosts
-echo $PHP72"6	$PREFIX72.cont" >> /etc/hosts
-echo $PHP72"7	$PREFIX72.portal" >> /etc/hosts
-echo $PHP72"10	$PREFIX72.sqladmin" >> /etc/hosts
-echo $PHP72"11	$PREFIX72.roundcubemail" >> /etc/hosts
+echo $PHP53"11	$PREFIX_PHP53.webldap" >> /etc/hosts
+echo $PHP53"12	$PREFIX_PHP53.webuseorg" >> /etc/hosts
+echo $PHP53"13	$PREFIX_PHP72.jp" >> /etc/hosts
 
-echo $PHP72"3	pma" >> /etc/hosts
+echo $PHP71"3	$PREFIX_PHP71.empty" >> /etc/hosts
+echo $PHP71"4	$PREFIX_PHP71.tools" >> /etc/hosts
+echo $PHP71"5	$PREFIX_PHP71.webldap5" >> /etc/hosts
+echo $PHP71"6	$PREFIX_PHP71.cont" >> /etc/hosts
 
-echo $C1_83"1	1c.work.v83" >> /etc/hosts
-echo $C1_83"2	1c.ws.v83" >> /etc/hosts
+echo $PHP72"3	$PREFIX_PHP72.empty" >> /etc/hosts
+echo $PHP72"4	$PREFIX_PHP72.tools" >> /etc/hosts
+echo $PHP72"5	$PREFIX_PHP72.webldap5" >> /etc/hosts
+echo $PHP72"6	$PREFIX_PHP72.cont" >> /etc/hosts
+echo $PHP72"7	$PREFIX_PHP72.portal" >> /etc/hosts
+echo $PHP72"10	$PREFIX_PHP72.sqladmin" >> /etc/hosts
+echo $PHP72"11	$PREFIX_PHP72.roundcubemail" >> /etc/hosts
+echo $PHP72"12	$PREFIX_PHP72.kodexplorer" >> /etc/hosts
+echo $PHP72"13	$PREFIX_PHP72.elfinder" >> /etc/hosts
+echo $PHP72"14	$PREFIX_PHP72.owncloud" >> /etc/hosts
+echo $PHP72"15	$PREFIX_PHP72.ipark45" >> /etc/hosts
+echo $PHP72"16	$PREFIX_PHP72.kzkt45" >> /etc/hosts
+echo $PHP72"17	$PREFIX_PHP72.nekeng" >> /etc/hosts
+echo $PHP72"18	$PREFIX_PHP72.ite-ng" >> /etc/hosts
+
+#echo $PHP72"3	pma" >> /etc/hosts
+
+echo $C1_83"13	deploy.13.1644" >> /etc/hosts
+echo $C1_83"130	api.13.1644" >> /etc/hosts
+echo $C1_83"15	deploy.15.1700" >> /etc/hosts
+echo $C1_83"150	api.15.1700" >> /etc/hosts
