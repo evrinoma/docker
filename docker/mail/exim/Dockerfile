@@ -106,6 +106,16 @@ RUN	yum install spamassassin.x86_64 -y && \
 	echo 'export PATH=$EXIM_HOME/bin:$PATH' >> /etc/profile.d/exim.sh
 COPY	spamassassin/ /etc/mail/spamassassin/
 
+RUN	mkdir -p /opt/dcc/src && \
+	wget  -P /opt/dcc/src/ http://www.rhyolite.com/dcc/source/dcc.tar.Z && \
+	tar -zxvf dcc.tar.Z -C /opt/dcc
+
+WORKDIR /opt/dcc
+RUN	./configure && \
+	make && \
+	make install
+WORKDIR /
+
 RUN	adduser --user-group --system --no-create-home --shell /bin/false clamav && \
 	usermod -L clamav
 
@@ -146,6 +156,17 @@ COPY	spamlearn /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/spamlearn
 
 WORKDIR /
+
+#logrotate
+COPY	exim.logrotate.conf /etc/logrotate.d/exim
+COPY	spam.logrotate.conf /etc/logrotate.d/spam
+RUN	yum install logrotate -y
+
+RUN	yum install cronie -y && \
+	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
+
+RUN	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab && \
+	crontab -u root /etc/crontab && \
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 25
