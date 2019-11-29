@@ -108,9 +108,11 @@ COPY	spamassassin/ /etc/mail/spamassassin/
 
 RUN	mkdir -p /opt/dcc/src && \
 	wget  -P /opt/dcc/src/ http://www.rhyolite.com/dcc/source/dcc.tar.Z && \
-	tar -zxvf dcc.tar.Z -C /opt/dcc
+	tar -zxvf /opt/dcc/src/dcc.tar.Z -C /opt/dcc/src && \
+	mv /opt/dcc/src/dcc*/*  /opt/dcc/src/dcc*/.[^.]* /opt/dcc/
 
-WORKDIR /opt/dcc
+WORKDIR /opt/dcc/
+RUN	ls -la
 RUN	./configure && \
 	make && \
 	make install
@@ -166,7 +168,8 @@ RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
 
 RUN	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab && \
-	crontab -u root /etc/crontab && \
+	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/spam > /dev/null 2>&1" >> /etc/crontab && \
+	crontab -u root /etc/crontab
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 25
