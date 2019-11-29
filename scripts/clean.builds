@@ -1,0 +1,7 @@
+#!/bin/bash
+for variable in `docker images | grep '<none>' | awk '{ print $3}'`
+do
+	if [ ! -z "$variable" ]; then
+		docker rmi "$variable"
+	fi
+done
