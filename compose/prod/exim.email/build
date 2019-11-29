@@ -1,0 +1,10 @@
+#!/bin/bash
+docker build -t evrinoma/db.maria ../../../docker/db/maria/.
+docker build -t evrinoma/exim ../../../docker/mail/exim/.
+docker build -t evrinoma/exim.mail ../../../docker/mail/exim/servers/mail/.
+docker build -t evrinoma/exim.mail ../../../docker/mail/exim/servers/mail/.
+docker build -t evrinoma/php72 ../../../docker/php72/.
+docker build -t evrinoma/php72.tools ../../../docker/php72/sites/tools/.
+docker build -t evrinoma/wowza ../../../docker/wowza/.
+docker build -t evrinoma/wowza.versions.4.7.7 ../../../docker/wowza/versions/4.7.7/.
+
