@@ -1,7 +1,7 @@
 #!/bin/bash
-docker build -t evrinoma/db.maria ../../../docker/db/maria/.
+docker build -t evrinoma/db.maria ../../../../docker/db/maria/.
 
-docker build -t evrinoma/php54 ../../../docker/php54/.
-docker build -t evrinoma/php54.web ../../../docker/php54/sites/bundle/web/.
+docker build -t evrinoma/php54 ../../../../docker/php54/.
+docker build -t evrinoma/php54.web ../../../../docker/php54/sites/bundle/web/.
 
 
