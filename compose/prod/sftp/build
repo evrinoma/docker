@@ -8,4 +8,3 @@ docker build -t evrinoma/sftp  ../../../docker/sftp/.
 
 docker build -t evrinoma/php72 ../../../docker/php72/.
 docker build -t evrinoma/php72.owncloud ../../../docker/php72/sites/owncloud/.
-
