@@ -11,8 +11,8 @@ LABEL \
 	license="MIT" \
 	build-date="2019-11-14"
 
-COPY	nekeng/install/nekeng.sql.tar.gz /tmp/
-COPY	nekeng/install/nekeng.tar.gz /tmp/
+COPY	nekeng/install/nekeng.sql.tar.gz /root/
+COPY	nekeng/install/nekeng.tar.gz /root/
 ADD	nekeng/nekeng/init.install /usr/local/bin/init.install.nekeng
 ADD	nekeng/nekeng/init.sql /usr/local/bin/init.sql.nekeng
 RUN	chmod +x /usr/local/bin/init.install.nekeng && \
@@ -21,8 +21,8 @@ RUN	chmod +x /usr/local/bin/init.install.nekeng && \
 
 COPY	nekeng/nekeng.conf /etc/httpd/conf.d/
 
-COPY	kzkt45/install/kzkt45.sql.tar.gz /tmp/
-COPY	kzkt45/install/kzkt45.tar.gz /tmp/
+COPY	kzkt45/install/kzkt45.sql.tar.gz /root/
+COPY	kzkt45/install/kzkt45.tar.gz /root/
 ADD	kzkt45/kzkt45/init.install /usr/local/bin/init.install.kzkt45
 ADD	kzkt45/kzkt45/init.sql /usr/local/bin/init.sql.kzkt45
 RUN	chmod +x /usr/local/bin/init.install.kzkt45 && \
@@ -31,8 +31,8 @@ RUN	chmod +x /usr/local/bin/init.install.kzkt45 && \
 
 COPY	kzkt45/kzkt45.conf /etc/httpd/conf.d/
 
-COPY	ipark45/install/ipark45.sql.tar.gz /tmp/
-COPY	ipark45/install/ipark45.tar.gz /tmp/
+COPY	ipark45/install/ipark45.sql.tar.gz /root/
+COPY	ipark45/install/ipark45.tar.gz /root/
 ADD	ipark45/ipark45/init.install /usr/local/bin/init.install.ipark45
 ADD	ipark45/ipark45/init.sql /usr/local/bin/init.sql.ipark45
 RUN	chmod +x /usr/local/bin/init.install.ipark45 && \
@@ -41,8 +41,8 @@ RUN	chmod +x /usr/local/bin/init.install.ipark45 && \
 
 COPY	ipark45/ipark45.conf /etc/httpd/conf.d/
 
-COPY	ite-ng/install/ite-ng.sql.tar.gz /tmp/
-COPY	ite-ng/install/ite-ng.tar.gz /tmp/
+COPY	ite-ng/install/ite-ng.sql.tar.gz /root/
+COPY	ite-ng/install/ite-ng.tar.gz /root/
 ADD	ite-ng/ite-ng/init.install /usr/local/bin/init.install.ite-ng
 ADD	ite-ng/ite-ng/init.sql /usr/local/bin/init.sql.ite-ng
 RUN	chmod +x /usr/local/bin/init.install.ite-ng && \
@@ -59,3 +59,5 @@ RUN	sed -i -e "s/'172\.18\.2\.1'\;/'172\.18\.2\.4'\;/" /etc/phpMyAdmin/config.in
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.kzkt45  && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ipark45  && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ite-ng
+
+RUN	chmod -R 640 /tmp

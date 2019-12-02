@@ -11,8 +11,8 @@ LABEL \
 	license="MIT" \
 	build-date="2019-11-14"
 
-COPY	install/ipark45.sql.tar.gz /tmp/
-COPY	install/ipark45.tar.gz /tmp/
+COPY	install/ipark45.sql.tar.gz /root/
+COPY	install/ipark45.tar.gz /root/
 ADD	ipark45/init.install /usr/local/bin
 ADD	ipark45/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install && \

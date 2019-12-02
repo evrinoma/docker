@@ -8,8 +8,8 @@ if [ ! -z "$pass" ]; then
 		DIR="/opt/WWW/container.ite-ng.ru/projects/ipark45.ru"
 		if [ ! -d "$DIR" ]; then
 			mkdir -p $DIR
-			tar -zxf /tmp/ipark45.sql.tar.gz -C /tmp
-			tar -zxf /tmp/ipark45.tar.gz -C $DIR
+			tar -zxf /root/ipark45.sql.tar.gz -C /root
+			tar -zxf /root/ipark45.tar.gz -C $DIR
 			mv $DIR/ipark45.ru/*  $DIR/ipark45.ru/.[^.]* $DIR/
 			rm -rf $DIR/ipark45.ru/
 			chown apache:apache -R $DIR

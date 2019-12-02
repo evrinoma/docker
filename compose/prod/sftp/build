@@ -1,0 +1,11 @@
+#!/bin/bash
+docker build -t evrinoma/db.maria ../../../docker/db/maria/.
+
+docker build -t evrinoma/bind ../docker/bind/.
+docker build -t evrinoma/bind.master  ../../../docker/bind/servers/mail/.
+
+docker build -t evrinoma/sftp  ../../../docker/sftp/.
+
+docker build -t evrinoma/php72 ../../../docker/php72/.
+docker build -t evrinoma/php72.owncloud ../../../docker/php72/sites/owncloud/.
+

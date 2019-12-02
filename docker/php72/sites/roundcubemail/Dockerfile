@@ -35,4 +35,6 @@ RUN	chmod +x /usr/local/bin/init.install && \
 RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.key /etc/pki/CA/certs/ && \
 	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.pem /etc/pki/CA/certs/
 
+RUN	chmod -R 640 /tmp
+
 EXPOSE 443

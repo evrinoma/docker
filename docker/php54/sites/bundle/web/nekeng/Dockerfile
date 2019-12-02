@@ -11,8 +11,8 @@ LABEL \
 	license="MIT" \
 	build-date="2019-11-18"
 
-COPY	install/nekeng.sql.tar.gz /tmp/
-COPY	install/nekeng.tar.gz /tmp/
+COPY	install/nekeng.sql.tar.gz /root/
+COPY	install/nekeng.tar.gz /root/
 ADD	nekeng/init.install /usr/local/bin
 ADD	nekeng/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install && \

@@ -4,7 +4,7 @@ serverSql=$2
 base=$3
 user=$4
 basepass=$5
-INIT_SQL="/tmp/init.sql"
+INIT_SQL="/root/init.sql"
 	echo "
 	CREATE DATABASE \`$base\`;
 	CREATE USER '$user'@'localhost' IDENTIFIED BY '$basepass';

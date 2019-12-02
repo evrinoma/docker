@@ -47,4 +47,6 @@ RUN	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
 
 COPY	tools.conf /etc/httpd/conf.d/vhost.conf
 
+RUN	chmod -R 640 /tmp
+
 EXPOSE 443
