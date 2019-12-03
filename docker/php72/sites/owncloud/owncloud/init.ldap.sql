@@ -56,7 +56,7 @@ INIT_SQL="/tmp/init.sql"
 		('user_ldap', 'use_memberof_to_detect_membership', '1');
 	" > $INIT_SQL
 	mariaInstall=`yum list installed | grep "mariadb\."`
-	if [ ! -z "$mariaInstall" ]; then 
+	if [ -z "$mariaInstall" ]; then 
 		yum install mysql -y
 		mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
 		yum remove mysql -y
