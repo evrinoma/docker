@@ -9,6 +9,7 @@
 	ErrorLog /var/log/httpd/error-tools.log
 	CustomLog /var/log/httpd/access-tools.log combined
 	<Directory "/opt/WWW/container.ite-ng.ru/projects/tools/public/">
+		AllowOverride All
 		Require all granted
 		<IfModule mod_rewrite.c>
 			Options -MultiViews

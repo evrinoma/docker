@@ -10,6 +10,7 @@
 	CustomLog /var/log/httpd/access-owncloud.log combined
 	DirectoryIndex index.php
 	<Directory "/opt/WWW/container.ite-ng.ru/projects/owncloud/">
+		AllowOverride All
 		Require all granted
 	</Directory>
 </VirtualHost>
