@@ -15,7 +15,7 @@ SERVER_SQL="/root/site_kzkt_45_ru_db.sql"
 	FLUSH PRIVILEGES;
 	" > $INIT_SQL
 	mariaInstall=`yum list installed | grep "mariadb\."`
-	if [ ! -z "mariaInstall" ]; then 
+	if [ ! -z "$mariaInstall" ]; then 
 		yum install mysql -y
 		mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
 		mysql -h$serverSql -uroot -p$pass $base < $SERVER_SQL

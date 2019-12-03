@@ -4,8 +4,8 @@ serverSql=$2
 base=$3
 user=$4
 basepass=$5
-INIT_SQL="/tmp/init.sql"
-SERVER_SQL="/tmp/site_ooo_ite_ng_rf_db.sql"
+INIT_SQL="/root/init.sql"
+SERVER_SQL="/root/site_ooo_ite_ng_rf_db.sql"
 	echo "
 	CREATE DATABASE \`$base\`;
 	CREATE USER '$user'@'localhost' IDENTIFIED BY '$basepass';
@@ -15,7 +15,7 @@ SERVER_SQL="/tmp/site_ooo_ite_ng_rf_db.sql"
 	FLUSH PRIVILEGES;
 	" > $INIT_SQL
 	mariaInstall=`yum list installed | grep "mariadb\."`
-	if [ ! -z "mariaInstall" ]; then 
+	if [ ! -z "$mariaInstall" ]; then 
 		yum install mysql -y
 		mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
 		mysql -h$serverSql -uroot -p$pass $base < $SERVER_SQL
