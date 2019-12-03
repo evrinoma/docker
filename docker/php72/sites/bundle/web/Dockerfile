@@ -60,5 +60,5 @@ RUN	sed -i -e "s/'172\.18\.2\.1'\;/'172\.18\.2\.4'\;/" /etc/phpMyAdmin/config.in
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ipark45  && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ite-ng
 
-RUN	chmod -R 640 /tmp && \
-	chmod -R 640 /var/tmp
+#RUN	chmod -R 640 /tmp && \
+#	chmod -R 640 /var/tmp
