@@ -28,7 +28,10 @@ RUN	yum -y install git \
 RUN	yum -y install \
 	telnel \
 	exim.x86_64 \
-	mailx;
+	mailx \
+	bzip2 \
+	unzip \
+	patch;
 
 RUN	yum -y install php72w \
 	php72w-bcmath \
@@ -104,6 +107,15 @@ RUN	git config --global user.email "evrinoma@gmail.com" && \
 RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
 	echo 1234 | passwd --stdin root;
+#history
+RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
+#supervisor
+COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
+RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
+	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
+#mount
+RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
+
 #php.ini
 RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/\;date\.timezone\ \=/date\.timezone\ \=\ \"Europe\/Moscow\"/g" /etc/php.ini && \
@@ -112,17 +124,21 @@ RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/max_execution_time\ \=\ 30/max_execution_time\ \=\ 10000/g" /etc/php.ini && \
 	sed -i -e "s/post_max_size \=\ 8/post_max_size\ \=\ 4096/g" /etc/php.ini && \
 	sed -i -e "s/upload_max_filesize \=\ 2/upload_max_filesize\ \=\ 4096/g" /etc/php.ini && \
-	sed -i -e "s/session.gc_maxlifetime\ \=\ 1440/session.gc_maxlifetime\ \=\ 36000/g" /etc/php.ini
+	sed -i -e "s/session.gc_maxlifetime\ \=\ 1440/session.gc_maxlifetime\ \=\ 36000/g" /etc/php.ini && \
+	sed -i -e "s/expose_php\ \=\ On/expose_php\ \=\ off/" /etc/php.ini
 #apcu.ini
 RUN     sed -i -e "s/apc\.shm_size\=64M/apc\.shm_size\=3G/g" /etc/php.d/apcu.ini
 #httpd
-RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/httpd/conf/httpd.conf
-#history
-RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
-#supervisor
-COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
-RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
-	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
+RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/httpd/conf/httpd.conf && \
+	sed -i -e "s/IncludeOptional\ conf\.d\/\*\.conf//" /etc/httpd/conf/httpd.conf && \
+	echo 'TraceEnable Off' >> /etc/httpd/conf/httpd.conf && \
+	echo 'ServerTokens Prod' >> /etc/httpd/conf/httpd.conf && \
+	echo 'ServerSignature Off' >> /etc/httpd/conf/httpd.conf && \
+	echo 'Header always append X-Frame-Options ite-ng.ru' >> /etc/httpd/conf/httpd.conf && \
+	echo 'Header set X-XSS-Protection "1; mode=block"' >> /etc/httpd/conf/httpd.conf && \
+	echo 'Header set X-Content-Type-Options nosniff' >> /etc/httpd/conf/httpd.conf && \
+	echo 'IncludeOptional conf.d/*.conf' >> /etc/httpd/conf/httpd.conf
+
 #php extension
 RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.remote_host = 172.18.72.72" >> /etc/php.d/xdebug.ini && \
@@ -135,17 +151,28 @@ RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.var_display_max_children = 256" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.max_nesting_level = 1024" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.idekey="PHPSTORM"" >> /etc/php.d/xdebug.ini;
+
 #phpMyAdmin
 RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/'localhost'\;/'172\.18\.2\.1'\;/" /etc/phpMyAdmin/config.inc.php && \
 	sed -i -e "s/\?>//" /etc/phpMyAdmin/config.inc.php && \
 	echo "?>" >> /etc/phpMyAdmin/config.inc.php && \
-	sed -i -e "s/\?>/\$cfg\['Servers'\]\[\$i\]\['LoginCookieValidity'\]\ = 36000\;/" /etc/phpMyAdmin/config.inc.php
-#mount
-RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
+	sed -i -e "s/\?>/\$cfg\['Servers'\]\[\$i\]\['LoginCookieValidity'\]\ = 36000\;/" /etc/phpMyAdmin/config.inc.php && \
+	sed -i -e "s/\?>/\$cfg\['ExecTimeLimit'\]\ = 0\;/" /etc/phpMyAdmin/config.inc.php && \
+	sed -i -e "s/Alias\ \/phpMyAdmin\ \/usr\/share\/phpMyAdmin//" /etc/httpd/conf.d/phpMyAdmin.conf && \
+	sed -i -e "s/phpMyAdmin/hidden/" /etc/httpd/conf.d/phpMyAdmin.conf ?? \
+	mv /usr/share/phpMyAdmin /usr/share/hidden && \
+	sed -i -e "s/Alias\ \/phpmyadmin/Alias\ \/covert/" /etc/httpd/conf.d/phpMyAdmin.conf
+
+RUN	sed -i -e "s/Options\ Indexes\ MultiViews\ FollowSymlinks/#&/" /etc/httpd/conf.d/autoindex.conf  ?? \
+	sed -i -e "s/AllowOverride None/AllowOverride All/" /etc/httpd/conf.d/autoindex.conf && \
+	sed -i -e "s/Require\ all\ granted/#&\n/" /etc/httpd/conf.d/autoindex.conf && \
+	sed -i -e "s/#Require\ all\ granted/&\nOrder\ deny,allow\nAllow\ from\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/autoindex.conf
+
 #httpd hosts
 COPY	vhost.conf /etc/httpd/conf.d/vhost.conf
+
 #mail
 RUN	mv -v /etc/exim/exim.conf{,.bak} && \
 	mv -v /usr/sbin/sendmail{,.bak} && \
@@ -153,9 +180,11 @@ RUN	mv -v /etc/exim/exim.conf{,.bak} && \
 	chmod 4755 /usr/sbin/sendmail && \
 	mv /bin/mail{,.bak} && \
 	ln -s /bin/mailx /bin/mail
+
 #clean
 RUN	rm -f /var/run/httpd/httpd.pid
 
+#exim
 COPY	exim.conf /etc/exim/exim.conf
 
 #webpack
@@ -173,10 +202,6 @@ RUN	yum install re2c gcc-c++ gcc unixODBC-devel -y  && \
 	pecl install pdo_sqlsrv  && \
 	echo 'extension=pdo_sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/pdo_sqlsrv.ini  && \
 	echo 'extension=sqlsrv.so' >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/sqlsrv.ini
-
-RUN	yum -y install bzip2 unzip
-
-RUN	yum -y install patch
 
 RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
 	chown -R apache.apache /var/log/httpd/
