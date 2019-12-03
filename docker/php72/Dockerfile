@@ -161,11 +161,11 @@ RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.
 	sed -i -e "s/\?>/\$cfg\['Servers'\]\[\$i\]\['LoginCookieValidity'\]\ = 36000\;/" /etc/phpMyAdmin/config.inc.php && \
 	sed -i -e "s/\?>/\$cfg\['ExecTimeLimit'\]\ = 0\;/" /etc/phpMyAdmin/config.inc.php && \
 	sed -i -e "s/Alias\ \/phpMyAdmin\ \/usr\/share\/phpMyAdmin//" /etc/httpd/conf.d/phpMyAdmin.conf && \
-	sed -i -e "s/phpMyAdmin/hidden/" /etc/httpd/conf.d/phpMyAdmin.conf ?? \
+	sed -i -e "s/phpMyAdmin/hidden/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	mv /usr/share/phpMyAdmin /usr/share/hidden && \
 	sed -i -e "s/Alias\ \/phpmyadmin/Alias\ \/covert/" /etc/httpd/conf.d/phpMyAdmin.conf
 
-RUN	sed -i -e "s/Options\ Indexes\ MultiViews\ FollowSymlinks/#&/" /etc/httpd/conf.d/autoindex.conf  ?? \
+RUN	sed -i -e "s/Options\ Indexes\ MultiViews\ FollowSymlinks/#&/" /etc/httpd/conf.d/autoindex.conf  && \
 	sed -i -e "s/AllowOverride None/AllowOverride All/" /etc/httpd/conf.d/autoindex.conf && \
 	sed -i -e "s/Require\ all\ granted/#&\n/" /etc/httpd/conf.d/autoindex.conf && \
 	sed -i -e "s/#Require\ all\ granted/&\nOrder\ deny,allow\nAllow\ from\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/autoindex.conf
