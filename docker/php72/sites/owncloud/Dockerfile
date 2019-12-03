@@ -52,7 +52,7 @@ RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/php72/sites/owncloud/certs/ca.key /e
 
 COPY	owncloud.conf /etc/httpd/conf.d/vhost.conf
 
-RUN	chmod -R 640 /tmp && \
-	chmod -R 640 /var/tmp
+#RUN	chmod -R 640 /tmp && \
+#	chmod -R 640 /var/tmp
 
 EXPOSE 443
