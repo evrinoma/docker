@@ -1,0 +1,22 @@
+#!/bin/bash
+pass=$1
+serverSql=172.18.2.1
+base=adbook
+user=adbook
+basepass=adbook
+if [ ! -z "$pass" ]; then
+		DIR="/opt/WWW/container.ite-ng.ru/projects/adbook"
+		if [ ! -d "$DIR" ]; then
+			mkdir -p $DIR
+			git clone ssh://grishvv@git.ite-ng.ru:8751/webldap5.git $DIR
+			cd $DIR
+			composer install
+			npm install
+			yarn encore production
+			sed -i -e "s/APP_ENV\=dev/APP_ENV\=prod /" $DIR/.env
+			sed -i -e "s/db_user\:db_password\@127.0.0.1\:3306\/db_name/$user\:$basepass\@$serverSql\:\/$base/" $DIR/.env
+			init.sql $pass $serverSql $base $user $basepass
+			php bin/console --no-interaction doctrine:migrations:migrate
+			chown apache:apache -R $DIR
+		fi
+fi
