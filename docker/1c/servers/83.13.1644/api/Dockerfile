@@ -16,4 +16,3 @@ COPY	deploy /etc/httpd/deploy
 
 COPY	public /usr/local/bin
 RUN	chmod +x /usr/local/bin/public && /usr/local/bin/public
-RUN	chown -R apache.apache /opt/WWW/1c.ite-ng.ru

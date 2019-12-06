@@ -1,12 +1,12 @@
 #!/bin/bash
 VRD_PATTERN='default.vrd'
-APACHE_VERSION='apache22'
-APACHE_CONFIG='/etc/httpd/dump.d/1c.conf'
+APACHE_VERSION='apache24'
+APACHE_CONFIG='/etc/httpd/conf.d/1c.conf'
 WEBINST_PATH='/opt/1C/v8.3/x86_64'
-WEB_PATH='/opt/WWW/app.ite-ng.ru/1c'
+WEB_PATH='/opt/WWW/container.ite-ng.ru/1c'
 PUB_PATH='/etc/httpd/deploy'
 LIST=$(ls -l $PUB_PATH/ | grep ^d | awk '{print $9}')
-for baseName in LIST
+for baseName in $LIST
 do 
 	FILE="$PUB_PATH/$baseName/$VRD_PATTERN"
 	if [ -f "$FILE" ]; then

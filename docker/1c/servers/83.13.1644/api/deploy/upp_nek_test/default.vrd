@@ -3,7 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/upp_nek_test"
-		ib="Srvr=&quot;1cdebug&quot;;Ref=&quot;upp_nek_test&quot;;">
+		ib="Srvr=&quot;172.20.1.94&quot;;Ref=&quot;upp_nek_test&quot;;">
 	<httpServices publishByDefault="false"/>
 	<standardOdata enable="true"
 			reuseSessions="autouse"
