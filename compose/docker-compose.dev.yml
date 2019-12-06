@@ -28,6 +28,21 @@ services:
             virt:
                 ipv4_address: 172.18.72.5
 
+    1c_83_15_1700_api:
+        container_name: "1c.83.15.1700.api"
+        image: "evrinoma/1c.83.15.1700.api"
+        hostname: "api.1c.ite-ng.ru"
+        build:
+            context: /opt/docker/docker/1c/servers/83.15.1700/api/.
+            dockerfile: Dockerfile
+        extra_hosts:
+            - "iteng26:172.20.1.26"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.83.150
+
 networks:
     virt:
         driver: bridge
@@ -36,4 +51,6 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
+
+
 

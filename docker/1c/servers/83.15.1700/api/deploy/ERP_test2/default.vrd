@@ -1,17 +1,33 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <point xmlns="http://v8.1c.ru/8.2/virtual-resource-system"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		base="/bp_kzet"
-		ib="Srvr=172.20.1.13;Ref=&quot;bp_kzet&quot;;">
+		base="/ERP_test2"
+		ib="Srvr=&quot;1cdebug&quot;;Ref=&quot;ERP_test2&quot;;">
+	<httpServices publishByDefault="false">
+		<service name="ПередачаДанных"
+				rootUrl="dt"
+				enable="false"
+				reuseSessions="use"
+				sessionMaxAge="20"
+				poolSize="10"
+				poolTimeout="5"/>
+		<service name="УниверсальнаяИнтеграцияВнутренняя"
+				rootUrl="ui_int"
+				enable="false"
+				reuseSessions="autouse"
+				sessionMaxAge="20"
+				poolSize="10"
+				poolTimeout="5"/>
+	</httpServices>
 	<standardOdata enable="true"
 			reuseSessions="autouse"
 			sessionMaxAge="20"
 			poolSize="10"
 			poolTimeout="5"/>
 	<ws>
-		<point name="AccHRMDataTransfer"
-				alias="AccHRMDataTransfer.1cws"
+		<point name="CustomerOrdersExchange"
+				alias="CustomerOrdersExchange.1cws"
 				enable="true"
 				reuseSessions="dontuse"
 				sessionMaxAge="20"
@@ -33,6 +49,13 @@
 				poolTimeout="5"/>
 		<point name="EquipmentService"
 				alias="EquipmentService.1cws"
+				enable="true"
+				reuseSessions="dontuse"
+				sessionMaxAge="20"
+				poolSize="10"
+				poolTimeout="5"/>
+		<point name="ERPMonitor"
+				alias="mr1.1cws"
 				enable="true"
 				reuseSessions="dontuse"
 				sessionMaxAge="20"
@@ -87,27 +110,6 @@
 				sessionMaxAge="20"
 				poolSize="10"
 				poolTimeout="5"/>
-		<point name="MobileAccounting"
-				alias="MobileAccounting.1cws"
-				enable="true"
-				reuseSessions="dontuse"
-				sessionMaxAge="20"
-				poolSize="10"
-				poolTimeout="5"/>
-		<point name="MobileEntrepreneur"
-				alias="MobileAcc.1cws"
-				enable="true"
-				reuseSessions="dontuse"
-				sessionMaxAge="20"
-				poolSize="10"
-				poolTimeout="5"/>
-		<point name="MobileEntrepreneur_1_0_2_1"
-				alias="MobileEntrepreneur.1cws"
-				enable="true"
-				reuseSessions="dontuse"
-				sessionMaxAge="20"
-				poolSize="10"
-				poolTimeout="5"/>
 		<point name="RemoteAdministrationOfExchange"
 				alias="RemoteAdministrationOfExchange.1cws"
 				enable="true"
@@ -143,28 +145,12 @@
 				sessionMaxAge="20"
 				poolSize="10"
 				poolTimeout="5"/>
-	</ws>
-	<httpServices>
-		<service name="ExternalAPI"
-				rootUrl="api"
+		<point name="WMSMobileClientExchange"
+				alias="WMSMobileClientExchange.1cws"
 				enable="true"
 				reuseSessions="dontuse"
 				sessionMaxAge="20"
 				poolSize="10"
 				poolTimeout="5"/>
-		<service name="ПередачаДанных"
-				rootUrl="dt"
-				enable="true"
-				reuseSessions="use"
-				sessionMaxAge="20"
-				poolSize="10"
-				poolTimeout="5"/>
-		<service name="УниверсальнаяИнтеграцияВнутренняя"
-				rootUrl="ui_int"
-				enable="true"
-				reuseSessions="autouse"
-				sessionMaxAge="20"
-				poolSize="10"
-				poolTimeout="5"/>
-	</httpServices>
+	</ws>
 </point>

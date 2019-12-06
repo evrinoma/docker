@@ -21,7 +21,7 @@
 
 #docker build -t evrinoma/php54 ../docker/php54/. 
 
-docker build -t evrinoma/php72 ../docker/php72/.
+#docker build -t evrinoma/php72 ../docker/php72/.
 #docker build -t evrinoma/php72.cont.ite-ng.ru ../docker/php72/sites/cont/.
 #docker build -t evrinoma/php72.cont.ite-ng.ru ../docker/php72/sites/cont/.
 #docker build -t evrinoma/php72.h.cont.ite-ng.ru ../docker/hidden/servers/cont/.

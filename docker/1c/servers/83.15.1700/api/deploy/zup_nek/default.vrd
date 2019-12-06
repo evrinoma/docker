@@ -3,13 +3,8 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		base="/zup_nek"
-		ib="Srvr=&quot;1Cdebug&quot;;Ref=&quot;zup_nek&quot;;">
-	<standardOdata enable="true"
-			reuseSessions="autouse"
-			sessionMaxAge="20"
-			poolSize="10"
-			poolTimeout="5"/>
-	<ws>
+		ib="Srvr=&quot;1Cdebug&quot;;Ref=&quot;zup_nek&quot;usr=SOAP;pwd=556677;">
+	<ws publishExtensionsByDefault="true">
 		<point name="EnterpriseDataExchange_1_0_1_1"
 				alias="EnterpriseDataExchange_1_0_1_1.1cws"
 				enable="true"
@@ -116,6 +111,11 @@
 				poolSize="10"
 				poolTimeout="5"/>
 	</ws>
+	<standardOdata enable="true"
+			reuseSessions="autouse"
+			sessionMaxAge="20"
+			poolSize="10"
+			poolTimeout="5"/>
 	<httpServices>
 		<service name="ChatbotsWebhook"
 				rootUrl="ChatbotsWebhook"
