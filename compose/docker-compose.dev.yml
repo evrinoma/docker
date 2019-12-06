@@ -37,6 +37,7 @@ services:
             dockerfile: Dockerfile
         extra_hosts:
             - "iteng26:172.20.1.26"
+            - "1cdebug:172.20.1.94"
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:

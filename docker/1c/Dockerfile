@@ -51,7 +51,7 @@ RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 RUN	yum -y install bzip2 unzip patch
 RUN	yum install fontconfig -y
 #1c configs
-RUN	touch /etc/httpd/conf.d/1c.conf && mkdir /opt/WWW/1c.ite-ng.ru
+RUN	touch /etc/httpd/conf.d/1c.conf
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80 1540-1541 1560-1591
