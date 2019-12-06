@@ -709,6 +709,7 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.24.2
+
 networks:
     virt:
         driver: bridge

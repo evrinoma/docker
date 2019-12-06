@@ -16,33 +16,46 @@ services:
             virt:
                 ipv4_address: 172.18.2.1
 
-    php72_adbook:
-        container_name: "php72.adbook"
-        image: "evrinoma/php72.adbook"
-        build:
-            context: docker/php72/sites/adbook/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.72.5
+#    php72_adbook:
+#        container_name: "php72.adbook"
+#        image: "evrinoma/php72.adbook"
+#        build:
+#            context: docker/php72/sites/adbook/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.5
 
-    1c_83_15_1700_api:
-        container_name: "1c.83.15.1700.api"
-        image: "evrinoma/1c.83.15.1700.api"
-        hostname: "api.1c.ite-ng.ru"
+#    1c_83_15_1700_api:
+#        container_name: "1c.83.15.1700.api"
+#        image: "evrinoma/1c.83.15.1700.api"
+#        hostname: "api.1c.ite-ng.ru"
+#        build:
+#            context: docker/1c/servers/83.15.1700/api/.
+#            dockerfile: Dockerfile
+#        extra_hosts:
+#            - "iteng26:172.20.1.26"
+#            - "1cdebug:172.20.1.94"
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.83.150
+
+    php72_portal:
+        container_name: "php72.portal"
+        image: "evrinoma/php72.portal"
         build:
-            context: docker/1c/servers/83.15.1700/api/.
+            context: docker/php72/sites/portal/.
             dockerfile: Dockerfile
-        extra_hosts:
-            - "iteng26:172.20.1.26"
-            - "1cdebug:172.20.1.94"
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.83.150
+                ipv4_address: 172.18.72.7
 
 networks:
     virt:
@@ -52,6 +65,4 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
-
-
 
