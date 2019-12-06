@@ -434,11 +434,11 @@ services:
             virt:
                 ipv4_address: 172.18.71.4
         
-    php71_webldap5:
-        container_name: "php71.webldap5"
-        image: "evrinoma/php71.webldap5"
+    php71_adbook:
+        container_name: "php71.adbook"
+        image: "evrinoma/php71.adbook"
         build:
-            context: docker/php71/sites/webldap5/.
+            context: docker/php71/sites/adbook/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -494,11 +494,11 @@ services:
             virt:
                 ipv4_address: 172.18.72.4
             
-    php72_webldap5:
-        container_name: "php72.webldap5"
-        image: "evrinoma/php72.webldap5"
+    php72_adbook:
+        container_name: "php72.adbook"
+        image: "evrinoma/php72.adbook"
         build:
-            context: docker/php72/sites/webldap5/.
+            context: docker/php72/sites/adbook/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"

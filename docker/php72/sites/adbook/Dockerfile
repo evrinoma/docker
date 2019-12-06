@@ -11,4 +11,4 @@ LABEL \
 	license="MIT" \
 	build-date="2017-02-26"
 
-COPY	webldap5.conf /etc/httpd/conf.d/vhost.conf
+COPY	adbook.conf /etc/httpd/conf.d/vhost.conf
