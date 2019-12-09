@@ -1,0 +1,7 @@
+#!/bin/bash
+NAME="squid"
+RUN=`ps aux | grep "$NAME" | grep -v grep |awk '{print $2}'`
+echo $RUN
+if [ ! -z "$RUN" ] ; then
+	kill -kill $RUN
+fi

@@ -1,0 +1,33 @@
+#!/bin/bash
+SQUID_LOG=/opt/WWW/container.ite-ng.ru/logs/squid
+LOG=$SQUID_LOG/squid_action.log
+RECONFIGURE=$SQUID_LOG/squid.action
+NAME="devel.squid"
+RUN=`ps aux | grep "$NAME" | grep -v grep | wc | awk '{print $1}'`
+if [ "$RUN" -gt "2" ] ; then
+	exit 0;
+fi
+SQUID_CONF=/etc/squid/squid.conf
+TRACE="squid"
+while (true) 
+do
+	isSquidRunning=`ps aux | grep "squid -f" | grep -v grep`
+	found="$(echo $isSquidRunning | awk -F " " '{print($11)}')"
+	if ! [[ $found == *$TRACE ]] ; then
+		echo "shutdown [$(date +%s)]" >> $LOG
+		/usr/sbin/squid -k shutdown -f $SQUID_CONF
+		/usr/sbin/squid -f $SQUID_CONF
+	else
+		if [ ! -f "$RECONFIGURE" ]; then
+			echo '#defaut value "false" please use value "true" for reconfigure squid' > $RECONFIGURE
+			echo 'RECONFIGURE="false"' >> $RECONFIGURE
+		fi
+		RECONFIGURE_VALUE=$(cat $RECONFIGURE | grep 'RECONFIGURE=' | sed 's/.*"\([^"]*\)".*/\1/')
+		if [ "true" = "$RECONFIGURE_VALUE" ]; then
+			echo "reconfigure [$(date +%s)]" >> $LOG
+			/usr/sbin/squid -k reconfigure
+			sed -i -e 's/true/false/' $RECONFIGURE
+		fi
+	fi
+	sleep 10
+done

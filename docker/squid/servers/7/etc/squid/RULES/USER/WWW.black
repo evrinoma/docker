@@ -686,6 +686,7 @@
 .video-tub.yandex.ru
 .video.yandex.ru
 .disk.yandex.ru
+.cloud.yandex.ru
 .storage.yandex.net
 .vimports.ru
 .vip-cl.ru
@@ -764,7 +765,6 @@
 .dowars.org
 .dwar.ru
 .fantasyland.ru
-.games.mail.ru
 .ganjawars.ru
 .gdworld.ru
 .gop-stop.ru
@@ -775,7 +775,6 @@
 .postnuclear.ru
 .territory.ru
 .the-game.ru
-.zuki.mail.ru
 .httpproxy.info
 .proxygeek.com
 .stupidproxy.com
@@ -840,3 +839,6 @@
 .svservis.ru
 .sagitta-stk.ru
 .24v.tv
+.cloud.mail.ru
+.games.mail.ru
+.zuki.mail.ru

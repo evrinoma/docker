@@ -202,6 +202,9 @@
 (.+xn--b1aecbrb6areld+)
 ^http://\.+xn--b1aecbrb6areld+\.
 ^http://\xn--b1aecbrb6areld+\.
+(.+cloud+)
+^http://\.+cloud+\.
+^http://\cloud+\.
 (.*.cmd$)
 (.*.flv$)
 (.*.avi$)

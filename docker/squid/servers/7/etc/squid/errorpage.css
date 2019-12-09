@@ -51,7 +51,7 @@ html body {
 /* Page displayed body content area */
 #content {
 	padding: 10px;
-	background-color: transparent;
+	background: #ffffff;
 }
 
 /* General text */

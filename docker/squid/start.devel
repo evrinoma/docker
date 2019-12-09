@@ -1,0 +1,12 @@
+#!/bin/bash
+SQUID_LOG_PATH=/var/log
+SQUID_SPOOL_PATH=/var/spool
+
+LINK_SQUID_LOG_PATH=$(ls -la $SQUID_LOG_PATH | grep squid | grep ^l)
+LINK_SQUID_SPOOL_PATH=$(ls -la $SQUID_SPOOL_PATH | grep squid | grep ^l)
+
+if [ -z "$LINK_SQUID_LOG_PATH" ] && [ -z "$LINK_SQUID_SPOOL_PATH" ]; then
+	source init.squid
+else
+	nohup /usr/local/bin/devel.squid 2>&1 > /dev/null &
+fi

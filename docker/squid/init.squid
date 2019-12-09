@@ -1,0 +1,39 @@
+#!/bin/bash
+SQUID_LOG_PATH=/var/log
+SQUID_SPOOL_PATH=/var/spool
+SQUID_LOG=/opt/WWW/container.ite-ng.ru/logs/squid
+SQUID_SPOOL=/opt/WWW/container.ite-ng.ru/spool
+
+NAME="init.squid"
+RUN=`ps aux | grep "$NAME" | grep -v grep | wc | awk '{print $1}'`
+if [ "$RUN" -gt "2" ] ; then
+	exit 0;
+fi
+
+if [ ! -d "$SQUID_LOG" ]; then
+	mkdir -p $SQUID_LOG
+fi
+
+LINK_SQUID_LOG_PATH=$(ls -la $SQUID_LOG_PATH | grep squid | grep ^l)
+if [ -z "$LINK_SQUID_LOG_PATH" ]; then
+	rm -fR $SQUID_LOG_PATH/squid
+	ln -s $SQUID_LOG $SQUID_LOG_PATH/squid
+	chown -R squid:squid $SQUID_LOG_PATH/squid/
+fi
+
+if [ ! -d "$SQUID_SPOOL" ]; then
+	mkdir -p $SQUID_SPOOL
+fi
+
+LINK_SQUID_SPOOL_PATH=$(ls -la $SQUID_SPOOL_PATH | grep squid | grep ^l)
+if [ -z "$LINK_SQUID_SPOOL_PATH" ]; then
+	rm -fR $SQUID_SPOOL_PATH/squid
+	ln -s $SQUID_SPOOL $SQUID_SPOOL_PATH/squid
+	chown -R squid:squid $SQUID_SPOOL_PATH/squid/
+fi
+
+rm -fR $SQUID_SPOOL_PATH/squid/*
+squid -z
+
+chown -R squid:squid $SQUID_SPOOL_PATH/squid/
+
