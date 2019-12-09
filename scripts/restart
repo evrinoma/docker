@@ -3,5 +3,6 @@
 docerComposeFile=$1
 if [ ! -z "$docerComposeFile" ]; then
 	docker-compose -f $docerComposeFile down
-	docker-compose -f $docerComposeFile up -d --remove-orphans
+	docker-compose -f $docerComposeFile up
+	# -d --remove-orphans
 fi

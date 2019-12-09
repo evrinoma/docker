@@ -1,5 +1,5 @@
 FROM \
-	centos:centos6
+	centos:centos7
 
 MAINTAINER \
 	evrinoma@gmail.com
@@ -16,8 +16,8 @@ RUN	yum -y install mc wget && \
 	yum -y install iproute && \
 	yum -y update;
 
-RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm && \
-	rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm;
+RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
 
 RUN	yum -y install gcc \
 	make;
@@ -44,8 +44,9 @@ RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
 
 #supervisor
-RUN	mv -v /etc/supervisord.conf{,.bak}
-COPY	supervisord.conf /etc/supervisord.conf
+COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
+RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
+	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
 
 #mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
@@ -64,9 +65,9 @@ COPY	exim.conf /etc/exim/exim.conf
 RUN	yum -y install ntp && \
 	mv -v /etc/ntp.conf{,.bak} && \
 	cat /etc/ntp.conf.bak | sed 's;\\(.*\\)server;\\1#server;' > /etc/ntp.conf && \
-	echo "server 172.20.1.6" >> /etc/ntp.conf && \
-	chkconfig ntpd --level 35 on && \
-	service ntpd start;
+	echo "server 172.20.1.6" >> /etc/ntp.conf
+#	chkconfig ntpd --level 35 on && \
+#	service ntpd start;
 
 RUN	yum -y install \
 	samba \
@@ -84,6 +85,17 @@ RUN	cp /etc/nsswitch.conf{,.bak} && \
 	sed -i -e "s/passwd:     files/passwd:     files winbind/g" /etc/nsswitch.conf && \
 	sed -i -e "s/group:      files/group:      files winbind/g" /etc/nsswitch.conf
 
+#RUN	touch /etc/profile.d/samba.sh && \
+#	chmod 755 /etc/profile.d/samba.sh && \
+#	echo '#/etc/profile.d Samba set' >> /etc/profile.d/samba.sh && \
+#	echo 'KRB5CCNAME=FILE:/run/samba/krb5cc_samba' >> /etc/profile.d/samba.sh && \
+#	echo 'export $KRB5CCNAME' >> /etc/profile.d/samba.sh
+
+COPY	install/samba.credentials /etc/sysconfig/samba.credentials
+COPY	init.samba /usr/local/bin/init.samba
+
+RUN	chmod +x /usr/local/bin/init.samba
+RUN	sed -i '/###SAMBA_INSERT/r /etc/sysconfig/samba.credentials' /usr/local/bin/init.samba
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 139 445 137 138

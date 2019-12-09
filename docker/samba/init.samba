@@ -1,0 +1,30 @@
+#!/bin/bash
+###SAMBA_INSERT
+
+#joinFile=joinFile
+#storeDir=/opt/WWW/container.ite-ng.ru/conf/samba/
+#mkdir -p $storeDir
+
+if [ ! -z "$SAMBA_USERNAME" ] || [ ! -z "$SAMBA_PASSWORD" ]; then
+	while true; do
+		nmbd=$(ps aux | grep -v grep |grep nmbd | awk {'print $2'})
+		if [ ! -z "$nmbd" ]; then
+			net ads join -U $SAMBA_USERNAME%$SAMBA_PASSWORD
+			sleep 1;
+			nohup /usr/sbin/winbindd --foreground --no-process-group 2>&1 > /dev/null &
+			while true; do
+				sleep 1;
+				winbindd=$(ps aux | grep -v grep |grep winbind | awk {'print $2'})
+				if [ ! -z "$winbindd" ]; then
+					nohup /usr/sbin/smbd --foreground --no-process-group 2>&1 > /dev/null &
+					break;
+				else
+					sleep 1;
+				fi
+			done
+			break;
+		else
+			sleep 1;
+		fi
+	done
+fi
