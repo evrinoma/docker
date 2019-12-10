@@ -1,0 +1,22 @@
+#!/bin/bash
+
+VHOST=$(cat /etc/sysconfig/vhost | grep VHOST | sed -r 's/.*=(.*)$/\1/')
+database_host=$(cat /etc/sysconfig/vhost | grep database_host | sed -r 's/.*=(.*)$/\1/')
+database_port=$(cat /etc/sysconfig/vhost | grep database_port | sed -r 's/.*=(.*)$/\1/')
+database_name=$(cat /etc/sysconfig/vhost | grep database_name | sed -r 's/.*=(.*)$/\1/')
+database_user=$(cat /etc/sysconfig/vhost | grep database_user | sed -r 's/.*=(.*)$/\1/')
+database_password=$(cat /etc/sysconfig/vhost | grep database_password | sed -r 's/.*=(.*)$/\1/')
+
+DIR="/opt/WWW/container.ite-ng.ru/projects/pmc"
+
+if [ ! -d "$DIR/$VHOST" ]; then
+	mkdir -p $DIR/$VHOST
+	git clone ssh://grishvv@git.ite-ng.ru:8751/PMC.git $DIR/$VHOST
+	cd $DIR/$VHOST
+	composer install
+	sed -i -e "s@database_host:.*@database_host:\ $database_host@" $DIR/$VHOST/app/config/parameters.yml
+	sed -i -e "s@database_port:.*@database_port:\ $database_port@" $DIR/$VHOST/app/config/parameters.yml
+	sed -i -e "s@database_name:.*@database_name:\ $database_name@" $DIR/$VHOST/app/config/parameters.yml
+	sed -i -e "s@database_user:.*@database_user:\ $database_user@" $DIR/$VHOST/app/config/parameters.yml
+	sed -i -e "s@database_password:.*@database_password:\ $database_password@" $DIR/$VHOST/app/config/parameters.yml
+fi
