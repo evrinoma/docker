@@ -3,7 +3,9 @@
 	GIT="/opt/WWW/container.ite-ng.ru/data/git"
 #	LOG="/opt/WWW/container.ite-ng.ru/logs/gitblit"
 #	LOG_FILE="gitblit.log"
-	PORT=8080
+	httpPort=8749
+	httpsPort=8750
+	sshPort=8751
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
 		wget http://dl.bintray.com/gitblit/releases/gitblit-1.8.0.tar.gz -P $DIR
@@ -25,7 +27,13 @@
 		chmod 644 $DIR/service-centos.sh.bak
 		sed -i -e "s@GITBLIT_PATH\=.*@GITBLIT_PATH\=$DIR@" $DIR/service-centos.sh
 		sed -i -e "s@GITBLIT_BASE_FOLDER\=.*@GITBLIT_BASE_FOLDER\=$GIT@" $DIR/service-centos.sh
-		sed -i -e "s@GITBLIT_HTTP_PORT\=.*@GITBLIT_HTTP_PORT\=$PORT@" $DIR/service-centos.sh
+		sed -i -e "s@GITBLIT_HTTP_PORT\=.*@GITBLIT_HTTP_PORT\=$httpPort@" $DIR/service-centos.sh
+		sed -i -e "s@GITBLIT_HTTPS_PORT\=.*@GITBLIT_HTTPS_PORT\=$httpsPort@" $DIR/service-centos.sh
+
+		sed -i -e "s@server.httpPort \=.*@server.httpPort \= $httpPort@" $GIT/defaults.properties
+		sed -i -e "s@server\.httpsPort \=.*@server\.httpsPort\ \= $httpsPort@" $GIT/defaults.properties
+		sed -i -e "s@git.sshPort \=.*@git.sshPort\ \= $sshPort@" $GIT/defaults.properties
+
 #		sed -i -e "s@GITBLIT_LOG\=.*@GITBLIT_LOG\=$LOG/$LOG_FILE@" $DIR/service-centos.sh
 #		touch $LOG/$LOG_FILE
 	fi

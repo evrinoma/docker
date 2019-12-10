@@ -15,4 +15,4 @@ COPY	supervisor.gitblit.conf /etc/supervisord.d/gitblit.conf
 COPY	gitblit/init.install /usr/local/bin/init.install
 RUN	chmod +x /usr/local/bin/init.install
 
-EXPOSE 8080 8443
+EXPOSE 8749 8750 8751
