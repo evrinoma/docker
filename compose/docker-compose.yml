@@ -42,7 +42,13 @@ services:
     squid_7:
         container_name: "squid.7"
         image: "evrinoma/squid.7"
-        hostname: "DOCK_SMB_SQUID_7"
+        hostname: "squid7.smb.ite-ng.ru"
+        cap_add:
+            - SYS_RESOURCE
+            - SYS_TIME
+        dns:
+            - 172.20.1.6
+            - 172.20.1.20
         ports:
             - "3128:3128/tcp"
         build:
@@ -54,6 +60,7 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.1.7
+
     samba_kis:
         container_name: "samba.kis"
         image: "evrinoma/samba.kis"
@@ -718,4 +725,3 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
-

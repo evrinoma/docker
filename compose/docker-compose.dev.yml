@@ -44,40 +44,40 @@ services:
 #            virt:
 #                ipv4_address: 172.18.83.150
 #
-#    php72_portal:
-#        container_name: "php72.portal"
-#        image: "evrinoma/php72.portal"
+#
+#    squid_7:
+#        container_name: "squid.7"
+#        image: "evrinoma/squid.7"
+#        hostname: "squid7.smb.ite-ng.ru"
+#        cap_add:
+#            - SYS_RESOURCE
+#            - SYS_TIME
+#        dns:
+#            - 172.20.1.6
+#            - 172.20.1.20
+#        ports:
+#            - "3128:3128/tcp"
 #        build:
-#            context: docker/php72/sites/portal/.
+#            context: docker/squid/servers/7/.
 #            dockerfile: Dockerfile
 #        volumes:
+#            - "/etc/localtime:/etc/localtime:ro"
 #            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-#    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
 #        networks:
 #            virt:
-#                ipv4_address: 172.18.72.7
+#                ipv4_address: 172.18.1.7
 
-    squid_7:
-        container_name: "squid.7"
-        image: "evrinoma/squid.7"
-        hostname: "squid7.smb.ite-ng.ru"
-        cap_add:
-            - SYS_RESOURCE
-            - SYS_TIME
-        dns:
-            - 172.20.1.6
-            - 172.20.1.20
-        ports:
-            - "3128:3128/tcp"
+    git_gitblit:
+        container_name: "git.gitblit"
+        image: "evrinoma/git.gitblit"
         build:
-            context: docker/squid/servers/7/.
+            context: docker/git/gitblit/.
             dockerfile: Dockerfile
         volumes:
-            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.1.7
+                ipv4_address: 172.18.1.10
 
 networks:
     virt:
