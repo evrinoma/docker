@@ -11,6 +11,7 @@ TEST=$SUBNET"1.6"
 SQUID7=$SUBNET"1.7"
 SAMBA=$SUBNET"1.8"
 DANTE=$SUBNET"1.9"
+GITBLIT=$SUBNET"1.10"
 
 SQL=$SUBNET"2."
 MAIL=$SUBNET"4."
@@ -60,6 +61,7 @@ echo $SAMBA"	samba.kis" >> /etc/hosts
 
 echo $DANTE"	dante" >> /etc/hosts
 echo $WOWZA"77	wowza.477" >> /etc/hosts
+echo $GITBLIT"	gitblit" >> /etc/hosts
 
 echo $PRIMAVERA"15	vnc.primavera.15" >> /etc/hosts
 echo $SFTP"1	sftp" >> /etc/hosts
