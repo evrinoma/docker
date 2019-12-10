@@ -1,12 +1,12 @@
 FROM \
-	evrinoma/git:latest
+	evrinoma/java:latest
 
 MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
 	name="evrinoma Gitblit Image" \
-	image="git.gitblit" \
+	image="java.gitblit" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-12-10"

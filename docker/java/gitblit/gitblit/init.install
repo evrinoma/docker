@@ -15,9 +15,9 @@
 			mkdir -p $GIT
 			mv $DIR/data/*  $DIR/data/.[^.]* $GIT/
 		fi
-		if [ ! -d "$LOG" ]; then
-			mkdir -p $LOG
-		fi
+#		if [ ! -d "$LOG" ]; then
+#			mkdir -p $LOG
+#		fi
 		rm -rf $DIR/data/
 		ln -s  $GIT/ $DIR/data
 
