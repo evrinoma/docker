@@ -8,50 +8,114 @@ services:
             context: docker/db/maria/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK_ISCSI/db/maria/:/var/lib/mysql"
-            - "/opt/DISK_ISCSI/logs/mariadb/:/var/log/mariadb"
+            - "/opt/docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
             virt:
                 ipv4_address: 172.18.2.1
 
-    bind_master:
-        container_name: "bind.master"
-        image: "evrinoma/bind.master"
-        hostname: "bind.master"
+    php72_adbook:
+        container_name: "php72.adbook"
+        image: "evrinoma/php72.adbook"
         build:
-            context: docker/bind/servers/mail/.
+            context: docker/php72/sites/adbook/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.5.1
+                ipv4_address: 172.18.72.5
 
-    sftp:
-        container_name: "sftp"
-        image: "evrinoma/sftp"
-        dns: 172.20.1.6
-        dns: 172.20.1.20
+    1c_83_15_1700_api:
+        container_name: "1c.83.15.1700.api"
+        image: "evrinoma/1c.83.15.1700.api"
+        hostname: "api.1c.ite-ng.ru"
         build:
-            context: docker/sftp/.
+            context: docker/1c/servers/83.15.1700/api/.
             dockerfile: Dockerfile
+        extra_hosts:
+            - "iteng26:172.20.1.26"
+            - "1cdebug:172.20.1.94"
         volumes:
-            - "/opt/DISK_SFTP/data/sftp/:/home/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.20.1
+                ipv4_address: 172.18.83.150
 
-    php72_owncloud:
-        container_name: "php72.owncloud"
-        image: "evrinoma/php72.owncloud"
+
+    squid_7:
+        container_name: "squid.7"
+        image: "evrinoma/squid.7"
+        hostname: "squid7.smb.ite-ng.ru"
+        cap_add:
+            - SYS_RESOURCE
+            - SYS_TIME
+        dns:
+            - 172.20.1.6
+            - 172.20.1.20
+        ports:
+            - "3128:3128/tcp"
         build:
-            context: docker/php72/sites/owncloud/.
+            context: docker/squid/servers/7/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK_ISCSI/:/opt/WWW/container.ite-ng.ru/"
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.14
+                ipv4_address: 172.18.1.7
+
+    java_gitblit:
+        container_name: "java.gitblit"
+        image: "evrinoma/java.gitblit"
+        build:
+            context: docker/java/gitblit/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.10
+    
+    php72_pmc_ite-ng_ru:
+        container_name: "php72.pmc.ite"
+        image: "evrinoma/php72.pmc.ite"
+        hostname: "cmp.ite-ng.ru"
+        build:
+            context: docker/php72/sites/pmc/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=ite-ng
+                - database_host=172.20.1.18
+                - database_port=1433
+                - database_name=ASU_ITE
+                - database_user=PMAdmin
+                - database_password=PMAdmin
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.19
+
+    php72_pmc_kzkt45_ru:
+        container_name: "php72.pmc.kzkt45"
+        image: "evrinoma/php72.pmc.kzkt45"
+        hostname: "cmp.kzkt45.ru"
+        build:
+            context: docker/php72/sites/pmc/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=kzkt45
+                - database_host=172.20.1.18
+                - database_port=1433
+                - database_name=ASU_ITE_KZKT
+                - database_user=PMAdmin
+                - database_password=PMAdmin
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.20
 
 networks:
     virt:

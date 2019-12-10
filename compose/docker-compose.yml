@@ -89,6 +89,18 @@ services:
             docker1:
                 ipv4_address: 172.18.1.9
 
+    java_gitblit:
+        container_name: "java.gitblit"
+        image: "evrinoma/java.gitblit"
+        build:
+            context: docker/java/gitblit/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.10
+
     maria_db:
         container_name: "maria.db"
         image: "evrinoma/db.maria"
@@ -716,6 +728,46 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.24.2
+
+    php72_pmc_ite-ng_ru:
+        container_name: "php72.pmc.ite"
+        image: "evrinoma/php72.pmc.ite"
+        hostname: "cmp.ite-ng.ru"
+        build:
+            context: docker/php72/sites/pmc/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=ite-ng
+                - database_host=172.20.1.18
+                - database_port=1433
+                - database_name=ASU_ITE
+                - database_user=PMAdmin
+                - database_password=PMAdmin
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.19
+
+    php72_pmc_kzkt45_ru:
+        container_name: "php72.pmc.kzkt45"
+        image: "evrinoma/php72.pmc.kzkt45"
+        hostname: "cmp.kzkt45.ru"
+        build:
+            context: docker/php72/sites/pmc/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=kzkt45
+                - database_host=172.20.1.18
+                - database_port=1433
+                - database_name=ASU_ITE_KZKT
+                - database_user=PMAdmin
+                - database_password=PMAdmin
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.20
 
 networks:
     virt:
