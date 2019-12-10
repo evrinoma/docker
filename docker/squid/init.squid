@@ -3,6 +3,7 @@ SQUID_LOG_PATH=/var/log
 SQUID_SPOOL_PATH=/var/spool
 SQUID_LOG=/opt/WWW/container.ite-ng.ru/logs/squid
 SQUID_SPOOL=/opt/WWW/container.ite-ng.ru/spool
+storeDir=/opt/WWW/container.ite-ng.ru/conf/squid
 
 NAME="init.squid"
 RUN=`ps aux | grep "$NAME" | grep -v grep | wc | awk '{print $1}'`
@@ -36,4 +37,12 @@ rm -fR $SQUID_SPOOL_PATH/squid/*
 squid -z
 
 chown -R squid:squid $SQUID_SPOOL_PATH/squid/
+
+if [ ! -d "$storeDir" ]; then
+	mkdir -p $storeDir
+	cp -rp /etc/squid/* $storeDir/
+fi
+
+rm -fR /etc/squid
+ln -s $storeDir /etc
 

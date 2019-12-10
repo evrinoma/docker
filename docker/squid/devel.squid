@@ -1,5 +1,6 @@
 #!/bin/bash
 SQUID_LOG=/opt/WWW/container.ite-ng.ru/logs/squid
+SQUID_CONF=/etc/squid/squid.conf
 LOG=$SQUID_LOG/squid_action.log
 RECONFIGURE=$SQUID_LOG/squid.action
 NAME="devel.squid"
@@ -7,7 +8,6 @@ RUN=`ps aux | grep "$NAME" | grep -v grep | wc | awk '{print $1}'`
 if [ "$RUN" -gt "2" ] ; then
 	exit 0;
 fi
-SQUID_CONF=/etc/squid/squid.conf
 TRACE="squid"
 while (true) 
 do

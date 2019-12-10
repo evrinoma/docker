@@ -14,4 +14,4 @@ LABEL \
 RUN	mv -v /etc/samba/smb.conf{,.bak}
 COPY	smb.conf /etc/samba/smb.conf
 
-COPY	/etc /etc/
+COPY	/squid /etc/squid/
