@@ -5,8 +5,8 @@ MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma Git Image" \
-	image="git" \
+	name="evrinoma Java Image" \
+	image="java" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-12-10"
@@ -30,7 +30,8 @@ RUN	yum -y install \
 	mailx \
 	bzip2 \
 	unzip \
-	patch;
+	patch \
+	java;
 
 RUN	yum -y autoremove && \
 	yum clean metadata && \

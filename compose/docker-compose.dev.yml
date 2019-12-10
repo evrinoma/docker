@@ -67,11 +67,11 @@ services:
 #            virt:
 #                ipv4_address: 172.18.1.7
 
-    git_gitblit:
-        container_name: "git.gitblit"
-        image: "evrinoma/git.gitblit"
+    java_gitblit:
+        container_name: "java.gitblit"
+        image: "evrinoma/java.gitblit"
         build:
-            context: docker/git/gitblit/.
+            context: docker/java/gitblit/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"

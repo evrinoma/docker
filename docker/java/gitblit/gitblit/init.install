@@ -1,0 +1,17 @@
+#!/bin/bash
+pass=$1
+serverSql=172.18.2.1
+base=gitblit
+user=gitblit
+basepass=gitblit
+
+#if [ ! -z "$pass" ]; then
+		DIR="/opt/WWW/container.ite-ng.ru/projects/gitblit"
+		if [ ! -d "$DIR" ]; then
+			mkdir -p $DIR
+			wget http://dl.bintray.com/gitblit/releases/gitblit-1.8.0.tar.gz -P /tmp
+#			chown apache:apache -R $DIR
+			cd $DIR
+#			init.sql $pass $serverSql $base $user $basepass
+		fi
+#fi
