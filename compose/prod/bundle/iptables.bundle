@@ -42,18 +42,24 @@ echo '['$IP']'
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8080 -j DNAT --to-destination $IP:80
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 80 -j ACCEPT
 
-
-IP=172.18.72.19
+IP=172.18.72.7
 echo '['$IP']'
 
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8081 -j DNAT --to-destination $IP:80
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 80 -j ACCEPT
 
 
-IP=172.18.72.20
+IP=172.18.72.19
 echo '['$IP']'
 
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8082 -j DNAT --to-destination $IP:80
+iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 80 -j ACCEPT
+
+
+IP=172.18.72.20
+echo '['$IP']'
+
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8083 -j DNAT --to-destination $IP:80
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 80 -j ACCEPT
 
 

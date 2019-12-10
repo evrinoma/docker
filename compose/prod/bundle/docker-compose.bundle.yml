@@ -26,6 +26,18 @@ services:
             virt:
                 ipv4_address: 172.18.72.5
 
+    php72_portal:
+        container_name: "php72.portal"
+        image: "evrinoma/php72.portal.ite-ng.ru"
+        build:
+            context: docker/php72/sites/portal/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.7
+
     1c_83_15_1700_api:
         container_name: "1c.83.15.1700.api"
         image: "evrinoma/1c.83.15.1700.api"
@@ -107,7 +119,7 @@ services:
             args:
                 - VHOST=kzkt45
                 - database_host=172.20.1.18
-                - database_port=1433
+                - database_port=1434
                 - database_name=ASU_ITE_KZKT
                 - database_user=PMAdmin
                 - database_password=PMAdmin
@@ -125,4 +137,5 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
+
 

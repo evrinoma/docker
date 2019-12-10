@@ -6,6 +6,10 @@ adbook
 ssh root@172.18.72.5
 init.install $dbpass
 
+portal
+ssh root@172.18.72.7
+init.install $dbpass
+
 pmc.ite-ng
 ssh root@172.18.72.19
 init.install
