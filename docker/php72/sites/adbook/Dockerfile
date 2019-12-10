@@ -5,8 +5,8 @@ MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma PHP 7.2 webldap5" \
-	image="php72.webldap5" \
+	name="evrinoma PHP 7.2 adbook" \
+	image="php72.adbook" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2017-02-26"
