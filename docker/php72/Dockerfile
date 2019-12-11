@@ -209,5 +209,8 @@ RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
 COPY	init.container /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container
 
+RUN	yum install cronie -y && \
+	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
+
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
