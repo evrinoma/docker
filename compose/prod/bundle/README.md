@@ -1,4 +1,5 @@
 how to install
+
 ssh root@172.18.2.1
 create.user $dbpass
 
@@ -21,6 +22,10 @@ init.install
 gitblit
 ssh root@172.18.1.10
 init.install
+
+1c
+ssh root@172.18.83.150
+public
 
 
 

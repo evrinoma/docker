@@ -7,6 +7,8 @@ services:
         build:
             context: docker/db/maria/.
             dockerfile: Dockerfile
+        ports:
+            - "172.20.1.11:3603:3603/tcp"
         volumes:
             - "/opt/docker/src/db/maria/:/var/lib/mysql"
             - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
@@ -14,34 +16,51 @@ services:
             virt:
                 ipv4_address: 172.18.2.1
 
-    php72_adbook:
-        container_name: "php72.adbook"
-        image: "evrinoma/php72.adbook"
+    squid_77:
+        container_name: "squid.77"
+        image: "evrinoma/squid.77"
+        hostname: "squid77.smb.ite-ng.ru"
+        cap_add:
+            - SYS_RESOURCE
+            - SYS_TIME
+        dns:
+            - 172.20.1.6
+            - 172.20.1.20
+        ports:
+              #172.20.1.77
+            - "172.20.1.77:3128:3128"
         build:
-            context: docker/php72/sites/adbook/.
+            context: docker/squid/servers/77/.
             dockerfile: Dockerfile
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.5
+                ipv4_address: 172.18.1.7
 
-    php72_portal:
-        container_name: "php72.portal"
-        image: "evrinoma/php72.portal.ite-ng.ru"
+    java_gitblit:
+        container_name: "java.gitblit"
+        image: "evrinoma/java.gitblit"
+        ports:
+            - "172.20.1.11:8749:8749"
+            - "172.20.1.11:8750:8750"
+            - "172.20.1.11:8751:8751"
         build:
-            context: docker/php72/sites/portal/.
+            context: docker/java/gitblit/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.7
+                ipv4_address: 172.18.1.10
 
     1c_83_15_1700_api:
         container_name: "1c.83.15.1700.api"
         image: "evrinoma/1c.83.15.1700.api"
         hostname: "api.1c.ite-ng.ru"
+        ports:
+            - "172.20.1.11:80:80/tcp"
         build:
             context: docker/1c/servers/83.15.1700/api/.
             dockerfile: Dockerfile
@@ -54,45 +73,40 @@ services:
             virt:
                 ipv4_address: 172.18.83.150
 
-
-    squid_7:
-        container_name: "squid.7"
-        image: "evrinoma/squid.7"
-        hostname: "squid7.smb.ite-ng.ru"
-        cap_add:
-            - SYS_RESOURCE
-            - SYS_TIME
-        dns:
-            - 172.20.1.6
-            - 172.20.1.20
+    php72_adbook:
+        container_name: "php72.adbook"
+        image: "evrinoma/php72.adbook"
         ports:
-            - "3128:3128/tcp"
+            - "172.20.1.161:80:80/tcp"
         build:
-            context: docker/squid/servers/7/.
+            context: docker/php72/sites/adbook/.
             dockerfile: Dockerfile
         volumes:
-            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.1.7
+                ipv4_address: 172.18.72.5
 
-    java_gitblit:
-        container_name: "java.gitblit"
-        image: "evrinoma/java.gitblit"
+    php72_portal:
+        container_name: "php72.portal"
+        image: "evrinoma/php72.portal.ite-ng.ru"
+        ports:
+            - "172.20.1.162:80:80/tcp"
         build:
-            context: docker/java/gitblit/.
+            context: docker/php72/sites/portal/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.1.10
-    
+                ipv4_address: 172.18.72.7
+
     php72_pmc_ite-ng_ru:
         container_name: "php72.pmc.ite"
         image: "evrinoma/php72.pmc.ite"
         hostname: "cmp.ite-ng.ru"
+        ports:
+            - "172.20.1.163:80:80/tcp"
         build:
             context: docker/php72/sites/pmc/.
             dockerfile: Dockerfile
@@ -113,6 +127,8 @@ services:
         container_name: "php72.pmc.kzkt45"
         image: "evrinoma/php72.pmc.kzkt45"
         hostname: "cmp.kzkt45.ru"
+        ports:
+            - "172.20.1.164:80:80/tcp"
         build:
             context: docker/php72/sites/pmc/.
             dockerfile: Dockerfile
@@ -132,6 +148,9 @@ services:
 networks:
     virt:
         driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "false"
+            com.docker.network.bridge.name: "docker_bundle"
         ipam:
             driver: default
             config:

@@ -6,6 +6,20 @@ bridge=${bridge%*:}
 
 echo $bridge
 
+exit 0
+
+IP=172.18.1.10
+echo '['$IP']'
+#httpPort
+iptables -t nat -D DOCKER ! -i $bridge -p tcp -m tcp --dport 8749 -j DNAT --to-destination $IP:8749
+iptables -t filter -D DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 8749 -j ACCEPT
+#httpsPort
+iptables -t nat -D DOCKER ! -i $bridge -p tcp -m tcp --dport 8750 -j DNAT --to-destination $IP:8750
+iptables -t filter -D DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 8750 -j ACCEPT
+#sshPort
+iptables -t nat -D DOCKER ! -i $bridge -p tcp -m tcp --dport 8751 -j DNAT --to-destination $IP:8751
+iptables -t filter -D DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 8751 -j ACCEPT
+
 IP=172.18.2.1
 echo '['$IP']'
 
@@ -18,22 +32,10 @@ echo '['$IP']'
 iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 3128 -j DNAT --to-destination $IP:3128
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 3128 -j ACCEPT
 
-IP=172.18.1.10
-echo '['$IP']'
-#httpPort
-iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8749 -j DNAT --to-destination $IP:8749
-iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 8749 -j ACCEPT
-#httpsPort
-iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8750 -j DNAT --to-destination $IP:8750
-iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 8750 -j ACCEPT
-#sshPort
-iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 8751 -j DNAT --to-destination $IP:8751
-iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 8751 -j ACCEPT
-
 IP=172.18.83.150
 echo '['$IP']'
 
-iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp --dport 80 -j DNAT --to-destination $IP:80
+iptables -t nat -A DOCKER ! -i $bridge -s 172.20.1.163 -p tcp -m tcp --dport 80 -j DNAT --to-destination $IP:80
 iptables -t filter -A DOCKER -d $IP/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 80 -j ACCEPT
 
 IP=172.18.72.5

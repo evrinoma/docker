@@ -5,7 +5,7 @@ MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma squid 7" \
+	name="evrinoma squid 77" \
 	image="squid" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
