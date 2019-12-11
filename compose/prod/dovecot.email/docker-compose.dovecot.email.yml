@@ -18,6 +18,10 @@ services:
         container_name: "bind.slave"
         image: "evrinoma/bind.slave"
         hostname: "bind.slave"
+        ports:
+            - "172.16.45.4:53:53/tcp"
+            - "172.16.45.4:53:53/udp"
+            - "172.16.45.4:8953:8953"
         build:
             context: docker/bind/servers/email/.
             dockerfile: Dockerfile
@@ -31,6 +35,9 @@ services:
         container_name: "php72.roundcubemail"
         image: "evrinoma/php72.roundcubemail"
         hostname: "email.ite-ng.ru"
+        ports:
+            - "172.16.45.4:80:80/tcp"
+            - "172.16.45.4:443:443/tcp"
         build:
             context: docker/php72/sites/roundcubemail/.
             dockerfile: Dockerfile
@@ -45,6 +52,14 @@ services:
         image: "evrinoma/dovecot.email"
         hostname: "email.ite-ng.ru"
         dns: 172.18.5.2
+        ports:
+            - "172.16.45.4:25:25/tcp"
+            - "172.16.45.4:110:110/tcp"
+            - "172.16.45.4:143:143/tcp"
+            - "172.16.45.4:456:456/tcp"
+            - "172.16.45.4:993:993/tcp"
+            - "172.16.45.4:995:995/tcp"
+            - "172.16.45.4:8010:80/tcp"
         build:
             context: docker/mail/dovecot/servers/email/.
             dockerfile: Dockerfile
@@ -57,6 +72,9 @@ services:
 networks:
     virt:
         driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "false"
+            com.docker.network.bridge.name: "docker_dovecot"
         ipam:
             driver: default
             config:
