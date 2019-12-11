@@ -15,4 +15,4 @@ LABEL \
 COPY	deploy /etc/httpd/deploy
 
 COPY	public /usr/local/bin
-RUN	chmod +x /usr/local/bin/public
+RUN	chmod +x /usr/local/bin/public && public

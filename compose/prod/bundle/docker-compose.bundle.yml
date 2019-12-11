@@ -37,7 +37,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.1.7
+                ipv4_address: 172.18.1.77
 
     java_gitblit:
         container_name: "java.gitblit"
@@ -78,6 +78,7 @@ services:
         image: "evrinoma/php72.adbook"
         ports:
             - "172.20.1.161:80:80/tcp"
+            - "172.20.1.161:22:22/tcp"
         build:
             context: docker/php72/sites/adbook/.
             dockerfile: Dockerfile
@@ -92,6 +93,7 @@ services:
         image: "evrinoma/php72.portal.ite-ng.ru"
         ports:
             - "172.20.1.162:80:80/tcp"
+            - "172.20.1.162:22:22/tcp"
         build:
             context: docker/php72/sites/portal/.
             dockerfile: Dockerfile
@@ -107,6 +109,7 @@ services:
         hostname: "cmp.ite-ng.ru"
         ports:
             - "172.20.1.163:80:80/tcp"
+            - "172.20.1.163:22:22/tcp"
         build:
             context: docker/php72/sites/pmc/.
             dockerfile: Dockerfile
@@ -129,6 +132,7 @@ services:
         hostname: "cmp.kzkt45.ru"
         ports:
             - "172.20.1.164:80:80/tcp"
+            - "172.20.1.164:22:22/tcp"
         build:
             context: docker/php72/sites/pmc/.
             dockerfile: Dockerfile
