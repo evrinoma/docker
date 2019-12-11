@@ -32,6 +32,14 @@ services:
         image: "evrinoma/exim.mail"
         hostname: "mail.ite-ng.ru"
         dns: 172.16.45.4
+        ports:
+            - "172.16.45.5:25:25/tcp"
+            - "172.16.45.5:110:110/tcp"
+            - "172.16.45.5:143:143/tcp"
+            - "172.16.45.5:456:456/tcp"
+            - "172.16.45.5:993:993/tcp"
+            - "172.16.45.5:995:995/tcp"
+            - "172.16.45.5:8010:80/tcp"
         build:
             context: docker/mail/exim/servers/mail/.
             dockerfile: Dockerfile
@@ -44,6 +52,9 @@ services:
     php72_tools:
         container_name: "php72.tools"
         image: "evrinoma/php72.tools"
+        ports:
+            - "172.16.45.5:80:80/tcp"
+            - "172.16.45.5:443:443/tcp"
         build:
             context: docker/php72/sites/tools/.
             dockerfile: Dockerfile
@@ -56,6 +67,11 @@ services:
     wowza_4_7_7:
         container_name: "wowza.4.7.7"
         image: "evrinoma/wowza.versions.4.7.7"
+        ports:
+            - "172.16.45.5:8084-8086:8084-8086/tcp"
+            - "172.16.45.5:8088:8088/tcp"
+            - "172.16.45.5:1935:1935/tcp"
+#            - "172.16.45.5:6970-9999:6970-9999/udp"
         build:
             context: docker/wowza/versions/4.7.7/.
             dockerfile: Dockerfile
@@ -68,6 +84,9 @@ services:
 networks:
     virt:
         driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "false"
+            com.docker.network.bridge.name: "docker_exim"
         ipam:
             driver: default
             config:
