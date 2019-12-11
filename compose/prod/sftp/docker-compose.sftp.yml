@@ -21,6 +21,9 @@ services:
         build:
             context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
+        ports:
+            - "172.20.1.160:53:53"
+            - "172.20.1.160:8953:8953"
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -34,6 +37,8 @@ services:
         build:
             context: docker/sftp/.
             dockerfile: Dockerfile
+        ports:
+            - "172.20.1.160:22:22/tcp"
         volumes:
             - "/opt/DISK_ISCSI/data/sftp/:/home/"
         networks:
@@ -46,6 +51,9 @@ services:
         build:
             context: docker/php72/sites/owncloud/.
             dockerfile: Dockerfile
+        ports:
+            - "172.20.1.160:80:80/tcp"
+            - "172.20.1.160:443:443/tcp"
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -55,6 +63,9 @@ services:
 networks:
     virt:
         driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "false"
+            com.docker.network.bridge.name: "docker_sftp"
         ipam:
             driver: default
             config:
