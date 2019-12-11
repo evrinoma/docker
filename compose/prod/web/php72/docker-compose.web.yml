@@ -20,6 +20,9 @@ services:
         build:
             context: docker/php72/sites/bundle/web/.
             dockerfile: Dockerfile
+        ports:
+            - "172.16.45.15:80:80/tcp"
+            - "172.16.45.15:443:443/tcp"
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -29,6 +32,9 @@ services:
 networks:
     virt:
         driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "false"
+            com.docker.network.bridge.name: "docker_web"
         ipam:
             driver: default
             config:

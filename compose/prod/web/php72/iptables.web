@@ -6,6 +6,8 @@ bridge=${bridge%*:}
 
 echo $bridge
 
+exit 0
+
 IP=172.18.24.2
 echo '['$IP']'
 
