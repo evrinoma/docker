@@ -17,3 +17,8 @@ ADD	adbook/init.install /usr/local/bin
 ADD	adbook/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install && \
 	chmod +x /usr/local/bin/init.sql
+
+ADD	supervisor.conf /etc/supervisord.d/cron.conf && \
+	echo "0 0  *  *  * /opt/WWW/container.ite-ng.ru/projects/adbook/php bin/console legio:webldap:update_from_ldap > /dev/null 2>&1" >> /etc/crontab.apache && \
+	crontab -u apache /etc/crontab.apache && \
+	crontab -u apache -l
