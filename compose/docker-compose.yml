@@ -39,10 +39,10 @@ services:
             virt:
                 ipv4_address: 172.18.1.6
 
-    squid_7:
-        container_name: "squid.7"
-        image: "evrinoma/squid.7"
-        hostname: "squid7.smb.ite-ng.ru"
+    squid_77:
+        container_name: "squid.77"
+        image: "evrinoma/squid.77"
+        hostname: "squid77.smb.ite-ng.ru"
         cap_add:
             - SYS_RESOURCE
             - SYS_TIME
@@ -50,16 +50,17 @@ services:
             - 172.20.1.6
             - 172.20.1.20
         ports:
-            - "3128:3128/tcp"
+              #172.20.1.77
+            - "172.20.1.77:3128:3128"
         build:
-            context: docker/squid/servers/7/.
+            context: docker/squid/servers/77/.
             dockerfile: Dockerfile
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.1.7
+                ipv4_address: 172.18.1.77
 
     samba_kis:
         container_name: "samba.kis"
@@ -92,10 +93,15 @@ services:
     java_gitblit:
         container_name: "java.gitblit"
         image: "evrinoma/java.gitblit"
+        ports:
+            - "172.20.1.11:8749:8749"
+            - "172.20.1.11:8750:8750"
+            - "172.20.1.11:8751:8751"
         build:
             context: docker/java/gitblit/.
             dockerfile: Dockerfile
         volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -173,12 +179,22 @@ services:
 
     mail_exim_mail:
         container_name: "exim.mail"
-        image: "evrinoma/exim"
+        image: "evrinoma/exim.mail"
         hostname: "mail.ite-ng.ru"
+        dns: 172.16.45.4
+        ports:
+            - "172.16.45.5:25:25/tcp"
+            - "172.16.45.5:110:110/tcp"
+            - "172.16.45.5:143:143/tcp"
+            - "172.16.45.5:465:465/tcp"
+            - "172.16.45.5:993:993/tcp"
+            - "172.16.45.5:995:995/tcp"
+            - "172.16.45.5:8010:80/tcp"
         build:
-            context: docker/mail/exim/.
+            context: docker/mail/exim/servers/mail/.
             dockerfile: Dockerfile
         volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -189,6 +205,14 @@ services:
         image: "evrinoma/dovecot.email"
         hostname: "email.ite-ng.ru"
         dns: 172.18.5.2
+        ports:
+            - "172.16.45.4:25:25/tcp"
+            - "172.16.45.4:110:110/tcp"
+            - "172.16.45.4:143:143/tcp"
+            - "172.16.45.4:465:465/tcp"
+            - "172.16.45.4:993:993/tcp"
+            - "172.16.45.4:995:995/tcp"
+            - "172.16.45.4:8010:80/tcp"
         build:
             context: docker/mail/dovecot/servers/email/.
             dockerfile: Dockerfile
@@ -205,7 +229,12 @@ services:
         build:
             context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
+        ports:
+            - "172.20.1.5:53:53/tcp"
+            - "172.20.1.5:53:53/udp"
+            - "172.20.1.5:8953:8953"
         volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -215,6 +244,10 @@ services:
         container_name: "bind.slave"
         image: "evrinoma/bind.slave"
         hostname: "bind.slave"
+        ports:
+            - "172.16.45.4:53:53/tcp"
+            - "172.16.45.4:53:53/udp"
+            - "172.16.45.4:8953:8953"
         build:
             context: docker/bind/servers/email/.
             dockerfile: Dockerfile
@@ -227,24 +260,34 @@ services:
     wowza_4_7_7:
         container_name: "wowza.4.7.7"
         image: "evrinoma/wowza.versions.4.7.7"
+        ports:
+            - "172.16.45.5:8084-8086:8084-8086/tcp"
+            - "172.16.45.5:8088:8088/tcp"
+            - "172.16.45.5:1935:1935/tcp"
+#            - "172.16.45.5:6970-9999:6970-9999/udp"
         build:
             context: docker/wowza/versions/4.7.7/.
             dockerfile: Dockerfile
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.14.77
+
     sftp:
         container_name: "sftp"
         image: "evrinoma/sftp"
+        dns: 172.20.1.6
         build:
             context: docker/sftp/.
             dockerfile: Dockerfile
+        ports:
+            - "172.20.1.160:22:22/tcp"
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK_ISCSI/data/sftp/:/home/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.20.1
@@ -260,7 +303,6 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.22.15
-
 
     1c_83_13_1644_deploy:
         container_name: "1c.83.13.1644.deploy"
@@ -319,11 +361,14 @@ services:
         container_name: "1c.83.15.1700.api"
         image: "evrinoma/1c.83.15.1700.api"
         hostname: "api.1c.ite-ng.ru"
+        ports:
+            - "172.20.1.11:80:80/tcp"
         build:
-            context: /opt/docker/docker/1c/servers/83.15.1700/api/.
+            context: docker/1c/servers/83.15.1700/api/.
             dockerfile: Dockerfile
         extra_hosts:
             - "iteng26:172.20.1.26"
+            - "1cdebug:172.20.1.94"
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -514,31 +559,39 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.72.3
-            
+
     php72_tools:
         container_name: "php72.tools"
         image: "evrinoma/php72.tools"
+        ports:
+            - "172.16.45.5:80:80/tcp"
+            - "172.16.45.5:443:443/tcp"
         build:
             context: docker/php72/sites/tools/.
             dockerfile: Dockerfile
         volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.4
-            
+
     php72_adbook:
         container_name: "php72.adbook"
         image: "evrinoma/php72.adbook"
+        ports:
+            - "172.20.1.161:80:80/tcp"
+            - "172.20.1.161:22:22/tcp"
         build:
             context: docker/php72/sites/adbook/.
             dockerfile: Dockerfile
         volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.5
-            
+
     php72_cont:
         container_name: "php72.cont"
         image: "evrinoma/php72.cont.ite-ng.ru"
@@ -554,10 +607,14 @@ services:
     php72_portal:
         container_name: "php72.portal"
         image: "evrinoma/php72.portal.ite-ng.ru"
+        ports:
+            - "172.20.1.162:80:80/tcp"
+            - "172.20.1.162:22:22/tcp"
         build:
             context: docker/php72/sites/portal/.
             dockerfile: Dockerfile
         volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -603,6 +660,9 @@ services:
         container_name: "php72.roundcubemail"
         image: "evrinoma/php72.roundcubemail"
         hostname: "email.ite-ng.ru"
+        ports:
+            - "172.16.45.4:80:80/tcp"
+            - "172.16.45.4:443:443/tcp"
         build:
             context: docker/php72/sites/roundcubemail/.
             dockerfile: Dockerfile
@@ -644,8 +704,11 @@ services:
         build:
             context: docker/php72/sites/owncloud/.
             dockerfile: Dockerfile
+        ports:
+            - "172.20.1.160:80:80/tcp"
+            - "172.20.1.160:443:443/tcp"
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
     #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -722,9 +785,12 @@ services:
         build:
             context: docker/php72/sites/bundle/web/.
             dockerfile: Dockerfile
+        ports:
+            - "172.16.45.15:80:80/tcp"
+            - "172.16.45.15:443:443/tcp"
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-    #        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.24.2
@@ -733,6 +799,9 @@ services:
         container_name: "php72.pmc.ite"
         image: "evrinoma/php72.pmc.ite"
         hostname: "cmp.ite-ng.ru"
+        ports:
+            - "172.20.1.163:80:80/tcp"
+            - "172.20.1.163:22:22/tcp"
         build:
             context: docker/php72/sites/pmc/.
             dockerfile: Dockerfile
@@ -744,6 +813,7 @@ services:
                 - database_user=PMAdmin
                 - database_password=PMAdmin
         volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -753,6 +823,9 @@ services:
         container_name: "php72.pmc.kzkt45"
         image: "evrinoma/php72.pmc.kzkt45"
         hostname: "cmp.kzkt45.ru"
+        ports:
+            - "172.20.1.164:80:80/tcp"
+            - "172.20.1.164:22:22/tcp"
         build:
             context: docker/php72/sites/pmc/.
             dockerfile: Dockerfile
@@ -764,6 +837,7 @@ services:
                 - database_user=PMAdmin
                 - database_password=PMAdmin
         volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
