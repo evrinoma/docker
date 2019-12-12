@@ -7,6 +7,8 @@ services:
         build:
             context: docker/db/maria/.
             dockerfile: Dockerfile
+        ports:
+            - "172.20.1.5:3306:3306/tcp"
         volumes:
             - "/opt/docker/src/db/maria/:/var/lib/mysql"
             - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
