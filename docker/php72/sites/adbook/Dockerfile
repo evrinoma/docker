@@ -22,3 +22,5 @@ ADD	supervisor.conf /etc/supervisord.d/cron.conf
 RUN	echo "0 0  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/adbook/bin/console legio:webldap:update_from_ldap > /dev/null 2>&1" >> /etc/crontab.apache && \
 	crontab -u apache /etc/crontab.apache && \
 	crontab -u apache -l
+
+RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi

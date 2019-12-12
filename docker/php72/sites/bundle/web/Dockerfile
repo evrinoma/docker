@@ -72,3 +72,5 @@ RUN	sed -i -e "s/'172\.18\.2\.1'\;/'172\.18\.2\.4'\;/" /etc/phpMyAdmin/config.in
 ADD	init.container.part /usr/local/bin
 RUN	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
 	rm -rf /usr/local/bin/init.container.part
+
+RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi

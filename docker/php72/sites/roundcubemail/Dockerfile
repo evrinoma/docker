@@ -38,4 +38,6 @@ RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.
 #RUN	chmod -R 640 /tmp && \
 #	chmod -R 640 /var/tmp
 
+RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
+
 EXPOSE 443

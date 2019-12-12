@@ -19,3 +19,5 @@ RUN	chmod +x /usr/local/bin/init.install && \
 	chmod +x /usr/local/bin/init.sql
 
 COPY	portal.conf /etc/httpd/conf.d/vhost.conf
+
+RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi

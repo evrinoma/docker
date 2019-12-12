@@ -214,7 +214,5 @@ RUN	chmod 700 /usr/local/bin/init.container
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
 
-RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
-
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80

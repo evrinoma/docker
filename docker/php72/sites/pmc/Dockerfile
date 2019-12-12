@@ -30,3 +30,5 @@ RUN	echo "VHOST=${VHOST}" > /etc/sysconfig/vhost && \
 
 COPY	pmc.conf /etc/httpd/conf.d/vhost.conf
 RUN	sed -i -e "s@VHOST@${VHOST}@" /etc/httpd/conf.d/vhost.conf
+
+RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
