@@ -1,6 +1,7 @@
 #!/bin/bash
-docker build -t evrinoma/java ../docker/java/.
-docker build -t evrinoma/java.gitlab ../docker/java/gitlab/.
+#docker build -t evrinoma/java ../docker/java/.
+#docker build -t evrinoma/java.gitlab ../docker/java/gitlab/.
+docker build -t evrinoma/java.jenkins ../docker/java/jenkins/.
 
 #docker build -t evrinoma/samba ../docker/samba/.
 #docker build -t evrinoma/squid ../docker/squid/.
