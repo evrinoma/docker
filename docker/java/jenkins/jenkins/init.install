@@ -1,0 +1,9 @@
+#!/bin/bash
+	DIR="/opt/WWW/container.ite-ng.ru/data"
+	SRC="/var/lib"
+	if [ ! -d "$DIR/jenkins" ]; then
+		mkdir -p $DIR/jenkins
+		mv $SRC/jenkins $DIR
+	fi
+	rm -rf $SRC/jenkins
+	ln -s  $DIR/jenkins $SRC
