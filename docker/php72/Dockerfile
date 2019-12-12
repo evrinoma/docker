@@ -11,8 +11,6 @@ LABEL \
 	license="MIT" \
 	build-date="2019-05-21"
 
-ARG	MODE=''
-
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
 	yum -y install iproute;
