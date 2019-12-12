@@ -8,7 +8,7 @@ SUBNET="172.18."
 RABBIT=$SUBNET"1.3"
 MASTER_CONT=$SUBNET"1.5"
 TEST=$SUBNET"1.6"
-SQUID7=$SUBNET"1.7"
+SQUID77=$SUBNET"1.77"
 SAMBA=$SUBNET"1.8"
 DANTE=$SUBNET"1.9"
 GITBLIT=$SUBNET"1.10"
@@ -55,8 +55,7 @@ echo $BIND"1	bind.master" >> /etc/hosts
 echo $BIND"2	bind.slave" >> /etc/hosts
 
 echo $RABBIT"	rabbitmq" >> /etc/hosts
-
-echo $SQUID7"	squid.7" >> /etc/hosts
+echo $SQUID77"	squid.77" >> /etc/hosts
 echo $SAMBA"	samba.kis" >> /etc/hosts
 
 echo $DANTE"	dante" >> /etc/hosts
