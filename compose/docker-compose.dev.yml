@@ -19,8 +19,13 @@ services:
         build:
             context: docker/php72/sites/cont/.
             dockerfile: Dockerfile
+        ports:
+            - "172.20.1.5:80:80/tcp"
+            - "172.20.1.5:443:443/tcp"
+            - "172.20.1.5:22:22/tcp"
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.6
@@ -28,6 +33,9 @@ services:
 networks:
     virt:
         driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "false"
+            com.docker.network.bridge.name: "docker_sftp"
         ipam:
             driver: default
             config:
