@@ -107,6 +107,21 @@ services:
             virt:
                 ipv4_address: 172.18.1.10
 
+    java_jenkins_deploy:
+        container_name: "java.jenkins.deploy"
+        image: "evrinoma/java.jenkins.deploy"
+        ports:
+             - "172.20.1.167:80:8080"
+        build:
+            context: docker/java/jenkins/server/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.12
+
     maria_db:
         container_name: "maria.db"
         image: "evrinoma/db.maria"
@@ -851,3 +866,5 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
+
+
