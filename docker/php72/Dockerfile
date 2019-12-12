@@ -11,6 +11,8 @@ LABEL \
 	license="MIT" \
 	build-date="2019-05-21"
 
+ARG	MODE=''
+
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
 	yum -y install iproute;
@@ -211,6 +213,8 @@ RUN	chmod 700 /usr/local/bin/init.container
 
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
+
+RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
