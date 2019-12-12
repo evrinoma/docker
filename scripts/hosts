@@ -79,6 +79,7 @@ echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.ipark45.$PREFIX_LOCAL" >> /etc/hosts
 echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.kzkt45.$PREFIX_LOCAL" >> /etc/hosts
 echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.nekeng.$PREFIX_LOCAL" >> /etc/hosts
 echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.ite-ng.$PREFIX_LOCAL" >> /etc/hosts
+echo $BUNDLE"2	$PREFIX_BUNDLE.$PREFIX_PHP72.lazurnoe.$PREFIX_LOCAL" >> /etc/hosts
 
 echo $PHP53"53	$PREFIX_PHP53" >> /etc/hosts
 echo $PHP54"54	$PREFIX_PHP54" >> /etc/hosts
