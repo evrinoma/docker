@@ -49,6 +49,12 @@ RUN	chmod +x /usr/local/bin/init.install.ite-ng && \
 	chmod +x /usr/local/bin/init.sql.ite-ng && \
 	sed -i -e "s/init.sql/init.sql.ite-ng/" /usr/local/bin/init.install.ite-ng 
 
+COPY	ipark45/ipark45.conf /etc/httpd/conf.d/
+
+COPY	lazurnoe/install/lazurnoe.tar.gz /root/
+ADD	lazurnoe/lazurnoe/init.install /usr/local/bin/init.install.lazurnoe
+RUN	chmod +x /usr/local/bin/init.install.lazurnoe
+
 ADD	init.install /usr/local/bin/init.install
 RUN	chmod +x /usr/local/bin/init.install
 

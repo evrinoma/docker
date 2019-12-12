@@ -1,0 +1,9 @@
+#!/bin/bash
+	DIR="/opt/WWW/container.ite-ng.ru/projects/lazurnoe.net"
+	if [ ! -d "$DIR" ]; then
+		mkdir -p $DIR
+		tar -zxf /root/lazurnoe.tar.gz -C $DIR
+		mv $DIR/lazurnoe/*  $DIR/lazurnoe/.[^.]* $DIR/
+		rm -rf $DIR/lazurnoe/
+		chown apache:apache -R $DIR
+	fi
