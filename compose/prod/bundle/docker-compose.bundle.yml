@@ -82,6 +82,8 @@ services:
         build:
             context: docker/php72/sites/adbook/.
             dockerfile: Dockerfile
+            args:
+                - MODE=prod
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -97,6 +99,8 @@ services:
         build:
             context: docker/php72/sites/portal/.
             dockerfile: Dockerfile
+            args:
+                - MODE=prod
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -114,6 +118,7 @@ services:
             context: docker/php72/sites/pmc/.
             dockerfile: Dockerfile
             args:
+                - MODE=prod
                 - VHOST=ite-ng
                 - database_host=172.20.1.18
                 - database_port=1433
@@ -137,6 +142,7 @@ services:
             context: docker/php72/sites/pmc/.
             dockerfile: Dockerfile
             args:
+                - MODE=prod
                 - VHOST=kzkt45
                 - database_host=172.20.1.18
                 - database_port=1434

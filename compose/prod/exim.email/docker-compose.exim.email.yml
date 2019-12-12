@@ -58,6 +58,8 @@ services:
         build:
             context: docker/php72/sites/tools/.
             dockerfile: Dockerfile
+            args:
+                - MODE=prod
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
