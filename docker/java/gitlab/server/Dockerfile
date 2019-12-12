@@ -1,5 +1,6 @@
 FROM \
-	evrinoma/java.gitblit:latest
+#	evrinoma/java.gitblit:latest
+	evrinoma/java:latest
 
 MAINTAINER \
 	evrinoma@gmail.com

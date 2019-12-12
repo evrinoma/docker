@@ -13,31 +13,29 @@ services:
 #            virt:
 #                ipv4_address: 172.18.2.1
 
-    php72_cont:
-        container_name: "php72.cont"
-        image: "evrinoma/php72.cont.ite-ng.ru"
-        build:
-            context: docker/php72/sites/cont/.
-            dockerfile: Dockerfile
-            args:
-             - MODE=prod
+    java_gitlab:
+        container_name: "java.gitlab"
+        image: "evrinoma/java.gitlab"
 #        ports:
-#            - "172.20.1.5:80:80/tcp"
-#            - "172.20.1.5:443:443/tcp"
-#            - "172.20.1.5:22:22/tcp"
+#            - "172.20.1.11:8749:8749"
+#            - "172.20.1.11:8750:8750"
+#            - "172.20.1.11:8751:8751"
+        build:
+            context: docker/java/gitlab/server/.
+            dockerfile: Dockerfile
         volumes:
-#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.6
+                ipv4_address: 172.18.1.11
 
 networks:
     virt:
         driver: bridge
-        driver_opts:
-            com.docker.network.enable_ipv6: "false"
-            com.docker.network.bridge.name: "docker_sftp"
+#        driver_opts:
+#            com.docker.network.enable_ipv6: "false"
+#            com.docker.network.bridge.name: "docker_sftp"
         ipam:
             driver: default
             config:
