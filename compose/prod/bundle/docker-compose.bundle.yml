@@ -70,6 +70,23 @@ services:
             virt:
                 ipv4_address: 172.18.1.12
 
+    backup_deploy:
+        container_name: "backup.deploy"
+        image: "evrinoma/backup.deploy"
+        ports:
+             - "172.20.1.168:22:22"
+        build:
+            context: docker/backup/servers/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK_ISCSI/:/opt/WWW/backup/"
+##            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.13
+
+
     1c_83_15_1700_api:
         container_name: "1c.83.15.1700.api"
         image: "evrinoma/1c.83.15.1700.api"

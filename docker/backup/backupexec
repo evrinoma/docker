@@ -1,0 +1,39 @@
+#!/bin/bash
+pathSqlDump=/opt/WWW/backup/sqldump
+statusLog=time.txt
+servers=/opt/WWW/container.ite-ng.ru/conf/backup/servers.json
+timeStamp=$(date +"%d-%m-%Y_%H-%M")
+pathToStamp=$pathSqlDump/$timeStamp
+log=$pathToStamp/$statusLog
+
+function loopOverArray(){
+    jq -c '.[]' $servers | while read i; do
+	# Do stuff here
+	user=$(echo "$i" | jq -r '.user')
+	pass=$(echo "$i" | jq -r '.pass')
+	base=$(echo "$i" | jq -r '.base')
+	host=$(echo "$i" | jq -r '.host')
+	mysqldump -u ${user} -p${pass} -h${host} ${base} > ${pathToStamp}/${base}.sql
+	date >> $log
+	echo "${host} ${base} [OK]" >> $log
+    done
+}
+
+if [ ! -d "$pathDiskRalus" ]; then
+	mkdir -p $pathDiskRalus
+fi
+
+if [ ! -d "$pathToStamp" ]; then
+	mkdir -p $pathToStamp
+fi
+
+if [ -f "$servers" ]; then
+	cp $servers $pathToStamp
+	echo "[$timeStamp]" > $log
+	date >> $log
+	echo "json config with servers found at [$servers]"  >> $log
+	echo 'begin' >> $log
+	loopOverArray
+	date >> $log
+	echo 'end' >> $log
+fi

@@ -66,14 +66,18 @@ RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
 COPY	init.container /usr/local/bin/
 COPY	reconfig /usr/local/bin/
+COPY	backupexec /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container && \
-	chmod 700 /usr/local/bin/reconfig
+	chmod 700 /usr/local/bin/reconfig && \
+	chmod 700 /usr/local/bin/backupexec
 
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
 	echo "#*  *  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console  ###  > /dev/null 2>&1" >> /etc/crontab.apache && \
 	crontab -u apache /etc/crontab.apache && \
 	crontab -u apache -l
+
+RUN	yum -y install jq.x86_64
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22
