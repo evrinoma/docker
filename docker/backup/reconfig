@@ -1,3 +1,3 @@
 #!/bin/bash
-crontab -u apache /etc/crontab.apache
-crontab -u apache -l
+crontab -u root /etc/crontab.root
+crontab -u root -l

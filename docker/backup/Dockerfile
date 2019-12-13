@@ -73,9 +73,9 @@ RUN	chmod 700 /usr/local/bin/init.container && \
 
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
-	echo "#*  *  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console  ###  > /dev/null 2>&1" >> /etc/crontab.apache && \
-	crontab -u apache /etc/crontab.apache && \
-	crontab -u apache -l
+	echo "#*  *  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console  ###  > /dev/null 2>&1" >> /etc/crontab.root && \
+	crontab -u root /etc/crontab.root && \
+	crontab -u root -l
 
 RUN	yum -y install jq.x86_64
 

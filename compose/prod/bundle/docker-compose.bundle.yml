@@ -79,6 +79,7 @@ services:
             context: docker/backup/servers/.
             dockerfile: Dockerfile
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK_ISCSI/:/opt/WWW/backup/"
 ##            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
