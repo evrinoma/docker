@@ -21,8 +21,9 @@ RUN	chmod +x /usr/local/bin/init.install && \
 RUN	rm -rf /etc/php.d/xdebug.ini
 
 ADD	supervisor.conf /etc/supervisord.d/cron.conf
+RUN	echo "*/30    *       *       *       *       /usr/bin/php /opt/WWW/pv.ite-ng.ru/cont/bin/console legio:cont:delivery_load_command --env=prod > /dev/null 2>&1" >> /etc/crontab.apache && \
 #RUN	echo "0 0  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console legio:webldap:update_from_ldap > /dev/null 2>&1" >> /etc/crontab.apache && \
-#	crontab -u apache /etc/crontab.apache && \
-#	crontab -u apache -l
+	crontab -u apache /etc/crontab.apache && \
+	crontab -u apache -l
 
 RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
