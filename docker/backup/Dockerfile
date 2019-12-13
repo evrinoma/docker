@@ -65,10 +65,15 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
 COPY	init.container /usr/local/bin/
-RUN	chmod 700 /usr/local/bin/init.container
+COPY	reconfig /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container && \
+	chmod 700 /usr/local/bin/reconfig
 
 RUN	yum install cronie -y && \
-	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
+	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
+	echo "#*  *  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console  ###  > /dev/null 2>&1" >> /etc/crontab.apache && \
+	crontab -u apache /etc/crontab.apache && \
+	crontab -u apache -l
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22
