@@ -50,6 +50,7 @@ services:
             context: docker/java/gitblit/.
             dockerfile: Dockerfile
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -64,6 +65,7 @@ services:
             context: docker/java/jenkins/server/.
             dockerfile: Dockerfile
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
 #            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
