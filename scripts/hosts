@@ -38,7 +38,7 @@ PREFIX_PHP72=$PREFIX_PHP"72"
 C1_83=$SUBNET"83."
 
 sed -i -e "/^172.18/ d" /etc/hosts
-
+exit 0
 echo $SQL"1	maria.db" >> /etc/hosts
 echo $SQL"2	postgre.1c.10.db" >> /etc/hosts
 echo $SQL"3	mssql.db" >> /etc/hosts
