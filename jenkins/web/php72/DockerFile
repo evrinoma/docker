@@ -2,7 +2,7 @@ node {
     try {
         def dockerName = 'web'
         def dockerRootDir = '/opt/docker'
-        def dockerComposeDir = "${dockerRootDir}/compose/prod/${dockerName}"
+        def dockerComposeDir = "${dockerRootDir}/compose/prod/${dockerName}/php72"
         def gitHeadLocal = ''
         def gitHeadRemote = ''
         def remote = [:]
