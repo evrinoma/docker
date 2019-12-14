@@ -13,16 +13,19 @@ LABEL \
 
 COPY	cont.conf /etc/httpd/conf.d/vhost.conf
 
+ADD	init.container.part /usr/local/bin
 ADD	cont/init.install /usr/local/bin
 ADD	cont/init.sql /usr/local/bin
+ADD	reconfig /usr/local/bin/
 RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/init.sql
-
-RUN	rm -rf /etc/php.d/xdebug.ini
+	chmod +x /usr/local/bin/init.sql && \
+	chmod +x /usr/local/bin/reconfig && \
+	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
+	rm -rf /usr/local/bin/init.container.part && \
+	chmod 700 /usr/local/bin/init.container
 
 ADD	supervisor.conf /etc/supervisord.d/cron.conf
-RUN	echo "*/30    *       *       *       *       /usr/bin/php /opt/WWW/pv.ite-ng.ru/cont/bin/console legio:cont:delivery_load_command --env=prod > /dev/null 2>&1" >> /etc/crontab.apache && \
-#RUN	echo "0 0  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console legio:webldap:update_from_ldap > /dev/null 2>&1" >> /etc/crontab.apache && \
+RUN	echo "*/30    *       *       *       *       /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console legio:cont:delivery_load_command --env=prod > /dev/null 2>&1" >> /etc/crontab.apache && \
 	crontab -u apache /etc/crontab.apache && \
 	crontab -u apache -l
 
