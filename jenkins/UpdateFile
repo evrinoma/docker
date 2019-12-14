@@ -7,9 +7,9 @@ node {
             def remote = [:]
             remote.name = dockerName
             remote.host = '172.20.1.160'
-            remote.user = 'nikolns'
+            remote.user = 'user'
             remote.port = 749
-            remote.password = '0631'
+            remote.password = 'pass'
             remote.allowAnyHosts = true
             sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerScriptDir} && ./build.prod\""
         }
@@ -20,9 +20,9 @@ node {
             def remote = [:]
             remote.name = dockerName
             remote.host = '172.16.45.15'
-            remote.user = 'nikolns'
+            remote.user = 'user'
             remote.port = 749
-            remote.password = '0631'
+            remote.password = 'pass'
             remote.allowAnyHosts = true
             sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerScriptDir} && ./build.prod\""
         }
@@ -33,9 +33,9 @@ node {
             def remote = [:]
             remote.name = dockerName
             remote.host = '172.16.45.4'
-            remote.user = 'nikolns'
+            remote.user = 'user'
             remote.port = 749
-            remote.password = '0631'
+            remote.password = 'pass'
             remote.allowAnyHosts = true
             sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerScriptDir} && ./build.prod\""
         }
@@ -46,9 +46,9 @@ node {
             def remote = [:]
             remote.name = dockerName
             remote.host = '172.16.45.5'
-            remote.user = 'nikolns'
+            remote.user = 'user'
             remote.port = 749
-            remote.password = '0631'
+            remote.password = 'pass'
             remote.allowAnyHosts = true
             sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerScriptDir} && ./build.prod\""
         }
@@ -59,9 +59,9 @@ node {
         //     def remote = [:]
         //     remote.name = dockerName
         //     remote.host = '172.20.1.161'
-        //     remote.user = 'nikolns'
+        //     remote.user = 'user'
         //     remote.port = 749
-        //     remote.password = '0631'
+        //     remote.password = 'pass'
         //     remote.allowAnyHosts = true
         //     sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerScriptDir} && ./build.prod\""
         // }
