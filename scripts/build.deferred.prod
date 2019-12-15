@@ -1,0 +1,12 @@
+#!/bin/bash
+var=0
+max=60
+while(true);do
+	echo $var
+	var=$((var+1))
+	sleep 1
+	if [ "$max" -eq "$var" ]; then
+		./build.prod
+		break;
+	fi
+done
