@@ -1,12 +1,12 @@
 #!/bin/bash
 var=0
-max=60
+max=10
 while(true);do
 	echo $var
 	var=$((var+1))
 	sleep 1
 	if [ "$max" -eq "$var" ]; then
-		./build.prod
+		bash -c "cd /opt/docker/scripts/ && ./build.prod"
 		break;
 	fi
 done
