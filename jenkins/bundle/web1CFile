@@ -31,7 +31,7 @@ node {
                 sshCommand remote: remote, command: "/usr/local/bin/restartHttpd"
             }
             stage('Send email') {
-                def mailRecipients = "nikolns@ite-ng.ru"
+                def mailRecipients = "1c@ite-ng.ru,nikolns@ite-ng.ru"
                 def jobName = currentBuild.fullDisplayName
                 def subject = "[Jenkins] ${jobName}"
                 def body = "GIT COMMIT:${gitHeadRemote} BUILD: SUCCESS DEPLOY: SUCCESS"
@@ -50,7 +50,7 @@ node {
             echo "RESULT: ${currentBuild.result}"
         }
         stage('Send email') {
-            def mailRecipients = "nikolns@ite-ng.ru"
+            def mailRecipients = "1c@ite-ng.ru,nikolns@ite-ng.ru"
             def jobName = currentBuild.fullDisplayName
             def subject = "[Jenkins][FAILED] ${jobName}"
             def body = "BUILD: ${currentBuild.result} RESULT:FAILED"
