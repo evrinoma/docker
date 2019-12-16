@@ -51,7 +51,7 @@ node {
         stage('Send email') {
             def mailRecipients = "nikolns@ite-ng.ru"
             def jobName = currentBuild.fullDisplayName
-            def subject = "[Jenkins] ${jobName}"
+            def subject = "[Jenkins][FAILED] ${jobName}"
             def body = "BUILD: ${currentBuild.result} RESULT:FAILED"
             mail(bcc: '', cc: '', charset: 'UTF-8', mimeType: 'text/html', replyTo: '',
             body: body,
