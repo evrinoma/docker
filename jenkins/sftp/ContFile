@@ -24,6 +24,9 @@ node {
             stage('Git Pull') {
                 sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote}"
             }
+            stage('Migration') {
+                sshCommand remote: remote, command: " /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console --no-interaction doctrine:migrations:migrate"
+            }
             stage('WebPack') {
                 sshCommand remote: remote, command: "cd ${contDir} && yarn && webpack --env=prod"
             }
