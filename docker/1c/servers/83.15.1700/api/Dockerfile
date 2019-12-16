@@ -15,4 +15,7 @@ LABEL \
 COPY	deploy /etc/httpd/deploy
 
 COPY	public /usr/local/bin
-RUN	chmod +x /usr/local/bin/public && public
+COPY	restartHttpd /usr/local/bin
+RUN	chmod +x /usr/local/bin/public && \
+	chmod +x /usr/local/bin/restartHttpd && \
+	public

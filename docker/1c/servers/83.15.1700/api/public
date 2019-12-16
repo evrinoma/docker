@@ -5,13 +5,19 @@ APACHE_CONFIG='/etc/httpd/conf.d/1c.conf'
 WEBINST_PATH='/opt/1C/v8.3/x86_64'
 WEB_PATH='/opt/WWW/container.ite-ng.ru/1c'
 PUB_PATH='/etc/httpd/deploy'
-LIST=$(ls -l $PUB_PATH/ | grep ^d | awk '{print $9}')
+GIT_PATH='/opt/WWW/container.ite-ng.ru/projects/web1C'
+if [ -d "$GIT_PATH" ]; then
+	LIST_PATH=$GIT_PATH
+else
+	LIST_PATH=$PUB_PATH
+fi
+LIST=$(ls -l $LIST_PATH/ | grep ^d | awk '{print $9}')
 for baseName in $LIST
 do 
-	FILE="$PUB_PATH/$baseName/$VRD_PATTERN"
+	FILE="$LIST_PATH/$baseName/$VRD_PATTERN"
 	if [ -f "$FILE" ]; then
 		connStr=$(cat $FILE | grep 'Srvr=' | sed -e "s/\&quot\;//g" | sed 's/.*"\([^"]*\)">.*/\1/' | sed 's/.*"\([^"]*\)".*/\1/')
-		$WEBINST_PATH/webinst -$APACHE_VERSION -wsdir $baseName -dir $WEB_PATH/$baseName/ -connstr "$connStr" -confPath $APACHE_CONFIG -descriptor $PUB_PATH/$baseName/$VRD_PATTERN
+		$WEBINST_PATH/webinst -$APACHE_VERSION -wsdir $baseName -dir $WEB_PATH/$baseName/ -connstr "$connStr" -confPath $APACHE_CONFIG -descriptor $LIST_PATH/$baseName/$VRD_PATTERN
 	fi
 done
  
