@@ -1,47 +1,22 @@
 version: '2'
 services:
-#    maria_db:
-#        container_name: "maria.db"
-#        image: "evrinoma/db.maria"
-#        build:
-#            context: docker/db/maria/.
-#            dockerfile: Dockerfile
-#        volumes:
-#            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
-#            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.2.1
-
-    backup_deploy:
-        container_name: "backup.deploy"
-        image: "evrinoma/backup.deploy"
+    java_gitlab:
+        container_name: "java.gitlab.deploy"
+        image: "evrinoma/java.gitlab.deploy"
+        privileged: true
+#        ports:
+#         - "172.20.1.11:8749:8749"
+#            - "172.20.1.11:8750:8750"
+#            - "172.20.1.11:8751:8751"
         build:
-            context: docker/backup/servers/.
+            context: docker/java/gitlab/server/.
             dockerfile: Dockerfile
         volumes:
-##            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.1.13
-
-#    java_gitlab:
-#        container_name: "java.gitlab"
-#        image: "evrinoma/java.gitlab"
-##        ports:
-##         - "172.20.1.11:8749:8749"
-##            - "172.20.1.11:8750:8750"
-##            - "172.20.1.11:8751:8751"
-#        build:
-#            context: docker/java/gitlab/server/.
-#            dockerfile: Dockerfile
-#        volumes:
-##            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.1.11
+                ipv4_address: 172.18.1.11
 
 networks:
     virt:
