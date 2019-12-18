@@ -17,7 +17,7 @@ node {
             def mailRecipients = "nikolns@ite-ng.ru"
             def jobName = currentBuild.fullDisplayName
             def subject = "[Jenkins] ${jobName}"
-            def body = "GIT COMMIT:${gitHeadRemote} DOCKER BUILD: SUCCESS"
+            def body = "GLOBAL DOCKER BUILD: SUCCESS"
             mail(bcc: '', cc: '', charset: 'UTF-8', mimeType: 'text/html', replyTo: '',
             body: body,
             subject: subject,
