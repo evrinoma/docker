@@ -39,6 +39,19 @@ node {
             remote.allowAnyHosts = true
             sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerScriptDir} && ./build.prod\""
         }
+        stage('Build DEBUG.1C Docker') {
+            def dockerName = 'debug1C'
+            def dockerRootDir = '/opt/docker'
+            def dockerScriptDir = "${dockerRootDir}/scripts"
+            def remote = [:]
+            remote.name = dockerName
+            remote.host = '172.16.45.55'
+            remote.user = 'user'
+            remote.port = 749
+            remote.password = 'pass'
+            remote.allowAnyHosts = true
+            sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerScriptDir} && ./build.prod\""
+        }
         stage('Build EXIM.EMAIL Docker') {
             def dockerName = 'exim.email'
             def dockerRootDir = '/opt/docker'
