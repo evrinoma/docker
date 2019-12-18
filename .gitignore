@@ -3,3 +3,4 @@ iptables_up
 iptables_down
 src
 tmp
+.idea
