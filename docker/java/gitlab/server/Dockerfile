@@ -9,20 +9,14 @@ LABEL \
 	image="java.gitlab.deploy" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2019-12-12"
+	build-date="2019-12-18"
 
-#COPY	supervisor.gitlab.conf /etc/supervisord.d/gitlab.conf
+ONBUILD	ARG	GITLABHOST='gitlab\.ite-ng\.ru'
+
+RUN	sed -i -e "s/gitlab\.example\.com/gitlab\.ite-ng\.ru/" /etc/gitlab/gitlab.rb
+RUN	head -n 40 /etc/gitlab/gitlab.rb
+COPY	supervisor.gitlab.conf /etc/supervisord.d/gitlab.conf
 COPY	gitlab/init.install /usr/local/bin/init.install
 RUN	chmod +x /usr/local/bin/init.install
-#  44  /opt/gitlab/embedded/bin/runsvdir-start &
-#  45  gitlab-ctl reconfigure
-#   46  /opt/gitlab/embedded/bin/initdb -D /var/opt/gitlab/postgresql/data -E UTF8
-#   47  sudo -s bash -c '/opt/gitlab/embedded/bin/initdb -D /var/opt/gitlab/postgresql/data -E UTF8'
-#   48  sudo - gitlab-psgl bash -c '/opt/gitlab/embedded/bin/initdb -D /var/opt/gitlab/postgresql/data -E UTF8'
-#   49  su -c '/opt/gitlab/embedded/bin/initdb -D /var/opt/gitlab/postgresql/data -E UTF8' gitlab-psgl
-#   50  id gitlab*
-#   51  cat /etc/shadow
-#   52  su -c '/opt/gitlab/embedded/bin/initdb -D /var/opt/gitlab/postgresql/data -E UTF8' gitlab-psql
-#   53  export LC_ALL="en_US.UTF-8" and export LC_CTYPE="en_US.UTF-8"
-#   54  su -c '/opt/gitlab/embedded/bin/initdb -D /var/opt/gitlab/postgresql/data -E UTF8' gitlab-psql
-#EXPOSE 8749 8750 8751
+
+EXPOSE 80 443 8060 9090 9100 9121 9187 9188 9168 8082 8083 26379 143 5000 5050 8443 8088 465 514 8065 6432 8300 8500
