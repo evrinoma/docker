@@ -11,9 +11,9 @@ LABEL \
 	license="MIT" \
 	build-date="2019-12-18"
 
-ONBUILD	ARG	GITLABHOST='gitlab\.ite-ng\.ru'
+ONBUILD	ARG	GITLABHOST='git\.ite-ng\.ru'
 
-RUN	sed -i -e "s/gitlab\.example\.com/gitlab\.ite-ng\.ru/" /etc/gitlab/gitlab.rb
+RUN	sed -i -e "s/gitlab\.example\.com/git\.ite-ng\.ru/" /etc/gitlab/gitlab.rb
 RUN	head -n 40 /etc/gitlab/gitlab.rb
 COPY	supervisor.gitlab.conf /etc/supervisord.d/gitlab.conf
 COPY	gitlab/init.install /usr/local/bin/init.install
