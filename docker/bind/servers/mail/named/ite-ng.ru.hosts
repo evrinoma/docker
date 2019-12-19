@@ -1,6 +1,6 @@
 $ttl 38400
 ite-ng.ru.	IN	SOA	ns.ite-ng.ru. ns2.ite-ng.ru. (
-			2019112210
+			2019121901
 			10800
 			3600
 			2419200
@@ -191,6 +191,21 @@ ite9.ite-ng.ru.		IN	SPF		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
 _dmarc.ite9.ite-ng.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@ite-ng.ru"
 _domainkey.ite9.ite-ng.ru.		IN	TXT	"t=y;o=~;"
 mail._domainkey.ite9.ite-ng.ru.	IN	TXT	(
+"v=DKIM1;k=rsa;"
+"p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7N9nLFcA+Sb1GL33eSJVN"
+"nm+Ki8YLT5zOx3z8iKRFxmyt9Dhc0TGP3f0UDA5Wv8nOPsVWXDtv2n5L+p7mIVN4xXL"
+"ObTj9A3xjvq7DETG0D+uslhDeH2nIMl3A6LFvEAquhEDab1ruFSiNrPBD2aFE5tqzNa"
+"Svn8r4Q9XyIvoXuRkxADFovinv2iKdNUr9wr4XGN26xU/631XNjfp1B853M0KRmF3Cf"
+"STLWxZlNrww21euiS7Oj7bkjJ0vx8KNGTloGDfSaR1qZ84RgygIRkg//Clc+wQbUv7s"
+"Ycii6DMyllTUgoBbcURz2SNOiKET8hpocfwMtZ/jjuV3EPIpV9cFwIDAQAB"
+)
+
+ite11			IN	MX	10	mx1.ite-ng.ru.
+ite11.ite-ng.ru.		IN	TXT		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+ite11.ite-ng.ru.		IN	SPF		"v=spf1 mx ptr a:mail.ite-ng.ru -all"
+_dmarc.ite11.ite-ng.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@ite-ng.ru"
+_domainkey.ite11.ite-ng.ru.		IN	TXT	"t=y;o=~;"
+mail._domainkey.ite11.ite-ng.ru.	IN	TXT	(
 "v=DKIM1;k=rsa;"
 "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7N9nLFcA+Sb1GL33eSJVN"
 "nm+Ki8YLT5zOx3z8iKRFxmyt9Dhc0TGP3f0UDA5Wv8nOPsVWXDtv2n5L+p7mIVN4xXL"
