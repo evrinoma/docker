@@ -39,22 +39,22 @@ services:
             virt:
                 ipv4_address: 172.18.1.77
 
-    java_gitblit:
-        container_name: "java.gitblit"
-        image: "evrinoma/java.gitblit"
-        ports:
-            - "172.20.1.11:8749:8749"
-            - "172.20.1.11:8750:8750"
-            - "172.20.1.11:8751:8751"
-        build:
-            context: docker/java/gitblit/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.1.10
+#    java_gitblit:
+#        container_name: "java.gitblit"
+#        image: "evrinoma/java.gitblit"
+#        ports:
+#            - "172.20.1.11:8749:8749"
+#            - "172.20.1.11:8750:8750"
+#            - "172.20.1.11:8751:8751"
+#        build:
+#            context: docker/java/gitblit/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/etc/localtime:/etc/localtime:ro"
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.1.10
 
     java_gitlab:
         container_name: "java.gitlab.deploy"
