@@ -68,6 +68,7 @@ services:
             context: docker/mail/dovecot/servers/email/.
             dockerfile: Dockerfile
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
