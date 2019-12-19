@@ -11,7 +11,7 @@ DIR="/opt/WWW/container.ite-ng.ru/projects/pmc"
 
 if [ ! -d "$DIR/$VHOST" ]; then
 	mkdir -p $DIR/$VHOST
-	git clone ssh://grishvv@git.ite-ng.ru:8751/PMC.git $DIR/$VHOST
+	git clone ssh://grishvv@git.ite-ng.ru/root/PMC.git $DIR/$VHOST
 	cd $DIR/$VHOST
 	composer install
 	sed -i -e "s@database_host:.*@database_host:\ $database_host@" $DIR/$VHOST/app/config/parameters.yml

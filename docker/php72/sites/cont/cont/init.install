@@ -8,7 +8,7 @@ if [ ! -z "$pass" ]; then
 		DIR="/opt/WWW/container.ite-ng.ru/projects/cont"
 		if [ ! -d "$DIR" ]; then
 			mkdir -p $DIR
-			git clone http://grishvv@git.ite-ng.ru:8749/r/cont.git $DIR
+			git clone http://grishvv@git.ite-ng.ru/root/cont.git $DIR
 			cd $DIR
 			composer install
 			sed -i -e "s@database_host:.*@database_host:\ $serverSql@" $DIR/app/config/parameters.yml
