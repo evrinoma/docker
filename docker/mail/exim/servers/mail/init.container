@@ -2,6 +2,7 @@
 
 DIR='/opt/WWW/container.ite-ng.ru/logs/exim'
 EXIM='/opt/exim'
+='var/lib/clamav'
 
 if [ ! -d "$DIR" ]; then
 	mkdir -p $DIR/tmp
@@ -23,3 +24,5 @@ if ! [[ -L "$EXIM/var/log/" && -d "$EXIM/var/log/" ]]; then
 fi
 
 chown exim:exim -R $DIR/
+
+chmod 775 $CLAMAV
