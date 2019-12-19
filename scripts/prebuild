@@ -1,4 +1,7 @@
 #!/bin/bash
+docker build -t evrinoma/redmine ../docker/ruby265/.
+docker build -t evrinoma/redmine ../docker/ruby265/redmine/.
+
 #docker build -t evrinoma/java ../docker/java/.
 #docker build -t evrinoma/java.gitlab ../docker/java/gitlab/version/12.5.5/.
 #docker build -t evrinoma/java.jenkins ../docker/java/jenkins/.
