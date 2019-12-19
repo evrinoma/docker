@@ -11,6 +11,22 @@ LABEL \
 	license="MIT" \
 	build-date="2019-07-16"
 
+COPY	squid.logrotate.conf /etc/logrotate.d/squid
+RUN	yum install logrotate -y
+
+RUN	yum install cronie -y && \
+	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
+	echo "#*  *  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console  ###  > /dev/null 2>&1" >> /etc/crontab.root && \
+	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab && \
+	crontab -u root /etc/crontab.root && \
+	crontab -u root -l
+COPY    reconfig /usr/local/bin/
+COPY	init.container /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container && \
+	chmod 700 /usr/local/bin/reconfig
+
+
+
 #SQUID
 RUN	yum install squid -y
 

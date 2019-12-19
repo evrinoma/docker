@@ -1,0 +1,13 @@
+#!/bin/bash
+storeDir=/opt/WWW/container.ite-ng.ru/conf/squid
+fileApache=crontab.root
+cronApache=/etc/$fileApache
+
+if [ ! -d "$storeDir" ]; then
+	mkdir -p $storeDir
+	cp $cronApache $storeDir
+fi
+
+rm -rf $cronApache
+ln -s  $storeDir/$fileApache $cronApache
+/usr/local/bin/reconfig

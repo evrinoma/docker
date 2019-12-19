@@ -1,0 +1,3 @@
+#!/bin/bash
+crontab -u root /etc/crontab.root
+crontab -u root -l
