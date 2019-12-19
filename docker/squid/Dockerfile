@@ -17,7 +17,7 @@ RUN	yum install logrotate -y
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
 	echo "#*  *  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console  ###  > /dev/null 2>&1" >> /etc/crontab.root && \
-	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab && \
+	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/squid > /dev/null 2>&1" >> /etc/crontab.root  && \
 	crontab -u root /etc/crontab.root && \
 	crontab -u root -l
 COPY    reconfig /usr/local/bin/
