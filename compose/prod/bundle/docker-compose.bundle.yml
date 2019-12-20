@@ -106,6 +106,20 @@ services:
             virt:
                 ipv4_address: 172.18.1.13
 
+    redmine:
+        container_name: "redmine.deploy"
+        image: "evrinoma/redmine.deploy"
+        ports:
+            - "172.20.1.170:80:80/tcp"
+        build:
+            context: docker/ruby265/servers/redmine/4.0.5/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.14
 
     1c_83_15_1700_api:
         container_name: "1c.83.15.1700.api"
