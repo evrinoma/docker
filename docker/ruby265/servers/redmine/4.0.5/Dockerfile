@@ -5,8 +5,8 @@ MAINTAINER \
 		evrinoma@gmail.com
 
 LABEL \
-		name="evrinoma BackUp Deploy Image" \
-		image="redmina.deploy" \
+		name="evrinoma Redmine Deploy Image" \
+		image="redmine.deploy" \
 		vendor="evrinoma@gmail.com" \
 		license="MIT" \
-		build-date="2019-12-13"
+		build-date="2019-12-20"

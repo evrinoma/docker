@@ -52,18 +52,28 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 #mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
-RUN	yum -y install which zlib zlib-devel openssl-devel  ImageMagick-devel  ImageMagick mariadb-devel
-RUN	yum -y groupinstall "Development Tools"
+RUN	yum -y install which \
+	zlib \
+	zlib-devel \
+	openssl-devel  \
+	ImageMagick-devel  \
+	ImageMagick mariadb-devel \
+	curl \
+	httpd-devel \
+	curl-devel \
+	curl \
+	gpg \
+	gcc-c++
 
-RUN	mkdir -p /opt/ruby && \
-    cd /opt/ruby  && \
-	wget https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.5.tar.gz --no-check-certificate && \
-	tar -xzvf ruby-* && \
-	cd ruby-* && \
-	./configure && \
-	make && \
-	make install
+RUN yum -y remove ruby
 
+RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+RUN $(curl -sSL https://get.rvm.io | bash -s stable 2>&1| grep '\-\-keyserver') && curl -sSL https://get.rvm.io | bash -s stable
+
+RUN /usr/local/rvm/bin/rvm install ruby-2.6.5
+ENV PATH="/usr/local/rvm/bin:/usr/local/rvm/rubies/ruby-2.6.5/bin:${PATH}"
+RUN echo "export PATH=$PATH" > /etc/environment
+RUN ruby --version
 RUN gem update --system && gem update
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]

@@ -6,6 +6,10 @@ user=redmine
 basepass=redmine
 if [ ! -z "$pass" ]; then
 		DIR="/opt/WWW/container.ite-ng.ru/projects/redmine"
+		DATA="/opt/WWW/container.ite-ng.ru/data/redmine"
+		if [ ! -d "$DIR" ]; then
+			mkdir -p $DATA
+		fi
 		if [ ! -d "$DIR" ]; then
 			mkdir -p $DIR
 			wget https://www.redmine.org/releases/redmine-4.0.5.tar.gz -P /root/
@@ -19,6 +23,8 @@ if [ ! -z "$pass" ]; then
 			sed -i -e "s/^  host\: localhost/  host\: 172\.18\.2\.1/" config/database.yml
 			sed -i -e "s/^  username\: root/  username\: redmine/" config/database.yml
 			sed -i -e "s/^  password\: \"/&redmine/" config/database.yml
+			sed -i -e "s@^  attachments_storage_path\:@&{$DATA}@" config/configuration.yml
+
 			init.sql $pass $serverSql $base $user $basepass
 			gem install bundler
 			bundle install --without development test

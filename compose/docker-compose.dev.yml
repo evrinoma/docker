@@ -14,8 +14,8 @@ services:
                 ipv4_address: 172.18.2.1
 
     redmine:
-        container_name: "remine.deploy"
-        image: "evrinoma/remine.deploy"
+        container_name: "redmine.deploy"
+        image: "evrinoma/redmine.deploy"
         build:
             context: docker/ruby265/servers/redmine/4.0.5/.
             dockerfile: Dockerfile
