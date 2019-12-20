@@ -23,7 +23,7 @@ if [ ! -z "$pass" ]; then
 			sed -i -e "s/^  host\: localhost/  host\: 172\.18\.2\.1/" config/database.yml
 			sed -i -e "s/^  username\: root/  username\: redmine/" config/database.yml
 			sed -i -e "s/^  password\: \"/&redmine/" config/database.yml
-			sed -i -e "s@^  attachments_storage_path\:@&{$DATA}@" config/configuration.yml
+			sed -i -e "s@^  attachments_storage_path\:@&${DATA}@" config/configuration.yml
 
 			init.sql $pass $serverSql $base $user $basepass
 			gem install bundler
