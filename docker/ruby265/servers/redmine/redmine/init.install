@@ -23,12 +23,14 @@ if [ ! -z "$pass" ]; then
 			sed -i -e "s/^  host\: localhost/  host\: 172\.18\.2\.1/" config/database.yml
 			sed -i -e "s/^  username\: root/  username\: redmine/" config/database.yml
 			sed -i -e "s/^  password\: \"/&redmine/" config/database.yml
+			sed -i -e "s/^  encoding\: utf8/&mb4/" config/database.yml
 			sed -i -e "s@^  attachments_storage_path\:@& ${DATA}@" config/configuration.yml
-
+			cp /usr/local/bin/mysqlpls.rb config/initializers/
 			init.sql $pass $serverSql $base $user $basepass
 			gem install bundler
 			bundle install --without development test
 			bundle exec rake generate_secret_token
 			export RAILS_ENV=production &&  bundle exec rake db:migrate
+			chown apache:apache -R $DIR
 		fi
 fi

@@ -12,6 +12,7 @@ INIT_SQL="/root/init.sql"
 	CREATE USER '$user'@'172.18.0.0/255.255.0.0' IDENTIFIED BY '$basepass';
 	GRANT ALL PRIVILEGES ON \`$base\` . * TO '$user'@'172.18.0.0/255.255.0.0';
 	FLUSH PRIVILEGES;
+	ALTER DATABASE \`$base\` CHARACTER SET = utf8mb4    COLLATE = utf8mb4_unicode_ci;
 	" > $INIT_SQL
 	mariaInstall=`yum list installed | grep "mariadb\."`
 	if [ -z "$mariaInstall" ]; then 
