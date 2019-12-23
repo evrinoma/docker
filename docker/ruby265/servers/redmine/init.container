@@ -1,13 +1,5 @@
 #!/bin/bash
-# storeDir=/opt/WWW/container.ite-ng.ru/conf/backup
-# fileApache=crontab.root
-# cronApache=/etc/$fileApache
-# 
-# if [ ! -d "$storeDir" ]; then
-# 	mkdir -p $storeDir
-# 	cp $cronApache $storeDir
-# fi
-# 
-# rm -rf $cronApache
-# ln -s  $storeDir/$fileApache $cronApache
-# /usr/local/bin/reconfig
+DIR="/opt/WWW/container.ite-ng.ru/projects/redmine"
+cd $DIR
+bundle install --without development test
+

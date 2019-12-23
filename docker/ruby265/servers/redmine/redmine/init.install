@@ -32,5 +32,6 @@ if [ ! -z "$pass" ]; then
 			bundle exec rake generate_secret_token
 			export RAILS_ENV=production &&  bundle exec rake db:migrate
 			chown apache:apache -R $DIR
+			chown apache:apache -R $DATA
 		fi
 fi
