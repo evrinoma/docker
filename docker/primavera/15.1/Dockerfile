@@ -16,7 +16,7 @@ RUN	mkdir -v /opt/Oracle/ && \
 	mkdir -v /opt/Oracle/DOMAIN && \
 	mkdir -v /opt/Oracle/INVENTORY && \
 	mkdir -v /opt/Oracle/JAVA && \
-	mkdir -v /opt/Oracle/LOG && \
+	ln -s /opt/WWW/container.ite-ng.ru/logs/primavera /opt/Oracle/LOG && \
 	mkdir -v /opt/Oracle/P6 && \
 	mkdir -v /opt/Oracle/Scheduler && \
 	mkdir -v /opt/Oracle/WEBLOGIC && \
@@ -46,11 +46,28 @@ WORKDIR /opt/WWW/install
 RUN	tar -xvf /opt/WWW/install/JDK/jdk-12.0.2_linux-x64_bin.tar.gz -C /opt/Oracle/JAVA/ && mv -v /opt/Oracle/JAVA/jdk-12.0.2/* /opt/Oracle/JAVA/ && rm -rf /opt/Oracle/JAVA/jdk-12.0.2/
 ENV	JAVA_HOME /opt/WWW/install/JDK/
 RUN	export JAVA_HOME
-RUN	su - oracle -c "java -jar /opt/WWW/install/Weblogic/fmw_12.2.1.3.0_wls.jar -silent -responseFile /opt/WWW/install/Weblogic/weblogic.resp -invPtrLoc /opt/Oracle/INVENTORY/oraInst.loc"
+RUN	su - oracle -c "java -jar /opt/WWW/install/Weblogic/fmw_12.2.1.4.0_wls.jar -silent -responseFile /opt/WWW/install/Weblogic/weblogic.resp -invPtrLoc /opt/Oracle/INVENTORY/oraInst.loc"
 
-#yum install binutils compat-libcap1 compat-libstdc++-33 compat-libstdc++-33.i686 glibc glibc.i686 glibc-devel glibc-devel.i686 ksh libaio libaio.i686 libaio-devel libaio-devel.i686 libX11 libX11.i686 libXau libXau.i686 libXi libXi.i686 libXtst libXtst.i686 libgcc libgcc.i686 libstdc++ libstdc++.i686 libstdc++-devel libstdc++-devel.i686 libxcb libxcb.i686 make nfs-utils net-tools smartmontools sysstat unixODBC unixODBC-devel -y
+COPY	install/primavera /etc/sysconfig/primavera
+COPY	primavera/startWLS /usr/local/bin
+COPY	primavera/stopWLS /usr/local/bin
+COPY	primavera/P6 /usr/local/bin
+COPY	primaveraInstall /usr/local/bin
+COPY	primavera/primavera.12.2.1.4.tar.gz /opt/Oracle/DOMAIN/
+COPY	primavera/domain-registry.xml /opt/Oracle/WEBLOGIC/
 
-#	rm -rf /opt/WWW/install
+RUN	chmod +x /usr/local/bin/startWLS && \
+	chmod +x /usr/local/bin/stopWLS && \
+	chmod +x /usr/local/bin/P6 && \
+	chmod +x /usr/local/bin/primaveraInstall
+
+RUN	sed -i '/###PRIMAVERA_INSERT/r /etc/sysconfig/primavera' /usr/local/bin/startWLS && \
+	sed -i '/###PRIMAVERA_INSERT/r /etc/sysconfig/primavera' /usr/local/bin/stopWLS && \
+	sed -i '/###PRIMAVERA_INSERT/r /etc/sysconfig/primavera' /usr/local/bin/P6
+
+RUN	mkdir -p /opt/Oracle/DOMAIN/user_projects/domains && \
+	ln -s /opt/WWW/container.ite-ng.ru/projects/primavera /opt/Oracle/DOMAIN/user_projects/domains/primavera
+
 WORKDIR /
 
 EXPOSE 7001

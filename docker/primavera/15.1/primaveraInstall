@@ -1,0 +1,16 @@
+#!/bin/bash
+pass=$1
+if [ ! -z "$pass" ]; then
+		DIR="/opt/WWW/container.ite-ng.ru/projects/primavera"
+		LOGS="/opt/WWW/container.ite-ng.ru/logs"
+		if [ ! -d "$LOGS" ]; then
+			mkdir -p $LOGS
+		fi
+		if [ ! -d "$DIR" ]; then
+			mkdir -p $DIR
+            tar -xvf /opt/Oracle/DOMAIN/primavera.12.2.1.4.tar.gz -C $DIR
+
+			chown oracle:oracle -R $DIR
+			chown oracle:oracle -R $LOGS
+		fi
+fi

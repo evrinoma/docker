@@ -59,4 +59,4 @@ RUN	groupadd oracle && \
 RUN	export LANG=en_US.UTF-8
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
-EXPOSE 22 80
+EXPOSE 22 5901

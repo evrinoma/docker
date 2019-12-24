@@ -1,6 +1,9 @@
 #!/bin/bash
-docker build -t evrinoma/ruby265 ../docker/ruby265/.
-docker build -t evrinoma/redmine ../docker/ruby265/servers/redmine/.
+docker build -t evrinoma/vnc ../docker/vnc/.
+docker build -t evrinoma/primavera.15.1 ../docker/primavera/15.1/.
+
+#docker build -t evrinoma/ruby265 ../docker/ruby265/.
+#docker build -t evrinoma/redmine ../docker/ruby265/servers/redmine/.
 
 #docker build -t evrinoma/java ../docker/java/.
 #docker build -t evrinoma/java.gitlab ../docker/java/gitlab/version/12.5.5/.
@@ -14,7 +17,6 @@ docker build -t evrinoma/redmine ../docker/ruby265/servers/redmine/.
 #docker build -t evrinoma/1c.83.13.1644 ../docker/1c/servers/83.13.1644/.
 #docker build -t evrinoma/1c.83.15.1700 ../docker/1c/servers/83.15.1700/.
 
-#docker build -t evrinoma/vnc ../docker/vnc/.
 #docker build -t evrinoma/dovecot ../docker/mail/dovecot/.
 #docker build -t evrinoma/bind ../docker/bind/.
 #docker build -t evrinoma/exim ../docker/mail/exim/.
@@ -31,7 +33,6 @@ docker build -t evrinoma/redmine ../docker/ruby265/servers/redmine/.
 #docker build -t evrinoma/php72.cont.ite-ng.ru ../docker/php72/sites/cont/.
 #docker build -t evrinoma/php72.cont.ite-ng.ru ../docker/php72/sites/cont/.
 #docker build -t evrinoma/php72.h.cont.ite-ng.ru ../docker/hidden/servers/cont/.
-
 
 #docker build -t evrinoma/wowza ../docker/wowza/.
 
