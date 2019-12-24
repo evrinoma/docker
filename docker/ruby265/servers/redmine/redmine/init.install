@@ -7,7 +7,7 @@ basepass=redmine
 if [ ! -z "$pass" ]; then
 		DIR="/opt/WWW/container.ite-ng.ru/projects/redmine"
 		DATA="/opt/WWW/container.ite-ng.ru/data/redmine"
-		if [ ! -d "$DIR" ]; then
+		if [ ! -d "$DATA" ]; then
 			mkdir -p $DATA
 		fi
 		if [ ! -d "$DIR" ]; then
