@@ -1,16 +1,18 @@
 #!/bin/bash
+
+###PRIMAVERA_INSERT
+
 pass=$1
 if [ ! -z "$pass" ]; then
 		DIR="/opt/WWW/container.ite-ng.ru/projects/primavera"
-		LOGS="/opt/WWW/container.ite-ng.ru/logs"
-		if [ ! -d "$LOGS" ]; then
-			mkdir -p $LOGS
+		if [ ! -d "$LOG_ROOT" ]; then
+			mkdir -p $LOG_ROOT
 		fi
 		if [ ! -d "$DIR" ]; then
 			mkdir -p $DIR
-            tar -xvf /opt/Oracle/DOMAIN/primavera.12.2.1.4.tar.gz -C $DIR
+            tar -xvf $WEBLOGIC_DOMAIN -C $DIR
 
 			chown oracle:oracle -R $DIR
-			chown oracle:oracle -R $LOGS
+			chown oracle:oracle -R $LOG_ROOT
 		fi
 fi

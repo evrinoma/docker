@@ -1,6 +1,6 @@
 #!/bin/bash
 docker build -t evrinoma/vnc ../docker/vnc/.
-docker build -t evrinoma/primavera.15.1 ../docker/primavera/15.1/.
+docker build -t evrinoma/primavera.15.1 ../docker/primavera/15.1/. --no-cache
 
 #docker build -t evrinoma/ruby265 ../docker/ruby265/.
 #docker build -t evrinoma/redmine ../docker/ruby265/servers/redmine/.
