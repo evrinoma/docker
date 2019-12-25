@@ -1,4 +1,5 @@
 node {
+    def mailRecipients = "nikolns@ite-ng.ru"
     try {
         stage('Build SFTP Docker') {
             def dockerName = 'sftp'
@@ -79,7 +80,6 @@ node {
         //     sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerScriptDir} && ./build.prod\""
         // }
         stage('Send email') {
-            def mailRecipients = "nikolns@ite-ng.ru"
             def jobName = currentBuild.fullDisplayName
             def subject = "[Jenkins] ${jobName}"
             def body = "GLOBAL DOCKER BUILD: SUCCESS"
@@ -97,7 +97,6 @@ node {
             echo "RESULT: ${currentBuild.result}"
         }
         stage('Send email') {
-            def mailRecipients = "nikolns@ite-ng.ru"
             def jobName = currentBuild.fullDisplayName
             def subject = "[Jenkins][FAILED] ${jobName}"
             def body = "GLOBAL BUILD DOCKER: FAILED"
