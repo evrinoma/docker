@@ -1,15 +1,16 @@
 node {
-    def mailRecipients = "1c@ite-ng.ru,nikolns@ite-ng.ru"
+    def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
     try {
-        def checkDir = '/opt/WWW/container.ite-ng.ru/projects/web1C'
+        def pmcDir = 'ite-ng'
+        def checkDir = '/opt/WWW/container.ite-ng.ru/projects/pmc/${pmcDir}'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
-        def gitRemote='http://user:pass@git.ite-ng.ru/root/web1C.git'
+        def gitRemote='http://user:pass@git.ite-ng.ru/root/PMC.git'
         def remote = [:]
         remote.name = 'bundle'
-        remote.host = '172.20.1.11'
+        remote.host = '172.20.1.163'
         remote.user = 'root'
-        remote.port = 12000
+        remote.port = 22
         remote.password = '1234'
         remote.allowAnyHosts = true
         stage('Remote SSH') {
@@ -25,11 +26,20 @@ node {
             stage('Git Pull') {
                 sshCommand remote: remote, command: "cd ${checkDir} && git pull ${gitRemote}"
             }
-            stage('Public') {
-                sshCommand remote: remote, command: "/usr/local/bin/public"
+            stage('Migration') {
+                sshCommand remote: remote, command: " /usr/bin/php ${checkDir}/bin/console --no-interaction doctrine:migrations:migrate"
             }
-            stage('restart Httpd') {
-                sshCommand remote: remote, command: "/usr/local/bin/restartHttpd"
+            stage('WebPack') {
+                sshCommand remote: remote, command: "cd ${checkDir} && yarn && webpack --env=prod"
+            }
+            stage('Assets') {
+                sshCommand remote: remote, command: " /usr/bin/php ${checkDir}/bin/console assets:install --symlink --env=prod"
+            }
+            stage('Cache') {
+                sshCommand remote: remote, command: " /usr/bin/php ${checkDir}/bin/console cache:clear --env=prod"
+            }
+            stage('Permission') {
+                sshCommand remote: remote, command: "chown -R apache.apache ${checkDir} "
             }
             stage('Send email') {
                 def jobName = currentBuild.fullDisplayName

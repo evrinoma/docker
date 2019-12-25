@@ -1,4 +1,5 @@
 node {
+    def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
     try {
         def contDir = '/opt/WWW/container.ite-ng.ru/projects/cont'
         def gitHeadLocal = ''
@@ -53,7 +54,6 @@ node {
             echo "RESULT: ${currentBuild.result}"
         }
         stage('Send email') {
-            def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
             def jobName = currentBuild.fullDisplayName
             def subject = "[Jenkins][FAILED] ${jobName}"
             def body = "BUILD: ${currentBuild.result} RESULT:FAILED"

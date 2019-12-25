@@ -1,4 +1,5 @@
 node {
+    def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
     try {
         def contDir = '/opt/WWW/container.ite-ng.ru/projects/cont'
         def gitHeadLocal = ''
@@ -25,22 +26,21 @@ node {
                 sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote}"
             }
             stage('Migration') {
-                sshCommand remote: remote, command: " /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console --no-interaction doctrine:migrations:migrate"
+                sshCommand remote: remote, command: " /usr/bin/php ${contDir}/bin/console --no-interaction doctrine:migrations:migrate"
             }
             stage('WebPack') {
                 sshCommand remote: remote, command: "cd ${contDir} && yarn && webpack --env=prod"
             }
             stage('Assets') {
-                sshCommand remote: remote, command: " /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console assets:install --symlink --env=prod"
+                sshCommand remote: remote, command: " /usr/bin/php ${contDir}/bin/console assets:install --symlink --env=prod"
             }
             stage('Cache') {
-                sshCommand remote: remote, command: " /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console cache:clear --env=prod"
+                sshCommand remote: remote, command: " /usr/bin/php ${contDir}/bin/console cache:clear --env=prod"
             }
             stage('Permission') {
                 sshCommand remote: remote, command: "chown -R apache.apache ${contDir} "
             }
             stage('Send email') {
-                def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
                 def jobName = currentBuild.fullDisplayName
                 def subject = "[Jenkins] ${jobName}"
                 def body = "GIT COMMIT:${gitHeadRemote} BUILD: SUCCESS DEPLOY: SUCCESS"
@@ -59,7 +59,6 @@ node {
             echo "RESULT: ${currentBuild.result}"
         }
         stage('Send email') {
-            def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
             def jobName = currentBuild.fullDisplayName
             def subject = "[Jenkins][FAILED] ${jobName}"
             def body = "BUILD: ${currentBuild.result} RESULT:FAILED"

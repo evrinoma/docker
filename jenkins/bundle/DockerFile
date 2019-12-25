@@ -1,4 +1,5 @@
 node {
+    def mailRecipients = "nikolns@ite-ng.ru"
     try {
         def dockerName = 'bundle'
         def dockerRootDir = '/opt/docker'
@@ -30,7 +31,6 @@ node {
                 sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerComposeDir} && ./build\""
             }
             stage('Send email') {
-                def mailRecipients = "nikolns@ite-ng.ru"
                 def jobName = currentBuild.fullDisplayName
                 def subject = "[Jenkins] ${jobName}"
                 def body = "GIT COMMIT:${gitHeadRemote} DOCKER BUILD: SUCCESS"
@@ -49,7 +49,6 @@ node {
             echo "RESULT: ${currentBuild.result}"
         }
         stage('Send email') {
-            def mailRecipients = "nikolns@ite-ng.ru"
             def jobName = currentBuild.fullDisplayName
             def subject = "[Jenkins][FAILED] ${jobName}"
             def body = "GIT PULL: ${currentBuild.result} RESULT BUILD DOCKER: FAILED"

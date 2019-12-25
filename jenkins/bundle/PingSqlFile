@@ -1,4 +1,5 @@
 node {
+    def mailRecipients = "nikolns@ite-ng.ru"
     try {
         def checkDir = '/opt/WWW/container.ite-ng.ru/conf/backup'
         def remote = [:]
@@ -18,7 +19,6 @@ node {
             echo "RESULT: ${currentBuild.result}"
         }
         stage('Send email') {
-            def mailRecipients = "nikolns@ite-ng.ru"
             def jobName = currentBuild.fullDisplayName
             def subject = "[Jenkins][FAILED] ${jobName}"
             def body = "BUILD: ${currentBuild.result} RESULT:FAILED"
