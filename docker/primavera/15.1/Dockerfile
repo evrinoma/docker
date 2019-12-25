@@ -69,7 +69,7 @@ RUN	mkdir -p /opt/Oracle/DOMAIN/user_projects/domains && \
 
 RUN unzip -d /opt/WWW/install/WebLogic/Updates/ /opt/WWW/install/WebLogic/Updates/p26519417_121300_Generic.zip && \
     chown -R oracle.oracle /opt/WWW/install
-RUN	su - oracle -c "cd /opt/WWW/install/WebLogic/Updates/26519417/ && opatch apply"
+RUN	su - oracle -c "cd /opt/WWW/install/WebLogic/Updates/26519417/ && printf 'y' | opatch apply"
 
 WORKDIR /
 
