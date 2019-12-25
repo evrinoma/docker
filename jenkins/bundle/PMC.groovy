@@ -2,7 +2,7 @@ node {
     def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
     try {
         def pmcDir = 'ite-ng'
-        def checkDir = '/opt/WWW/container.ite-ng.ru/projects/pmc/${pmcDir}'
+        def checkDir = '/opt/WWW/container.ite-ng.ru/projects/pmc/'+pmcDir
         def gitHeadLocal = ''
         def gitHeadRemote = ''
         def gitRemote='http://user:pass@git.ite-ng.ru/root/PMC.git'
@@ -25,9 +25,6 @@ node {
         if (gitHeadLocal!=gitHeadRemote) {
             stage('Git Pull') {
                 sshCommand remote: remote, command: "cd ${checkDir} && git pull ${gitRemote}"
-            }
-            stage('Assets') {
-                sshCommand remote: remote, command: " /usr/bin/php ${checkDir}/bin/console assets:install --symlink --env=prod"
             }
             stage('Cache') {
                 sshCommand remote: remote, command: " /usr/bin/php ${checkDir}/bin/console cache:clear --env=prod"
