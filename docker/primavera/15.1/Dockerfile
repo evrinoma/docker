@@ -29,7 +29,7 @@ RUN	touch /etc/profile.d/primavera.sh && \
 	echo 'OPATCH_HOME=/opt/Oracle/WEBLOGIC/OPatch' >> /etc/profile.d/primavera.sh && \
 	echo 'export PATH=$OPATCH_HOME:$JAVA_HOME/bin:$PATH' >> /etc/profile.d/primavera.sh
 
-RUN	yum install xdpyinfo -y
+RUN	yum install xdpyinfo unzip -y
 
 #install
 COPY	install/Inventory /opt/WWW/install/Inventory
@@ -66,6 +66,10 @@ RUN	sed -i '/###PRIMAVERA_INSERT/r /etc/sysconfig/primavera' /usr/local/bin/star
 
 RUN	mkdir -p /opt/Oracle/DOMAIN/user_projects/domains && \
 	ln -s /opt/WWW/container.ite-ng.ru/projects/primavera /opt/Oracle/DOMAIN/user_projects/domains/primavera
+
+RUN unzip -d /opt/WWW/install/WebLogic/Updates/ /opt/WWW/install/WebLogic/Updates/p26519417_121300_Generic.zip && \
+    chown -R oracle.oracle /opt/WWW/install
+RUN	su - oracle -c "cd /opt/WWW/install/WebLogic/Updates/26519417/ && opatch apply"
 
 WORKDIR /
 

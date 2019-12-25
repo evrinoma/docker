@@ -11,8 +11,6 @@ LABEL \
 	license="MIT" \
 	build-date="2019-12-24"
 
-COPY	primaveraInstall /usr/local/bin
-RUN	chmod +x /usr/local/bin/primaveraInstall
 
 
 
