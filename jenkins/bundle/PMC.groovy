@@ -26,12 +26,6 @@ node {
             stage('Git Pull') {
                 sshCommand remote: remote, command: "cd ${checkDir} && git pull ${gitRemote}"
             }
-            stage('Migration') {
-                sshCommand remote: remote, command: " /usr/bin/php ${checkDir}/bin/console --no-interaction doctrine:migrations:migrate"
-            }
-            stage('WebPack') {
-                sshCommand remote: remote, command: "cd ${checkDir} && yarn && webpack --env=prod"
-            }
             stage('Assets') {
                 sshCommand remote: remote, command: " /usr/bin/php ${checkDir}/bin/console assets:install --symlink --env=prod"
             }
