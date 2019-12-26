@@ -65,7 +65,7 @@ RUN	sed -i -e "s/'172\.18\.2\.1'\;/'172\.18\.2\.4'\;/" /etc/phpMyAdmin/config.in
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.kzkt45  && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ipark45  && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ite-ng && \
-	sed -i -e "s@172\.20\.1\.0/24@\172\.20\.0\.0/16@" /etc/httpd/conf.d/phpMyAdmin.conf
+	sed -i -e "s@172\.20\.1\.0/24@172\.20\.0\.0/16@" /etc/httpd/conf.d/phpMyAdmin.conf
 
 #RUN	chmod -R 640 /tmp && \
 #	chmod -R 640 /var/tmp
