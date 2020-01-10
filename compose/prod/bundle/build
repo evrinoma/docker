@@ -6,7 +6,7 @@ docker build -t evrinoma/1c.83.15.1700 ../../../docker/1c/servers/83.15.1700/.
 docker build -t evrinoma/samba ../../../docker/samba/.
 docker build -t evrinoma/squid ../../../docker/squid/. --no-cache
 docker build -t evrinoma/java ../../../docker/java/.
-docker build -t evrinoma/java.jenkins ../../../docker/java/java.jenkins/. --no-cache
+docker build -t evrinoma/java.jenkins ../../../docker/java/jenkins/. --no-cache
 docker build -t evrinoma/java.gitlab ../../../docker/java/gitlab/version/12.5.5/.
 docker build -t evrinoma/backup ../../../docker/backup/.
 docker build -t evrinoma/ruby265 ../../../docker/ruby265/.
