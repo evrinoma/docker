@@ -25,9 +25,9 @@ if [[ -d "$certDir" ]]; then
 	sed -i -e "s@#*.nginx\['ssl_certificate_key'\].*@nginx\['ssl_certificate_key'\] = \"$certDir/$keyFile\"@" /etc/gitlab/gitlab.rb
 fi
 
-runsvdir=$(ps aux | grep runsvdir | grep -v grep)
-if [ -z "runsvdir" ]; then
+#runsvdir=$(ps aux | grep runsvdir | grep -v grep)
+#if [ -z "runsvdir" ]; then
     nohup /opt/gitlab/embedded/bin/runsvdir-start 2>&1 > /dev/null &
-fi
+#fi
 
 /usr/bin/gitlab-ctl reconfigure
