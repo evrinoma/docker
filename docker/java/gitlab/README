@@ -1,0 +1,16 @@
+cd /opt/gitlab/embedded/service/gitlab-rails/config/initializers
+cp devise_password_length.rb.example devise_password_length.rb
+gitlab-ctl reconfigure
+gitlab-ctl restart
+
+gitlab-rails console -e production
+settings = ApplicationSetting.last
+settings.update_column(:runners_registration_token_encrypted, nil)
+
+user = User.find_by(email: 'user@ite-ng.ru')
+user.password = 'xxx'
+user.password_confirmation = 'xxxx'
+user.save!
+
+gitlab-ctl reconfigure
+gitlab-ctl restart
