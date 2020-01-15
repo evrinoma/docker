@@ -5,14 +5,10 @@ if [ ! -d "$GIT" ]; then
 	mkdir -p $GIT
 	mv $GITLAB/*  $GITLAB/.[^.]* $DIR/
 fi
-rm -rf $GITLAB/
-ln -s  $GIT/ $GITLAB
+if [[ ! -L "$GITLAB" ]]; then
+	rm -rf $GITLAB/
+	ln -s  $GIT/ $GITLAB
+fi
 
 nohup /opt/gitlab/embedded/bin/runsvdir-start 2>&1 > /dev/null &
 /usr/bin/gitlab-ctl reconfigure
-
-#gitlab-rails runner "user = ApplicationSetting.last; settings.update_column(:runners_registration_token_encrypted, nil)"
-#gitlab-rails c
-#settings = ApplicationSetting.last
-#settings.update_column(:runners_registration_token_encrypted, nil)
-#gitlab-ctl restart
