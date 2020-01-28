@@ -1,5 +1,4 @@
 node {
-    def mailRecipients = "nikolns@ite-ng.ru"
     try {
         def toolsDir = '/opt/WWW/container.ite-ng.ru/projects/tools'
         def gitHeadLocal = ''
@@ -16,7 +15,7 @@ node {
         }
         stage('Check Git') {
             gitHeadLocal = sshCommand remote: remote, command: "cd ${toolsDir} && git rev-parse HEAD"
-            gitHeadRemote = sshCommand remote: remote, command: "cd ${toolsDir} && git ls-remote origin -h refs/heads/master | awk {'print \$1'}"
+            gitHeadRemote = sshCommand remote: remote, command: "cd ${toolsDir} && git ls-remote origin -h refs/heads/master | awk '{print \$1}'"
             print gitHeadLocal
             print gitHeadRemote
         }
@@ -24,13 +23,23 @@ node {
             stage('Git Pull') {
                 sshCommand remote: remote, command: "cd ${toolsDir} && git pull"
             }
+            stage('Migration') {
+                sshCommand remote: remote, command: " /usr/bin/php ${toolsDir}/bin/console --no-interaction doctrine:migrations:migrate"
+            }
             stage('WebPack') {
                 sshCommand remote: remote, command: "cd ${toolsDir} && webpack --env=prod"
+            }
+            stage('Assets') {
+                sshCommand remote: remote, command: " /usr/bin/php ${toolsDir}/bin/console assets:install --symlink --env=prod"
+            }
+            stage('Cache') {
+                sshCommand remote: remote, command: " /usr/bin/php ${toolsDir}/bin/console cache:clear --env=prod"
             }
             stage('Permission') {
                 sshCommand remote: remote, command: "chown -R apache.apache ${toolsDir} "
             }
             stage('Send email') {
+                def mailRecipients = "nikolns@ite-ng.ru"
                 def jobName = currentBuild.fullDisplayName
                 def subject = "[Jenkins] ${jobName}"
                 def body = "GIT COMMIT:${gitHeadRemote} BUILD: SUCCESS DEPLOY: SUCCESS"
@@ -40,7 +49,7 @@ node {
                 to: mailRecipients
                 )
             }
-        } 
+        }
         currentBuild.result = 'SUCCESS'
         echo "RESULT: ${currentBuild.result}"
     } catch(Exception e) {
@@ -49,6 +58,7 @@ node {
             echo "RESULT: ${currentBuild.result}"
         }
         stage('Send email') {
+            def mailRecipients = "nikolns@ite-ng.ru"
             def jobName = currentBuild.fullDisplayName
             def subject = "[Jenkins][FAILED] ${jobName}"
             def body = "BUILD: ${currentBuild.result} RESULT:FAILED"
