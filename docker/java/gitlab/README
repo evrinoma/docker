@@ -1,5 +1,6 @@
 cd /opt/gitlab/embedded/service/gitlab-rails/config/initializers
 cp devise_password_length.rb.example devise_password_length.rb
+sed -i -e "s@12\.\.128@4\.\.128@" /opt/gitlab/embedded/service/gitlab-rails/config/initializers/devise_password_length.rb
 gitlab-ctl reconfigure
 gitlab-ctl restart
 
