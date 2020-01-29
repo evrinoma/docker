@@ -11,7 +11,7 @@ iteproject.ru.		IN	MX	10	mx1.iteproject.ru.
 iteproject.ru.		IN	A		92.62.129.24
 wmail.iteproject.ru.	IN	A		62.168.240.2
 mail.iteproject.ru.	IN	A		81.211.68.180
-mx1.iteproject.ru.	IN	A		81.211.68.180
+mx1.iteproject.ru.	IN	A		92.62.129.25
 
 
 iteproject.ru.			IN	TXT	"v=spf1 a mx ptr a:mail.iteproject.ru mx:mx1.iteproject.ru ip4:81.211.68.180 -all"
