@@ -14,8 +14,8 @@ mail.iteproject.ru.	IN	A		81.211.68.180
 mx1.iteproject.ru.	IN	A		92.62.129.25
 
 
-iteproject.ru.			IN	TXT	"v=spf1 a mx ptr a:mail.iteproject.ru mx:mx1.iteproject.ru ip4:81.211.68.180 -all"
-iteproject.ru.			IN	SPF	"v=spf1 a mx ptr a:mail.iteproject.ru mx:mx1.iteproject.ru ip4:81.211.68.180 -all"
+iteproject.ru.			IN	TXT	"v=spf1 a mx ptr a:mail.iteproject.ru mx:mx1.iteproject.ru ip4:92.62.129.25 -all"
+iteproject.ru.			IN	SPF	"v=spf1 a mx ptr a:mail.iteproject.ru mx:mx1.iteproject.ru ip4:92.62.129.25 -all"
 _dmarc.iteproject.ru.	3600	IN	TXT	"v=DMARC1; p=none; rua=mailto:abuse@iteproject.ru"
 _domainkey.iteproject.ru.	IN	TXT	"t=y;o=~;"
 mail._domainkey.iteproject.ru.	IN	TXT	(
