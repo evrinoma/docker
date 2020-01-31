@@ -1,18 +1,33 @@
 version: '2'
 services:
-    vnc_primavera:
-        container_name: "primavera.15.1.1.deploy"
-        image: "evrinoma/primavera.15.1.1.deploy"
+#    vnc_primavera:
+#        container_name: "primavera.15.1.1.deploy"
+#        image: "evrinoma/primavera.15.1.1.deploy"
+#        build:
+#            context: docker/primavera/servers/15.1.1/.
+#            dockerfile: Dockerfile
+#        volumes:
+#            - "/etc/localtime:/etc/localtime:rw"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.22.15
+    sftp:
+        container_name: "sftp.kis"
+        image: "evrinoma/sftp.kis"
+        dns: 172.20.1.6
         build:
-            context: docker/primavera/servers/15.1.1/.
+            context: docker/sftp/servers/kis/.
             dockerfile: Dockerfile
+        ports:
+            - "172.20.1.78:220:22/tcp"
         volumes:
-            - "/etc/localtime:/etc/localtime:rw"
+#            - "/opt/DISK_ISCSI/data/sftp/:/home/"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.22.15
-
+                ipv4_address: 172.18.20.2
 networks:
     virt:
         driver: bridge

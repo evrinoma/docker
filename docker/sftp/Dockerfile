@@ -57,12 +57,10 @@ RUN	groupadd sftpg
 RUN	yum -y install authconfig sssd sssd-tools sssd-ldap openldap-clients
 COPY	sssd.conf /etc/sssd/
 COPY	krb5.conf /etc/
-COPY	ssh-user-perm /usr/local/bin/
 COPY	update-cache /usr/local/bin/
 RUN	authconfig --enablesssd --enablesssdauth --enablemkhomedir --updateall && \
 	echo 'session     [success=ok default=1]    pam_exec.so /usr/local/bin/ssh-user-perm' >> /etc/pam.d/password-auth-ac && \
 	chmod 600 /etc/sssd/sssd.conf && \
-	chmod 700 /usr/local/bin/ssh-user-perm && \
 	chmod 700 /usr/local/bin/update-cache && \
 	sed -i -e "s/#AuthorizedKeysCommand .*/AuthorizedKeysCommand \/usr\/bin\/sss_ssh_authorizedkeys /" /etc/ssh/sshd_config && \
 	sed -i -e "s/#AuthorizedKeysCommandUser .*/AuthorizedKeysCommandUser root/" /etc/ssh/sshd_config && \

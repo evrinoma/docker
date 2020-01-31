@@ -1,7 +1,7 @@
 #!/bin/bash
-docker build -t evrinoma/vnc ../docker/vnc/.
-docker build -t evrinoma/primavera.15.1 ../docker/primavera/15.1/.
-docker build -t evrinoma/primavera.15.1.1 ../docker/primavera/15.1.1/.
+#docker build -t evrinoma/vnc ../docker/vnc/.
+#docker build -t evrinoma/primavera.15.1 ../docker/primavera/15.1/.
+#docker build -t evrinoma/primavera.15.1.1 ../docker/primavera/15.1.1/.
 # --no-cache
 
 #docker build -t evrinoma/ruby265 ../docker/ruby265/.
@@ -37,5 +37,6 @@ docker build -t evrinoma/primavera.15.1.1 ../docker/primavera/15.1.1/.
 #docker build -t evrinoma/php72.h.cont.ite-ng.ru ../docker/hidden/servers/cont/.
 
 #docker build -t evrinoma/wowza ../docker/wowza/.
-docker build -t evrinoma/sftp  ../docker/sftp/.
-docker build -t evrinoma/sftp.cloud  ../docker/sftp/servers/cloud/.
+#docker build -t evrinoma/sftp  ../docker/sftp/. --no-cache
+#docker build -t evrinoma/sftp.cloud  ../docker/sftp/servers/cloud/. --no-cache
+#docker build -t evrinoma/sftp.kis  ../docker/sftp/servers/kis/. --no-cache

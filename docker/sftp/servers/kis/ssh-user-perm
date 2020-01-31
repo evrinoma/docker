@@ -1,0 +1,23 @@
+#!/bin/bash
+if [ "root" != "${PAM_USER}" ]; then
+    if [ ! -d "/home/${PAM_USER}" ]; then
+    	mkdir -p /home/${PAM_USER}
+    fi
+    chown root.root /home/${PAM_USER}
+    chmod 755 /home/${PAM_USER}
+
+    base=/home/external
+    if [ ! -d "$base" ]; then
+        	mkdir -p $base
+    fi
+
+    array=(KIS_BANK 1C_adm)
+
+    for group in ${array[*]}; do
+        if [ ! -d "$base/$group" ]; then
+            mkdir -p $base/$group
+        fi
+        chown root.$group $base/$group
+        chmod 770 $base/$group
+    done
+fi
