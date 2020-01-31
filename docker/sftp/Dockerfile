@@ -67,18 +67,8 @@ RUN	authconfig --enablesssd --enablesssdauth --enablemkhomedir --updateall && \
 	sed -i -e "s/#AuthorizedKeysCommand .*/AuthorizedKeysCommand \/usr\/bin\/sss_ssh_authorizedkeys /" /etc/ssh/sshd_config && \
 	sed -i -e "s/#AuthorizedKeysCommandUser .*/AuthorizedKeysCommandUser root/" /etc/ssh/sshd_config && \
 	sed -i -e "s/HostKey \/etc\/ssh\/ssh_host_ecdsa_key/#&/" /etc/ssh/sshd_config && \
-	sed -i -e "s/HostKey \/etc\/ssh\/ssh_host_ed25519_key/#&/" /etc/ssh/sshd_config && \
-	echo 'AllowGroups root sftpg sftp_linux' >> /etc/ssh/sshd_config && \
+	sed -i -e "s/HostKey \/etc\/ssh\/ssh_host_ed25519_key/#&/" /etc/ssh/sshd_config
 #	echo 'AllowUsers root' >> /etc/ssh/sshd_config && \
-	echo 'Match Group sftp_linux User "*,!root"' >> /etc/ssh/sshd_config && \
-	echo '	ChrootDirectory /home/%u' >> /etc/ssh/sshd_config && \
-	echo '	ForceCommand internal-sftp' >> /etc/ssh/sshd_config && \
-	echo '	X11Forwarding no' >> /etc/ssh/sshd_config && \
-	echo '' >> /etc/ssh/sshd_config && \
-	echo 'Match Group sftpg User "*,!root"' >> /etc/ssh/sshd_config && \
-	echo '	ChrootDirectory /home/%u' >> /etc/ssh/sshd_config && \
-	echo '	ForceCommand internal-sftp' >> /etc/ssh/sshd_config && \
-	echo '	X11Forwarding no' >> /etc/ssh/sshd_config
 
 #RUN	rm -rf /home && \
 #	ln -s /opt/WWW/container.ite-ng.ru/data/sftp /home
