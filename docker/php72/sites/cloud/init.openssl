@@ -1,11 +1,13 @@
 #!/bin/bash
-
 pass=$1
-storeDir=/opt/WWW/container.ite-ng.ru/conf/php72/sites/owncloud/certs/
+
+###CLOUD_INSERT
+
+storeDir=/opt/WWW/container.ite-ng.ru/conf/php72/sites/$projectName/certs/
 keyFile=ca.key
 pemFile=ca.pem
 certHttpd=/etc/pki/httpd/certs
-certOwncloud=/etc/pki/httpd/owncloud
+certOwncloud=/etc/pki/httpd/$projectName
 mkdir -p $certOwncloud
 if [ ! -z "$pass" ]; then
 	sed -i -e "s/\= owncloudPassword/\= $pass/" $certHttpd/ca.cnf

@@ -1,0 +1,7 @@
+
+###CLOUD_INSERT
+
+DATA="/opt/WWW/container.ite-ng.ru/data/"$projectName
+if [ ! -d "$DATA" ]; then
+	mkdir -p $DATA
+fi 

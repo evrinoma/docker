@@ -118,7 +118,8 @@ echo $PHP72"16	$PREFIX_PHP72.kzkt45" >> /etc/hosts
 echo $PHP72"17	$PREFIX_PHP72.nekeng" >> /etc/hosts
 echo $PHP72"18	$PREFIX_PHP72.ite-ng" >> /etc/hosts
 echo $PHP72"19	$PREFIX_PHP72.pmc.ite-ng" >> /etc/hosts
-echo $PHP72"19	$PREFIX_PHP72.pmc.kzkt45" >> /etc/hosts
+echo $PHP72"20	$PREFIX_PHP72.pmc.kzkt45" >> /etc/hosts
+echo $PHP72"21	$PREFIX_PHP72.kiscloud" >> /etc/hosts
 
 #echo $PHP72"3	pma" >> /etc/hosts
 

@@ -1,28 +1,28 @@
 <VirtualHost *:443>
 	SSLEngine On
-	
+
 	SSLProtocol all -SSLv2
-	
+
 	SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA
-	
+
 	SSLCertificateFile /etc/pki/CA/certs/ca.pem
 	SSLCertificateKeyFile /etc/pki/CA/certs/ca.key
-	
-	Alias /email /opt/WWW/container.ite-ng.ru/projects/tools
+
+	Alias /email /opt/WWW/container.ite-ng.ru/projects/kiscloud
 	ServerAdmin nikolns@ite-ng.ru
-	
-	ServerName cam.ite-ng.ru
-	
-	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/tools"
-	
-	ServerAlias /tools
-	ErrorLog /var/log/httpd/error-tools.log
-	CustomLog /var/log/httpd/access-tools.log combined
+
+	ServerName cloud.ite-ng.ru
+
+	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/kiscloud"
+
+	ServerAlias /kiscloud
+	ErrorLog /var/log/httpd/error-kiscloud.log
+	CustomLog /var/log/httpd/access-kiscloud.log combined
 <Files ~ "\.(cgi|shtml|phtml|php3?)$">
     SSLOptions +StdEnvVars
     </Files>
-    
-	<Directory "/opt/WWW/container.ite-ng.ru/projects/tools/">
+
+	<Directory "/opt/WWW/container.ite-ng.ru/projects/kiscloud/">
 		SSLOptions +StdEnvVars
 		AllowOverride All
 		Options -Indexes +FollowSymLinks
@@ -38,7 +38,7 @@
 			Allow from all
 		</IfModule>
 	</Directory>
-	
+
 	php_admin_value upload_max_filesize     20M
 	php_admin_value post_max_size           20M
 	BrowserMatch "MSIE [2-5]" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
