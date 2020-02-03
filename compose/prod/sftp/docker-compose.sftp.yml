@@ -52,7 +52,7 @@ services:
         container_name: "php72.owncloud"
         image: "evrinoma/php72.owncloud"
         build:
-            context: docker/php72/sites/owncloud/.
+            context: docker/php72/sites/cloud/servers/owncloud/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
