@@ -3,86 +3,109 @@ services:
     maria_db:
         container_name: "maria.db"
         image: "evrinoma/db.maria"
-        hostname: "maria.db"
         build:
             context: docker/db/maria/.
             dockerfile: Dockerfile
-        ports:
-            - "172.20.1.160:3306:3306/tcp"
         volumes:
-            - "/opt/docker/src/db/maria/:/var/lib/mysql"
-            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
             virt:
                 ipv4_address: 172.18.2.1
 
-        bind_master:
-            container_name: "bind.master"
-            image: "evrinoma/bind.master"
-            hostname: "bind.master"
-            build:
-                context: docker/bind/servers/mail/.
-                dockerfile: Dockerfile
-            ports:
-                - "172.20.1.5:53:53/tcp"
-                - "172.20.1.5:53:53/udp"
-                - "172.20.1.5:8953:8953"
-            volumes:
-                - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-            networks:
-                virt:
-                    ipv4_address: 172.18.5.1
+    sftp:
+        container_name: "sftp.cloud"
+        image: "evrinoma/sftp.cloud"
+        dns: 172.20.1.6
+        build:
+            context: docker/sftp/servers/cloud/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/data_sftp_cloud/:/home/"
+        networks:
+            virt:
+                ipv4_address: 172.18.20.1
+    sftp_kis:
+        container_name: "sftp.kis"
+        image: "evrinoma/sftp.kis"
+        dns: 172.20.1.6
+        build:
+            context: docker/sftp/servers/kis/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/:/home/"
+        networks:
+            virt:
+                ipv4_address: 172.18.20.2
 
-        sftp:
-            container_name: "sftp.cloud"
-            image: "evrinoma/sftp.cloud"
-            dns: 172.20.1.6
-            build:
-                context: docker/sftp/servers/cloud/.
-                dockerfile: Dockerfile
-            ports:
-                - "172.20.1.160:22:22/tcp"
-            volumes:
-                - "/opt/DISK_ISCSI/data/sftp/:/home/"
-            networks:
-                virt:
-                    ipv4_address: 172.18.20.1
+    php72_owncloud:
+        container_name: "php72.owncloud"
+        image: "evrinoma/php72.owncloud"
+        build:
+            context: docker/php72/sites/cloud/servers/owncloud/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+        ports:
+            - "172.20.1.78:444:444/tcp"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.14
 
-        php72_owncloud:
-            container_name: "php72.owncloud"
-            image: "evrinoma/php72.owncloud"
-            build:
-                context: docker/php72/sites/cloud/servers/owncloud/.
-                dockerfile: Dockerfile
-                args:
-                    - MODE=prod
-            ports:
-                - "172.20.1.160:80:80/tcp"
-                - "172.20.1.160:443:443/tcp"
-            volumes:
-                - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-            networks:
-                virt:
-                    ipv4_address: 172.18.72.14
+    php72_kiscloud:
+        container_name: "php72.kiscloud"
+        image: "evrinoma/php72.kiscloud"
+        build:
+            context: docker/php72/sites/cloud/servers/kiscloud/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+        ports:
+            - "172.20.1.78:443:443/tcp"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.21
 
-        php72_cont:
-            container_name: "php72.cont"
-            image: "evrinoma/php72.cont.ite-ng.ru"
-            build:
-                context: docker/php72/sites/cont/.
-                dockerfile: Dockerfile
-                args:
-                    - MODE=prod
-            ports:
-                - "172.20.1.165:80:80/tcp"
-                - "172.20.1.165:443:443/tcp"
-                - "172.20.1.165:22:22/tcp"
-            volumes:
-                #            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-                - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-            networks:
-                virt:
-                    ipv4_address: 172.18.72.6
+    php53_kis_ite-ng_ru:
+        container_name: "php53.kis"
+        image: "evrinoma/php53.kis.ite-ng.ru"
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        build:
+            context: docker/php53/sites/kis.ite-ng.ru/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=ite-ng
+        ports:
+            - "172.20.1.78:80:80/tcp"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.3
+
+    php53_kis_new_ite-ng_ru:
+        container_name: "php53.kisnew"
+        image: "evrinoma/php53.kisnew.ite-ng.ru"
+        build:
+            context: docker/php53/sites/kisnew.ite-ng.ru/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=ite-ng
+        ports:
+            - "172.20.1.78:81:80/tcp"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.4
 networks:
     virt:
         driver: bridge
@@ -94,4 +117,3 @@ networks:
             config:
                 - subnet: 172.18.0.0/16
                   gateway: 172.18.0.1
-

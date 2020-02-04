@@ -21,7 +21,8 @@ if [ "root" != "${PAM_USER}" ]; then
                 mkdir -p $base/${struct[$group]}
         fi
 
-        chmod -R 770 $base/${struct[$group]}
-        chown -R root.$group $base/${struct[$group]}
+        chmod 770 $base/${struct[$group]}
+        setfacl -m g:apache:rwx -R $base/${struct[$group]}
+        setfacl -m g:$group:rwx -R $base/${struct[$group]}
     done
 fi

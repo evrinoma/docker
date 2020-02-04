@@ -29,3 +29,5 @@ RUN	echo 'AllowGroups root sftpg KIS_BANK 1C_adm' >> /etc/ssh/sshd_config && \
 	echo '	ChrootDirectory /home/%u' >> /etc/ssh/sshd_config && \
 	echo '	ForceCommand internal-sftp' >> /etc/ssh/sshd_config && \
 	echo '	X11Forwarding no' >> /etc/ssh/sshd_config
+
+RUN	groupadd -g 48 apache

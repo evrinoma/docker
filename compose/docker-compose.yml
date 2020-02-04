@@ -465,7 +465,7 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.53.5
-            
+
     php53_kis_new_nekeng_ru:
         container_name: "php53.kisnew.nekeng"
         image: "evrinoma/php53.kisnew.nekeng.ru"
@@ -477,7 +477,7 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.53.6
-            
+
     php53_kis_ite-ng_ru:
         container_name: "php53.kis"
         image: "evrinoma/php53.kis.ite-ng.ru"
@@ -489,7 +489,7 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.53.3
-            
+
     php53_kis_new_ite-ng_ru:
         container_name: "php53.kisnew"
         image: "evrinoma/php53.kisnew.ite-ng.ru"
@@ -514,7 +514,7 @@ services:
             virt:
                 ipv4_address: 172.18.53.11
 
-   php53_webuseorg:
+    php53_webuseorg:
         container_name: "php53.webuseorg"
         image: "evrinoma/php53.webuseorg"
         build:
@@ -564,7 +564,7 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.71.3
-        
+
     php71_tools:
         container_name: "php71.tools"
         image: "evrinoma/php71.tools"
@@ -576,7 +576,7 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.71.4
-        
+
     php71_adbook:
         container_name: "php71.adbook"
         image: "evrinoma/php71.adbook"
@@ -915,19 +915,19 @@ services:
             virt:
                 ipv4_address: 172.18.72.20
 
-        php72_kiscloud:
-            container_name: "php72.kiscloud"
-            image: "evrinoma/php72.kiscloud"
-            build:
-                context: docker/php72/sites/cloud/servers/kiscloud/.
-                dockerfile: Dockerfile
-                args:
-                    - MODE=prod
-            volumes:
-                - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-            networks:
-                virt:
-                    ipv4_address: 172.18.72.21
+    php72_kiscloud:
+        container_name: "php72.kiscloud"
+        image: "evrinoma/php72.kiscloud"
+        build:
+            context: docker/php72/sites/cloud/servers/kiscloud/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.21
 
 networks:
     virt:
