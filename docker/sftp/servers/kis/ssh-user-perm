@@ -1,4 +1,8 @@
 #!/bin/bash
+
+declare -A struct
+struct=( [KIS_BANK]=exchangeBankClient [1C_adm]=exchange1C )
+
 if [ "root" != "${PAM_USER}" ]; then
     if [ ! -d "/home/${PAM_USER}" ]; then
     	mkdir -p /home/${PAM_USER}
@@ -11,13 +15,13 @@ if [ "root" != "${PAM_USER}" ]; then
         	mkdir -p $base
     fi
 
-    array=(KIS_BANK 1C_adm)
-
-    for group in ${array[*]}; do
-        if [ ! -d "$base/$group" ]; then
-            mkdir -p $base/$group
+    for group in ${!struct[*]}
+    do
+        if [ ! -d "$base/${struct[$group]}" ]; then
+                mkdir -p $base/${struct[$group]}
         fi
-        chown root.$group $base/$group
-        chmod 770 $base/$group
+
+        chmod -R 770 $base/${struct[$group]}
+        chown -R root.$group $base/${struct[$group]}
     done
 fi
