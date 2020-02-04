@@ -11,5 +11,10 @@ LABEL \
 	license="MIT" \
 	build-date="2017-02-26"
 
+RUN mkdir -p /opt/exchange1C
+
+RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
+#RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
+
 COPY	kis.ite-ng.ru.conf /etc/httpd/conf.d/vhost.conf
 
