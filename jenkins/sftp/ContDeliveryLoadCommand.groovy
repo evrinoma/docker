@@ -1,7 +1,7 @@
 node {
     def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
     try {
-        def contDir = '/opt/WWW/container.ite-ng.ru/projects/cont'
+        def contDir = '/opt/WWW/container.ite-ng.ru/projects/cont/prod'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
         def gitRemote='http://user:pass@git.ite-ng.ru/root/cont.git'
@@ -41,7 +41,7 @@ node {
             sshCommand remote: remote, command: "if [ -d \"${contDir}\" ]; then true; else false; fi;"
         }
         stage('Run delivery_load_command') {
-            sshCommand remote: remote, command: " /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console legio:cont:delivery_load_command ${param} --env=prod"
+            sshCommand remote: remote, command: " /usr/bin/php ${contDir}/bin/console legio:cont:delivery_load_command ${param} --env=prod"
         }
         stage('Permission') {
             sshCommand remote: remote, command: "chown -R apache.apache ${contDir} "
