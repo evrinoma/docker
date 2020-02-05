@@ -32,24 +32,6 @@ services:
             virt:
                 ipv4_address: 172.18.72.6
 
-    php72_cont_test:
-        container_name: "php72.cont.test"
-        image: "evrinoma/php72.test.cont.ite-ng.ru"
-        build:
-            context: docker/php72/sites/cont/.
-            dockerfile: Dockerfile
-            args:
-                - VHOST=test
-                - database_host=172.18.2.1
-                - database_name=cont_test
-                - database_port=3306
-                - database_user=cont
-                - database_password=cont
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.72.22
 
     php72_tools:
         container_name: "php72.tools"

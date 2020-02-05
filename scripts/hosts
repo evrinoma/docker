@@ -106,7 +106,7 @@ echo $PHP71"6	$PREFIX_PHP71.cont" >> /etc/hosts
 echo $PHP72"3	$PREFIX_PHP72.empty" >> /etc/hosts
 echo $PHP72"4	$PREFIX_PHP72.tools" >> /etc/hosts
 echo $PHP72"5	$PREFIX_PHP72.adbook" >> /etc/hosts
-echo $PHP72"6	$PREFIX_PHP72.cont" >> /etc/hosts
+echo $PHP72"6	$PREFIX_PHP72.cont.prod" >> /etc/hosts
 echo $PHP72"7	$PREFIX_PHP72.portal" >> /etc/hosts
 echo $PHP72"10	$PREFIX_PHP72.sqladmin" >> /etc/hosts
 echo $PHP72"11	$PREFIX_PHP72.roundcubemail" >> /etc/hosts
@@ -120,6 +120,7 @@ echo $PHP72"18	$PREFIX_PHP72.ite-ng" >> /etc/hosts
 echo $PHP72"19	$PREFIX_PHP72.pmc.ite-ng" >> /etc/hosts
 echo $PHP72"20	$PREFIX_PHP72.pmc.kzkt45" >> /etc/hosts
 echo $PHP72"21	$PREFIX_PHP72.kiscloud" >> /etc/hosts
+echo $PHP72"22	$PREFIX_PHP72.cont.test" >> /etc/hosts
 
 #echo $PHP72"3	pma" >> /etc/hosts
 
