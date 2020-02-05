@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<point xmlns="http://v8.1c.ru/8.2/virtual-resource-system"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		base="/upp_nek_test"
+		ib="Srvr=&quot;172.20.1.94&quot;;Ref=&quot;upp_nek_test&quot;;">
+	<httpServices publishByDefault="false"/>
+	<standardOdata enable="true"
+			reuseSessions="autouse"
+			sessionMaxAge="20"
+			poolSize="10"
+			poolTimeout="5"/>
+	<ws>
+		<point name="Buh1c"
+				alias="Buh1c.1cws"
+				enable="true"
+				reuseSessions="dontuse"
+				sessionMaxAge="20"
+				poolSize="10"
+				poolTimeout="5"/>
+	</ws>
+</point>

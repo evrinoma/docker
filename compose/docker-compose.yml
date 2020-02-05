@@ -440,6 +440,44 @@ services:
             virt:
                 ipv4_address: 172.18.83.150
 
+    1c_83_16_1148_deploy:
+        container_name: "1c.83.16.1148.deploy"
+        image: "evrinoma/1c.83.16.1148.deploy"
+        hostname: "deploy.1c.ite-ng.ru"
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        build:
+            context: /opt/docker/docker/1c/servers/83.16.1148/deploy/.
+            dockerfile: Dockerfile
+        extra_hosts:
+            - "iteng26:172.20.1.26"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.83.16
+
+    1c_83_16_1148_api:
+        container_name: "1c.83.16.1148.api"
+        image: "evrinoma/1c.83.16.1148.api"
+        hostname: "api.1c.ite-ng.ru"
+        ports:
+            - "172.20.1.11:80:80/tcp"
+            - "172.20.1.11:12000:22/tcp"
+        build:
+            context: docker/1c/servers/83.16.1148/api/.
+            dockerfile: Dockerfile
+        extra_hosts:
+            - "iteng26:172.20.1.26"
+            - "1cdebug:172.20.1.94"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.83.160
+
     php53:
         container_name: "php53"
         image: "evrinoma/php53"

@@ -18,6 +18,7 @@
 #docker build -t evrinoma/1c ../docker/1c/.
 #docker build -t evrinoma/1c.83.13.1644 ../docker/1c/servers/83.13.1644/.
 #docker build -t evrinoma/1c.83.15.1700 ../docker/1c/servers/83.15.1700/.
+docker build -t evrinoma/1c.83.16.1148 ../docker/1c/servers/83.16.1148/.
 
 #docker build -t evrinoma/dovecot ../docker/mail/dovecot/.
 #docker build -t evrinoma/bind ../docker/bind/.
