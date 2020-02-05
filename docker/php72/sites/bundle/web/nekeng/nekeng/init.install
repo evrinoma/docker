@@ -5,27 +5,27 @@ base=nekeng
 user=nekeng
 basepass=nekeng
 if [ ! -z "$pass" ]; then
-		DIR="/opt/WWW/container.ite-ng.ru/projects/nekeng.ru"
-		if [ ! -d "$DIR" ]; then
-			mkdir -p $DIR
-			tar -zxf /root/nekeng.sql.tar.gz -C /root
-			tar -zxf /root/nekeng.tar.gz -C $DIR
-			mv $DIR/nekeng.ru/*  $DIR/nekeng.ru/.[^.]* $DIR/
-			rm -rf $DIR/nekeng.ru/
-			chown apache:apache -R $DIR
-			cd $DIR
-
-      mariaInstall=`yum list installed | grep "mariadb\."`
-      if [ -z "$mariaInstall" ]; then
-          yum install mysql -y
-      fi
-      chmod +x /usr/local/bin/init.sql
-
-      init.sql $pass $serverSql $base $user $basepass
-
-      chmod -x /usr/local/bin/init.sql
-      if [ -z "$mariaInstall" ]; then
-          yum remove mysql -y
-      fi
+	DIR="/opt/WWW/container.ite-ng.ru/projects/nekeng.ru"
+	if [ ! -d "$DIR" ]; then
+		mkdir -p $DIR
+		tar -zxf /root/nekeng.sql.tar.gz -C /root
+		tar -zxf /root/nekeng.tar.gz -C $DIR
+		mv $DIR/nekeng.ru/*  $DIR/nekeng.ru/.[^.]* $DIR/
+		rm -rf $DIR/nekeng.ru/
+		chown apache:apache -R $DIR
+		cd $DIR
+	
+		mariaInstall=`yum list installed | grep "mariadb\."`
+		if [ -z "$mariaInstall" ]; then
+	          yum install mysql -y
 		fi
+		chmod +x /usr/local/bin/init.sql
+	
+		init.sql $pass $serverSql $base $user $basepass
+	
+		chmod -x /usr/local/bin/init.sql
+		if [ -z "$mariaInstall" ]; then
+			yum remove mysql -y
+		fi
+	fi
 fi

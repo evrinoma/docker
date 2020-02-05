@@ -5,27 +5,27 @@ base=ipark45
 user=ipark45
 basepass=ipark45
 if [ ! -z "$pass" ]; then
-		DIR="/opt/WWW/container.ite-ng.ru/projects/ipark45.ru"
-		if [ ! -d "$DIR" ]; then
-        mkdir -p $DIR
-        tar -zxf /root/ipark45.sql.tar.gz -C /root
-        tar -zxf /root/ipark45.tar.gz -C $DIR
-        mv $DIR/ipark45.ru/*  $DIR/ipark45.ru/.[^.]* $DIR/
-        rm -rf $DIR/ipark45.ru/
-        chown apache:apache -R $DIR
-        cd $DIR
-
-        mariaInstall=`yum list installed | grep "mariadb\."`
-        if [ -z "$mariaInstall" ]; then
-            yum install mysql -y
-        fi
-        chmod +x /usr/local/bin/init.sql
-
-        init.sql $pass $serverSql $base $user $basepass
-
-        chmod -x /usr/local/bin/init.sql
-        if [ -z "$mariaInstall" ]; then
-            yum remove mysql -y
-        fi
+	DIR="/opt/WWW/container.ite-ng.ru/projects/ipark45.ru"
+	if [ ! -d "$DIR" ]; then
+		mkdir -p $DIR
+		tar -zxf /root/ipark45.sql.tar.gz -C /root
+		tar -zxf /root/ipark45.tar.gz -C $DIR
+		mv $DIR/ipark45.ru/*  $DIR/ipark45.ru/.[^.]* $DIR/
+		rm -rf $DIR/ipark45.ru/
+		chown apache:apache -R $DIR
+		cd $DIR
+	
+		mariaInstall=`yum list installed | grep "mariadb\."`
+		if [ -z "$mariaInstall" ]; then
+			yum install mysql -y
 		fi
+		chmod +x /usr/local/bin/init.sql
+	
+		init.sql $pass $serverSql $base $user $basepass
+	
+		chmod -x /usr/local/bin/init.sql
+		if [ -z "$mariaInstall" ]; then
+			yum remove mysql -y
+		fi
+	fi
 fi
