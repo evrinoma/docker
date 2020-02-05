@@ -27,8 +27,8 @@ if [ ! -z "$pass" ]; then
         chmod +x /usr/local/bin/init.sql
 
         init.sql $pass $serverSql $base $user $basepass
-			  chmod -x /usr/local/bin/init.sql
 
+        chmod -x /usr/local/bin/init.sql
         if [ -z "$mariaInstall" ]; then
             yum remove mysql -y
         fi
