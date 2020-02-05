@@ -22,15 +22,12 @@ RUN	yum -y install mod_ssl && \
 COPY	roundcubemail.conf /etc/httpd/conf.d/vhost.conf
 COPY	ite-ng.ru /opt/WWW/ite-ng.ru
 
-ADD	init.roundcubemail /usr/local/bin
-RUN	chmod +x /usr/local/bin/init.roundcubemail
-
-ADD	init.install /usr/local/bin
-ADD	init.sql /usr/local/bin
-ADD	init.conf /usr/local/bin
+ADD	roundcubemail/init.roundcubemail /usr/local/bin
+ADD	roundcubemail/init.install /usr/local/bin
+ADD	roundcubemail/init.sql /usr/local/bin
+ADD	roundcubemail/init.conf /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/init.sql && \
-	chmod +x /usr/local/bin/init.conf
+	chmod +x /usr/local/bin/init.roundcubemail
 
 RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.key /etc/pki/CA/certs/ && \
 	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.pem /etc/pki/CA/certs/
