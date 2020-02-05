@@ -1,16 +1,18 @@
 #!/bin/bash
+
+###PARAM_INSERT
+
 VRD_PATTERN='default.vrd'
 APACHE_VERSION='apache24'
 APACHE_CONFIG='/etc/httpd/conf.d/1c.conf'
 WEBINST_PATH='/opt/1C/v8.3/x86_64'
 WEB_PATH='/opt/WWW/container.ite-ng.ru/1c'
-PUB_PATH='/etc/httpd/deploy'
 GIT_PATH='/opt/WWW/container.ite-ng.ru/projects/web1C'
-if [ -d "$GIT_PATH" ]; then
-	LIST_PATH=$GIT_PATH
-else
-	LIST_PATH=$PUB_PATH
+if [ ! -d "$GIT_PATH" ]; then
+  git clone http://$REPO_USERNAME:$REPO_PASSWORD@git.ite-ng.ru/root/web1C.git $GIT_PATH
 fi
+LIST_PATH=$GIT_PATH
+
 LIST=$(ls -l $LIST_PATH/ | grep ^d | awk '{print $9}')
 for baseName in $LIST
 do 

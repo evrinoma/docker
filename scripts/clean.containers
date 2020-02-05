@@ -3,3 +3,8 @@ remove=$(docker ps -a -q -f status=exited)
 if [ ! -z "$remove" ]; then
 	docker rm $remove
 fi
+
+remove=$(docker ps -a -q -f status=created)
+if [ ! -z "$remove" ]; then
+	docker rm $remove
+fi

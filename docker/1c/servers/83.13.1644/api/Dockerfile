@@ -12,7 +12,14 @@ LABEL \
 	build-date="2019-07-17"
 
 #1c configs
-COPY	deploy /etc/httpd/deploy
+COPY	install/params /etc/sysconfig/params
 
+#1c configs
 COPY	public /usr/local/bin
-RUN	chmod +x /usr/local/bin/public && /usr/local/bin/public
+COPY	restartHttpd /usr/local/bin
+COPY	init.container.part /usr/local/bin
+RUN	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
+    rm -rf /usr/local/bin/init.container.part && \
+    sed -i '/###PARAM_INSERT/r /etc/sysconfig/params' /usr/local/bin/public && \
+	chmod +x /usr/local/bin/public && \
+	chmod +x /usr/local/bin/restartHttpd
