@@ -13,12 +13,5 @@ INIT_SQL="/tmp/init.sql"
 	GRANT ALL PRIVILEGES ON \`$base\` . * TO '$user'@'172.18.0.0/255.255.0.0';
 	FLUSH PRIVILEGES;
 	" > $INIT_SQL
-	mariaInstall=`yum list installed | grep "mariadb\."`
-	if [ -z "$mariaInstall" ]; then 
-		yum install mysql -y
-		mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
-		yum remove mysql -y
-	else
-		mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
-	fi
+	mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
 	rm -f $INIT_SQL

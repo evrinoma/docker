@@ -17,11 +17,7 @@ ADD	owncloud/init.sql /usr/local/bin
 ADD	owncloud/init.ldap.sql /usr/local/bin
 ADD	owncloud/init.sftp.sql /usr/local/bin
 ADD	owncloud/init.conf /usr/local/bin
-RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/init.sql && \
-	chmod +x /usr/local/bin/init.ldap.sql && \
-	chmod +x /usr/local/bin/init.sftp.sql && \
-	chmod +x /usr/local/bin/init.conf
+RUN	chmod +x /usr/local/bin/init.install
 
 ADD	init.container.part /usr/local/bin
 ADD	create.struct /usr/local/bin
