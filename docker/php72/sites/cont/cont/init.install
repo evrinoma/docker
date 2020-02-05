@@ -38,7 +38,7 @@ if [ ! -z "$pass" ]; then
         fi
 
         /usr/bin/php bin/console --no-interaction doctrine:migrations:migrate
-        /usr/bin/php bin/console assets:install --env=prod
+        /usr/bin/php bin/console assets:install --symlink --env=prod
         /usr/bin/php bin/console cache:clear --env=prod
         yarn
         webpack --env=prod
