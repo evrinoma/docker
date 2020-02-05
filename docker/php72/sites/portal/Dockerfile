@@ -15,8 +15,7 @@ COPY	install/portal.sql.tar.gz /root/
 COPY	install/portal.tar.gz /root/
 ADD	portal/init.install /usr/local/bin
 ADD	portal/init.sql /usr/local/bin
-RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/init.sql
+RUN	chmod +x /usr/local/bin/init.install
 
 COPY	portal.conf /etc/httpd/conf.d/vhost.conf
 
