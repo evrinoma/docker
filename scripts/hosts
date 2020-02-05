@@ -27,10 +27,12 @@ BUNDLE=$SUBNET"24."
 
 PHP53=$SUBNET"53."
 PHP54=$SUBNET"54."
+PHP71=$SUBNET"71."
 PHP72=$SUBNET"72."
 
 PREFIX_PHP53=$PREFIX_PHP"53"
 PREFIX_PHP54=$PREFIX_PHP"54"
+PREFIX_PHP71=$PREFIX_PHP"71"
 PREFIX_PHP72=$PREFIX_PHP"72"
 
 C1_83=$SUBNET"83."
@@ -95,6 +97,11 @@ echo $PHP53"6	$PREFIX_PHP53.kisnew.nekeng" >> /etc/hosts
 echo $PHP53"11	$PREFIX_PHP53.webldap" >> /etc/hosts
 echo $PHP53"12	$PREFIX_PHP53.webuseorg" >> /etc/hosts
 echo $PHP53"13	$PREFIX_PHP72.jp" >> /etc/hosts
+
+echo $PHP71"3	$PREFIX_PHP71.empty" >> /etc/hosts
+echo $PHP71"4	$PREFIX_PHP71.tools" >> /etc/hosts
+echo $PHP71"5	$PREFIX_PHP71.adbook" >> /etc/hosts
+echo $PHP71"6	$PREFIX_PHP71.cont" >> /etc/hosts
 
 echo $PHP72"3	$PREFIX_PHP72.empty" >> /etc/hosts
 echo $PHP72"4	$PREFIX_PHP72.tools" >> /etc/hosts
