@@ -19,8 +19,7 @@ RUN	rm -rf /var/cache/yum && \
 
 ADD	tools/init.install /usr/local/bin
 ADD	tools/init.sql /usr/local/bin
-RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/init.sql
+RUN	chmod +x /usr/local/bin/init.install
 
 COPY	certs /etc/pki/httpd/certs
 COPY	init.openssl /usr/local/bin/init.openssl
