@@ -539,66 +539,6 @@ services:
             virt:
                 ipv4_address: 172.18.53.13
 
-    php71:
-        container_name: "php71"
-        image: "evrinoma/php71"
-        cpu_shares: 100
-        mem_limit: 262144000
-        build:
-            context: docker/php71/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.71.71
-
-    php71_empty:
-        container_name: "php71.empty"
-        image: "evrinoma/php71.empty"
-        build:
-            context: docker/php71/sites/empty/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.71.3
-
-    php71_tools:
-        container_name: "php71.tools"
-        image: "evrinoma/php71.tools"
-        build:
-            context: docker/php71/sites/tools/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.71.4
-
-    php71_adbook:
-        container_name: "php71.adbook"
-        image: "evrinoma/php71.adbook"
-        build:
-            context: docker/php71/sites/adbook/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.71.5
-    php71_cont:
-        container_name: "php71.cont"
-        image: "evrinoma/php71.cont.ite-ng.ru"
-        build:
-            context: docker/php71/sites/cont/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.71.6
     php72:
         container_name: "php72"
         image: "evrinoma/php72"
