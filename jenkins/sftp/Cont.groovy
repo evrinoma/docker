@@ -1,7 +1,7 @@
 node {
     def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
     try {
-        def contDir = '/opt/WWW/container.ite-ng.ru/projects/cont/prod'
+        def contDir = '/opt/WWW/container.ite-ng.ru/projects/cont'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
         def gitRemote='http://user:pass@git.ite-ng.ru/root/cont.git'
