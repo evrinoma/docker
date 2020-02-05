@@ -14,15 +14,7 @@ SERVER_SQL="/root/site_nekeng_ru_db.sql"
 	GRANT ALL PRIVILEGES ON \`$base\` . * TO '$user'@'172.18.0.0/255.255.0.0';
 	FLUSH PRIVILEGES;
 	" > $INIT_SQL
-	mariaInstall=`yum list installed | grep "mariadb\."`
-	if [ -z "$mariaInstall" ]; then 
-		yum install mysql -y
-		mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
-		mysql -h$serverSql -uroot -p$pass $base < $SERVER_SQL
-		yum remove mysql -y
-	else
-		mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
-		mysql -h$serverSql -uroot -p$pass $base < $SERVER_SQL
-	fi
+    mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
+    mysql -h$serverSql -uroot -p$pass $base < $SERVER_SQL
 	rm -f $INIT_SQL
 	rm -f $SERVER_SQL
