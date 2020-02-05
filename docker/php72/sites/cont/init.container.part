@@ -1,4 +1,4 @@
-storeDir=/opt/WWW/container.ite-ng.ru/conf/cont
+storeDir=/opt/WWW/container.ite-ng.ru/conf/VHOST
 fileApache=crontab.apache
 cronApache=/etc/$fileApache
 

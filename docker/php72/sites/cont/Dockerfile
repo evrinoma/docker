@@ -11,6 +11,20 @@ LABEL \
 	license="MIT" \
 	build-date="2017-02-26"
 
+ARG	VHOST=''
+ARG	database_host=''
+ARG	database_port=''
+ARG	database_name=''
+ARG	database_user=''
+ARG	database_password=''
+
+RUN	echo "VHOST=${VHOST}" > /etc/sysconfig/vhost && \
+	echo "database_host=${database_host}" >> /etc/sysconfig/vhost && \
+	echo "database_port=${database_port}" >> /etc/sysconfig/vhost && \
+	echo "database_name=${database_name}" >> /etc/sysconfig/vhost && \
+	echo "database_user=${database_user}" >> /etc/sysconfig/vhost && \
+	echo "database_password=${database_password}" >> /etc/sysconfig/vhost
+RUN cat /etc/sysconfig/vhost
 COPY	cont.conf /etc/httpd/conf.d/vhost.conf
 
 ADD	init.container.part /usr/local/bin
@@ -18,14 +32,16 @@ ADD	cont/init.install /usr/local/bin
 ADD	cont/init.sql /usr/local/bin
 ADD	reconfig /usr/local/bin/
 RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/init.sql && \
 	chmod +x /usr/local/bin/reconfig && \
 	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
 	rm -rf /usr/local/bin/init.container.part && \
 	chmod 700 /usr/local/bin/init.container
 
+RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
+	sed -i -e "s@VHOST@${VHOST}@g" /usr/local/bin/init.container
+
 ADD	supervisor.conf /etc/supervisord.d/cron.conf
-RUN	echo "*/30    *       *       *       *       /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/bin/console legio:cont:delivery_load_command --env=prod > /dev/null 2>&1" >> /etc/crontab.apache && \
+RUN	echo "*/30    *       *       *       *       /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/cont/${VHOST}/bin/console legio:cont:delivery_load_command --env=prod > /dev/null 2>&1" >> /etc/crontab.apache && \
 	crontab -u apache /etc/crontab.apache && \
 	crontab -u apache -l
 

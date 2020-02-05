@@ -665,8 +665,19 @@ services:
         build:
             context: docker/php72/sites/cont/.
             dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=cont
+                - database_host=172.18.2.1
+                - database_port=3306
+                - database_name=cont
+        ports:
+            - "172.20.1.165:80:80/tcp"
+            - "172.20.1.165:443:443/tcp"
+            - "172.20.1.165:22:22/tcp"
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.6
@@ -878,6 +889,7 @@ services:
             context: docker/php72/sites/pmc/.
             dockerfile: Dockerfile
             args:
+                - MODE=prod
                 - VHOST=ite-ng
                 - database_host=172.20.1.18
                 - database_port=1433
@@ -902,6 +914,7 @@ services:
             context: docker/php72/sites/pmc/.
             dockerfile: Dockerfile
             args:
+                - MODE=prod
                 - VHOST=kzkt45
                 - database_host=172.20.1.18
                 - database_port=1434
@@ -928,6 +941,29 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.72.21
+
+    php72_cont_test:
+        container_name: "php72.cont"
+        image: "evrinoma/php72.cont.ite-ng.ru"
+        build:
+            context: docker/php72/sites/cont/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=cont
+                - database_host=172.18.2.1
+                - database_port=3306
+                - database_name=cont_test
+        ports:
+            - "172.20.1.171:80:80/tcp"
+            - "172.20.1.171:443:443/tcp"
+            - "172.20.1.171:22:22/tcp"
+        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.22
 
 networks:
     virt:
