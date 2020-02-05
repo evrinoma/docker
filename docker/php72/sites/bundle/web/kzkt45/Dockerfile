@@ -15,7 +15,6 @@ COPY	install/kzkt45.sql.tar.gz /root/
 COPY	install/kzkt45.tar.gz /root/
 ADD	kzkt45/init.install /usr/local/bin
 ADD	kzkt45/init.sql /usr/local/bin
-RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/init.sql
+RUN	chmod +x /usr/local/bin/init.install
 
 COPY	kzkt45.conf /etc/httpd/conf.d/vhost.conf

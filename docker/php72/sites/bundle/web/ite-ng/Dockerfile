@@ -15,7 +15,6 @@ COPY	install/ite-ng.sql.tar.gz /root/
 COPY	install/ite-ng.tar.gz /root/
 ADD	ite-ng/init.install /usr/local/bin
 ADD	ite-ng/init.sql /usr/local/bin
-RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/init.sql
+RUN	chmod +x /usr/local/bin/init.install
 
 COPY	ite-ng.conf /etc/httpd/conf.d/vhost.conf

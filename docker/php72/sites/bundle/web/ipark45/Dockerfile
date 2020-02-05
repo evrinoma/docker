@@ -15,7 +15,6 @@ COPY	install/ipark45.sql.tar.gz /root/
 COPY	install/ipark45.tar.gz /root/
 ADD	ipark45/init.install /usr/local/bin
 ADD	ipark45/init.sql /usr/local/bin
-RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/init.sql
+RUN	chmod +x /usr/local/bin/init.install
 
 COPY	ipark45.conf /etc/httpd/conf.d/vhost.conf

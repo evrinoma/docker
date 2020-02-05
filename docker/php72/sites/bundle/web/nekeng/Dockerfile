@@ -15,7 +15,6 @@ COPY	install/nekeng.sql.tar.gz /root/
 COPY	install/nekeng.tar.gz /root/
 ADD	nekeng/init.install /usr/local/bin
 ADD	nekeng/init.sql /usr/local/bin
-RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/init.sql
+RUN	chmod +x /usr/local/bin/init.install
 
 COPY	nekeng.conf /etc/httpd/conf.d/vhost.conf
