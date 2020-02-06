@@ -115,6 +115,86 @@ services:
             virt:
                 ipv4_address: 172.18.72.22
 
+#######################################################################
+############################## Start ##################################
+####### @todo this deploy should be removed to another server##########
+#######################################################################
+    php53_kis_nekeng_ru:
+        container_name: "php53.kis.nekeng"
+        image: "evrinoma/php53.kis.nekeng.ru"
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        build:
+            context: docker/php53/sites/kis/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=nekeng
+        ports:
+            - "172.20.1.78:80:80/tcp"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.5
+
+    php53_kis_new_nekeng_ru-ng_ru:
+        container_name: "php53.kisnew.nekeng"
+        image: "evrinoma/php53.kisnew.nekeng.ru"
+        build:
+            context: docker/php53/sites/kisnew/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=nekeng
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        ports:
+            - "172.20.1.78:81:80/tcp"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.6
+
+    sftp_kis:
+        container_name: "sftp.kis"
+        image: "evrinoma/sftp.kis"
+        dns: 172.20.1.6
+        build:
+            context: docker/sftp/servers/kis/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/docker/src/data_sftp_kis/:/home/"
+        networks:
+            virt:
+                ipv4_address: 172.18.20.2
+
+    php72_kiscloud:
+        container_name: "php72.kiscloud"
+        image: "evrinoma/php72.kiscloud"
+        build:
+            context: docker/php72/sites/cloud/servers/kiscloud/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+        ports:
+            - "172.20.1.78:443:443/tcp"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.21
+
+#######################################################################
+################################ End ##################################
+####### @todo this deploy should be removed to another server #########
+#######################################################################
+
 networks:
     virt:
         driver: bridge
