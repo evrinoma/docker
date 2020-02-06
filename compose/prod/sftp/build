@@ -11,4 +11,4 @@ docker build -t evrinoma/php72 ../../../docker/php72/.
 docker build -t evrinoma/php72.cloud ../../../docker/php72/sites/cloud/.
 docker build -t evrinoma/php72.owncloud ../../../docker/php72/sites/cloud/servers/owncloud/.
 
-docker build -t evrinoma/php72 ../../../docker/php53/.
+docker build -t evrinoma/php53 ../../../docker/php53/.
