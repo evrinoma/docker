@@ -89,8 +89,8 @@ echo $PHP54"54	$PREFIX_PHP54" >> /etc/hosts
 echo $PHP71"71	$PREFIX_PHP71" >> /etc/hosts
 echo $PHP72"72	$PREFIX_PHP72" >> /etc/hosts
 
-echo $PHP53"3	$PREFIX_PHP53.kis" >> /etc/hosts
-echo $PHP53"4	$PREFIX_PHP53.kisnew" >> /etc/hosts
+echo $PHP53"3	$PREFIX_PHP53.kis.ite-ng" >> /etc/hosts
+echo $PHP53"4	$PREFIX_PHP53.kisnew.ite-ng" >> /etc/hosts
 echo $PHP53"5	$PREFIX_PHP53.kis.nekeng" >> /etc/hosts
 echo $PHP53"6	$PREFIX_PHP53.kisnew.nekeng" >> /etc/hosts
 
@@ -121,7 +121,7 @@ echo $PHP72"19	$PREFIX_PHP72.pmc.ite-ng" >> /etc/hosts
 echo $PHP72"20	$PREFIX_PHP72.pmc.kzkt45" >> /etc/hosts
 echo $PHP72"21	$PREFIX_PHP72.kiscloud" >> /etc/hosts
 echo $PHP72"22	$PREFIX_PHP72.cont.test" >> /etc/hosts
-echo $PHP72"23	$PREFIX_PHP72.kisnew" >> /etc/hosts
+echo $PHP72"23	$PREFIX_PHP72.kisnew.ite-ng" >> /etc/hosts
 
 #echo $PHP72"3	pma" >> /etc/hosts
 

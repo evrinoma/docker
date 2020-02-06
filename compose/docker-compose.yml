@@ -492,40 +492,23 @@ services:
             virt:
                 ipv4_address: 172.18.53.53
 
-    php53_kis_nekeng_ru:
-        container_name: "php53.kis.nekeng"
-        image: "evrinoma/php53.kis.nekeng.ru"
-        build:
-            context: docker/php53/sites/kis.nekeng.ru/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.53.5
-
-    php53_kis_new_nekeng_ru:
-        container_name: "php53.kisnew.nekeng"
-        image: "evrinoma/php53.kisnew.nekeng.ru"
-        build:
-            context: docker/php53/sites/kisnew.nekeng.ru/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.53.6
-
     php53_kis_ite-ng_ru:
         container_name: "php53.kis"
         image: "evrinoma/php53.kis.ite-ng.ru"
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
         build:
             context: docker/php53/sites/kis/.
             dockerfile: Dockerfile
             args:
                 - VHOST=ite-ng
+        ports:
+            - "172.20.1.78:80:80/tcp"
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
         networks:
             virt:
                 ipv4_address: 172.18.53.3
@@ -538,11 +521,60 @@ services:
             dockerfile: Dockerfile
             args:
                 - VHOST=ite-ng
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        ports:
+            - "172.20.1.78:81:80/tcp"
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
         networks:
             virt:
                 ipv4_address: 172.18.53.4
+
+    php53_kis_nekeng_ru:
+        container_name: "php53.kis.nekeng"
+        image: "evrinoma/php53.kis.nekeng.ru"
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        build:
+            context: docker/php53/sites/kis/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=nekeng
+        ports:
+            - "172.20.1.78:80:80/tcp"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.5
+
+    php53_kis_new_nekeng_ru-ng_ru:
+        container_name: "php53.kisnew.nekeng"
+        image: "evrinoma/php53.kisnew.nekeng.ru"
+        build:
+            context: docker/php53/sites/kisnew/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=nekeng
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        ports:
+            - "172.20.1.78:81:80/tcp"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.6
 
     php53_webldap:
         container_name: "php53.webldap"
@@ -1006,6 +1038,23 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.72.22
+
+    php72_kis_new_ite-ng_ru:
+        container_name: "php72.kisnew"
+        image: "evrinoma/php72.kisnew.ite-ng.ru"
+        build:
+            context: docker/php72/sites/kisnew/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=ite-ng
+        ports:
+            - "172.20.1.78:81:80/tcp"
+        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.23
 
 networks:
     virt:
