@@ -9,5 +9,6 @@ if [ ! -z "$GROUP" ]; then
 			groupadd -g $GROUP $PERMISSION_GROUP
 		fi
 		usermod -G $GROUP apache
+		setfacl -m g:$GROUP:rwx -R $DIRECTORY
 	fi
 fi 

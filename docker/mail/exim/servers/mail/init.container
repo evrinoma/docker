@@ -24,5 +24,6 @@ if ! [[ -L "$EXIM/var/log/" && -d "$EXIM/var/log/" ]]; then
 fi
 
 chown exim:exim -R $DIR/
+setfacl -m g:exim:rwx -R $DIR/
 
 chmod 775 $CLAMAV
