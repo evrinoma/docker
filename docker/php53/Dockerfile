@@ -170,7 +170,7 @@ RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
 COPY	init.container /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container
 
-#RUN	npm install -g webpack webpack-cli;
+RUN	npm config set strict-ssl false && npm install -g n && n 6.2.0
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
