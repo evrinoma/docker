@@ -78,7 +78,7 @@ services:
         security_opt:
             - apparmor:unconfined
         build:
-            context: docker/php53/sites/kis.ite-ng.ru/.
+            context: docker/php53/sites/kis/.
             dockerfile: Dockerfile
             args:
                 - VHOST=ite-ng
@@ -95,7 +95,7 @@ services:
         container_name: "php53.kisnew"
         image: "evrinoma/php53.kisnew.ite-ng.ru"
         build:
-            context: docker/php53/sites/kisnew.ite-ng.ru/.
+            context: docker/php53/sites/kisnew/.
             dockerfile: Dockerfile
             args:
                 - VHOST=ite-ng
@@ -103,6 +103,7 @@ services:
             - "172.20.1.78:81:80/tcp"
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
         networks:
             virt:
                 ipv4_address: 172.18.53.4

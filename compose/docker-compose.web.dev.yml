@@ -49,8 +49,10 @@ services:
         container_name: "php53.kis"
         image: "evrinoma/php53.kis.ite-ng.ru"
         build:
-            context: docker/php53/sites/kis.ite-ng.ru/.
+            context: docker/php53/sites/kis/.
             dockerfile: Dockerfile
+            args:
+                - VHOST=ite-ng
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -61,8 +63,10 @@ services:
         container_name: "php53.kisnew"
         image: "evrinoma/php53.kisnew.ite-ng.ru"
         build:
-            context: docker/php53/sites/kisnew.ite-ng.ru/.
+            context: docker/php53/sites/kisnew/.
             dockerfile: Dockerfile
+            args:
+                - VHOST=ite-ng
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:

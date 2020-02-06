@@ -48,8 +48,10 @@ services:
         container_name: "php53.kisnew_test"
         image: "evrinoma/php53.kisnew.ite-ng.ru"
         build:
-            context: ../../docker/php53/sites/kisnew.ite-ng.ru/.
+            context: ../../docker/php53/sites/kisnew/.
             dockerfile: Dockerfile
+            args:
+                - VHOST=ite-ng
         ports:
             - 8585:80
             - 0.0.0.0:522:22
