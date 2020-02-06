@@ -23,5 +23,3 @@ RUN	echo "" >> /etc/supervisord.d/supervisor.conf && \
 ADD	init.1c /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.1c
 
-ADD	fetch.1c /usr/local/bin
-RUN	chmod +x /usr/local/bin/fetch.1c

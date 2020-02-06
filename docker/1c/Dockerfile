@@ -54,7 +54,13 @@ RUN	yum install fontconfig -y
 RUN	touch /etc/httpd/conf.d/1c.conf
 
 COPY	init.container /usr/local/bin/
-RUN	chmod 700 /usr/local/bin/init.container
+COPY	api/public /usr/local/bin
+COPY	deploy/fetch.1c /usr/local/bin
+COPY	api/restartHttpd /usr/local/bin
+RUN	chmod +x /usr/local/bin/fetch.1c && \
+	chmod +x /usr/local/bin/public && \
+	chmod 700 /usr/local/bin/init.container && \
+	chmod +x /usr/local/bin/restartHttpd
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80 1540-1541 1560-1591
