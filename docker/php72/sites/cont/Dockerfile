@@ -24,7 +24,7 @@ RUN	echo "VHOST=${VHOST}" > /etc/sysconfig/vhost && \
 	echo "database_name=${database_name}" >> /etc/sysconfig/vhost && \
 	echo "database_user=${database_user}" >> /etc/sysconfig/vhost && \
 	echo "database_password=${database_password}" >> /etc/sysconfig/vhost
-RUN cat /etc/sysconfig/vhost
+
 COPY	cont.conf /etc/httpd/conf.d/vhost.conf
 
 ADD	init.container.part /usr/local/bin
