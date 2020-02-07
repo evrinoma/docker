@@ -119,6 +119,36 @@ services:
 ############################## Start ##################################
 ####### @todo this deploy should be removed to another server##########
 #######################################################################
+    node:
+        container_name: "node.clone"
+        image: "evrinoma/node.clone"
+        build:
+            context: docker/node/clone/.
+            dockerfile: Dockerfile
+            args:
+                - BASE_PATH=/opt/WWW/container.ite-ng.ru/data_sftp_kis/external/exchange1C/kis.nekeng.ru
+                - BASE_TARGET=out
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.6.1
+
+    sftp_kis:
+        container_name: "sftp.kis"
+        image: "evrinoma/sftp.kis"
+        dns: 172.20.1.6
+        build:
+            context: docker/sftp/servers/kis/.
+            dockerfile: Dockerfile
+        ports:
+            - "172.20.1.174:22:22/tcp"
+        volumes:
+            - "/opt/docker/src/data_sftp_kis/:/home/"
+        networks:
+            virt:
+                ipv4_address: 172.18.20.2
+
     php53_kis_nekeng_ru:
         container_name: "php53.kis.nekeng"
         image: "evrinoma/php53.kis.nekeng.ru"
@@ -163,21 +193,6 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.53.6
-
-    sftp_kis:
-        container_name: "sftp.kis"
-        image: "evrinoma/sftp.kis"
-        dns: 172.20.1.6
-        build:
-            context: docker/sftp/servers/kis/.
-            dockerfile: Dockerfile
-        ports:
-            - "172.20.1.174:22:22/tcp"
-        volumes:
-            - "/opt/docker/src/data_sftp_kis/:/home/"
-        networks:
-            virt:
-                ipv4_address: 172.18.20.2
 
     php72_kiscloud:
         container_name: "php72.kiscloud"
