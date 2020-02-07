@@ -1,0 +1,9 @@
+#!/bin/bash
+DIR=/opt
+NAME=exchangeServer
+INIT_CONTAINER=/usr/local/bin/init.container
+git clone https://github.com/evrinoma/exchangeServerSymfony.git $DIR/$NAME
+cd $DIR/$NAME
+make clean && make all && make install
+echo "/etc/init.d/exchangeserver start" >> $INIT_CONTAINER
+

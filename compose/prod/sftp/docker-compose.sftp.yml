@@ -149,6 +149,7 @@ services:
             dockerfile: Dockerfile
             args:
                 - VHOST=nekeng
+                - exchange=true
         cap_add:
             - SYS_ADMIN
         security_opt:
