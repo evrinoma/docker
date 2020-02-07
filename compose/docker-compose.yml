@@ -308,6 +308,22 @@ services:
             virt:
                 ipv4_address: 172.18.5.2
 
+    node:
+        container_name: "node.clone"
+        image: "evrinoma/node.clone"
+        build:
+            context: docker/node/clone/.
+            dockerfile: Dockerfile
+            args:
+                - BASE_PATH=/opt/WWW/exchange1C/kis.nekeng.ru
+                - BASE_TARGET=out
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.6.1
+
     wowza_4_7_7:
         container_name: "wowza.4.7.7"
         image: "evrinoma/wowza.versions.4.7.7"

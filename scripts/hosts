@@ -13,10 +13,13 @@ SAMBA=$SUBNET"1.8"
 DANTE=$SUBNET"1.9"
 GITBLIT=$SUBNET"1.10"
 GITLAB=$SUBNET"1.11"
+JENKINS=$SUBNET"1.11"
+BACKUP=$SUBNET"1.13"
 
 SQL=$SUBNET"2."
 MAIL=$SUBNET"4."
 BIND=$SUBNET"5."
+NODE=$SUBNET"6."
 
 WOWZA=$SUBNET"14."
 
@@ -54,6 +57,8 @@ echo $MAIL"2	$PREFIX_PHP72.postfixadmin" >> /etc/hosts
 
 echo $BIND"1	bind.master" >> /etc/hosts
 echo $BIND"2	bind.slave" >> /etc/hosts
+
+echo $NODE"1	clone" >> /etc/hosts
 
 echo $RABBIT"	rabbitmq" >> /etc/hosts
 echo $SQUID77"	squid.77" >> /etc/hosts

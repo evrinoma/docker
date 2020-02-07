@@ -1,0 +1,19 @@
+#!/bin/bash
+
+DIR=/opt
+NAME=clone
+SRC=srv.js
+START=traceClone
+INIT_CONTAINER=/usr/local/bin/init.container
+
+###NODE_INSERT
+
+git clone https://github.com/evrinoma/clone.git $DIR/$NAME
+cd $DIR/$NAME
+mkdir -p $BASE_PATH/$BASE_TARGET
+npm install
+make build_target BASE_PATH=$BASE_PATH BASE_TARGET=$BASE_TARGET DIR_NAME=$DIR/$NAME
+
+echo "setfacl -m g:apache:rwx -R $BASE_PATH" >> $INIT_CONTAINER
+echo "/etc/init.d/traceclone start" >> $INIT_CONTAINER
+

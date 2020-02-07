@@ -2,7 +2,6 @@
 #docker build -t evrinoma/vnc ../docker/vnc/.
 #docker build -t evrinoma/primavera.15.1 ../docker/primavera/15.1/.
 #docker build -t evrinoma/primavera.15.1.1 ../docker/primavera/15.1.1/.
-# --no-cache
 
 #docker build -t evrinoma/ruby265 ../docker/ruby265/.
 #docker build -t evrinoma/redmine ../docker/ruby265/servers/redmine/.
@@ -21,10 +20,11 @@
 #docker build -t evrinoma/1c.83.15.1700 ../docker/1c/servers/83.15.1700/.
 #docker build -t evrinoma/1c.83.16.1148 ../docker/1c/servers/83.16.1148/.
 
-#docker build -t evrinoma/dovecot ../docker/mail/dovecot/.
+#docker build -t evrinoma/db.maria ../docker/db/maria/.
+
 #docker build -t evrinoma/bind ../docker/bind/.
 #docker build -t evrinoma/exim ../docker/mail/exim/.
-#docker build -t evrinoma/db.maria ../docker/db/maria/.
+#docker build -t evrinoma/dovecot ../docker/mail/dovecot/.
 
 #docker build -t evrinoma/php53 ../docker/php53/.
 #docker build -t evrinoma/php53.new.ite-ng.ru ../docker/php53/sites/kisnew.ite-ng.ru/.
@@ -37,9 +37,13 @@
 #docker build -t evrinoma/php72.cont.ite-ng.ru ../docker/php72/sites/cont/.
 #docker build -t evrinoma/php72.cont.ite-ng.ru ../docker/php72/sites/cont/.
 #docker build -t evrinoma/php72.h.cont.ite-ng.ru ../docker/hidden/servers/cont/.
-#docker build -t evrinoma/php72.cloud ../docker/php72/sites/cloud/.
+#docker build -t evrinoma/php72.owncloud ../docker/php72/sites/cloud/servers/owncloud/.
+#docker build -t evrinoma/php72.kiscloud ../docker/php72/sites/cloud/servers/kiscloud/.
 
 #docker build -t evrinoma/wowza ../docker/wowza/.
+
 #docker build -t evrinoma/sftp  ../docker/sftp/. --no-cache
 #docker build -t evrinoma/sftp.cloud  ../docker/sftp/servers/cloud/. --no-cache
 #docker build -t evrinoma/sftp.kis  ../docker/sftp/servers/kis/. --no-cache
+
+docker build -t evrinoma/node ../docker/node/.
