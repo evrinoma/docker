@@ -27,7 +27,7 @@ if [ ! -z "$pass" ]; then
             chmod +x /usr/local/bin/init.sftp.sql
 
             init.sql $pass $serverSql $base $user $basePass
-            init.conf $serverSql $base $user $basePass $serverName $passOwnCloud $DIR $projectName $pathExtend
+            init.conf $serverSql $base $user $basePass $serverName $passOwnCloud $DIR $projectName $patchExtend
             init.ldap.sql $pass $serverSql $base $user $basePass
             init.sftp.sql $pass $serverSql $base $user $basePass
 
