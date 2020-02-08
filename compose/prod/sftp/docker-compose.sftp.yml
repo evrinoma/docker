@@ -134,20 +134,20 @@ services:
             virt:
                 ipv4_address: 172.18.6.1
 
-    sftp_kis:
-        container_name: "sftp.kis"
-        image: "evrinoma/sftp.kis"
-        dns: 172.20.1.6
-        build:
-            context: docker/sftp/servers/kis/.
-            dockerfile: Dockerfile
-        ports:
-            - "172.20.1.174:22:22/tcp"
-        volumes:
-            - "/opt/docker/src/data_sftp_kis/:/home/"
-        networks:
-            virt:
-                ipv4_address: 172.18.20.2
+#    sftp_kis:
+#        container_name: "sftp.kis"
+#        image: "evrinoma/sftp.kis"
+#        dns: 172.20.1.6
+#        build:
+#            context: docker/sftp/servers/kis/.
+#            dockerfile: Dockerfile
+#        ports:
+#            - "172.20.1.174:22:22/tcp"
+#        volumes:
+#            - "/opt/docker/src/data_sftp_kis/:/home/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.20.2
 
     php53_kis_nekeng_ru:
         container_name: "php53.kis.nekeng"
@@ -194,22 +194,22 @@ services:
             virt:
                 ipv4_address: 172.18.53.6
 
-    php72_kiscloud:
-        container_name: "php72.kiscloud"
-        image: "evrinoma/php72.kiscloud"
-        build:
-            context: docker/php72/sites/cloud/servers/kiscloud/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-        ports:
-            - "172.20.1.174:80:80/tcp"
-            - "172.20.1.174:443:443/tcp"
-        volumes:
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.72.21
+#    php72_kiscloud:
+#        container_name: "php72.kiscloud"
+#        image: "evrinoma/php72.kiscloud"
+#        build:
+#            context: docker/php72/sites/cloud/servers/kiscloud/.
+#            dockerfile: Dockerfile
+#            args:
+#                - MODE=prod
+#        ports:
+#            - "172.20.1.174:80:80/tcp"
+#            - "172.20.1.174:443:443/tcp"
+#        volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.21
 
 #######################################################################
 ################################ End ##################################
