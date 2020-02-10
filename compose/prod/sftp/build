@@ -16,3 +16,5 @@ docker build -t evrinoma/php72.kiscloud ../../../docker/php72/sites/cloud/server
 docker build -t evrinoma/php53 ../../../docker/php53/.
 
 docker build -t evrinoma/node ../../../docker/node/.
+
+docker build -t evrinoma/samba ../../../docker/samba/.
