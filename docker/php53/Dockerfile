@@ -73,6 +73,10 @@ RUN	yum makecache && \
 RUN	yum clean metadata && \
 	yum clean all;
 
+RUN wget -P /opt/dbase http://pecl.php.net/get/dbase-5.0.1.tgz && \
+    pecl install /opt/dbase/dbase-5.0.1.tgz && \
+    echo "extension=dbase.so" >/etc/php.d/dbase.ini
+
 #build xdebug 2.2.7 support php 5.3.29
 RUN	mkdir /opt/xdebug && \
 	wget -P /opt/xdebug https://xdebug.org/files/xdebug-2.2.7.tgz && \
