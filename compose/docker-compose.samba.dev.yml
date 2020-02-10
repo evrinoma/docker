@@ -1,0 +1,31 @@
+version: '2'
+services:
+    samba_kis:
+        container_name: "samba.kis"
+        image: "evrinoma/samba.kis"
+        hostname: "DOCK_SMB_KIS"
+        ports:
+            - "137:137/udp"
+            - "138:138/udp"
+            - "139:139/tcp"
+            - "445:445/tcp"
+        build:
+            context: docker/samba/servers/kis/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.8
+networks:
+    virt:
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "false"
+            com.docker.network.bridge.name: "docker_sftp"
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
