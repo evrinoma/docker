@@ -67,19 +67,21 @@ services:
         image: "evrinoma/samba.kis"
         hostname: "DOCK_SMB_KIS"
         ports:
-            - "137:137/udp"
-            - "138:138/udp"
-            - "139:139/tcp"
-            - "445:445/tcp"
+            - "172.20.1.174:22:22/tcp"
+            - "172.20.1.174:137:137/udp"
+            - "172.20.1.174:138:138/udp"
+            - "172.20.1.174:139:139/tcp"
+            - "172.20.1.174:445:445/tcp"
         build:
             context: docker/samba/servers/kis/.
             dockerfile: Dockerfile
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/DISK/Develop/Docker/src/data/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.1.8
+
     dante:
         container_name: "dante"
         image: "evrinoma/dante"
