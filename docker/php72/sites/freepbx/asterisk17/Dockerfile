@@ -37,7 +37,7 @@ RUN chown asterisk.asterisk /var/run/asterisk && \
     chown -R asterisk.asterisk /etc/asterisk && \
     chown -R asterisk.asterisk /var/{lib,log,spool}/asterisk && \
     chown -R asterisk.asterisk /usr/lib/asterisk
-RUN /usr/sbin/asterisk
+RUN runuser -l asterisk -c /usr/sbin/asterisk
 
 
 RUN	chmod -R 640 /tmp && \
