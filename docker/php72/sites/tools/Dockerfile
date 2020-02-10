@@ -14,7 +14,7 @@ LABEL \
 RUN	rm -rf /var/cache/yum && \
 	yum remove -y nodejs && \
 	yum clean all && \
-	curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -  && \
+	curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -  && \
 	yum install -y nodejs yarn
 
 ADD	tools/init.install /usr/local/bin
