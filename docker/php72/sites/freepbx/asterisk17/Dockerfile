@@ -31,7 +31,13 @@ RUN cd /root/asterisk* && make config
 RUN cd /root/asterisk* && make samples
 RUN cd /root/asterisk* && ldconfig
 
-
+RUN sed -i 's/ASTARGS=""/ASTARGS="-U asterisk"/g' /usr/sbin/safe_asterisk
+RUN useradd -m asterisk
+RUN chown asterisk.asterisk /var/run/asterisk && \
+    chown -R asterisk.asterisk /etc/asterisk && \
+    chown -R asterisk.asterisk /var/{lib,log,spool}/asterisk && \
+    chown -R asterisk.asterisk /usr/lib/asterisk
+RUN /usr/sbin/asterisk
 
 
 RUN	chmod -R 640 /tmp && \
