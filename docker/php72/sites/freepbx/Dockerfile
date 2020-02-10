@@ -12,3 +12,6 @@ LABEL \
 	build-date="2020-02-10"
 
 COPY	freepbx.conf /etc/httpd/conf.d/vhost.conf
+ADD	init.container.part /usr/local/bin
+RUN cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
+	rm -rf /usr/local/bin/init.container.part

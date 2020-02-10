@@ -1,0 +1,1 @@
+runuser -l asterisk -c /usr/sbin/asterisk
