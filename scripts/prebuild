@@ -46,4 +46,6 @@
 #docker build -t evrinoma/sftp.cloud  ../docker/sftp/servers/cloud/. --no-cache
 #docker build -t evrinoma/sftp.kis  ../docker/sftp/servers/kis/. --no-cache
 
-docker build -t evrinoma/node ../docker/node/.
+#docker build -t evrinoma/node ../docker/node/.
+
+docker build -t evrinoma/php72.asterisk17 ../docker/php72/sites/freepbx/asterisk17/.
