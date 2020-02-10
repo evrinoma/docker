@@ -1072,6 +1072,18 @@ services:
             virt:
                 ipv4_address: 172.18.72.23
 
+    php72_freepbx:
+        container_name: "php72.freepbx"
+        image: "evrinoma/php72.freepbx"
+        build:
+            context: docker/php72/sites/freepbx/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.24
+
 networks:
     virt:
         driver: bridge

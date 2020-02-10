@@ -1,0 +1,38 @@
+version: '2'
+services:
+    maria_db:
+        container_name: "maria.db"
+        image: "evrinoma/db.maria"
+        build:
+            context: docker/db/maria/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
+
+    php72_freepbx:
+        container_name: "php72.freepbx"
+        image: "evrinoma/php72.freepbx"
+        build:
+            context: docker/php72/sites/freepbx/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.24
+
+networks:
+    virt:
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "false"
+            com.docker.network.bridge.name: "docker_sftp"
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
