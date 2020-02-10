@@ -1,5 +1,5 @@
 FROM \
-	evrinoma/php72.asterisk17:latest
+	evrinoma/php72.asterisk13:latest
 
 MAINTAINER \
 	evrinoma@gmail.com
