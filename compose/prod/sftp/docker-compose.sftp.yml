@@ -167,7 +167,7 @@ services:
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/external/"
-            - "/opt/DISK_ISCSI_DOC/:/opt/WWW/doc/"
+            - "/opt/DISK_ISCSI_DOC/:/opt/WWW/docs/"
         networks:
             virt:
                 ipv4_address: 172.18.53.5
