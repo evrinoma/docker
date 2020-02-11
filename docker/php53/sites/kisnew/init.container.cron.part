@@ -1,0 +1,13 @@
+storeDir=/opt/WWW/container.ite-ng.ru/conf/php53/sites/kis.VHOST.ru/content_new
+fileApache=crontab.apache
+cronApache=/etc/$fileApache
+
+if [ ! -d "$storeDir" ]; then
+	mkdir -p $storeDir
+	cp $cronApache $storeDir
+fi
+
+rm -rf $cronApache
+ln -s  $storeDir/$fileApache $cronApache
+/usr/local/bin/reconfig
+

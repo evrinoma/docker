@@ -212,7 +212,10 @@ COPY	init.container /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container
 
 RUN	yum install cronie -y && \
-	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
+	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
+	touch /etc/crontab.apache
+ADD	reconfig /usr/local/bin/
+RUN	chmod +x /usr/local/bin/reconfig
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80

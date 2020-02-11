@@ -26,8 +26,12 @@ RUN	echo "VHOST=${VHOST}" > /etc/sysconfig/vhost && \
 	echo "database_password=${database_password}" >> /etc/sysconfig/vhost
 
 ADD	init.container.part /usr/local/bin
+ADD	init.container.cron.part /usr/local/bin
 RUN cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
-	rm -rf /usr/local/bin/init.container.part
+	rm -rf /usr/local/bin/init.container.part && \
+	cat /usr/local/bin/init.container.cron.part >> /usr/local/bin/init.container && \
+	rm -rf /usr/local/bin/init.container.cron.part && \
+	chmod 700 /usr/local/bin/init.container
 
 RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
 RUN	if [ ! -z "${VHOST}" ]; then echo "host=${VHOST}" > /etc/sysconfig/settings ; fi

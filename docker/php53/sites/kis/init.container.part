@@ -20,3 +20,4 @@ if [ -d /opt/WWW/$EXCHANGE/ ] ; then
     chown  apache.apache -R /opt/WWW/$EXCHANGE/kis.VHOST.ru/
     chmod 777 -R /opt/WWW/$EXCHANGE/kis.VHOST.ru/
 fi
+

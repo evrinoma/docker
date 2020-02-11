@@ -27,14 +27,12 @@ RUN	echo "VHOST=${VHOST}" > /etc/sysconfig/vhost && \
 
 COPY	cont.conf /etc/httpd/conf.d/vhost.conf
 
-ADD	init.container.part /usr/local/bin
+ADD	init.container.cron.part /usr/local/bin
 ADD	cont/init.install /usr/local/bin
 ADD	cont/init.sql /usr/local/bin
-ADD	reconfig /usr/local/bin/
 RUN	chmod +x /usr/local/bin/init.install && \
-	chmod +x /usr/local/bin/reconfig && \
-	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
-	rm -rf /usr/local/bin/init.container.part && \
+	cat /usr/local/bin/init.container.cron.part >> /usr/local/bin/init.container && \
+	rm -rf /usr/local/bin/init.container.cron.part && \
 	chmod 700 /usr/local/bin/init.container
 
 RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
