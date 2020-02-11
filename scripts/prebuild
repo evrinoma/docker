@@ -48,5 +48,5 @@
 
 #docker build -t evrinoma/node ../docker/node/.
 
-docker build -t evrinoma/php72.asterisk17 ../docker/php72/sites/freepbx/asterisk17/.
-docker build -t evrinoma/php72.asterisk13 ../docker/php72/sites/freepbx/asterisk13/.
+#docker build -t evrinoma/php72.asterisk17 ../docker/php72/sites/freepbx/asterisk17/.
+#docker build -t evrinoma/php72.asterisk13 ../docker/php72/sites/freepbx/asterisk13/.
