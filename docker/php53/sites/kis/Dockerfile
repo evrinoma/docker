@@ -40,4 +40,5 @@ COPY	kis.conf /etc/httpd/conf.d/vhost.conf
 RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
     sed -i -e "s@VHOST@${VHOST}@g" /usr/local/bin/init.container
 
+ADD	supervisor.conf /etc/supervisord.d/cron.conf
 
