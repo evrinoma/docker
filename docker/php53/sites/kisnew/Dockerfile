@@ -45,4 +45,6 @@ RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
 COPY	exchange.install /usr/local/bin/
 RUN	if [ ! -z "${exchange}" ]; then echo "[${exchange}]" &&  chmod +x /usr/local/bin/exchange.install && /usr/local/bin/exchange.install && chmod -x /usr/local/bin/exchange.install ; fi
 
+#supervisor include does't work
 ADD	supervisor.conf /etc/supervisord.d/cron.conf
+RUN	cat /etc/supervisord.d/supervisor.conf >> /etc/supervisord.conf
