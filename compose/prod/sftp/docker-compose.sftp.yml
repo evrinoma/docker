@@ -84,6 +84,7 @@ services:
             - "172.20.1.165:443:443/tcp"
             - "172.20.1.165:22:22/tcp"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
 #            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -109,6 +110,7 @@ services:
             - "172.20.1.171:443:443/tcp"
             - "172.20.1.171:22:22/tcp"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
 #            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -165,6 +167,7 @@ services:
             - "172.20.1.172:80:80/tcp"
             - "172.20.1.172:22:22/tcp"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/external/"
             - "/opt/DISK_ISCSI_DOC/:/opt/WWW/docs/"
@@ -189,6 +192,7 @@ services:
             - "172.20.1.173:80:80/tcp"
             - "172.20.1.173:22:22/tcp"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/external/"
         networks:
