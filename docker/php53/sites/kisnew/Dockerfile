@@ -47,4 +47,4 @@ RUN	if [ ! -z "${exchange}" ]; then echo "[${exchange}]" &&  chmod +x /usr/local
 
 #supervisor include does't work
 ADD	supervisor.conf /etc/supervisord.d/cron.conf
-RUN	cat /etc/supervisord.d/supervisor.conf >> /etc/supervisord.conf
+RUN	cat /etc/supervisord.d/cron.conf >> /etc/supervisord.conf

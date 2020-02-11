@@ -42,5 +42,5 @@ RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
 
 #supervisor include does't work
 ADD	supervisor.conf /etc/supervisord.d/cron.conf
-RUN	cat /etc/supervisord.d/supervisor.conf >> /etc/supervisord.conf
+RUN	cat /etc/supervisord.d/cron.conf >> /etc/supervisord.conf
 
