@@ -109,7 +109,7 @@ services:
             - "172.20.1.171:443:443/tcp"
             - "172.20.1.171:22:22/tcp"
         volumes:
-            #            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -167,6 +167,7 @@ services:
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+            - "/opt/DISK_ISCSI_DOC/:/opt/WWW/doc/"
         networks:
             virt:
                 ipv4_address: 172.18.53.5
