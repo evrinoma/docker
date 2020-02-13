@@ -122,15 +122,15 @@ services:
             virt:
                 ipv4_address: 172.18.1.14
 
-    1c_83_15_1700_api:
-        container_name: "1c.83.15.1700.api"
-        image: "evrinoma/1c.83.15.1700.api"
+    1c_83_16_1148_api:
+        container_name: "1c.83.16.1148.api"
+        image: "evrinoma/1c.83.16.1148.api"
         hostname: "api.1c.ite-ng.ru"
         ports:
             - "172.20.1.11:80:80/tcp"
             - "172.20.1.11:12000:22/tcp"
         build:
-            context: docker/1c/servers/83.15.1700/api/.
+            context: docker/1c/servers/83.16.1148/api/.
             dockerfile: Dockerfile
         extra_hosts:
             - "iteng26:172.20.1.26"
@@ -139,7 +139,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.83.150
+                ipv4_address: 172.18.83.160
 
     php72_adbook:
         container_name: "php72.adbook"
