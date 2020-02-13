@@ -13,7 +13,7 @@ node {
             sshCommand remote: remote, command: "ls -la /opt/WWW/backup/sqldump"
         }
         stage('Check Cron') {
-            sshCommand remote: remote, command: "cat /opt/WWW/container.ite-ng.ru/conf/backup/crontab.apache"
+            sshCommand remote: remote, command: "cat /opt/WWW/container.ite-ng.ru/conf/backup/crontab.root"
             sshCommand remote: remote, command: "ps aux | grep -v grep | grep cron"
         }
         stage('Run BackUp') {
