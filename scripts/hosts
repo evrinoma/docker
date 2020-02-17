@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PREFIX_PHP="php"
+PREFIX_PUBLIC="public"
 PREFIX_BUNDLE="bundle"
 PREFIX_LOCAL="local"
 SUBNET="172.18."
@@ -39,6 +40,8 @@ PREFIX_PHP71=$PREFIX_PHP"71"
 PREFIX_PHP72=$PREFIX_PHP"72"
 
 C1_83=$SUBNET"83."
+
+PUBLIC=$SUBNET"100."
 
 sed -i -e "/^172.18/ d" /etc/hosts
 

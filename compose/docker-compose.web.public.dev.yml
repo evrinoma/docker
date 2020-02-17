@@ -14,13 +14,13 @@ services:
                 ipv4_address: 172.18.2.1
 
     php72_cont:
-        container_name: "php72.cont.prod"
-        image: "evrinoma/php72.prod.cont.ite-ng.ru"
+        container_name: "php72.cont.public"
+        image: "evrinoma/php72.public.cont.ite-ng.ru"
         build:
             context: docker/php72/sites/cont/.
             dockerfile: Dockerfile
             args:
-                - VHOST=prod
+                - VHOST=public
                 - database_host=172.18.2.1
                 - database_name=cont
                 - database_port=3306
@@ -32,48 +32,14 @@ services:
             virt:
                 ipv4_address: 172.18.72.6
 
-
-    php72_tools:
-        container_name: "php72.tools"
-        image: "evrinoma/php72.tools"
-        build:
-            context: docker/php72/sites/tools/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.72.4
-
-    php53_kis_ite-ng_ru:
-        container_name: "php53.kis.ite-ng"
-        image: "evrinoma/php53.kis.ite-ng.ru"
-        cap_add:
-            - SYS_ADMIN
-        security_opt:
-            - apparmor:unconfined
-        build:
-            context: docker/php53/sites/kis/.
-            dockerfile: Dockerfile
-            args:
-                - VHOST=ite-ng
-#        ports:
-#            - "172.20.1.78:80:80/tcp"
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
-        networks:
-            virt:
-                ipv4_address: 172.18.53.3
-
     php53_kis_new_ite-ng_ru:
-        container_name: "php53.kisnew.ite-ng"
-        image: "evrinoma/php53.kisnew.ite-ng.ru"
+        container_name: "php53.kisnew.public"
+        image: "evrinoma/php53.public.kisnew.ite-ng.ru"
         build:
             context: docker/php53/sites/kisnew/.
             dockerfile: Dockerfile
             args:
-                - VHOST=ite-ng
+                - VHOST=public
         cap_add:
             - SYS_ADMIN
         security_opt:
