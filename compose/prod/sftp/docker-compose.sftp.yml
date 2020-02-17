@@ -175,7 +175,7 @@ services:
             virt:
                 ipv4_address: 172.18.53.5
 
-    php53_kis_new_nekeng_ru-ng_ru:
+    php53_kis_new_nekeng_ru:
         container_name: "php53.kisnew.nekeng"
         image: "evrinoma/php53.kisnew.nekeng.ru"
         build:
