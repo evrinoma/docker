@@ -23,4 +23,5 @@
 SPAM='spamlearn'
 
 SPAM_DIR='/opt/WWW/container.ite-ng.ru'
+mkdir -p $SPAM_DIR/$SPAM
 sa-learn --showdots -u nobody --mbox --spam $SPAM_DIR/$SPAM
