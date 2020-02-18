@@ -41,7 +41,6 @@ RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
 
 #supervisor
-COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
 RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
 
@@ -170,6 +169,9 @@ RUN	yum install cronie -y && \
 RUN	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab && \
 	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/spam > /dev/null 2>&1" >> /etc/crontab && \
 	crontab -u root /etc/crontab
+
+#supervisor
+COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 25
