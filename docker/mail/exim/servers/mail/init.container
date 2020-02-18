@@ -26,7 +26,7 @@ fi
 setfacl -m g:exim:rwx -R $DIR/
 setfacl -m g:clamav:rwx -R $DIR/
 
-chmod 755 -R $CLAMAV_LOG
-chmod 755 -R $EXIM_LOG
+chmod 644 -R $CLAMAV_LOG
+chmod 644 -R $EXIM_LOG
 
 chmod 755 $CLAMAV
