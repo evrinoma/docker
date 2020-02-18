@@ -7,7 +7,8 @@ SRC_EXIM_LOG="$SRC_EXIM_VAR/log"
 CLAMAV="/var/lib/clamav"
 DIR="/opt/WWW/container.ite-ng.ru/logs/exim"
 CLAMAV_LOG="$DIR/tmp/"
-EXIM_LOG="$DIR/var/log/"
+EXIM_VAR="$DIR/var/"
+EXIM_LOG="$EXIM_VAR/log/"
 
 mkdir -p $CLAMAV_LOG
 mkdir -p $EXIM_LOG
@@ -22,14 +23,17 @@ if [[ ! -L "$SRC_EXIM_LOG" && -d "$SRC_EXIM_LOG" ]]; then
     ln -s $EXIM_LOG $SRC_EXIM_VAR
 fi
 
-touch $EXIM_LOG/main.log
-touch $EXIM_LOG/panic.log
-touch $EXIM_LOG/reject.log
-touch $CLAMAV_LOG/spamd.log
-
 setfacl -m g:48:rwx -R $DIR/
 setfacl -m g:exim:rwx -R $DIR/
 setfacl -m g:clamav:rwx -R $DIR/
+
+touch $CLAMAV_LOG/spamd.log
+
+touch $EXIM_LOG/main.log
+touch $EXIM_LOG/panic.log
+touch $EXIM_LOG/reject.log
+
+chown exim.exim -R $EXIM_VAR
 
 chmod 664 -R $CLAMAV_LOG
 chmod 664 -R $EXIM_LOG
