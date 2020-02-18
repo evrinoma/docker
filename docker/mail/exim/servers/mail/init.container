@@ -1,5 +1,4 @@
 #!/bin/bash
-
 EXIM="/opt/exim"
 SRC_CLAMAV_LOG="$EXIM/tmp"
 SRC_EXIM_VAR="$EXIM/var"
@@ -10,20 +9,20 @@ DIR="/opt/WWW/container.ite-ng.ru/logs/exim"
 CLAMAV_LOG="$DIR/tmp/"
 EXIM_LOG="$DIR/var/log/"
 
-
 mkdir -p $CLAMAV_LOG
 mkdir -p $EXIM_LOG
 
 if [[ ! -L "$SRC_CLAMAV_LOG" && -d "$SRC_CLAMAV_LOG" ]]; then
-	rm -rf $SRC_CLAMAV_LOG
-	ln -s $CLAMAV_LOG $EXIM
+    rm -rf $SRC_CLAMAV_LOG
+    ln -s $CLAMAV_LOG $EXIM
 fi
 
 if [[ ! -L "$SRC_EXIM_LOG" && -d "$SRC_EXIM_LOG" ]]; then
-	rm -rf $SRC_EXIM_LOG
-	ln -s $EXIM_LOG $SRC_EXIM_VAR
+    rm -rf $SRC_EXIM_LOG
+    ln -s $EXIM_LOG $SRC_EXIM_VAR
 fi
 
+setfacl -m g:48:rwx -R $DIR/
 setfacl -m g:exim:rwx -R $DIR/
 setfacl -m g:clamav:rwx -R $DIR/
 
@@ -34,5 +33,5 @@ chmod 664 -R $EXIM_LOG
 chmod 755 $CLAMAV_LOG
 chmod 755 $EXIM_LOG
 
-
 chmod 755 $CLAMAV
+
