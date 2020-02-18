@@ -1,8 +1,9 @@
 #!/bin/bash
 
 DIR='/opt/WWW/container.ite-ng.ru/logs/exim'
+
 EXIM='/opt/exim'
-='var/lib/clamav'
+CLAMAV='/var/lib/clamav'
 
 if [ ! -d "$DIR" ]; then
 	mkdir -p $DIR/tmp
@@ -23,7 +24,8 @@ if ! [[ -L "$EXIM/var/log/" && -d "$EXIM/var/log/" ]]; then
 	ln -s $DIR/var/log/ $EXIM/var/
 fi
 
-chown exim:exim -R $DIR/
+#chown exim:exim -R $DIR/
 setfacl -m g:exim:rwx -R $DIR/
+setfacl -m g:clamav:rwx -R $DIR/
 
-chmod 775 $CLAMAV
+chmod 755 $CLAMAV
