@@ -144,7 +144,7 @@ COPY	scan.conf /opt/clamav/etc/
 COPY	exim/init.install /usr/local/bin/
 COPY	exim/init.sql /usr/local/bin/
 RUN	chmod -R 700 /usr/local/bin/init.install && \
-	chmod -R 700 /usr/local/bin/init.sql
+	chmod -R 600 /usr/local/bin/init.sql
 
 COPY	init.container /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container

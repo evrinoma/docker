@@ -20,6 +20,7 @@
 # Kill all letters older than 1 day:
 #/usr/local/bin/oldmail_del.pl
 #chown nobody:nobody /usr/local/etc/mail/spamassassin/bayes/*
+SPAM='spamlearn'
 
 SPAM_DIR='/opt/WWW/container.ite-ng.ru'
-sa-learn --showdots -u nobody --mbox --spam $SPAM_DIR/
+sa-learn --showdots -u nobody --mbox --spam $SPAM_DIR/$SPAM

@@ -5,5 +5,16 @@ base=tools
 user=contrspam
 basepass=contrspam
 if [ ! -z "$pass" ]; then
-	init.sql $pass $serverSql $base $user $basepass
+  mariaInstall=`yum list installed | grep "mariadb\."`
+  if [ -z "$mariaInstall" ]; then
+      yum install mysql -y
+  fi
+
+  chmod +x /usr/local/bin/init.sql
+  init.sql $pass $serverSql $base $user $basepass
+  chmod -x /usr/local/bin/init.sql
+
+  if [ -z "$mariaInstall" ]; then
+      yum remove mysql -y
+  fi
 fi
