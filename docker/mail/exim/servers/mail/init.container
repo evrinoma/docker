@@ -1,32 +1,32 @@
 #!/bin/bash
 
-DIR='/opt/WWW/container.ite-ng.ru/logs/exim'
+EXIM="/opt/exim"
+CLAMAV="/var/lib/clamav"
+DIR="/opt/WWW/container.ite-ng.ru/logs/exim"
+CLAMAV_LOG="$DIR/tmp/"
+EXIM_LOG="$DIR/var/log/"
 
-EXIM='/opt/exim'
-CLAMAV='/var/lib/clamav'
 
-if [ ! -d "$DIR" ]; then
-	mkdir -p $DIR/tmp
-	mkdir -p $DIR/var/log
+SRC_CLAMAV_LOG="$EXIM/tmp"
+SRC_EXIM_LOG="$EXIM/var/log"
+
+mkdir -p $CLAMAV_LOG
+mkdir -p $EXIM_LOG
+
+if [[ ! -L "$SRC_CLAMAV_LOG" && -d "$SRC_CLAMAV_LOG" ]]; then
+	rm -rf $SRC_CLAMAV_LOG
+	ln -s $CLAMAV_LOG $EXIM
 fi
 
-if ! [[ -L "$EXIM/tmp/" || -d "$EXIM/tmp/" ]]; then
-	if [ -d "$EXIM/tmp/" ]; then
-		rm -rf $EXIM/tmp/
-	fi
-	ln -s $DIR/tmp/ $EXIM
+if [[ ! -L "$SRC_EXIM_LOG" && -d "$SRC_EXIM_LOG" ]]; then
+	rm -rf $SRC_EXIM_LOG
+	ln -s $EXIM_LOG $SRC_EXIM_LOG
 fi
 
-if ! [[ -L "$EXIM/var/log/" || -d "$EXIM/var/log/" ]]; then
-	if [ -d "$EXIM/var/log/" ]; then
-		rm -rf $EXIM/var/log/
-	fi
-	ln -s $DIR/var/log/ $EXIM/var/
-fi
-
-#chown exim:exim -R $DIR/
 setfacl -m g:exim:rwx -R $DIR/
 setfacl -m g:clamav:rwx -R $DIR/
 
-chmod 755 $EXIM
+chmod 755 -R $CLAMAV_LOG
+chmod 755 -R $EXIM_LOG
+
 chmod 755 $CLAMAV
