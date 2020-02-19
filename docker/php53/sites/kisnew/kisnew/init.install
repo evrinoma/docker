@@ -1,0 +1,29 @@
+#!/bin/sh
+pass=$1
+
+VHOST=$(cat /etc/sysconfig/vhost | grep VHOST | sed -r 's/.*=(.*)$/\1/')
+database_host=$(cat /etc/sysconfig/vhost | grep database_host | sed -r 's/.*=(.*)$/\1/')
+database_port=$(cat /etc/sysconfig/vhost | grep database_port | sed -r 's/.*=(.*)$/\1/')
+database_name=$(cat /etc/sysconfig/vhost | grep database_name | sed -r 's/.*=(.*)$/\1/')
+database_user=$(cat /etc/sysconfig/vhost | grep database_user | sed -r 's/.*=(.*)$/\1/')
+database_password=$(cat /etc/sysconfig/vhost | grep database_password | sed -r 's/.*=(.*)$/\1/')
+TARGET=content_new
+if [ ! -z "$pass" ]; then
+    DIR="/opt/WWW/container.ite-ng.ru/projec/kis.$VHOST.ru/$TARGET"
+    if [ ! -d "$DIR" ]; then
+        mkdir -p $DIR
+        cd $DIR
+        git clone http://grishvv@git.ite-ng.ru/root/kis_content_new.git $DIR
+        cp $DIR/composer.json{,.bak}
+        sed -i '/clearCache/d' $DIR/composer.json
+        sed -i '/installAssets/d' $DIR/composer.json
+        composer install --no-interaction
+        cp $DIR/composer.json.bak $DIR/composer.json
+        rm -f $DIR/composer.json.bak
+        /usr/bin/php bin/console assets:install --symlink --env=prod
+        /usr/bin/php bin/console cache:clear --env=prod
+        yarn install
+        webpack --env=prod
+        chown apache:apache -R $DIR
+    fi
+fi

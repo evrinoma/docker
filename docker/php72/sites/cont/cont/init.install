@@ -15,7 +15,7 @@ if [ ! -z "$pass" ]; then
         git clone http://grishvv@git.ite-ng.ru/root/cont.git $DIR/$VHOST
         cd $DIR/$VHOST
         mkdir -p $DIR/$VHOST/var
-        composer install
+        composer install --no-interaction
 
         sed -i -e "s@database_host:.*@database_host:\ $database_host@" $DIR/$VHOST/app/config/parameters.yml
         sed -i -e "s@database_port:.*@database_port:\ $database_port@" $DIR/$VHOST/app/config/parameters.yml
