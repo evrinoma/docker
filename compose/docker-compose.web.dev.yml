@@ -98,8 +98,8 @@ services:
                 - database_host=172.18.2.1
                 - database_name=mh3itgr_ng
                 - database_port=3306
-                - database_user=grishvv
-                - database_password=3680
+                - database_user=mh3itgr_ngdb
+                - database_password=147Fort21
         cap_add:
             - SYS_ADMIN
         security_opt:

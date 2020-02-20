@@ -21,11 +21,11 @@ if [ ! -z "$pass" ]; then
         cp $DIR/composer.json.bak $DIR/composer.json
         rm -f $DIR/composer.json.bak
 
-        sed -i -e "s@database_host:.*@database_host:\ $database_host@" $DIR/$VHOST/app/config/parameters.yml
-        sed -i -e "s@database_port:.*@database_port:\ $database_port@" $DIR/$VHOST/app/config/parameters.yml
-        sed -i -e "s@database_name:.*@database_name:\ $database_name@" $DIR/$VHOST/app/config/parameters.yml
-        sed -i -e "s@database_user:.*@database_user:\ $database_user@" $DIR/$VHOST/app/config/parameters.yml
-        sed -i -e "s@database_password:.*@database_password:\ $database_password@" $DIR/$VHOST/app/config/parameters.yml
+        sed -i -e "s@database_host:.*@database_host:\ $database_host@" $DIR/app/config/parameters.yml
+        sed -i -e "s@database_port:.*@database_port:\ $database_port@" $DIR/app/config/parameters.yml
+        sed -i -e "s@database_name:.*@database_name:\ $database_name@" $DIR/app/config/parameters.yml
+        sed -i -e "s@database_user:.*@database_user:\ $database_user@" $DIR/app/config/parameters.yml
+        sed -i -e "s@database_password:.*@database_password:\ $database_password@" $DIR/app/config/parameters.yml
 
         /usr/bin/php bin/console assets:install --symlink --env=prod
         /usr/bin/php bin/console cache:clear --env=prod
