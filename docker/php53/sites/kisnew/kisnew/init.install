@@ -35,7 +35,7 @@ if [ ! -z "$pass" ]; then
             yum install mysql -y
         fi
 
-#        /usr/bin/php bin/console --no-interaction doctrine:migrations:migrate
+        /usr/bin/php bin/console --no-interaction doctrine:migrations:migrate
 
         yarn
         webpack --env=prod
