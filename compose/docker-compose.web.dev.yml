@@ -95,6 +95,11 @@ services:
             args:
                 - VHOST=ite-ng
                 - exchange=true
+                - database_host=172.18.2.1
+                - database_name=mh3itgr_ng
+                - database_port=3306
+                - database_user=grishvv
+                - database_password=3680
         cap_add:
             - SYS_ADMIN
         security_opt:
