@@ -538,12 +538,21 @@ services:
             context: docker/php53/sites/kisnew/.
             dockerfile: Dockerfile
             args:
+                - MODE=prod
                 - VHOST=ite-ng
                 - exchange=true
+                - database_host=172.18.2.1
+                - database_name=mh3itgr_ng
+                - database_port=3306
+                - database_user=mh3itgr_ngdb
+                - database_password=147Fort21
         cap_add:
             - SYS_ADMIN
         security_opt:
             - apparmor:unconfined
+#        ports:
+#            - "172.20.1.173:80:80/tcp"
+#            - "172.20.1.173:22:22/tcp"
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -580,14 +589,23 @@ services:
             context: docker/php53/sites/kisnew/.
             dockerfile: Dockerfile
             args:
+                - MODE=prod
                 - VHOST=nekeng
+                - exchange=true
+                - database_host=172.18.2.1
+                - database_name=mh3itgr_nek_ng
+                - database_port=3306
+                - database_user=mh3itgr_ngdb
+                - database_password=147Fort21
         cap_add:
             - SYS_ADMIN
         security_opt:
             - apparmor:unconfined
-        ports:
-            - "172.20.1.78:81:80/tcp"
+#        ports:
+#            - "172.20.1.173:80:80/tcp"
+#            - "172.20.1.173:22:22/tcp"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
         networks:
