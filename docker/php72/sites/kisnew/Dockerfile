@@ -19,7 +19,7 @@ ARG	database_user=''
 ARG	database_password=''
 
 RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
-   	echo "VHOST=${VHOST}" > /etc/sysconfig/vhost && \
+   	echo "VHOST=${VHOST}" >> /etc/sysconfig/vhost && \
 	echo "database_host=${database_host}" >> /etc/sysconfig/vhost && \
 	echo "database_port=${database_port}" >> /etc/sysconfig/vhost && \
 	echo "database_name=${database_name}" >> /etc/sysconfig/vhost && \
