@@ -19,7 +19,6 @@ if [ ! -z "$pass" ]; then
         sed -i '/clearCache/d' $DIR/$VHOST/composer.json
         sed -i '/installAssets/d' $DIR/$VHOST/composer.json
         composer install
-        #--no-interaction
         cp $DIR/$VHOST/composer.json.bak $DIR/$VHOST/composer.json
         rm -f $DIR/$VHOST/composer.json.bak
 
