@@ -9,7 +9,7 @@ database_user=$(cat /etc/sysconfig/vhost | grep database_user | sed -r 's/.*=(.*
 database_password=$(cat /etc/sysconfig/vhost | grep database_password | sed -r 's/.*=(.*)$/\1/')
 TARGET=content_new
 if [ ! -z "$pass" ]; then
-    DIR="/opt/WWW/container.ite-ng.ru/projec/kis.$VHOST.ru/$TARGET"
+    DIR="/opt/WWW/container.ite-ng.ru/projects/kis.$VHOST.ru/$TARGET"
     if [ ! -d "$DIR" ]; then
         mkdir -p $DIR
         cd $DIR
@@ -23,7 +23,7 @@ if [ ! -z "$pass" ]; then
         /usr/bin/php bin/console assets:install --symlink --env=prod
         /usr/bin/php bin/console cache:clear --env=prod
         yarn install
-        webpack --env=prod
+        webpack --env=dev
         chown apache:apache -R $DIR
     fi
 fi

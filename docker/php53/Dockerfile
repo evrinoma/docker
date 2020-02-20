@@ -183,6 +183,9 @@ RUN	yum install cronie -y && \
 ADD	reconfig /usr/local/bin/
 RUN	chmod +x /usr/local/bin/reconfig
 
+#webpack
+RUN	npm install -g webpack webpack-cli;
+
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
 
