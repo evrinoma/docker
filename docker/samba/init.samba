@@ -9,7 +9,11 @@ if [ ! -z "$SAMBA_USERNAME" ] || [ ! -z "$SAMBA_PASSWORD" ]; then
 	while true; do
 		nmbd=$(ps aux | grep -v grep |grep nmbd | awk {'print $2'})
 		if [ ! -z "$nmbd" ]; then
-			net ads join -U $SAMBA_USERNAME%$SAMBA_PASSWORD
+		  IS_JOINED=$(net ads testjoin -k | grep 'OK')
+		  IS_JOINED=$(net ads testjoin -k | grep 'OK')
+      if [ -z "$IS_JOINED" ]; then
+        net ads join -U $SAMBA_USERNAME%$SAMBA_PASSWORD
+      fi
 			sleep 1;
 			nohup /usr/sbin/winbindd --foreground --no-process-group 2>&1 > /dev/null &
 			while true; do
