@@ -15,7 +15,12 @@ if [ ! -z "$pass" ]; then
         git clone http://grishvv@git.ite-ng.ru/root/cont.git $DIR/$VHOST
         cd $DIR/$VHOST
         mkdir -p $DIR/$VHOST/var
+        cp $DIR/$VHOST/composer.json{,.bak}
+        sed -i '/clearCache/d' $DIR/$VHOST/composer.json
+        sed -i '/installAssets/d' $DIR/$VHOST/composer.json
         composer install --no-interaction
+        cp $DIR/$VHOST/composer.json.bak $DIR/$VHOST/composer.json
+        rm -f $DIR/$VHOST/composer.json.bak
 
         sed -i -e "s@database_host:.*@database_host:\ $database_host@" $DIR/$VHOST/app/config/parameters.yml
         sed -i -e "s@database_port:.*@database_port:\ $database_port@" $DIR/$VHOST/app/config/parameters.yml
