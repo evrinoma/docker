@@ -10,7 +10,6 @@ if [ ! -z "$SAMBA_USERNAME" ] || [ ! -z "$SAMBA_PASSWORD" ]; then
 		nmbd=$(ps aux | grep -v grep |grep nmbd | awk {'print $2'})
 		if [ ! -z "$nmbd" ]; then
 		  IS_JOINED=$(net ads testjoin -k | grep 'OK')
-		  IS_JOINED=$(net ads testjoin -k | grep 'OK')
       if [ -z "$IS_JOINED" ]; then
         net ads join -U $SAMBA_USERNAME%$SAMBA_PASSWORD
       fi
