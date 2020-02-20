@@ -17,7 +17,8 @@ if [ ! -z "$pass" ]; then
         cp $DIR/composer.json{,.bak}
         sed -i '/clearCache/d' $DIR/composer.json
         sed -i '/installAssets/d' $DIR/composer.json
-        composer install --no-interaction
+        composer install
+        #--no-interaction
         cp $DIR/composer.json.bak $DIR/composer.json
         rm -f $DIR/composer.json.bak
         /usr/bin/php bin/console assets:install --symlink --env=prod
