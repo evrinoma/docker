@@ -43,6 +43,11 @@
 		file "/etc/named/ipark45.ru.hosts";
 		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
 	};
+	zone "kpsz.ru" {
+		type master;
+		file "/etc/named/kpsz.ru.hosts";
+		also-notify { 172.16.45.4; 172.20.1.11; 217.22.164.5; 194.186.51.70; 92.62.129.23; };
+	};
 	zone "xn--45-6kcasxbjkhse1aihhrq3nsa.xn--p1ai" {
 		type master;
 		file "/etc/named/industrialnypark45.ru.hosts";
