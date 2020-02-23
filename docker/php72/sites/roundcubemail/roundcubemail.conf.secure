@@ -20,6 +20,7 @@
 	ServerAlias email.kzkt45.ru
 	ServerAlias email.lazurnoe.net
 	ServerAlias email.nekeng.ru
+	ServerAlias email.kpsz.ru
 	
 	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/roundcubemail"
 	
