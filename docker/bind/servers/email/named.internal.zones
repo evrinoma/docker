@@ -43,6 +43,11 @@
 		masters { 172.20.1.5; };
 		file "/var/named/internal/ipark45.ru.hosts";
 	};
+	zone "kpsz.ru" {
+		type slave;
+		masters { 172.20.1.5; };
+		file "/var/named/internal/kpsz.ru.hosts";
+	};
 	zone "xn--45-6kcasxbjkhse1aihhrq3nsa.xn--p1ai" {
 		type slave;
 		masters { 172.20.1.5; };
