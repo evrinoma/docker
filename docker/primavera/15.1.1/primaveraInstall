@@ -9,7 +9,11 @@ if [ ! -d "$LOG_ROOT/primavera" ]; then
 	chown oracle:oracle -R $LOG_ROOT/primavera
 fi
 if [ ! -d "$DIR/primavera" ]; then
-	mkdir -p $DIR
-	tar -xvf $WEBLOGIC_DOMAIN -C $DIR
-	chown oracle:oracle -R $DIR/primavera
+        mkdir -p $DIR/primavera
+        cp -fr $DOMAIN_HOME $DIR
 fi
+rm -fr $DOMAIN_HOME
+ln -s $DIR/primavera $DOMAIN_HOME
+chown oracle:oracle -R $DIR/primavera
+
+

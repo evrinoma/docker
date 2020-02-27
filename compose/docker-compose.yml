@@ -194,10 +194,10 @@ services:
         ports:
             - "1433:1433"
         environment:
-            SA_PASSWORD: "rjk,fcf2008"
+            SA_PASSWORD: "1234"
             ACCEPT_EULA: "Y"
         volumes:
-            - "/opt/DISK/Develop/Docker/src/mssql.db/:/var/opt/mssql"
+            - "/opt/DISK/Develop/Docker/src/db/mssql.db/:/var/opt/mssql"
         networks:
             virt:
                 ipv4_address: 172.18.2.3

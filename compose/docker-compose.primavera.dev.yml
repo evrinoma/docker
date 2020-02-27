@@ -13,6 +13,35 @@ services:
             virt:
                 ipv4_address: 172.18.22.15
 
+    mssql_db:
+        container_name: "mssqldb.db"
+        image: "microsoft/mssql-server-linux:2017-latest"
+        ports:
+            - "1433:1433"
+        environment:
+            SA_PASSWORD: "1234"
+            ACCEPT_EULA: "Y"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/db/mssql.db/:/var/opt/mssql"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.3
+
+    php72_sqladmin:
+        container_name: "php72.sqladmin"
+        image: "evrinoma/php72.sqladmin"
+        build:
+            context: docker/php72/sites/sqladmin/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.10
+
 networks:
     virt:
         driver: bridge
