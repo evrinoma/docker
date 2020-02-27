@@ -40,6 +40,7 @@ COPY	install/Inventory /opt/WWW/install/Inventory
 COPY	install/Java /opt/WWW/install/Java
 COPY	install/WebLogic /opt/WWW/install/WebLogic
 COPY	install/primavera /etc/sysconfig/primavera
+COPY	install/Primavera16/linux /opt/WWW/install/Primavera16/linux
 COPY	primavera/startWLS /usr/local/bin
 COPY	primavera/stopWLS /usr/local/bin
 COPY	primavera/P6 /usr/local/bin
