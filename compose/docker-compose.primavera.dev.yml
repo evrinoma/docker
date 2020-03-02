@@ -23,6 +23,7 @@ services:
             ACCEPT_EULA: "Y"
         volumes:
             - "/opt/DISK/Develop/Docker/src/db/mssql.db/:/var/opt/mssql"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.2.3
