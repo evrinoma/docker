@@ -1,0 +1,36 @@
+version: '2'
+services:
+    maria_db:
+        container_name: "maria.db.public"
+        image: "evrinoma/db.maria.public"
+        hostname: "maria.db.public"
+        build:
+            context: docker/db/maria/public/.
+            dockerfile: Dockerfile
+        networks:
+            - virt
+
+
+    php72_clean:
+        container_name: "php72.clean.public"
+        image: "evrinoma/php72.clean.public"
+        hostname: "php72.clean.public"
+        build:
+            context: docker/php72/sites/clean/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=clean
+                - database_host=maria.db.public
+                - database_name=clean
+                - database_port=3306
+                - database_user=admin
+                - database_password=admin
+                - RUN=init.install 1234
+        networks:
+            - virt
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default

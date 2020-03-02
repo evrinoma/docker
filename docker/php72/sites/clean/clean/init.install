@@ -1,0 +1,62 @@
+#!/bin/bash
+pass=$1
+
+MODE=$(cat /etc/sysconfig/vhost | grep MODE | sed -r 's/.*=(.*)$/\1/')
+VHOST=$(cat /etc/sysconfig/vhost | grep VHOST | sed -r 's/.*=(.*)$/\1/')
+database_host=$(cat /etc/sysconfig/vhost | grep database_host | sed -r 's/.*=(.*)$/\1/')
+database_port=$(cat /etc/sysconfig/vhost | grep database_port | sed -r 's/.*=(.*)$/\1/')
+database_name=$(cat /etc/sysconfig/vhost | grep database_name | sed -r 's/.*=(.*)$/\1/')
+database_user=$(cat /etc/sysconfig/vhost | grep database_user | sed -r 's/.*=(.*)$/\1/')
+database_password=$(cat /etc/sysconfig/vhost | grep database_password | sed -r 's/.*=(.*)$/\1/')
+
+if [ ! -z "$pass" ]; then
+    DIR="/opt/WWW/container.ite-ng.ru/projects"
+    if [ -z "$MODE" ]; then
+      MODE="dev"
+    fi
+
+    if [ ! -d "$DIR/$VHOST" ]; then
+        mkdir -p $DIR/$VHOST
+
+        mariaInstall=`yum list installed | grep "mariadb\."`
+        if [ -z "$mariaInstall" ]; then
+            yum install mysql -y
+        fi
+
+        RESULT=`mysqlshow -h$database_host -uroot -p$pass | grep -v Wildcard | grep -o $database_name`
+
+        if [ ! "$RESULT" == "$database_name" ]; then
+             chmod +x /usr/local/bin/init.sql
+             init.sql $pass $database_host $database_name $database_user $database_password
+             chmod -x /usr/local/bin/init.sql
+        fi
+
+        git clone https://github.com/evrinoma/clean.git $DIR/$VHOST
+        cd $DIR/$VHOST
+
+        git clone https://github.com/evrinoma/RpnBundle.git
+        composer require evrinoma/rpn-bundle:*@dev
+
+        sed -i -e "s@db_user@"$database_user"@" $DIR/$VHOST/.env
+        sed -i -e "s@db_password@"$database_password"@" $DIR/$VHOST/.env
+        sed -i -e "s@db_name@"$database_name"@" $DIR/$VHOST/.env
+        sed -i -e "s@127.0.0.1:3306@"$database_host":3306@" $DIR/$VHOST/.env
+
+        composer install
+        php bin/console doctrine:database:create --no-interaction
+        php bin/console d:m:mi --no-interaction
+        php bin/console fos:user:create $database_user $database_user@$database_name $database_password
+        php bin/console fos:user:promote $database_user ROLE_SUPER_ADMIN
+        bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json
+        php bin/console menu:default
+
+        yarn add webpack webpack-cli autoprefixer webpack-manifest-plugin clean-webpack-plugin html-webpack-plugin html-webpack-inline-source-plugin babel-preset-es2015 vue-loader vuetable-2 css-loader  babel-loader@7  babel-core babel-preset-env  style-loader  postcss-loader  file-loader  jquery
+        webpack --env=$MODE && chown -R apache.apache .
+
+
+        if [ -z "$mariaInstall" ]; then
+            yum remove mysql -y
+        fi
+		fi
+fi
+

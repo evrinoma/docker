@@ -1134,6 +1134,23 @@ services:
             virt:
                 ipv4_address: 172.18.72.25
 
+    php72_clean:
+        container_name: "php72.clean"
+        image: "evrinoma/php72.clean"
+        build:
+            context: docker/php72/sites/clean/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=clean
+                - database_host=172.18.2.1
+                - database_name=clean
+                - database_port=3306
+                - database_user=clean
+                - database_password=clean
+        networks:
+            virt:
+                ipv4_address: 172.18.72.26
+
 networks:
     virt:
         driver: bridge
