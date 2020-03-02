@@ -54,5 +54,10 @@ RUN	mkdir -p /var/named && \
 	chown -R named.named /var/named && \
 	chown -R named.named /var/log/named
 
+COPY	init.container /usr/local/bin/
+COPY	restartBind /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container && \
+    chmod +x /usr/local/bin/restartBind
+
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 53 8953
