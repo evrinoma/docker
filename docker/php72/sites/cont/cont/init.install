@@ -41,7 +41,7 @@ if [ ! -z "$pass" ]; then
             yum install mysql -y
         fi
 
-        RESULT=`mysqlshow -h$database_host -uroot -p$pass $database_name| grep -v Wildcard | grep -o $database_name`
+        RESULT=`mysqlshow -h$database_host -uroot -p$pass | grep -v Wildcard | grep -o $database_name`
 
         if [ ! "$RESULT" == "$database_name" ]; then
              chmod +x /usr/local/bin/init.sql
