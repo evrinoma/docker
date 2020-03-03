@@ -24,7 +24,7 @@ services:
             - "172.16.45.4:53:53/tcp"
             - "172.16.45.4:53:53/udp"
             - "172.16.45.4:8953:8953"
-            - "172.16.45.4:22:22"
+            - "172.16.45.4:12000:22"
         build:
             context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
