@@ -20,6 +20,8 @@ services:
         container_name: "bind.slave"
         image: "evrinoma/bind.slave"
         hostname: "bind.slave"
+        extra_hosts:
+            - "git.ite-ng.ru:172.20.1.169"
         ports:
             - "172.16.45.4:53:53/tcp"
             - "172.16.45.4:53:53/udp"

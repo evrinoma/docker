@@ -20,6 +20,8 @@ services:
         container_name: "bind.master"
         image: "evrinoma/bind.master"
         hostname: "bind.master"
+        extra_hosts:
+            - "git.ite-ng.ru:172.20.1.169"
         build:
             context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
