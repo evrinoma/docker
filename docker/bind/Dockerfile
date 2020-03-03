@@ -13,6 +13,7 @@ LABEL \
 
 ONBUILD	ARG	MODE=''
 ONBUILD	ARG	INSTALL_DIR='/opt/bind'
+ONBUILD	ARG	GIT_IP=''
 
 RUN	yum -y install mc wget && \
 	yum -y install iproute && \

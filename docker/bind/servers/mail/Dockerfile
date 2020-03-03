@@ -17,6 +17,8 @@ RUN	mv -v /etc/named.conf{,.bak} && \
 
 RUN	echo "MODE=${MODE}" >> /etc/sysconfig/bind
 RUN	echo "INSTALL_DIR=${INSTALL_DIR}" >> /etc/sysconfig/bind
+RUN	echo "GIT_IP=${GIT_IP}" >> /etc/sysconfig/bind
+
 RUN	sed -i '/###BIND_INSERT/r /etc/sysconfig/bind' /usr/local/bin/init.install && init.install
 
 RUN	if [ "${MODE}" == "master" ]; then ln -s ${INSTALL_DIR}/${MODE}/named.conf /etc/ && \
