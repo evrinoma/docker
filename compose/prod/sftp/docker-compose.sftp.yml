@@ -23,6 +23,9 @@ services:
         build:
             context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
+            args:
+                - MODE=master
+                - INSTALL_DIR=/opt/bind
         ports:
             - "172.20.1.5:53:53/tcp"
             - "172.20.1.5:53:53/udp"

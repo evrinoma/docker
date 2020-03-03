@@ -25,8 +25,11 @@ services:
             - "172.16.45.4:53:53/udp"
             - "172.16.45.4:8953:8953"
         build:
-            context: docker/bind/servers/email/.
+            context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
+            args:
+                - MODE=slave
+                - INSTALL_DIR=/opt/bind
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
