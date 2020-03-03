@@ -1140,7 +1140,7 @@ services:
             - "172.20.1.171:22:22/tcp"
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
-            #            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -1159,6 +1159,7 @@ services:
                 - database_port=3306
                 - database_user=clean
                 - database_password=clean
+#                - RUN=init.install 1234
         networks:
             virt:
                 ipv4_address: 172.18.72.26
