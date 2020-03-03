@@ -1,3 +1,3 @@
 #!/bin/bash
 kill -kill $(ps aux | grep -v grep | grep  '/usr/sbin/named' | awk '{print $2}')
-su - named  -s /bin/sh -c '/usr/sbin/named -u named'
+/usr/sbin/named -u named
