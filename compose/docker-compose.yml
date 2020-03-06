@@ -387,7 +387,8 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.20.2
-    vnc_primavera:
+
+    vnc_primavera_15:
         container_name: "vnc.primavera.15"
         image: "evrinoma/vnc.primavera.15"
         build:
@@ -398,6 +399,19 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.22.15
+
+    vnc_primavera_18:
+        container_name: "primavera.18.8.deploy"
+        image: "evrinoma/primavera.18.8.deploy"
+        build:
+            context: docker/primavera/servers/18.8/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/etc/localtime:/etc/localtime:rw"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.22.18
 
     1c_83_13_1644_deploy:
         container_name: "1c.83.13.1644.deploy"

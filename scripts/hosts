@@ -73,6 +73,7 @@ echo $GITBLIT"	gitblit" >> /etc/hosts
 echo $GITLAB"	gitlab.local" >> /etc/hosts
 
 echo $PRIMAVERA"15	vnc.primavera.15" >> /etc/hosts
+echo $PRIMAVERA"18	vnc.primavera.18" >> /etc/hosts
 echo $SFTP"1	cloud.sftp" >> /etc/hosts
 echo $SFTP"2	kis.sftp" >> /etc/hosts
 
