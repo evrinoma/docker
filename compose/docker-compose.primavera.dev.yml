@@ -16,6 +16,7 @@ services:
     mssql_db:
         container_name: "mssqldb.db"
         image: "microsoft/mssql-server-linux:2017-latest"
+        hostname: "mssqldb.ite-ng.ru"
         ports:
             - "1433:1433"
         environment:
