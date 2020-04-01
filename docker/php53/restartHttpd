@@ -1,0 +1,2 @@
+#!/bin/bash
+kill -kill $(ps aux | grep -v grep | grep httpd | awk '{print $2}')

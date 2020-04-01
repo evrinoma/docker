@@ -144,8 +144,8 @@ RUN	echo "xdebug.remote_host = 172.18.53.53" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.max_nesting_level = 1024" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.idekey="PHPSTORM"" >> /etc/php.d/xdebug.ini;
 #phpMyAdmin
-RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
-	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
+RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.0\.0\/16\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
+	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.0\.0\/16\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/'localhost'\;/'172\.18\.2\.1'\;/" /etc/phpMyAdmin/config.inc.php && \
 	sed -i -e "s/\?>/\$cfg\['Servers'\]\[\$i\]\['LoginCookieValidity'\]\ = 36000\;/" /etc/phpMyAdmin/config.inc.php && \
 	echo "?>" >> /etc/phpMyAdmin/config.inc.php;
@@ -185,6 +185,9 @@ RUN	chmod +x /usr/local/bin/reconfig
 
 #webpack
 RUN	npm install -g webpack webpack-cli;
+
+ADD	restartHttpd /usr/local/bin/
+RUN	chmod +x /usr/local/bin/restartHttpd
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
