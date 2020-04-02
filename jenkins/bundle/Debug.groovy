@@ -36,6 +36,7 @@ node {
         stage('Git Checkout') {
             sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote}"
             sshCommand remote: remote, command: "cd ${contDir} && git checkout ${branchName}"
+            sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote}"
         }
         stage('Git Pull') {
             sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote}"
