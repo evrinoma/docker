@@ -78,6 +78,7 @@ RUN	yum install cronie -y && \
 	crontab -u root -l
 
 RUN	yum -y install jq.x86_64
+RUN	yum -y install zip lftp
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22
