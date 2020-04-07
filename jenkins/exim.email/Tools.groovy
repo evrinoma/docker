@@ -24,15 +24,7 @@ node {
                 sshCommand remote: remote, command: "cd ${toolsDir} && git pull"
             }
             stage('Composer update') {
-                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/shell-bundle"
-                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/dashboard-bundle"
-                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/utils-bundle"
-                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/dto-bundle"
-                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/settings-bundle"
-                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/delta8-bundle"
-                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/exim-bundle"
-                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/livevideo-bundle"
-                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/menu-bundle"
+                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/shell-bundle evrinoma/dashboard-bundle evrinoma/utils-bundle evrinoma/dto-bundle evrinoma/settings-bundle evrinoma/delta8-bundle evrinoma/exim-bundle evrinoma/livevideo-bundle evrinoma/menu-bundle"
             }
             stage('Migration') {
                 sshCommand remote: remote, command: " /usr/bin/php ${toolsDir}/bin/console --no-interaction doctrine:migrations:migrate"
