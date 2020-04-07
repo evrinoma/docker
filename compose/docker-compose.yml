@@ -888,6 +888,8 @@ services:
         build:
             context: docker/php72/sites/roundcubemail/.
             dockerfile: Dockerfile
+            args:
+                - VERSION=1.4.3
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:

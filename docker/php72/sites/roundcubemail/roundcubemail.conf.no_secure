@@ -11,13 +11,13 @@
 	ServerAlias email.lazurnoe.net
 	ServerAlias email.nekeng.ru
 
-	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/roundcubemail"
+	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/roundcubemail/VERSION"
 	
 #	Alias /roundcubemail
 	ErrorLog /var/log/httpd/error-roundcubemail.log
 	CustomLog /var/log/httpd/access-roundcubemail.log combined
 
-	<Directory "/opt/WWW/container.ite-ng.ru/projects/roundcubemail/">
+	<Directory "/opt/WWW/container.ite-ng.ru/projects/roundcubemail/VERSION/">
 		AllowOverride All
 		Options -Indexes +FollowSymLinks
 		<IfModule mod_authz_core.c>

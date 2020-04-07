@@ -52,6 +52,7 @@ services:
             dockerfile: Dockerfile
             args:
                 - MODE=prod
+                - VERSION=1.4.3
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
