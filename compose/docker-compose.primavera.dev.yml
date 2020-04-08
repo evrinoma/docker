@@ -3,6 +3,9 @@ services:
     vnc_primavera_18:
         container_name: "primavera.18.8.deploy"
         image: "evrinoma/primavera.18.8.deploy"
+        hostname: "primavera.ite-ng.ru"
+        extra_hosts:
+            - "iteng26:172.20.1.26"
         build:
             context: docker/primavera/servers/18.8/.
             dockerfile: Dockerfile
