@@ -124,6 +124,32 @@ services:
             virt:
                 ipv4_address: 172.18.72.22
 
+    php72_cont_qsurv:
+        container_name: "php72.cont.qsurv"
+        image: "evrinoma/php72.qsurv.cont.ite-ng.ru"
+        build:
+            context: docker/php72/sites/cont/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=qsurv
+                - database_host=172.18.2.1
+                - database_name=cont_qsurv
+                - database_port=3306
+                - database_user=cont
+                - database_password=cont
+        ports:
+            - "172.20.1.176:80:80/tcp"
+            - "172.20.1.176:443:443/tcp"
+            - "172.20.1.176:22:22/tcp"
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            #            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.22
+
 #######################################################################
 ############################## Start ##################################
 ####### @todo this deploy should be removed to another server##########
