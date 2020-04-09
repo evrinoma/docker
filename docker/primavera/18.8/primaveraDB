@@ -1,0 +1,28 @@
+#!/bin/bash
+
+###PRIMAVERA_INSERT
+
+DIR="/opt/WWW/container.ite-ng.ru/conf/primavera"
+
+if [ ! -d "$DIR" ]; then
+  mkdir -p $DIR
+fi
+if [ ! -d "$DIR/api" ]; then
+ mkdir -p $DIR/api
+fi
+if [ ! -f "$DIR/api/BREBootStrap.xml" ]; then
+ touch $DIR/api/BREBootStrap.xml
+fi
+if [ ! -d "$DIR/p6" ]; then
+ mkdir -p $DIR/p6
+fi
+if [ ! -f "$DIR/p6/BREBootStrap.xml" ]; then
+ touch $DIR/p6/BREBootStrap.xml
+fi
+
+ln -s $DIR/api/BREBootStrap.xml $PRIMAVERA_API
+ln -s $DIR/p6/BREBootStrap.xml $PRIMAVERA
+
+chown oracle:oracle -R $DIR
+
+

@@ -1,3 +1,5 @@
 #!/bin/bash
 
 /usr/local/bin/primaveraInstall
+/usr/local/bin/primaveraDB
+/usr/local/bin/P6 start

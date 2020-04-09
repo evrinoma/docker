@@ -5,4 +5,5 @@
 
 ###PRIMAVERA_INSERT
 
-${DOMAIN_HOME}/bin/startWebLogic.sh -Dprimavera.bootstrap.home=$PRIMAVERA -Dweblogic.management.username=$PRIMAVERA_USERNAME -Dweblogic.management.password=$PRIMAVERA_PASSWORD -Dweblogic.Stdout=$LOG_PRIMAVERA $*
+${DOMAIN_HOME}/bin/startWebLogic.sh -Dprimavera.bootstrap.home=$PRIMAVERA -Dweblogic.Stdout=$LOG_PRIMAVERA $*
+#-Dweblogic.management.username=$PRIMAVERA_USERNAME -Dweblogic.management.password=$PRIMAVERA_PASSWORD

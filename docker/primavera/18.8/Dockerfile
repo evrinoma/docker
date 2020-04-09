@@ -54,6 +54,7 @@ COPY	primavera/startWLS /usr/local/bin
 COPY	primavera/stopWLS /usr/local/bin
 COPY	primavera/P6 /usr/local/bin
 COPY	primaveraInstall /usr/local/bin
+COPY	primaveraDB /usr/local/bin
 COPY	init.container /usr/local/bin/
 COPY	primavera.conf /etc/supervisord.d/primavera.conf
 
@@ -91,12 +92,14 @@ RUN	chmod +x /usr/local/bin/startWLS && \
 	chmod +x /usr/local/bin/stopWLS && \
 	chmod +x /usr/local/bin/P6 && \
 	chmod +x /usr/local/bin/primaveraInstall && \
+	chmod +x /usr/local/bin/primaveraDB && \
 	chmod +x /usr/local/bin/init.container
 
 RUN	sed -i '/###PRIMAVERA_INSERT/r /etc/sysconfig/primavera' /usr/local/bin/startWLS && \
 	sed -i '/###PRIMAVERA_INSERT/r /etc/sysconfig/primavera' /usr/local/bin/stopWLS && \
 	sed -i '/###PRIMAVERA_INSERT/r /etc/sysconfig/primavera' /usr/local/bin/P6 && \
-	sed -i '/###PRIMAVERA_INSERT/r /etc/sysconfig/primavera' /usr/local/bin/primaveraInstall
+	sed -i '/###PRIMAVERA_INSERT/r /etc/sysconfig/primavera' /usr/local/bin/primaveraInstall && \
+	sed -i '/###PRIMAVERA_INSERT/r /etc/sysconfig/primavera' /usr/local/bin/primaveraDB
 
 RUN	mkdir -p /opt/Oracle/DOMAIN/user_projects/domains
 #	ln -s /opt/WWW/container.ite-ng.ru/projects/primavera /opt/Oracle/DOMAIN/user_projects/domains/primavera
