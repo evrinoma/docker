@@ -1,5 +1,6 @@
 #!/bin/bash
 
+MODE=$(cat /etc/sysconfig/vhost | grep MODE | sed -r 's/.*=(.*)$/\1/')
 VHOST=$(cat /etc/sysconfig/vhost | grep VHOST | sed -r 's/.*=(.*)$/\1/')
 database_host=$(cat /etc/sysconfig/vhost | grep database_host | sed -r 's/.*=(.*)$/\1/')
 database_port=$(cat /etc/sysconfig/vhost | grep database_port | sed -r 's/.*=(.*)$/\1/')

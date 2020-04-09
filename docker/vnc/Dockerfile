@@ -52,11 +52,10 @@ RUN	yum groupinstall xfce -y
 
 COPY	vnc/ /root/
 
-RUN	groupadd oracle && \
-	useradd -g oracle -s /bin/bash -d /home/oracle oracle && \
-	echo 'oracle' |passwd oracle --stdin
-
 RUN	export LANG=en_US.UTF-8
+#copy terminal settings
+COPY xfce4 /root/.config/xfce4
+RUN	sed -i '/xfce-polkit/d' /etc/xdg/autostart/xfce-polkit.desktop
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 5901

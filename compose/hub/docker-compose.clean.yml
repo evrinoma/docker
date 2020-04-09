@@ -1,0 +1,21 @@
+version: '2'
+services:
+    maria_db:
+        container_name: "maria.db.public"
+        image: "evrinoma/db.maria.public"
+        hostname: "maria.db.public"
+        networks:
+            - virt
+
+    php72_clean:
+        container_name: "php72.clean.public"
+        image: "evrinoma/php72.clean.public"
+        hostname: "php72.clean.public"
+        networks:
+            - virt
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default

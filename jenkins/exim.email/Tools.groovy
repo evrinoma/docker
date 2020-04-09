@@ -23,14 +23,20 @@ node {
             stage('Git Pull') {
                 sshCommand remote: remote, command: "cd ${toolsDir} && git pull"
             }
+            stage('Composer update') {
+                sshCommand remote: remote, command: " cd ${toolsDir} && composer update evrinoma/shell-bundle evrinoma/dashboard-bundle evrinoma/utils-bundle evrinoma/dto-bundle evrinoma/settings-bundle evrinoma/delta8-bundle evrinoma/exim-bundle evrinoma/livevideo-bundle evrinoma/menu-bundle"
+            }
             stage('Migration') {
                 sshCommand remote: remote, command: " /usr/bin/php ${toolsDir}/bin/console --no-interaction doctrine:migrations:migrate"
             }
-            stage('WebPack') {
-                sshCommand remote: remote, command: "cd ${toolsDir} && webpack --env=prod"
-            }
             stage('Assets') {
                 sshCommand remote: remote, command: " /usr/bin/php ${toolsDir}/bin/console assets:install --symlink --env=prod"
+            }
+            stage('JsRoutes') {
+                sshCommand remote: remote, command: "cd ${toolsDir} && php bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json"
+            }
+            stage('WebPack') {
+                sshCommand remote: remote, command: "cd ${toolsDir} && webpack --env=prod"
             }
             stage('Cache') {
                 sshCommand remote: remote, command: " /usr/bin/php ${toolsDir}/bin/console cache:clear --env=prod"

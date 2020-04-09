@@ -155,8 +155,8 @@ RUN	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
 	echo "xdebug.idekey="PHPSTORM"" >> /etc/php.d/xdebug.ini;
 
 #phpMyAdmin
-RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
-	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.1\.0\/24\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
+RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.0\.0\/16\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
+	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.0\.0\/16\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/'localhost'\;/'172\.18\.2\.1'\;/" /etc/phpMyAdmin/config.inc.php && \
 	sed -i -e "s/\?>//" /etc/phpMyAdmin/config.inc.php && \
 	echo "?>" >> /etc/phpMyAdmin/config.inc.php && \
@@ -208,7 +208,7 @@ RUN	yum install re2c gcc-c++ gcc unixODBC-devel -y  && \
 RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
 	chown -R apache.apache /var/log/httpd/
 
-COPY	init.container /usr/local/bin/
+ADD	init.container /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container
 
 RUN	yum install cronie -y && \
@@ -216,6 +216,9 @@ RUN	yum install cronie -y && \
 	touch /etc/crontab.apache
 ADD	reconfig /usr/local/bin/
 RUN	chmod +x /usr/local/bin/reconfig
+
+ADD	restartHttpd /usr/local/bin/
+RUN	chmod +x /usr/local/bin/restartHttpd
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80

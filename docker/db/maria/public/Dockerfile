@@ -9,11 +9,7 @@ LABEL \
 		image="maria.db.public" \
 		vendor="evrinoma@gmail.com" \
 		license="MIT" \
-		build-date="2019-12-05"
+		build-date="2020-03-02"
 
-ADD	install/db.tar.gz /tmp
-RUN	mv /var/lib/mysql{,.bak} && \
-	cp -r /tmp/db/maria/ /var/lib/mysql && \
-	chown mysql.mysql -R /var/lib/mysql && \
-	rm -rf /tmp/db && \
-	rm -rf /var/lib/mysql.bak/
+RUN echo '#!/bin/bash' > /usr/local/bin/init.container && \
+    echo 'sleep 10 && create.user' >> /usr/local/bin/init.container

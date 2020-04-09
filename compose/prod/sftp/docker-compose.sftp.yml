@@ -20,13 +20,20 @@ services:
         container_name: "bind.master"
         image: "evrinoma/bind.master"
         hostname: "bind.master"
+        extra_hosts:
+            - "git.ite-ng.ru:172.20.1.169"
         build:
             context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
+            args:
+                - MODE=master
+                - INSTALL_DIR=/opt/bind
+                - GIT_IP=172.20.1.169
         ports:
             - "172.20.1.5:53:53/tcp"
             - "172.20.1.5:53:53/udp"
             - "172.20.1.5:8953:8953"
+            - "172.20.1.5:12000:22"
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -117,6 +124,32 @@ services:
             virt:
                 ipv4_address: 172.18.72.22
 
+    php72_cont_qsurv:
+        container_name: "php72.cont.qsurv"
+        image: "evrinoma/php72.qsurv.cont.ite-ng.ru"
+        build:
+            context: docker/php72/sites/cont/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=qsurv
+                - database_host=172.18.2.1
+                - database_name=cont_qsurv
+                - database_port=3306
+                - database_user=cont
+                - database_password=cont
+        ports:
+            - "172.20.1.176:80:80/tcp"
+            - "172.20.1.176:443:443/tcp"
+            - "172.20.1.176:22:22/tcp"
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            #            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.28
+
 #######################################################################
 ############################## Start ##################################
 ####### @todo this deploy should be removed to another server##########
@@ -182,8 +215,14 @@ services:
             context: docker/php53/sites/kisnew/.
             dockerfile: Dockerfile
             args:
+                - MODE=prod
                 - VHOST=nekeng
                 - exchange=true
+                - database_host=172.18.2.1
+                - database_name=mh3itgr_nek_ng
+                - database_port=3306
+                - database_user=mh3itgr_ngdb
+                - database_password=147Fort21
         cap_add:
             - SYS_ADMIN
         security_opt:

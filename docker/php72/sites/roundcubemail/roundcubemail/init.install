@@ -1,12 +1,12 @@
 #!/bin/bash
 pass=$1
-srcLink=$2
+srcLink="https://github.com/roundcube/roundcubemail/releases/download/VERSION/roundcubemail-VERSION-complete.tar.gz"
 serverSql=172.18.2.1
 serverSmtp=172.18.4.2
-DIR="/opt/WWW/container.ite-ng.ru/projects/roundcubemail"
+DIR="/opt/WWW/container.ite-ng.ru/projects/roundcubemail/VERSION"
 if [ ! -z "$pass" ]; then
 	if [ ! -d "$DIR" ]; then
-      mkdir -v $DIR
+      mkdir -vp $DIR
       if [ -z "$srcLink" ]; then
         git clone https://github.com/roundcube/roundcubemail.git $DIR
       else
@@ -29,6 +29,8 @@ if [ ! -z "$pass" ]; then
 
       init.sql $pass $serverSql $DIR
 		  init.conf $serverSql $serverSmtp $DIR
+
+      echo 'Header always set X-Frame-Options "SAMEORIGIN"' >> $DIR/.htaccess
 
       chmod -x /usr/local/bin/init.sql
       chmod -x /usr/local/bin/init.conf

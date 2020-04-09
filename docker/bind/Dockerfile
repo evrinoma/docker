@@ -11,6 +11,10 @@ LABEL \
 	license="MIT" \
 	build-date="2019-10-01"
 
+ONBUILD	ARG	MODE=''
+ONBUILD	ARG	INSTALL_DIR='/opt/bind'
+ONBUILD	ARG	GIT_IP=''
+
 RUN	yum -y install mc wget && \
 	yum -y install iproute && \
 	yum -y update;
@@ -53,6 +57,15 @@ RUN	mkdir -p /var/named && \
 	mkdir -p /var/log/named && \
 	chown -R named.named /var/named && \
 	chown -R named.named /var/log/named
+
+COPY	init.container /usr/local/bin/
+COPY	restartBind /usr/local/bin/
+COPY    init.install /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/init.container && \
+    chmod +x /usr/local/bin/restartBind && \
+    chmod 755 /usr/local/bin/init.install
+
+COPY	install/bind /etc/sysconfig/bind
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 53 8953

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+###BIND_INSERT
+if [ ! -z "$INSTALL_DIR" ]; then
+		git clone http://$GIT_USERNAME:$GIT_PASSWORD@$GIT_IP/root/bind.git $INSTALL_DIR/
+fi
+
+

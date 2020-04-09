@@ -20,8 +20,9 @@
 	ServerAlias email.kzkt45.ru
 	ServerAlias email.lazurnoe.net
 	ServerAlias email.nekeng.ru
+	ServerAlias email.kpsz.ru
 	
-	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/roundcubemail"
+	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/roundcubemail/VERSION"
 	
 	ServerAlias /roundcubemail
 	ErrorLog /var/log/httpd/error-roundcubemail.log
@@ -30,7 +31,7 @@
     SSLOptions +StdEnvVars
     </Files>
     
-	<Directory "/opt/WWW/container.ite-ng.ru/projects/roundcubemail/">
+	<Directory "/opt/WWW/container.ite-ng.ru/projects/roundcubemail/VERSION/">
 		SSLOptions +StdEnvVars
 		AllowOverride All
 		Options -Indexes +FollowSymLinks

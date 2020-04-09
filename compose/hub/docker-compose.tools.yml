@@ -1,0 +1,21 @@
+version: '2'
+services:
+    maria_db:
+        container_name: "maria.db.public"
+        image: "evrinoma/db.maria.public"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
+
+    php72_tools:
+        container_name: "php72.tools.public"
+        image: "evrinoma/php72.tools.public"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.4
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default

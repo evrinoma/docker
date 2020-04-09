@@ -1,31 +1,45 @@
 node {
     def mailRecipients = "nikolns@ite-ng.ru"
     try {
-        def gitHeadLocal = ''
-        def gitHeadRemote = ''
-        def remote = [:]
-        remote.name = 'backup'
-        remote.host = '172.20.1.168'
-        remote.user = 'root'
-        remote.password = '1234'
-        remote.allowAnyHosts = true
-        stage('Remote SSH') {
-            sshCommand remote: remote, command: "ls -la /opt/WWW/backup/sqldump"
+        def dumpSqlDir = '/tmp'
+        def settings = [:]
+        settings.userSrc = 'cont'
+        settings.passSrc = 'cont'
+        settings.hostSrc = '172.20.1.160'
+        settings.baseSrc = 'cont'
+        settings.userDst = 'cont'
+        settings.passDst = 'cont'
+        settings.hostDst = '172.20.1.161'
+        settings.baseDst = 'cont_debug'
+        def remoteSql = [:]
+        remoteSql.name = 'backup'
+        remoteSql.host = '172.20.1.168'
+        remoteSql.user = 'root'
+        remoteSql.password = '1234'
+        remoteSql.allowAnyHosts = true
+       
+        stage('Clean Base') {
+          sshCommand remote: remoteSql, command: "echo 'SET FOREIGN_KEY_CHECKS = 0;' > ${dumpSqlDir}/clean.sql"
+          try {
+          sshCommand remote: remoteSql, command: "mysqldump --add-drop-table --no-data -u${settings.userDst} -h${settings.hostDst} -p${settings.passDst} ${settings.baseDst} | grep 'DROP TABLE' >> ${dumpSqlDir}/clean.sql"
+          } catch(Exception e) {
+             echo "some error was detected"  
+          }
+          sshCommand remote: remoteSql, command: "echo 'SET FOREIGN_KEY_CHECKS = 1;' >> ${dumpSqlDir}/clean.sql"
+          sshCommand remote: remoteSql, command: "mysql -u${settings.userDst} -h${settings.hostDst} -p${settings.passDst} ${settings.baseDst} < ${dumpSqlDir}/clean.sql" 
+          sshCommand remote: remoteSql, command: "rm -f ${dumpSqlDir}/clean.sql"
         }
-        stage('Check Cron') {
-            sshCommand remote: remote, command: "cat /opt/WWW/container.ite-ng.ru/conf/backup/crontab.root"
-            sshCommand remote: remote, command: "ps aux | grep -v grep | grep cron"
+        stage('Make Dump') {
+            sshCommand remote: remoteSql, command: "mysqldump -u${settings.userSrc} -h${settings.hostSrc} -p${settings.passSrc} ${settings.baseSrc} > ${dumpSqlDir}/${settings.baseSrc}.sql"
         }
-        stage('Run BackUp') {
-            sshCommand remote: remote, command: "/usr/local/bin/backupexec"
+        stage('Fill Dump') {
+            sshCommand remote: remoteSql, command: "mysql -u${settings.userDst} -h${settings.hostDst} -p${settings.passDst} ${settings.baseDst} < ${dumpSqlDir}/${settings.baseSrc}.sql"
+            sshCommand remote: remoteSql, command: "rm -f ${dumpSqlDir}/${settings.baseSrc}.sql"
         }
-        stage('Analize BackUp') {
-            def lastDir = sshCommand remote: remote, command: "ls -td -- /opt/WWW/backup/sqldump/* | head -n 1"
-            sshCommand remote: remote, command: "ls -la ${lastDir}"
-            sshCommand remote: remote, command: "jq -c '.[]' ${lastDir}/servers.json | while read i; do base=\$(echo \"\$i\" | jq -r '.base'); if [ \"\$(ls -la | grep \$base.sql | awk {' print \$5'})\" != \"0\" ]; then true; else false; fi; done;"
-        }
+       
         currentBuild.result = 'SUCCESS'
         echo "RESULT: ${currentBuild.result}"
+
     } catch(Exception e) {
         stage('Report') {
             currentBuild.result = 'SUCCESS'
@@ -43,5 +57,4 @@ node {
         }
     }
 }
-
 

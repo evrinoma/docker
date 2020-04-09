@@ -194,10 +194,11 @@ services:
         ports:
             - "1433:1433"
         environment:
-            SA_PASSWORD: "rjk,fcf2008"
+            SA_PASSWORD: "Q1w2e3r4t5y6"
             ACCEPT_EULA: "Y"
         volumes:
-            - "/opt/DISK/Develop/Docker/src/mssql.db/:/var/opt/mssql"
+            - "/opt/DISK/Develop/Docker/src/db/mssql.db/:/var/opt/mssql"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.2.3
@@ -279,9 +280,15 @@ services:
         container_name: "bind.master"
         image: "evrinoma/bind.master"
         hostname: "bind.master"
+        extra_hosts:
+            - "git.ite-ng.ru:172.20.1.169"
         build:
             context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
+            args:
+                - MODE=master
+                - INSTALL_DIR=/opt/bind
+                - GIT_IP=172.20.1.169
         ports:
             - "172.20.1.5:53:53/tcp"
             - "172.20.1.5:53:53/udp"
@@ -297,13 +304,19 @@ services:
         container_name: "bind.slave"
         image: "evrinoma/bind.slave"
         hostname: "bind.slave"
+        extra_hosts:
+            - "git.ite-ng.ru:172.20.1.169"
         ports:
             - "172.16.45.4:53:53/tcp"
             - "172.16.45.4:53:53/udp"
             - "172.16.45.4:8953:8953"
         build:
-            context: docker/bind/servers/email/.
+            context: docker/bind/servers/mail/.
             dockerfile: Dockerfile
+            args:
+                - MODE=slave
+                - INSTALL_DIR=/opt/bind
+                - GIT_IP=172.20.1.169
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -374,7 +387,8 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.20.2
-    vnc_primavera:
+
+    vnc_primavera_15:
         container_name: "vnc.primavera.15"
         image: "evrinoma/vnc.primavera.15"
         build:
@@ -385,6 +399,19 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.22.15
+
+    vnc_primavera_18:
+        container_name: "primavera.18.8.deploy"
+        image: "evrinoma/primavera.18.8.deploy"
+        build:
+            context: docker/primavera/servers/18.8/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/etc/localtime:/etc/localtime:rw"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.22.18
 
     1c_83_13_1644_deploy:
         container_name: "1c.83.13.1644.deploy"
@@ -538,12 +565,21 @@ services:
             context: docker/php53/sites/kisnew/.
             dockerfile: Dockerfile
             args:
+                - MODE=prod
                 - VHOST=ite-ng
                 - exchange=true
+                - database_host=172.18.2.1
+                - database_name=mh3itgr_ng
+                - database_port=3306
+                - database_user=mh3itgr_ngdb
+                - database_password=147Fort21
         cap_add:
             - SYS_ADMIN
         security_opt:
             - apparmor:unconfined
+#        ports:
+#            - "172.20.1.173:80:80/tcp"
+#            - "172.20.1.173:22:22/tcp"
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -580,14 +616,23 @@ services:
             context: docker/php53/sites/kisnew/.
             dockerfile: Dockerfile
             args:
+                - MODE=prod
                 - VHOST=nekeng
+                - exchange=true
+                - database_host=172.18.2.1
+                - database_name=mh3itgr_nek_ng
+                - database_port=3306
+                - database_user=mh3itgr_ngdb
+                - database_password=147Fort21
         cap_add:
             - SYS_ADMIN
         security_opt:
             - apparmor:unconfined
-        ports:
-            - "172.20.1.78:81:80/tcp"
+#        ports:
+#            - "172.20.1.173:80:80/tcp"
+#            - "172.20.1.173:22:22/tcp"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
         networks:
@@ -843,6 +888,8 @@ services:
         build:
             context: docker/php72/sites/roundcubemail/.
             dockerfile: Dockerfile
+            args:
+                - VERSION=1.4.3
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -1109,11 +1156,29 @@ services:
             - "172.20.1.171:22:22/tcp"
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
-            #            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.25
+
+    php72_clean:
+        container_name: "php72.clean"
+        image: "evrinoma/php72.clean"
+        build:
+            context: docker/php72/sites/clean/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=clean
+                - database_host=172.18.2.1
+                - database_name=clean
+                - database_port=3306
+                - database_user=clean
+                - database_password=clean
+#                - RUN=init.install 1234
+        networks:
+            virt:
+                ipv4_address: 172.18.72.26
 
 networks:
     virt:
