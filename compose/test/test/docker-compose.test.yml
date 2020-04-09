@@ -1,0 +1,21 @@
+version: '2'
+services:
+    cont_master:
+        container_name: "tests"
+        image: "evrinoma/php72.master.cont.ite-ng.ru"
+#        build:
+#            context: ../../../docker/php72/sites/cont/.
+#            dockerfile: Dockerfile
+        ports:
+            - 8181:80
+            - 0.0.0.0:122:22
+#        volumes:
+#            - ../../../../servers:/opt/WWW/container.ite-ng.ru
+        networks:
+            _db_virt:
+                ipv4_address: 172.18.202.5
+
+networks:
+    _db_virt:
+        external: true
+
