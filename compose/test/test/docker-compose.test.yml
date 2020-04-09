@@ -1,6 +1,6 @@
 version: '2'
 services:
-    cont_master:
+    tests:
         container_name: "tests"
         image: "evrinoma/php72.master.cont.ite-ng.ru"
 #        build:
@@ -13,7 +13,7 @@ services:
 #            - ../../../../servers:/opt/WWW/container.ite-ng.ru
         networks:
             _db_virt:
-                ipv4_address: 172.18.202.5
+                ipv4_address: 172.18.202.1
 
 networks:
     _db_virt:
