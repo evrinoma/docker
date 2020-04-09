@@ -1,5 +1,5 @@
 node {
-    def mailRecipients = "nikolns@ite-ng.ru"
+    def mailRecipients = "nikolns@ite-ng.ru, kay@ite-ng.ru"
     try {
         def dumpSqlDir = '/tmp'
         def settings = [:]
@@ -58,7 +58,7 @@ node {
         }
         stage('Git Checkout') {
             sshCommand remote: remote, command: "cd ${contDir} && git config remote.origin.url  ${gitRemote}"
-            //sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote}"
+            sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote} ${branchName}:${branchName}"
             sshCommand remote: remote, command: "cd ${contDir} && git checkout ${branchName}"
         }
         stage('Git Pull') {
