@@ -1,2 +1,4 @@
 #!/bin/bash
-../build ../../docker-compose.pbx.yml
+cd ..
+./build ../docker-compose.pbx.yml
+cd pbx/

@@ -4,6 +4,8 @@ services:
         container_name: "primavera.18.8.deploy"
         image: "evrinoma/primavera.18.8.deploy"
         hostname: "primavera.ite-ng.ru"
+        ports:
+            - "172.20.1.78:80:7001"
         extra_hosts:
             - "iteng26:172.20.1.26"
         build:
