@@ -97,7 +97,7 @@ services:
         ports:
             - "172.20.1.167:8080:8080"
         volumes:
-            - "/opt/docker/src//src/data/jira/:/var/atlassian/jira"
+            - "/opt/docker/src/data/jira/:/var/atlassian/jira"
         networks:
             virt:
                 ipv4_address: 172.18.1.4
