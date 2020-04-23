@@ -58,7 +58,11 @@ node {
         }
         stage('Git Checkout') {
             sshCommand remote: remote, command: "cd ${contDir} && git config remote.origin.url  ${gitRemote}"
-            sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote} ${branchName}:${branchName}"
+             try  {
+                sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote} ${branchName}:${branchName}"
+            }catch(Exception e) {
+                 echo "Exception already on branch"
+            }
             sshCommand remote: remote, command: "cd ${contDir} && git checkout ${branchName}"
         }
         stage('Git Pull') {
