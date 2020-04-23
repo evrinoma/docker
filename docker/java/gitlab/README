@@ -9,9 +9,16 @@ settings = ApplicationSetting.last
 settings.update_column(:runners_registration_token_encrypted, nil)
 
 user = User.find_by(email: 'user@ite-ng.ru')
-user.password = 'xxx'
+user.password = 'xxxx'
 user.password_confirmation = 'xxxx'
 user.save!
 
 gitlab-ctl reconfigure
+gitlab-ctl restart
+
+gitlab-rails console -e production
+settings = ApplicationSetting.last
+settings.update_column(:allow_local_requests_from_system_hooks, true)
+settings.update_column(:allow_local_requests_from_web_hooks_and_services, true)
+exit
 gitlab-ctl restart
