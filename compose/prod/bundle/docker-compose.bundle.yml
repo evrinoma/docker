@@ -94,8 +94,9 @@ services:
         image: cptactionhank/atlassian-jira-software:latest
         #        cpu_shares: 100
         #        mem_limit: 262144000
+        hostname: "jira.ite-ng.ru"
         ports:
-            - "172.20.1.167:8080:8080"
+            - "172.20.1.177:80:8080"
         volumes:
             - "/opt/docker/src/data/jira/:/var/atlassian/jira"
         networks:
