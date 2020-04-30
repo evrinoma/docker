@@ -6,6 +6,7 @@ services:
         hostname: "primavera.ite-ng.ru"
         ports:
             - "172.20.1.78:80:7001"
+            - "172.20.1.78:9099:9099"
         extra_hosts:
             - "iteng26:172.20.1.26"
         build:

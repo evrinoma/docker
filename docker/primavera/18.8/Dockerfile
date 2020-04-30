@@ -152,4 +152,4 @@ RUN sed -i 's@MY_INTG_HOME@\/opt\/Oracle\/P6\/api@' /opt/Oracle/P6/api/dbconfig.
 WORKDIR /
 
 
-EXPOSE 7001
+EXPOSE 7001 9099
