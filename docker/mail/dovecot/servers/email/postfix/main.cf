@@ -348,7 +348,7 @@ smtpd_tls_cert_file = /etc/postfix/certs/ca.pem
 tls_random_source = dev:/dev/urandom
 
 # Ограничение максимального размера письма в байтах
-message_size_limit = 10000000
+message_size_limit = 15000000
 smtpd_soft_error_limit = 10
 smtpd_hard_error_limit = 15
 smtpd_error_sleep_time = 20
