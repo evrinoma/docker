@@ -46,6 +46,7 @@ RUN	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
 
 COPY	tools.conf /etc/httpd/conf.d/vhost.conf
 
+RUN	touch /var/spool/cron/apache && chown root.root /var/spool/cron/apache  && chmod 400 /var/spool/cron/apache
 RUN	chmod -R 640 /tmp && \
 	chmod -R 640 /var/tmp
 

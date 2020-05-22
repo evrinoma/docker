@@ -32,4 +32,9 @@ RUN	sed -i '1s/^/\n/' /etc/supervisord.d/supervisor.conf && \
 	sed -i '1s/^/command=init.openssl\n/' /etc/supervisord.d/supervisor.conf && \
 	sed -i '1s/^/[program:init.openssl]\n/' /etc/supervisord.d/supervisor.conf
 
+RUN	touch /var/spool/cron/apache && chown root.root /var/spool/cron/apache  && chmod 400 /var/spool/cron/apache
+#RUN	chmod -R 640 /tmp && \
+#	chmod -R 640 /var/tmp
+RUN	chmod -R 640 /var/tmp
+
 EXPOSE 25 110 143 993 995

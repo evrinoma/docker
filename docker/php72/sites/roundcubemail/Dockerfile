@@ -33,8 +33,10 @@ RUN	chmod +x /usr/local/bin/init.install
 RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.key /etc/pki/CA/certs/ && \
 	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.pem /etc/pki/CA/certs/
 
+RUN	touch /var/spool/cron/apache && chown root.root /var/spool/cron/apache  && chmod 400 /var/spool/cron/apache
 #RUN	chmod -R 640 /tmp && \
 #	chmod -R 640 /var/tmp
+RUN	chmod -R 640 /var/tmp
 
 RUN	if [ "${VERSION}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
 RUN	sed -i -e "s@VERSION@${VERSION}@g" /etc/httpd/conf.d/vhost.conf && \
