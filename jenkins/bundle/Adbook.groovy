@@ -26,16 +26,19 @@ node {
                 sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote}"
             }
             stage('Migration') {
-                sshCommand remote: remote, command: " /usr/bin/php ${contDir}/bin/console --no-interaction doctrine:migrations:migrate"
+                sshCommand remote: remote, command: "/usr/bin/php ${contDir}/bin/console --no-interaction doctrine:migrations:migrate  --env=prod"
             }
             stage('Encore') {
                 sshCommand remote: remote, command: "cd ${contDir} && yarn encore production"
             }
             stage('Assets') {
-                sshCommand remote: remote, command: " /usr/bin/php ${contDir}/bin/console assets:install --symlink --env=prod"
+                sshCommand remote: remote, command: "/usr/bin/php ${contDir}/bin/console assets:install --symlink --env=prod"
+            }
+            stage('Remove Cache') {
+                sshCommand remote: remote, command: "rm -rf ${contDir}/var/cache/*"
             }
             stage('Cache') {
-                sshCommand remote: remote, command: " /usr/bin/php ${contDir}/bin/console cache:clear --env=prod"
+                sshCommand remote: remote, command: "/usr/bin/php ${contDir}/bin/console cache:clear --env=prod"
             }
             stage('Permission') {
                 sshCommand remote: remote, command: "chown -R apache.apache ${contDir} "
