@@ -24,7 +24,7 @@ node {
                 sshCommand remote: remote, command: "cd ${toolsDir} && git pull"
             }
             stage('Composer update') {
-                sshCommand remote: remote, command: "cd ${toolsDir} && composer update evrinoma/shell-bundle evrinoma/dashboard-bundle evrinoma/utils-bundle evrinoma/dto-bundle evrinoma/settings-bundle evrinoma/delta8-bundle evrinoma/exim-bundle evrinoma/livevideo-bundle evrinoma/menu-bundle"
+                sshCommand remote: remote, command: "cd ${toolsDir} && composer update evrinoma/shell-bundle evrinoma/dashboard-bundle evrinoma/utils-bundle evrinoma/dto-bundle evrinoma/settings-bundle evrinoma/delta8-bundle evrinoma/exim-bundle evrinoma/livevideo-bundle evrinoma/menu-bundle evrinoma/grid-bundle evrinoma/contragent-bundle evrinoma/project-bundle"
             }
             stage('Migration') {
                 sshCommand remote: remote, command: "/usr/bin/php ${toolsDir}/bin/console --no-interaction doctrine:migrations:migrate --env=prod"
