@@ -1,5 +1,5 @@
 #!/bin/bash
-#docker build -t evrinoma/vnc ../docker/vnc/.
+docker build -t evrinoma/centos.vnc ../docker/vnc/centos/.
 #docker build -t evrinoma/primavera.15.1.1 ../docker/primavera/15.1.1/.
 docker build -t evrinoma/primavera.18.8 ../docker/primavera/18.8/.
 

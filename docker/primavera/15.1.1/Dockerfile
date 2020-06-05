@@ -1,5 +1,5 @@
 FROM \
-	evrinoma/vnc:latest
+	evrinoma/centos.vnc:latest
 
 MAINTAINER \
 	evrinoma@gmail.com

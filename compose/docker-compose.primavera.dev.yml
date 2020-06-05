@@ -1,6 +1,6 @@
 version: '2'
 services:
-    vnc_primavera_18:
+    primavera_18:
         container_name: "primavera.18.8.deploy"
         image: "evrinoma/primavera.18.8.deploy"
         hostname: "primavera.ite-ng.ru"

@@ -139,6 +139,17 @@ services:
             virt:
                 ipv4_address: 172.18.53.6
 
+    centos:
+        container_name: "centos.deploy"
+        image: "evrinoma/centos.vnc:latest"
+        hostname: "centos"
+        extra_hosts:
+            - "php53.kis.ite-ng:172.18.53.3"
+        networks:
+            virt:
+                ipv4_address: 172.18.100.1
+
+
 networks:
     virt:
         driver: bridge
