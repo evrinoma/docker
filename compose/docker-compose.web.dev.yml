@@ -139,15 +139,17 @@ services:
             virt:
                 ipv4_address: 172.18.53.6
 
-    centos:
-        container_name: "centos.deploy"
-        image: "evrinoma/centos.vnc:latest"
-        hostname: "centos"
+    ubuntu_gnome:
+        container_name: "ubuntu.vnc.deploy"
+        image: "evrinoma/ubuntu.vnc:latest"
+        hostname: "ubuntu.vnc"
         extra_hosts:
             - "php53.kis.ite-ng:172.18.53.3"
+        ports:
+            - 5901:5901
         networks:
             virt:
-                ipv4_address: 172.18.100.1
+                ipv4_address: 172.18.25.1
 
 
 networks:

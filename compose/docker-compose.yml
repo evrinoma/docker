@@ -413,6 +413,18 @@ services:
             virt:
                 ipv4_address: 172.18.22.18
 
+    ubuntu_gnome:
+        container_name: "ubuntu.vnc.deploy"
+        image: "evrinoma/ubuntu.vnc:latest"
+        hostname: "ubuntu.vnc"
+        extra_hosts:
+            - "php53.kis.ite-ng:172.18.53.3"
+        ports:
+            - 5901:5901
+        networks:
+            virt:
+                ipv4_address: 172.18.25.1
+
     1c_83_13_1644_deploy:
         container_name: "1c.83.13.1644.deploy"
         image: "evrinoma/1c.83.13.1644.deploy"

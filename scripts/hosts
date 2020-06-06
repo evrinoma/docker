@@ -29,6 +29,8 @@ SFTP=$SUBNET"20."
 PRIMAVERA=$SUBNET"22."
 BUNDLE=$SUBNET"24."
 
+LINUX=$SUBNET"25."
+
 PHP53=$SUBNET"53."
 PHP54=$SUBNET"54."
 PHP71=$SUBNET"71."
@@ -79,6 +81,8 @@ echo $SFTP"2	kis.sftp" >> /etc/hosts
 
 echo $TEST"	test.cont" >> /etc/hosts
 echo $MASTER_CONT"	master.cont" >> /etc/hosts
+
+echo $LINUX"1	ubuntu.gonme" >> /etc/hosts
 
 echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.web.$PREFIX_LOCAL" >> /etc/hosts
 echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.ipark45.$PREFIX_LOCAL" >> /etc/hosts
