@@ -139,17 +139,23 @@ services:
             virt:
                 ipv4_address: 172.18.53.6
 
-    ubuntu_gnome:
-        container_name: "ubuntu.vnc.deploy"
-        image: "evrinoma/ubuntu.vnc:latest"
-        hostname: "ubuntu.vnc"
+    ubuntu_gnome_wine:
+        container_name: "ubuntu.wine.deploy"
+        build:
+            context: docker/wine/ubuntu/.
+            dockerfile: Dockerfile
+        hostname: "ubuntu.wine"
         extra_hosts:
             - "php53.kis.ite-ng:172.18.53.3"
         ports:
-            - 5901:5901
+            - 5901:5902
+            - 9001:9001
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/DISK/Develop/Docker/src/conf/wine/:/root/.wine/"
         networks:
             virt:
-                ipv4_address: 172.18.25.1
+                ipv4_address: 172.18.25.2
 
 
 networks:
