@@ -1,17 +1,17 @@
 #!/bin/bash
 pass=$1
 serverSql=172.18.2.1
-base=kzkt45
-user=kzkt45
-basepass=kzkt45
+base=ipark45var
+user=ipark45var
+basepass=ipark45var
 if [ ! -z "$pass" ]; then
 	DIR="/opt/WWW/container.ite-ng.ru/projects/kzkt45.ru"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
-		tar -zxf /root/kzkt45.sql.tar.gz -C /root
-		tar -zxf /root/kzkt45.tar.gz -C $DIR
-		mv $DIR/kzkt45.ru/*  $DIR/kzkt45.ru/.[^.]* $DIR/
-		rm -rf $DIR/kzkt45.ru/
+		tar -zxf /root/ipark45var.sql.tar.gz -C /root
+		tar -zxf /root/ipark45var.tar.gz -C $DIR
+		mv $DIR/ipark45var.ru/*  $DIR/ipark45var.ru/.[^.]* $DIR/
+		rm -rf $DIR/ipark45var.ru/
 		chown apache:apache -R $DIR
 		cd $DIR
 	
