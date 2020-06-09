@@ -20,7 +20,7 @@ RUN	chmod +x /usr/local/bin/init.install.nekeng && \
 
 COPY	nekeng/nekeng.conf /etc/httpd/conf.d/
 
-COPY	ipark45var/install/kzkt45.sql.tar.gz /root/
+COPY	kzkt45/install/kzkt45.sql.tar.gz /root/
 COPY	kzkt45/install/kzkt45.tar.gz /root/
 ADD	kzkt45/kzkt45/init.install /usr/local/bin/init.install.kzkt45
 ADD	kzkt45/kzkt45/init.sql /usr/local/bin/init.sql.kzkt45
