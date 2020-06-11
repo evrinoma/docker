@@ -2,8 +2,10 @@ chown -R root.root /opt/WWW/container.ite-ng.ru/projects/ipark45.ru/.git
 chown -R root.root /opt/WWW/container.ite-ng.ru/projects/ite-ng.ru/.git
 chown -R root.root /opt/WWW/container.ite-ng.ru/projects/kzkt45.ru/.git
 chown -R root.root /opt/WWW/container.ite-ng.ru/projects/nekeng.ru/.git
+chown -R root.root /opt/WWW/container.ite-ng.ru/projects/vargashi45.ru/.git
 
 chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/ipark45.ru/.git
 chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/ite-ng.ru/.git
 chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/kzkt45.ru/.git
 chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/nekeng.ru/.git
+chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/vargashi45.ru/.git
