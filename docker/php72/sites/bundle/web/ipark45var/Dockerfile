@@ -5,16 +5,16 @@ MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma PHP 7.2 ipark45var" \
-	image="php72.ipark45var" \
+	name="evrinoma PHP 7.2 vargashi45" \
+	image="php72.vargashi45" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-11-14"
 
-COPY	install/ipark45var.sql.tar.gz /root/
-COPY	install/ipark45var.tar.gz /root/
-ADD	ipark45var/init.install /usr/local/bin
-ADD	ipark45var/init.sql /usr/local/bin
+COPY	install/vargashi45.sql.tar.gz /root/
+COPY	install/vargashi45.tar.gz /root/
+ADD	vargashi45/init.install /usr/local/bin
+ADD	vargashi45/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
-COPY	ipark45var.conf /etc/httpd/conf.d/vhost.conf
+COPY	vargashi45.conf /etc/httpd/conf.d/vhost.conf

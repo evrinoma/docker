@@ -38,14 +38,14 @@ RUN	chmod +x /usr/local/bin/init.install.ipark45 && \
 
 COPY	ipark45/ipark45.conf /etc/httpd/conf.d/
 
-COPY	ipark45var/install/ipark45var.sql.tar.gz /root/
-COPY	ipark45var/install/ipark45var.tar.gz /root/
-ADD	ipark45var/ipark45var/init.install /usr/local/bin/init.install.ipark45var
-ADD	ipark45var/ipark45var/init.sql /usr/local/bin/init.sql.ipark45var
-RUN	chmod +x /usr/local/bin/init.install.ipark45var && \
-	sed -i -e "s/init.sql/init.sql.ipark45var/" /usr/local/bin/init.install.ipark45var
+COPY	vargashi45/install/vargashi45.sql.tar.gz /root/
+COPY	vargashi45/install/vargashi45.tar.gz /root/
+ADD	vargashi45/vargashi45/init.install /usr/local/bin/init.install.vargashi45
+ADD	vargashi45/vargashi45/init.sql /usr/local/bin/init.sql.vargashi45
+RUN	chmod +x /usr/local/bin/init.install.vargashi45 && \
+	sed -i -e "s/init.sql/init.sql.vargashi45/" /usr/local/bin/init.install.vargashi45
 
-COPY	ipark45var/ipark45var.conf /etc/httpd/conf.d/
+COPY	vargashi45/vargashi45.conf /etc/httpd/conf.d/
 
 COPY	ite-ng/install/ite-ng.sql.tar.gz /root/
 COPY	ite-ng/install/ite-ng.tar.gz /root/
@@ -68,7 +68,7 @@ COPY	ite-ng/ite-ng.conf /etc/httpd/conf.d/aite-ng.conf
 RUN	sed -i -e "s/'172\.18\.2\.1'\;/'172\.18\.2\.4'\;/" /etc/phpMyAdmin/config.inc.php && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.nekeng  && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.kzkt45  && \
-	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ipark45var  && \
+	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.vargashi45  && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ipark45  && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ite-ng && \
 	sed -i -e "s@172\.20\.1\.0/24@172\.20\.0\.0/16@" /etc/httpd/conf.d/phpMyAdmin.conf
