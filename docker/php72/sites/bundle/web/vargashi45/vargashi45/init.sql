@@ -5,7 +5,7 @@ base=$3
 user=$4
 basepass=$5
 INIT_SQL="/root/init.sql"
-SERVER_SQL="/root/site_ipark_45_var_ru_db.sql"
+SERVER_SQL="/root/site_vargashi45_ru_db.sql"
 	echo "
 	CREATE DATABASE \`$base\`;
 	CREATE USER '$user'@'localhost' IDENTIFIED BY '$basepass';
