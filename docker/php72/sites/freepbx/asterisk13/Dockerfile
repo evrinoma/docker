@@ -18,8 +18,9 @@ RUN	rm -rf /var/cache/yum && \
 	yum install -y nodejs yarn
 
 RUN cd /root && \
-    wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-13.31.0.tar.gz && \
-    tar zxvf asterisk-13.31.0.tar.gz
+    wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-13-current.tar.gz -P /root/download/
+RUN tar -zxvf /root/download/asterisk-13-current.tar.gz --directory /root/
+RUN ls -la /root/
 RUN cd /root/asterisk* && \
     ./contrib/scripts/install_prereq  install && \
     ./contrib/scripts/get_mp3_source.sh
