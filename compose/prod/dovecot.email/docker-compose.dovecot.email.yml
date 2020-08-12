@@ -72,6 +72,7 @@ services:
             - "172.16.45.4:465:465/tcp"
             - "172.16.45.4:993:993/tcp"
             - "172.16.45.4:995:995/tcp"
+            - "172.16.45.4:4190:4190/tcp"
             - "172.16.45.4:8010:80/tcp"
         build:
             context: docker/mail/dovecot/servers/email/.
