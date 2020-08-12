@@ -37,4 +37,4 @@ RUN	touch /var/spool/cron/apache && chown root.root /var/spool/cron/apache  && c
 #	chmod -R 640 /var/tmp
 RUN	chmod -R 640 /var/tmp
 
-EXPOSE 25 110 143 993 995
+EXPOSE 25 110 143 993 995 4190
