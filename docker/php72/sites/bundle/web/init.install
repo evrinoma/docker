@@ -17,12 +17,14 @@ chmod +x /usr/local/bin/init.sql.vargashi45
 /usr/local/bin/init.install.kzkt45 $pass
 /usr/local/bin/init.install.ite-ng $pass
 /usr/local/bin/init.install.vargashi45 $pass
+/usr/local/bin/init.install.kpsz $pass
 
 chmod -x /usr/local/bin/init.sql.ipark45
 chmod -x /usr/local/bin/init.sql.nekeng
 chmod -x /usr/local/bin/init.sql.kzkt45
 chmod -x /usr/local/bin/init.sql.ite-ng
 chmod -x /usr/local/bin/init.sql.vargashi45
+chmod -x /usr/local/bin/init.sql.kpsz
 
 if [ -z "$mariaInstall" ]; then
 	yum remove mysql -y

@@ -47,6 +47,15 @@ RUN	chmod +x /usr/local/bin/init.install.vargashi45 && \
 
 COPY	vargashi45/vargashi45.conf /etc/httpd/conf.d/
 
+COPY	kpsz/install/kpsz.sql.tar.gz /root/
+COPY	kpsz/install/kpsz.tar.gz /root/
+ADD	kpsz/kpsz/init.install /usr/local/bin/init.install.kpsz
+ADD	kpsz/kpsz/init.sql /usr/local/bin/init.sql.kpsz
+RUN	chmod +x /usr/local/bin/init.install.kpsz && \
+	sed -i -e "s/init.sql/init.sql.kpsz/" /usr/local/bin/init.install.kpsz
+
+COPY	kpsz/kpsz.conf /etc/httpd/conf.d/
+
 COPY	ite-ng/install/ite-ng.sql.tar.gz /root/
 COPY	ite-ng/install/ite-ng.tar.gz /root/
 ADD	ite-ng/ite-ng/init.install /usr/local/bin/init.install.ite-ng
@@ -71,6 +80,7 @@ RUN	sed -i -e "s/'172\.18\.2\.1'\;/'172\.18\.2\.4'\;/" /etc/phpMyAdmin/config.in
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.vargashi45  && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ipark45  && \
 	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.ite-ng && \
+	sed -i -e "s/\=172\.18\.2\.1/\=172\.18\.2\.4/" /usr/local/bin/init.install.kpsz  && \
 	sed -i -e "s@172\.20\.1\.0/24@172\.20\.0\.0/16@" /etc/httpd/conf.d/phpMyAdmin.conf
 
 #RUN	chmod -R 640 /tmp && \
