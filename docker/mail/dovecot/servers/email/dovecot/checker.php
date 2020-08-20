@@ -187,7 +187,7 @@ final class Connection
 
     public function getPrefixAuth()
     {
-        return $this->prefixAuth.'.';
+        return ($this->prefixAuth !== '') ? $this->prefixAuth.'.' : '';
     }
 //endregion Getters/Setters
 }
