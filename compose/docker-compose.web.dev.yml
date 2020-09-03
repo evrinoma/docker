@@ -105,6 +105,8 @@ services:
             - SYS_ADMIN
         security_opt:
             - apparmor:unconfined
+#        ports:
+#            - "172.20.1.78:8080:80/tcp"
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"

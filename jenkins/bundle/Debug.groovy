@@ -94,11 +94,11 @@ node {
         stage('JsRoutes') {
             sshCommand remote: remote, command: "cd ${contDir} && php bin/console fos:js-routing:dump --env=dev"
         }
-        stage('WebPack') {
-            sshCommand remote: remote, command: "cd ${contDir} && yarn && webpack --env=prod"
-        }
         stage('Assets') {
             sshCommand remote: remote, command: "/usr/bin/php ${contDir}/bin/console assets:install --symlink --env=dev"
+        }
+        stage('WebPack') {
+            sshCommand remote: remote, command: "cd ${contDir} && yarn && webpack --env=prod"
         }
         stage('Remove Cache') {
             sshCommand remote: remote, command: "rm -rf ${contDir}/var/cache/*"
