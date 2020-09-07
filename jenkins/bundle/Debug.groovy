@@ -17,11 +17,12 @@ node {
         remoteSql.user = 'root'
         remoteSql.password = '1234'
         remoteSql.allowAnyHosts = true
-        
+        def gitUser = 'admin'
+        def gitPass = 'pass'
         def contDir = '/opt/WWW/container.ite-ng.ru/projects/cont/debug'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
-        def gitRemote='http://grishvv:oin50x@git.ite-ng.ru/root/cont.git'
+        def gitRemote='http://${gitUser}:${gitPass}@git.ite-ng.ru/root/cont.git'
         def remote = [:]
         def projectCode = ''
         def project = ''
@@ -87,6 +88,10 @@ node {
                 sshCommand remote: remoteSql, command: "mysql -u${settings.userDst} -h${settings.hostDst} -p${settings.passDst} ${settings.baseDst} < ${dumpSqlDir}/${settings.baseSrc}.sql"
                 sshCommand remote: remoteSql, command: "rm -f ${dumpSqlDir}/${settings.baseSrc}.sql"
             }
+        }
+        stage('Composer') {
+            sshCommand remote: remote, command: "mkdir -p /root/.composer && echo -e '{\n    \"http-basic\": {\n        \"git.ite-ng.ru\": {\n            \"username\": \"${gitUser}\",\n            \"password\": \"${gitPass}\"\n        }\n    }\n}'> /root/.composer/auth.json"
+            sshCommand remote: remote, command: "cd ${contDir} && composer install"
         }
         stage('Migration') {
             sshCommand remote: remote, command: "/usr/bin/php ${contDir}/bin/console --no-interaction doctrine:migrations:migrate --env=dev"

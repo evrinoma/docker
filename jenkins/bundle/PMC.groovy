@@ -1,11 +1,13 @@
 node {
     def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
     try {
+        def gitUser = 'user'
+        def gitPass = 'pass'
         def pmcDir = 'ite-ng'
         def checkDir = '/opt/WWW/container.ite-ng.ru/projects/pmc/'+pmcDir
         def gitHeadLocal = ''
         def gitHeadRemote = ''
-        def gitRemote='http://user:pass@git.ite-ng.ru/root/PMC.git'
+        def gitRemote='http://${gitUser}:${gitPass}@git.ite-ng.ru/root/PMC.git'
         def remote = [:]
         remote.name = 'bundle'
         remote.host = '172.20.1.163'

@@ -1,10 +1,12 @@
 node {
     def mailRecipients = "1c@ite-ng.ru,nikolns@ite-ng.ru"
     try {
+        def gitUser = 'user'
+        def gitPass = 'pass'
         def checkDir = '/opt/WWW/container.ite-ng.ru/projects/web1C'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
-        def gitRemote='http://user:pass@git.ite-ng.ru/root/web1C.git'
+        def gitRemote="http://${gitUser}:${gitPass}@git.ite-ng.ru/root/web1C.git"
         def remote = [:]
         remote.name = 'bundle'
         remote.host = '172.20.1.11'

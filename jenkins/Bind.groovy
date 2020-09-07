@@ -1,9 +1,11 @@
 node {
     try {
+        def gitUser = 'user'
+        def gitPass = 'pass'
         def contDir = '/opt/bind'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
-        def gitRemote='http://user:pass@git.ite-ng.ru/root/bind.git'
+        def gitRemote="http://${gitUser}:${gitPass}@git.ite-ng.ru/root/bind.git"
         def remote = [:]
         remote.name = 'bind.slave'  //bind.master
         remote.host = '172.16.45.4' //172.20.1.5

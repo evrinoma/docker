@@ -1,10 +1,12 @@
 node {
     def mailRecipients = "grishvv@ite-ng.ru,nikolns@ite-ng.ru"
     try {
+        def gitUser = 'user'
+        def gitPass = 'pass'
         def contDir = '/opt/WWW/container.ite-ng.ru/projects/cont/prod'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
-        def gitRemote='http://user:pass@git.ite-ng.ru/root/cont.git'
+        def gitRemote="http://${gitUser}:${gitPass}@git.ite-ng.ru/root/cont.git"
         def remote = [:]
         remote.name = 'sftp'
         remote.host = '172.20.1.165'
@@ -24,6 +26,10 @@ node {
         if (gitHeadLocal!=gitHeadRemote) {
             stage('Git Pull') {
                 sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote}"
+            }
+            stage('Composer') {
+                sshCommand remote: remote, command: "mkdir -p /root/.composer && echo -e '{\n    \"http-basic\": {\n        \"git.ite-ng.ru\": {\n            \"username\": \"${gitUser}\",\n            \"password\": \"${gitPass}\"\n        }\n    }\n}'> /root/.composer/auth.json"
+                sshCommand remote: remote, command: "cd ${contDir} && composer install"
             }
             stage('Migration') {
                 sshCommand remote: remote, command: "/usr/bin/php ${contDir}/bin/console --no-interaction doctrine:migrations:migrate --env=prod"
