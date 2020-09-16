@@ -35,12 +35,14 @@ PHP53=$SUBNET"53."
 PHP54=$SUBNET"54."
 PHP71=$SUBNET"71."
 PHP72=$SUBNET"72."
+PHP74=$SUBNET"74."
 PHP80=$SUBNET"80."
 
 PREFIX_PHP53=$PREFIX_PHP"53"
 PREFIX_PHP54=$PREFIX_PHP"54"
 PREFIX_PHP71=$PREFIX_PHP"71"
 PREFIX_PHP72=$PREFIX_PHP"72"
+PREFIX_PHP74=$PREFIX_PHP"74"
 PREFIX_PHP80=$PREFIX_PHP"80"
 
 
@@ -143,7 +145,10 @@ echo $PHP72"26	$PREFIX_PHP72.clean" >> /etc/hosts
 echo $PHP72"27	$PREFIX_PHP72.cont.debug" >> /etc/hosts
 echo $PHP72"28	$PREFIX_PHP72.cont.qsurv" >> /etc/hosts
 #echo $PHP72"3	pma" >> /etc/hosts
-echo $PHP80"1	$PREFIX_PHP80.exchange" >> /etc/hosts
+
+echo $PHP74"29	$PREFIX_PHP74.exchange" >> /etc/hosts
+
+echo $PHP80"29	$PREFIX_PHP80.exchange" >> /etc/hosts
 
 
 echo $C1_83"13	deploy.13.1644" >> /etc/hosts

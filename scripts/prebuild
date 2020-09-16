@@ -41,7 +41,9 @@
 #docker build -t evrinoma/php72.owncloud ../docker/php72/sites/cloud/servers/owncloud/.
 #docker build -t evrinoma/php72.kiscloud ../docker/php72/sites/cloud/servers/kiscloud/.
 
-#docker build -t evrinoma/php80 ../docker/php80/.
+docker build -t evrinoma/php74 ../docker/php74/.
+
+docker build -t evrinoma/php80 ../docker/php80/.
 
 #docker build -t evrinoma/wowza ../docker/wowza/.
 
