@@ -62,11 +62,10 @@ RUN	dnf install -y php-dom \
     php-tokenizer \
     php-zlib \
     php-pear \
-    php-mcrypt  \
+#    php-mcrypt  \
     php-pdo \
     php-session \
     php-devel
-
 
 RUN	wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo && \
 	yum -y install yarn npm;
