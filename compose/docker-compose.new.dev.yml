@@ -1,0 +1,24 @@
+version: '2'
+services:
+    php80_exchange:
+        container_name: "php80.exchange"
+        image: "evrinoma/php80.exchange"
+        build:
+            context: docker/php80/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.80.1
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
+

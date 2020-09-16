@@ -439,6 +439,19 @@ services:
             virt:
                 ipv4_address: 172.18.25.2
 
+    php80_exchange:
+        container_name: "php80.exchange"
+        image: "evrinoma/php80.exchange"
+        build:
+            context: docker/php80/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.80.1
+
     1c_83_13_1644_deploy:
         container_name: "1c.83.13.1644.deploy"
         image: "evrinoma/1c.83.13.1644.deploy"
