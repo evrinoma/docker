@@ -450,7 +450,7 @@ services:
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
         networks:
             virt:
-                ipv4_address: 172.18.80.1
+                ipv4_address: 172.18.80.29
 
     1c_83_13_1644_deploy:
         container_name: "1c.83.13.1644.deploy"

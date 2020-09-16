@@ -11,7 +11,20 @@ services:
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
         networks:
             virt:
-                ipv4_address: 172.18.80.1
+                ipv4_address: 172.18.80.29
+
+    php74_exchange:
+        container_name: "php74.exchange"
+        image: "evrinoma/php74.exchange"
+        build:
+            context: docker/php74/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.29
 
 networks:
     virt:
