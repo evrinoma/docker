@@ -62,7 +62,7 @@ RUN	dnf install -y php-dom \
     php-tokenizer \
     php-zlib \
     php-pear \
-    php-mcrypt  \
+#    php-mcrypt  \
     php-pdo \
     php-session \
     php-devel
@@ -80,13 +80,13 @@ RUN	mkdir /opt/xdebug && \
 
 WORKDIR /opt/xdebug/xdebug-2.9.6
 
-RUN	/usr/bin/phpize && \
-	./configure --enable-xdebug && \
-	make && \
-	make install && \
-	rm -rf mkdir /opt/xdebug/
-
-WORKDIR /
+#RUN	/usr/bin/phpize && \
+#	./configure --enable-xdebug && \
+#	make && \
+#	make install && \
+#	rm -rf mkdir /opt/xdebug/
+#
+#WORKDIR /
 
 #composer
 RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
@@ -139,18 +139,18 @@ RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/http
 	echo 'IncludeOptional conf.d/*.conf' >> /etc/httpd/conf/httpd.conf
 
 ##php extension
-RUN	touch /etc/php.d/xdebug.ini && \
-	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_host = 172.18.72.72" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_connect_back=1" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_port = 9000" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.extended_info = 1" >> /etc/php.d/xdebug.ini && \
-#	echo "xdebug.scream = 1" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.var_display_max_depth = 16" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.var_display_max_children = 256" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.max_nesting_level = 1024" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.idekey="PHPSTORM"" >> /etc/php.d/xdebug.ini;
+#RUN	touch /etc/php.d/xdebug.ini && \
+#	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
+#	echo "xdebug.remote_host = 172.18.72.72" >> /etc/php.d/xdebug.ini && \
+#	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
+#	echo "xdebug.remote_connect_back=1" >> /etc/php.d/xdebug.ini && \
+#	echo "xdebug.remote_port = 9000" >> /etc/php.d/xdebug.ini && \
+#	echo "xdebug.extended_info = 1" >> /etc/php.d/xdebug.ini && \
+##	echo "xdebug.scream = 1" >> /etc/php.d/xdebug.ini && \
+#	echo "xdebug.var_display_max_depth = 16" >> /etc/php.d/xdebug.ini && \
+#	echo "xdebug.var_display_max_children = 256" >> /etc/php.d/xdebug.ini && \
+#	echo "xdebug.max_nesting_level = 1024" >> /etc/php.d/xdebug.ini && \
+#	echo "xdebug.idekey="PHPSTORM"" >> /etc/php.d/xdebug.ini;
 
 RUN	sed -i -e "s/Options\ Indexes\ MultiViews\ FollowSymlinks/#&/" /etc/httpd/conf.d/autoindex.conf  && \
 	sed -i -e "s/AllowOverride None/AllowOverride All/" /etc/httpd/conf.d/autoindex.conf && \
