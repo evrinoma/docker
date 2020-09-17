@@ -50,5 +50,6 @@ RUN	if [ ! -z "${exchange}" ]; then echo "[${exchange}]" &&  chmod +x /usr/local
 ADD	supervisor.conf /etc/supervisord.d/cron.conf
 RUN	cat /etc/supervisord.d/cron.conf >> /etc/supervisord.conf
 
+ADD	kisnew/init.sql /usr/local/bin
 ADD	kisnew/init.install /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install

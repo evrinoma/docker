@@ -45,7 +45,17 @@ if [ ! -z "$pass" ]; then
             yum install mysql -y
         fi
 
+        RESULT=`mysqlshow -h$database_host -uroot -p$pass | grep -v Wildcard | grep -o $database_name`
+
+        if [ ! "$RESULT" == "$database_name" ]; then
+             chmod +x /usr/local/bin/init.sql
+             init.sql $pass $database_host $database_name $database_user $database_password
+             chmod -x /usr/local/bin/init.sql
+        fi
+
         /usr/bin/php bin/console --no-interaction doctrine:migrations:migrate
+        /usr/bin/php bin/console assets:install --symlink --env=$MODE
+        /usr/bin/php bin/console cache:clear --env=$MODE
 
         yarn
         webpack --env=$MODE
