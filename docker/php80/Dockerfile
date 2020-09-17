@@ -37,7 +37,7 @@ RUN	yum -y install \
 	patch;
 
 RUN	dnf module enable php:remi-8.0 -y
-RUN	dnf install -y php-dom \
+RUN	dnf install -y php php-dom \
     php-simplexml \
     php-ssh2 php-xml \
     php-xmlreader \
@@ -168,8 +168,11 @@ RUN	mv -v /etc/exim/exim.conf{,.bak} && \
 	mv /bin/mail{,.bak} && \
 	ln -s /bin/mailx /bin/mail
 
-##clean
+#clean
 RUN	rm -f /var/run/httpd/httpd.pid
+
+#php-fpm
+RUN	mkdir -p /run/php-fpm && touch /run/php-fpm/www.sock
 
 #exim
 COPY	exim.conf /etc/exim/exim.conf

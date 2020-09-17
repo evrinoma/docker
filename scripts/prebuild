@@ -43,7 +43,7 @@
 
 docker build -t evrinoma/php74 ../docker/php74/.
 
-#docker build -t evrinoma/php80 ../docker/php80/.
+docker build -t evrinoma/php80 ../docker/php80/.
 
 #docker build -t evrinoma/wowza ../docker/wowza/.
 
