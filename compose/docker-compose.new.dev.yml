@@ -30,7 +30,7 @@ services:
         container_name: "php74.exchange"
         image: "evrinoma/php74.exchange"
         build:
-            context: docker/php74/.
+            context: docker/php74/sites/exchange/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
