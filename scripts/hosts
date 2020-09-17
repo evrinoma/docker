@@ -111,6 +111,7 @@ echo $PHP53"3	$PREFIX_PHP53.kis.ite-ng" >> /etc/hosts
 echo $PHP53"4	$PREFIX_PHP53.kisnew.ite-ng" >> /etc/hosts
 echo $PHP53"5	$PREFIX_PHP53.kis.nekeng" >> /etc/hosts
 echo $PHP53"6	$PREFIX_PHP53.kisnew.nekeng" >> /etc/hosts
+echo $PHP53"27	$PREFIX_PHP53.kisnew.debug" >> /etc/hosts
 
 echo $PHP53"11	$PREFIX_PHP53.webldap" >> /etc/hosts
 echo $PHP53"12	$PREFIX_PHP53.webuseorg" >> /etc/hosts

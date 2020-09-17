@@ -1219,6 +1219,31 @@ services:
             virt:
                 ipv4_address: 172.18.72.26
 
+    php72_cont_debug:
+        container_name: "php72.cont.debug"
+        image: "evrinoma/php72.debug.cont.ite-ng.ru"
+        build:
+            context: docker/php72/sites/cont/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=debug
+                - database_host=172.18.2.1
+                - database_name=cont_debug
+                - database_port=3306
+                - database_user=cont
+                - database_password=cont
+#        ports:
+#            - "172.20.1.175:80:80/tcp"
+#            - "172.20.1.175:443:443/tcp"
+#            - "172.20.1.175:22:22/tcp"
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.27
+
 networks:
     virt:
         driver: bridge
