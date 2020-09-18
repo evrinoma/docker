@@ -715,6 +715,36 @@ services:
             virt:
                 ipv4_address: 172.18.53.13
 
+    php53_kis_new_ru_debug:
+        container_name: "php53.kisnew.debug"
+        image: "evrinoma/php53.debug.kisnew.ite-ng.ru"
+        build:
+            context: docker/php53/sites/kisnew/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=nekeng_debug
+                - exchange=true
+                - database_host=172.18.2.1
+                - database_name=mh3itgr_nek_ng_debug
+                - database_port=3306
+                - database_user=debug
+                - database_password=debug
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        ports:
+            - "172.20.1.178:80:80/tcp"
+            - "172.20.1.178:22:22/tcp"
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+        networks:
+            virt:
+                ipv4_address: 172.18.53.27
+
     php71:
         container_name: "php71"
         image: "evrinoma/php71"
