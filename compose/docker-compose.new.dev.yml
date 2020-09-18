@@ -39,6 +39,19 @@ services:
             virt:
                 ipv4_address: 172.18.74.29
 
+    php74_supply:
+        container_name: "php74.supply"
+        image: "evrinoma/php74.supply"
+        build:
+            context: docker/php74/sites/supply/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.30
+
 networks:
     virt:
         driver: bridge
