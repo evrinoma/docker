@@ -21,7 +21,8 @@ RUN	dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
 	dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 
 RUN	yum -y install gcc \
-	make;
+	make \
+	glibc-langpack-en;
 
 RUN	yum -y install git \
 	passwd \

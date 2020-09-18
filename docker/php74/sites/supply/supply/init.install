@@ -12,7 +12,7 @@ if [ ! -z "$pass" ]; then
         cd $DIR
         mariaInstall=`yum list installed | grep "mariadb\."`
         if [ -z "$mariaInstall" ]; then
-            yum install mysql -y
+            yum install mariadb -y
         fi
         chmod +x /usr/local/bin/init.sql
 
@@ -20,7 +20,7 @@ if [ ! -z "$pass" ]; then
 
         chmod -x /usr/local/bin/init.sql
         if [ -z "$mariaInstall" ]; then
-            yum remove mysql -y
+            yum remove mariadb -y
         fi
 		fi
 fi
