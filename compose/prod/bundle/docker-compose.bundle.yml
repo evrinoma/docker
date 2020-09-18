@@ -295,8 +295,8 @@ services:
                 - database_host=172.18.2.1
                 - database_name=mh3itgr_nek_ng_debug
                 - database_port=3306
-                - database_user=kisnew
-                - database_password=kisnew
+                - database_user=mh3itgr_ngdb
+                - database_password=147Fort21
         cap_add:
             - SYS_ADMIN
         security_opt:
