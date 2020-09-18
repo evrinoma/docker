@@ -290,7 +290,7 @@ services:
             dockerfile: Dockerfile
             args:
                 - MODE=prod
-                - VHOST=nekeng_debug
+                - VHOST=debug
                 - exchange=true
                 - database_host=172.18.2.1
                 - database_name=mh3itgr_nek_ng_debug
