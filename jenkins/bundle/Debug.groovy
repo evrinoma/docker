@@ -43,6 +43,10 @@ node {
                 id: 'baseDeploy', message: 'DBase Deploy', parameters: [
                     [$class: 'ChoiceParameterDefinition', description: 'database deploy choices', name:'baseDeploy', choices: "false\ntrue"],
             ])
+            skipMigration = input(
+                id: 'skipMigration', message: 'DBase skip Migrations', parameters: [
+                    [$class: 'ChoiceParameterDefinition', description: 'database skip Migrations choices', name:'skipMigration', choices: "false\ntrue"],
+            ])
             emailReport = input(
                    id: 'email_report_id', message: 'email_report', parameters: [
                    [$class: 'TextParameterDefinition', defaultValue: '', description: 'Input email name', name: 'email_report']
@@ -50,9 +54,11 @@ node {
             branchName = (branchName)? branchName:'master'
             mailRecipients += (emailReport)? ', '+emailReport:''
             baseDeploy = (baseDeploy)? baseDeploy:'false'
+            skipMigration = (skipMigration)? skipMigration:'false'
             echo ("Env: ["+branchName+"]")
             echo ("Env: ["+emailReport+"]")
             echo ("Env: ["+baseDeploy+"]")
+            echo ("Env: ["+skipMigration+"]")
         }
         stage('Remote SSH') {
             sshCommand remote: remote, command: "if [ -d \"${contDir}\" ]; then true; else false; fi;"
@@ -93,8 +99,10 @@ node {
             sshCommand remote: remote, command: "mkdir -p /root/.composer && echo -e '{\n    \"http-basic\": {\n        \"git.ite-ng.ru\": {\n            \"username\": \"${gitUser}\",\n            \"password\": \"${gitPass}\"\n        }\n    }\n}'> /root/.composer/auth.json"
             sshCommand remote: remote, command: "cd ${contDir} && composer install"
         }
-        stage('Migration') {
-            sshCommand remote: remote, command: "/usr/bin/php ${contDir}/bin/console --no-interaction doctrine:migrations:migrate --env=dev"
+        if (skipMigration == 'false' ) {
+            stage('Migration') {
+                sshCommand remote: remote, command: "/usr/bin/php ${contDir}/bin/console --no-interaction doctrine:migrations:migrate --env=dev"
+            }
         }
         stage('JsRoutes') {
             sshCommand remote: remote, command: "cd ${contDir} && php bin/console fos:js-routing:dump --env=dev"
