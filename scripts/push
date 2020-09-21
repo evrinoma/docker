@@ -4,9 +4,11 @@ docker login
 #docker push evrinoma/php72.cont.ite-ng.ru:latest
 #docker push evrinoma/php53.kisnew.ite-ng.ru:latest
 #docker push evrinoma/php72:latest
-docker push evrinoma/db.maria.public:latest
-docker push evrinoma/php72.clean.public:latest
+#docker push evrinoma/db.maria.public:latest
+#docker push evrinoma/php72.clean.public:latest
 #docker push evrinoma/php53.kisnew.nekeng.ru:latest
 #docker push evrinoma/php53.kisnew.ite-ng.ru:latest
 #docker push evrinoma/php72.prod.cont.ite-ng.ru:latest
 #docker push evrinoma/php72.master.cont.ite-ng.ru:latest
+docker push evrinoma/php74.exchange:latest
+docker push evrinoma/php74.supply:latest
