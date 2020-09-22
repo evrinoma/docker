@@ -1,5 +1,6 @@
 node {
     try {
+        def gitOauth = 'see https://github.com/settings/tokens'
         def toolsDir = '/opt/WWW/container.ite-ng.ru/projects/tools'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
@@ -24,6 +25,7 @@ node {
                 sshCommand remote: remote, command: "cd ${toolsDir} && git pull"
             }
             stage('Composer update') {
+                sshCommand remote: remote, command: "mkdir -p /root/.composer && echo -e '{\n    \"github-oauth\": {\n        \"github.com\": \"${gitOauth}\"\n    }\n}'> /root/.composer/auth.json"
                 sshCommand remote: remote, command: "cd ${toolsDir} && composer update evrinoma/shell-bundle evrinoma/dashboard-bundle evrinoma/utils-bundle evrinoma/dto-bundle evrinoma/settings-bundle evrinoma/delta8-bundle evrinoma/exim-bundle evrinoma/livevideo-bundle evrinoma/menu-bundle evrinoma/grid-bundle evrinoma/contragent-bundle evrinoma/project-bundle"
             }
             stage('Migration') {
