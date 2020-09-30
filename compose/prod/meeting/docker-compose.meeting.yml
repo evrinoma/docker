@@ -1,0 +1,63 @@
+version: '2'
+services:
+    maria_db:
+        container_name: "maria.db"
+        image: "evrinoma/db.maria"
+        hostname: "maria.db"
+        build:
+            context: docker/db/maria/.
+            dockerfile: Dockerfile
+        ports:
+            - "172.20.1.160:3306:3306/tcp"
+        volumes:
+            - "/opt/docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
+
+    open_meeting:
+        container_name: "evrinoma.openmeeting"
+        image: "evrinoma/openmeetings:latest"
+        environment:
+            - OM_KURENTO_WS_URL=ws://172.18.40.4:8888/kurento
+            - OM_DB_HOST=172.18.2.1
+            - OM_DB_USER=root
+            - OM_DB_PASS=116ip4
+            - OM_DB_NAME=openmeetings
+        ports:
+            - 5443:5443
+        volumes:
+            - "/opt/docker/src/omdata/:/opt/WWW/container.ite-ng.ru/omdata/"
+        networks:
+            virt:
+                ipv4_address: 172.18.40.3
+
+    kurento:
+        container_name: "evrinoma.kms"
+        image: "evrinoma/kurento:latest"
+        environment:
+            - KMS_MIN_PORT=5000
+            - KMS_MAX_PORT=5050
+        ports:
+            - 8888:8888/tcp
+            - 5000-5050:5000-5050/udp
+        volumes:
+            - "/opt/docker/src/omdata/kms:/opt/WWW/container.ite-ng.ru/omdata/kms"
+        networks:
+            virt:
+                ipv4_address: 172.18.40.4
+
+
+networks:
+    virt:
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "false"
+            com.docker.network.bridge.name: "docker_sftp"
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
+

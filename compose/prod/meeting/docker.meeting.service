@@ -1,0 +1,18 @@
+[Unit]
+Description=docker meeting service
+After=docker.service
+After=remote-fs.target
+Requires=mysql.service
+Requires=remote-fs.target
+
+[Service]
+Type=forking
+ExecStartPre=/usr/bin/docker-compose -f /opt/docker/docker-compose.yml up -d
+ExecStart=/usr/bin/sleep 1
+ExecStartPost=/opt/docker/iptables_up
+
+#ExecStop=/opt/docker/iptables_up
+#ExecStopPost=/usr/bin/docker-compose -f /opt/docker/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target

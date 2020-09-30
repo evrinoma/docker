@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#bridge=$(brctl show | grep -e "br" | grep -e "veth" | awk {'print $1'})
+bridge=$(ip link show type bridge | grep -e 'br' | grep -e 'UP' | awk {'print $2'})
+bridge=${bridge%*:}
+
+echo $bridge
+
+exit 0
+
+echo 'done'
