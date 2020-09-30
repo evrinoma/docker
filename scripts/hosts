@@ -31,6 +31,9 @@ BUNDLE=$SUBNET"24."
 
 LINUX=$SUBNET"25."
 
+
+MEETING=$SUBNET"40."
+
 PHP53=$SUBNET"53."
 PHP54=$SUBNET"54."
 PHP71=$SUBNET"71."
@@ -88,6 +91,13 @@ echo $TEST"	test.cont" >> /etc/hosts
 echo $MASTER_CONT"	master.cont" >> /etc/hosts
 
 echo $LINUX"1	ubuntu.gonme" >> /etc/hosts
+
+echo $MEETING"1	1.openmcu.meeting" >> /etc/hosts
+echo $MEETING"2	2.openmcu.meeting" >> /etc/hosts
+echo $MEETING"3	openmeeting.meeting" >> /etc/hosts
+echo $MEETING"4	kurento.meeting" >> /etc/hosts
+echo $MEETING"5	e.openmeeting.meeting" >> /etc/hosts
+echo $MEETING"6	e.kurento.meeting" >> /etc/hosts
 
 echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.web.$PREFIX_LOCAL" >> /etc/hosts
 echo $BUNDLE"1	$PREFIX_BUNDLE.$PREFIX_PHP54.ipark45.$PREFIX_LOCAL" >> /etc/hosts
@@ -157,3 +167,5 @@ echo $C1_83"13	deploy.13.1644" >> /etc/hosts
 echo $C1_83"130	api.13.1644" >> /etc/hosts
 echo $C1_83"15	deploy.15.1700" >> /etc/hosts
 echo $C1_83"150	api.15.1700" >> /etc/hosts
+
+
