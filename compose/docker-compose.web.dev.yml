@@ -185,6 +185,106 @@ services:
             virt:
                 ipv4_address: 172.18.74.30
 
+#    open_mcu:
+#        container_name: "evrinoma.openmcu"
+#        image: "johannrichard/openmcu"
+#        ports:
+#            - 5060:5060
+#            - 5061:5061
+#            - 1420:1420
+#            - 1554:1554
+#            - 1719:1719
+#            - 1720:1720
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.40.1
+
+#    open_mcu:
+#        container_name: "evrinoma.openmcu"
+#        image: "johannrichard/openmcu"
+#        build:
+#            context: docker/openmcu/.
+#            dockerfile: Dockerfile
+#        ports:
+#            - 5000:5999:5000:5999
+#            - 1420:1420
+#            - 1554:1554
+#            - 1719-1720:1719-1720
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.40.2
+
+#    open_meeting:
+#        container_name: "evrinoma.openmeeting"
+#        image: "evrinoma/openmeetings:5.0.1"
+#        build:
+#            context: docker/openmeetings/.
+#            dockerfile: Dockerfile
+#        environment:
+#            - OM_KURENTO_WS_URL=ws://172.18.40.4:8888/kurento
+#            - OM_DB_HOST=172.18.2.1
+#            - OM_DB_USER=root
+#            - OM_DB_PASS=116ip4
+#            - OM_DB_NAME=openmeetings
+#        ports:
+#            - 5443:5443
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/omdata/:/opt/WWW/container.ite-ng.ru/omdata/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.40.3
+
+#    kurento:
+#        container_name: "evrinoma.kms"
+#        image: "kurento/kurento-media-server"
+#        environment:
+#            - KMS_MIN_PORT=5000
+#            - KMS_MAX_PORT=5050
+#        ports:
+#            - 8888:8888/tcp
+#            - 5000-5050:5000-5050/udp
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/omdata/kms:/opt/WWW/container.ite-ng.ru/omdata/kms"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.40.4
+
+    open_meeting:
+        container_name: "evrinoma.openmeeting"
+        image: "evrinoma/openmeetings:latest"
+        environment:
+            - OM_KURENTO_WS_URL=ws://172.18.40.4:8888/kurento
+            - OM_DB_HOST=172.18.2.1
+            - OM_DB_USER=openmeetings
+            - OM_DB_PASS=openmeetings
+            - OM_DB_NAME=openmeetings
+        ports:
+            - 5443:5443
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/omdata/:/opt/WWW/container.ite-ng.ru/omdata/"
+        networks:
+            virt:
+                ipv4_address: 172.18.40.3
+
+    kurento:
+        container_name: "evrinoma.kms"
+        image: "evrinoma/kurento:latest"
+        environment:
+            - KMS_MIN_PORT=5000
+            - KMS_MAX_PORT=5050
+        ports:
+            - 8888:8888/tcp
+            - 5000-5050:5000-5050/udp
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/omdata/kms:/opt/WWW/container.ite-ng.ru/omdata/kms"
+        networks:
+            virt:
+                ipv4_address: 172.18.40.4
+
 networks:
     virt:
         driver: bridge
