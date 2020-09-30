@@ -20,10 +20,10 @@ services:
         container_name: "evrinoma.openmeeting"
         image: "evrinoma/openmeetings:latest"
         environment:
-            - OM_KURENTO_WS_URL=ws://172.18.40.4:8888/kurento
+            - OM_KURENTO_WS_URL=ws://172.18.40.6:8888/kurento
             - OM_DB_HOST=172.18.2.1
-            - OM_DB_USER=root
-            - OM_DB_PASS=116ip4
+            - OM_DB_USER=openmeetings
+            - OM_DB_PASS=openmeetings
             - OM_DB_NAME=openmeetings
         ports:
             - 5443:5443
@@ -31,7 +31,7 @@ services:
             - "/opt/docker/src/omdata/:/opt/WWW/container.ite-ng.ru/omdata/"
         networks:
             virt:
-                ipv4_address: 172.18.40.3
+                ipv4_address: 172.18.40.5
 
     kurento:
         container_name: "evrinoma.kms"
@@ -46,7 +46,7 @@ services:
             - "/opt/docker/src/omdata/kms:/opt/WWW/container.ite-ng.ru/omdata/kms"
         networks:
             virt:
-                ipv4_address: 172.18.40.4
+                ipv4_address: 172.18.40.6
 
 
 networks:
