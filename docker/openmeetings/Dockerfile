@@ -101,6 +101,9 @@ ADD om_ldap.cfg /opt/openmeetings/webapps/openmeetings/data/conf/om_ldap.cfg
 ADD om_ldap.cfg /opt/omdata/conf/om_ldap.cfg
 
 RUN apt-get update && apt-get install -y mc
+ADD	openmeetings/init.install /usr/local/bin
+ADD	openmeetings/init.sql /usr/local/bin
+RUN	chmod +x /usr/local/bin/init.install
 
 EXPOSE ${PORTS}
 

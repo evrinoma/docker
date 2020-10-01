@@ -1,0 +1,20 @@
+#!/bin/bash
+pass=$1
+serverSql=172.18.2.1
+base=$2
+user=$3
+basepass=$4
+if [ ! -z "$pass" ]; then
+      mariaInstall=`dpkg -l | grep "mariadb-server""`
+      if [ -z "$mariaInstall" ]; then
+          apt-get install -y mariadb-server
+      fi
+      chmod +x /usr/local/bin/init.sql
+
+      init.sql $pass $serverSql $base $user $basepass
+
+      chmod -x /usr/local/bin/init.sql
+      if [ -z "$mariaInstall" ]; then
+           apt autoremove -y mariadb-server
+      fi
+fi
