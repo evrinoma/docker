@@ -5,7 +5,7 @@ base=$2
 user=$3
 basepass=$4
 if [ ! -z "$pass" ]; then
-      mariaInstall=`dpkg -l | grep "mariadb-server""`
+      mariaInstall=`dpkg -l | grep "mariadb-server"`
       if [ -z "$mariaInstall" ]; then
           apt-get install -y mariadb-server
       fi
