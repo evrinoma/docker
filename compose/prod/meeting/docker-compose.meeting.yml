@@ -8,7 +8,7 @@ services:
             context: docker/db/maria/.
             dockerfile: Dockerfile
         ports:
-            - "172.20.1.160:3306:3306/tcp"
+            - 172.16.45.14:3306:3306/tcp
         volumes:
             - "/opt/docker/src/db/maria/:/var/lib/mysql"
             - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
@@ -26,7 +26,7 @@ services:
             - OM_DB_PASS=openmeetings
             - OM_DB_NAME=openmeetings
         ports:
-            - 5443:5443
+            - 172.16.45.14:5443:5443
         volumes:
             - "/opt/docker/src/omdata/:/opt/WWW/container.ite-ng.ru/omdata/"
         networks:
@@ -40,8 +40,8 @@ services:
             - KMS_MIN_PORT=5000
             - KMS_MAX_PORT=5050
         ports:
-            - 8888:8888/tcp
-            - 5000-5050:5000-5050/udp
+            - 172.16.45.14:8888:8888/tcp
+            - 172.16.45.14:5000-5050:5000-5050/udp
         volumes:
             - "/opt/docker/src/omdata/kms:/opt/WWW/container.ite-ng.ru/omdata/kms"
         networks:
@@ -54,7 +54,7 @@ networks:
         driver: bridge
         driver_opts:
             com.docker.network.enable_ipv6: "false"
-            com.docker.network.bridge.name: "docker_sftp"
+            com.docker.network.bridge.name: "docker_meeting"
         ipam:
             driver: default
             config:
