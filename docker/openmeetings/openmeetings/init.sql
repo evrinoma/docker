@@ -6,7 +6,7 @@ user=$4
 basepass=$5
 INIT_SQL="/root/init.sql"
 	echo "
-	CREATE DATABASE \`$base\`;
+	CREATE DATABASE \`$base\` COLLATE \`utf8_bin\`;
 	CREATE USER '$user'@'localhost' IDENTIFIED BY '$basepass';
 	GRANT ALL PRIVILEGES ON \`$user\` . * TO '$user'@'localhost';
 	CREATE USER '$user'@'172.18.0.0/255.255.0.0' IDENTIFIED BY '$basepass';
