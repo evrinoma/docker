@@ -24,7 +24,7 @@
 #docker build -t evrinoma/db.maria ../docker/db/maria/.
 
 #docker build -t evrinoma/bind ../docker/bind/.
-#docker build -t evrinoma/exim ../docker/mail/exim/.
+docker build -t evrinoma/exim ../docker/mail/exim/.
 #docker build -t evrinoma/dovecot ../docker/mail/dovecot/.
 
 #docker build -t evrinoma/php53 ../docker/php53/.
@@ -55,5 +55,5 @@
 #docker build -t evrinoma/php72.asterisk17 ../docker/php72/sites/freepbx/asterisk17/.
 #docker build -t evrinoma/php72.asterisk13 ../docker/php72/sites/freepbx/asterisk13/.
 
-docker build -t evrinoma/kurento ../docker/kurento/.
-docker build -t evrinoma/openmeetings ../docker/openmeetings/.
+#docker build -t evrinoma/kurento ../docker/kurento/.
+#docker build -t evrinoma/openmeetings ../docker/openmeetings/.
