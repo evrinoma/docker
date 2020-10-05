@@ -18,3 +18,5 @@ if [ ! -z "$pass" ]; then
            apt autoremove -y mariadb-server
       fi
 fi
+
+ln -s /opt/openmeetings/webapps/openmeetings/data/conf/om_ldap.cfg /opt/WWW/container.ite-ng.ru/conf/omdata/conf/

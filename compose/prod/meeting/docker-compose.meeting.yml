@@ -26,9 +26,10 @@ services:
             - OM_DB_PASS=openmeetings
             - OM_DB_NAME=openmeetings
         ports:
-            - 172.16.45.14:5443:5443
+            - 172.16.45.14:3478:3478
+            - 172.16.45.14:443:5443
         volumes:
-            - "/opt/docker/src/omdata/:/opt/WWW/container.ite-ng.ru/omdata/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.40.5
@@ -42,8 +43,8 @@ services:
         ports:
             - 172.16.45.14:8888:8888/tcp
             - 172.16.45.14:5000-5050:5000-5050/udp
-        volumes:
-            - "/opt/docker/src/omdata/kms:/opt/WWW/container.ite-ng.ru/omdata/kms"
+#        volumes:
+#            - "/opt/docker/src/omdata/kms:/opt/WWW/container.ite-ng.ru/omdata/kms"
         networks:
             virt:
                 ipv4_address: 172.18.40.6

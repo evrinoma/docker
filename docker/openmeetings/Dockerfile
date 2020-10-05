@@ -38,7 +38,7 @@ ENV OM_KURENTO_WS_URL="ws://127.0.0.1:8888/kurento"
 ENV TURN_URL=""
 ENV TURN_USER=""
 ENV TURN_PASS=""
-ENV OM_DATA_DIR="/opt/omdata"
+ENV OM_DATA_DIR="/opt/WWW/container.ite-ng.ru/conf/omdata"
 ENV work=/opt
 ENV OM_HOME=/opt/openmeetings
 ENV MYSQL_J_VER="8.0.21"
@@ -98,7 +98,6 @@ RUN chmod a+x ${work}/*.sh \
   && ./om_install.sh
   
 ADD om_ldap.cfg /opt/openmeetings/webapps/openmeetings/data/conf/om_ldap.cfg
-ADD om_ldap.cfg /opt/omdata/conf/om_ldap.cfg
 
 RUN apt-get update && apt-get install -y mc
 ADD	openmeetings/init.install /usr/local/bin
