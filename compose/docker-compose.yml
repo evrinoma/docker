@@ -562,7 +562,7 @@ services:
             virt:
                 ipv4_address: 172.18.83.160
 
-    open_mcu:
+    open_mcu_image:
         container_name: "evrinoma.openmcu"
         image: "johannrichard/openmcu"
         ports:
@@ -579,7 +579,7 @@ services:
                 ipv4_address: 172.18.40.1
     open_mcu:
         container_name: "evrinoma.openmcu"
-        image: "johannrichard/openmcu"
+        image: "evrinoma/openmcu"
         build:
             context: docker/openmcu/.
             dockerfile: Dockerfile
@@ -594,7 +594,7 @@ services:
             virt:
                 ipv4_address: 172.18.40.2
 
-    open_meeting:
+    open_meeting_image:
         container_name: "evrinoma.openmeeting"
         image: "evrinoma/openmeetings:5.0.1"
         build:
@@ -609,24 +609,10 @@ services:
         ports:
             - 5443:5443
         volumes:
-            - "/opt/docker/src/omdata/:/opt/WWW/container.ite-ng.ru/omdata/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.40.3
-    kurento:
-        container_name: "evrinoma.kms"
-        image: "kurento/kurento-media-server"
-        environment:
-            - KMS_MIN_PORT=5000
-            - KMS_MAX_PORT=5050
-        ports:
-            - 8888:8888/tcp
-            - 5000-5050:5000-5050/udp
-        volumes:
-            - "/opt/docker/src/omdata/kms:/opt/WWW/container.ite-ng.ru/omdata/kms"
-        networks:
-            virt:
-                ipv4_address: 172.18.40.4
 
     open_meeting:
         container_name: "evrinoma.openmeeting"
@@ -640,10 +626,23 @@ services:
         ports:
             - 5443:5443
         volumes:
-            - "/opt/docker/src/omdata/:/opt/WWW/container.ite-ng.ru/omdata/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.40.5
+
+    kurento_image:
+        container_name: "evrinoma.kms"
+        image: "kurento/kurento-media-server"
+        environment:
+            - KMS_MIN_PORT=5000
+            - KMS_MAX_PORT=5050
+        ports:
+            - 8888:8888/tcp
+            - 5000-5050:5000-5050/udp
+        networks:
+            virt:
+                ipv4_address: 172.18.40.4
 
     kurento:
         container_name: "evrinoma.kms"
@@ -654,13 +653,9 @@ services:
         ports:
             - 8888:8888/tcp
             - 5000-5050:5000-5050/udp
-        volumes:
-            - "/opt/docker/src/omdata/kms:/opt/WWW/container.ite-ng.ru/omdata/kms"
         networks:
             virt:
                 ipv4_address: 172.18.40.6
-
-
 
     php53:
         container_name: "php53"
