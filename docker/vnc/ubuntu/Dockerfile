@@ -42,6 +42,7 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisor/supervisord.con
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
 RUN	export LANG=en_US.UTF-8
+RUN     apt-get install locales && locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
 COPY    vnc/ /root/
 #copy terminal settings
 #COPY xfce4 /root/.config/xfce4
