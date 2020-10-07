@@ -38,9 +38,11 @@ RUN	yum -y install \
 	patch;
 
 RUN	dnf module enable php:remi-7.4 -y
+
 RUN	dnf install -y php php-dom \
     php-simplexml \
-    php-ssh2 php-xml \
+    php-ssh2 \
+    php-xml \
     php-xmlreader \
     php-curl \
     php-date \
@@ -63,12 +65,189 @@ RUN	dnf install -y php php-dom \
     php-tokenizer \
     php-zlib \
     php-pear \
-#    php-mcrypt  \
     php-pdo \
-    php-session \
+    php-session
+
+RUN	dnf install -y php-ldap \
+    php-xhprof \
+    php-ast \
+    php-cli \
+    php-dba \
+    php-dbg \
+    php-ffi \
+    php-fpm \
+    php-gmp \
+    php-lz4 \
+    php-pdo \
+    php-geos \
+    php-imap \
+    php-intl \
+    php-ldap \
+    php-odbc \
+    php-pggi \
+    php-snmp \
+    php-soap \
+    php-tidy \
+    php-zstd \
     php-devel \
+    php-pdlib \
+    php-pgsql \
+    php-pinba \
+    php-bcmath \
+    php-brotli \
+    php-common \
+    php-pspell \
+    php-snappy \
+    php-sodium \
+    php-xmlrpc \
+    php-enchant \
+    php-libvirt \
+    php-opcache \
     php-pecl-apcu-bc \
-    php74-php-pecl-apcu
+    php-pecl-memcache
+#    php-pecl-ds \
+#    php-pecl-ev \
+#    php-pecl-pq \
+#    php-pecl-uv \
+#    php-process \
+#    php-embedded \
+#    php-pecl-csv \
+#    php-pecl-dio \
+#    php-pecl-eio \
+#    php-pecl-env \
+#    php-pecl-ice \
+#    php-pecl-lua \
+#    php-pecl-lzf \
+#    php-pecl-nsq \
+#    php-pecl-pcs \
+#    php-pecl-psr \
+#    php-pecl-rar \
+#    php-pecl-rrd \
+#    php-pecl-svn \
+#    php-pecl-vld \
+#    php-pecl-yac \
+#    php-pecl-yaf \
+#    php-pecl-yar \
+#    php-pecl-yaz \
+#    php-pecl-zip \
+#    php-pecl-zmq \
+#    php-phalcon4 \
+#    php-componere \
+#    php-litespeed \
+#    php-maxminddb \
+#    php-pdo-dblib \
+#    php-pecl-amqp \
+#    php-pecl-apcu \
+#    php-pecl-apfd \
+#    php-pecl-fann \
+#    php-pecl-grpc \
+#    php-pecl-http \
+#    php-pecl-krb5 \
+#    php-pecl-pcov \
+#    php-pecl-ssh2 \
+#    php-pecl-sync \
+#    php-pecl-trie \
+#    php-pecl-uopz \
+#    php-pecl-uuid \
+#    php-pecl-wddx \
+#    php-pecl-yaml \
+#    php-phpiredis \
+#    php-smbclient \
+#    php-wkhtmltox \
+#    php-pecl-cmark \
+#    php-pecl-dbase \
+#    php-pecl-druid \
+#    php-pecl-event \
+#    php-pecl-geoip \
+#    php-pecl-gnupg \
+#    php-pecl-mysql \
+#    php-pecl-oauth \
+#    php-pecl-parle \
+#    php-pecl-raphf \
+#    php-pecl-solr2 \
+#    php-pecl-stats \
+#    php-pecl-stomp \
+#    php-pecl-taint \
+#    php-pecl-xattr \
+#    php-pecl-xdiff \
+#    php-pecl-xxtea \
+#    php-libvirt-doc \
+#    php-pecl-base58 \
+#    php-pecl-bitset \
+#    php-pecl-crypto \
+#    php-pecl-gender \
+#    php-pecl-hprose \
+#    php-pecl-hrtime \
+#    php-pecl-mcrypt \
+#    php-pecl-pdflib \
+#    php-pecl-propro \
+#    php-pecl-radius \
+#    php-pecl-recode \
+#    php-pecl-redis4 \
+#    php-pecl-redis5 \
+#    php-pecl-scrypt \
+#    php-pecl-sphinx \
+#    php-pecl-ssdeep \
+#    php-pecl-trader \
+#    php-pecl-xhprof \
+#    php-pecl-yaconf \
+#    php-pdo-firebird \
+#    php-pecl-decimal \
+#    php-pecl-gearman \
+#    php-pecl-inotify \
+#    php-pecl-leveldb \
+#    php-pecl-memprof \
+#    php-pecl-mongodb \
+#    php-pecl-msgpack \
+#    php-pecl-rdkafka \
+#    php-pecl-request \
+#    php-pecl-rpminfo \
+#    php-pecl-runkit7 \
+#    php-pecl-seaslog \
+#    php-pecl-selinux \
+#    php-pecl-swoole4 \
+#    php-pecl-timecop \
+#    php-pecl-varnish \
+#    php-pecl-xmldiff \
+#    php-pecl-igbinary \
+#    php-pecl-mogilefs \
+#    php-pecl-mustache \
+#    php-pecl-protobuf \
+#    php-pecl-rdkafka4 \
+#    php-pecl-scoutapm \
+#    php-pecl-translit \
+#    php-snuffleupagus \
+#    php-zephir-parser \
+#    php-ioncube-loader \
+#    php-pecl-cassandra \
+#    php-pecl-json-post \
+#    php-pecl-mailparse \
+#    php-pecl-memcached \
+#    php-pecl-mosquitto \
+#    php-pecl-pcs-devel \
+#    php-pecl-seasclick \
+#    php-pecl-xlswriter \
+#    php-realpath-turbo \
+#    php-pecl-apcu-devel \
+#    php-pecl-couchbase2 \
+#    php-pecl-geospatial \
+#    php-pecl-handlebars \
+#    php-pecl-http-devel \
+#    php-pecl-krb5-devel \
+#    php-pecl-luasandbox \
+#    php-pecl-opencensus \
+#    php-pecl-skywalking \
+#    php-pecl-ahocorasick \
+#    php-pecl-ip2location \
+#    php-pecl-http-message \
+#    php-pecl-datadog-trace \
+#    php-pecl-hdr-histogram \
+#    php-pecl-imagick-devel \
+#    php-pecl-msgpack-devel \
+#    php-pecl-mysql-xdevapi \
+#    php-pecl-mysqlnd-azure \
+#    php-pecl-igbinary-devel \
+#    php-pecl-uploadprogress
 
 RUN	wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo && \
 	yum -y install yarn npm;

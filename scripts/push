@@ -10,5 +10,5 @@ docker login
 #docker push evrinoma/php53.kisnew.ite-ng.ru:latest
 #docker push evrinoma/php72.prod.cont.ite-ng.ru:latest
 #docker push evrinoma/php72.master.cont.ite-ng.ru:latest
-#docker push evrinoma/php74.exchange:latest
-#docker push evrinoma/php74.supply:latest
+docker push evrinoma/php74.exchange:latest
+docker push evrinoma/php74.supply:latest
