@@ -1,5 +1,5 @@
 FROM \
-	centos:centos7
+	centos:centos8
 
 MAINTAINER \
 	evrinoma@gmail.com
@@ -15,14 +15,17 @@ RUN	yum -y install mc wget && \
 	yum -y install iproute && \
 	yum -y update;
 
-RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
-	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
+RUN	dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+	dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+#RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+#	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
 
 RUN	yum -y install gcc \
 	make;
 
 RUN	yum -y install git \
 	supervisor \
+	passwd \
 	openssh-server;
 
 RUN	yum -y install \
@@ -41,8 +44,11 @@ RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
 
 #supervisor
 COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
-RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
-	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf
+RUN	mkdir -p /run/supervisor/ && \
+	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
+	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf && \
+	sed -i -e "s/^\[unix_http_server\]/;\[unix_http_server\]/" /etc/supervisord.conf && \
+	sed -i -e "s/^file\=\/run\/supervisor\/supervisor.sock/;&/" /etc/supervisord.conf
 
 #mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/

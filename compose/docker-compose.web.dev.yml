@@ -143,6 +143,7 @@ services:
 
     ubuntu_gnome_wine:
         container_name: "ubuntu.wine.deploy"
+        image: "evrinoma/ubuntu.wine.deploy"
         privileged: true
         build:
             context: docker/wine/ubuntu/.
@@ -151,12 +152,10 @@ services:
         extra_hosts:
             - "php53.kis.ite-ng:172.18.53.3"
         ports:
-            - 5901:5902
-            - 9001:9001
+            - 5902:5901
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-#            - "/opt/DISK/Develop/Docker/src/conf/wine/:/root/.wine/"
         networks:
             virt:
                 ipv4_address: 172.18.25.2

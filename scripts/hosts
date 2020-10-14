@@ -90,7 +90,8 @@ echo $SFTP"2	kis.sftp" >> /etc/hosts
 echo $TEST"	test.cont" >> /etc/hosts
 echo $MASTER_CONT"	master.cont" >> /etc/hosts
 
-echo $LINUX"1	ubuntu.gonme" >> /etc/hosts
+echo $LINUX"1	ubuntu.gnome" >> /etc/hosts
+echo $LINUX"2	ubuntu.gnome.wine" >> /etc/hosts
 
 echo $MEETING"1	1.openmcu.meeting" >> /etc/hosts
 echo $MEETING"2	2.openmcu.meeting" >> /etc/hosts

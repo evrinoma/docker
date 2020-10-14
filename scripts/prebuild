@@ -1,8 +1,8 @@
 #!/bin/bash
 #docker build -t evrinoma/ubuntu.vnc ../docker/vnc/ubuntu/.
-#docker build -t evrinoma/centos.vnc ../docker/vnc/centos/.
+docker build -t evrinoma/centos.vnc ../docker/vnc/centos/.
 #docker build -t evrinoma/primavera.15.1.1 ../docker/primavera/15.1.1/.
-#docker build -t evrinoma/primavera.18.8 ../docker/primavera/18.8/.
+docker build -t evrinoma/primavera.18.8 ../docker/primavera/18.8/.
 
 #docker build -t evrinoma/ruby265 ../docker/ruby265/.
 #docker build -t evrinoma/redmine ../docker/ruby265/servers/redmine/.
@@ -41,11 +41,11 @@
 #docker build -t evrinoma/php72.owncloud ../docker/php72/sites/cloud/servers/owncloud/.
 #docker build -t evrinoma/php72.kiscloud ../docker/php72/sites/cloud/servers/kiscloud/.
 
-docker build -t evrinoma/php74 ../docker/php74/.
+#docker build -t evrinoma/php74 ../docker/php74/.
 #docker build -t evrinoma/php80 ../docker/php80/.
 
-docker build -t evrinoma/php74.exchange ../docker/php74/sites/exchange/.
-docker build -t evrinoma/php74.supply ../docker/php74/sites/supply/.
+#docker build -t evrinoma/php74.exchange ../docker/php74/sites/exchange/.
+#docker build -t evrinoma/php74.supply ../docker/php74/sites/supply/.
 
 #docker build -t evrinoma/wowza ../docker/wowza/.
 
