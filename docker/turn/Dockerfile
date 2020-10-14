@@ -12,6 +12,7 @@ LABEL \
 	build-date="2020-10-14"
 
 ONBUILD ARG	EXTERNAL_IP=''
+ONBUILD ARG	TURN_PASS=''
 
 RUN	yum -y install mc wget && \
 	yum -y install iproute && \
@@ -57,7 +58,9 @@ RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
 RUN	dnf install coturn coturn-utils -y
 RUN	echo "EXTERNAL_IP=${EXTERNAL_IP}" > /etc/sysconfig/vhost && \
-	echo "HASH=$(openssl rand -hex 32)" >>/etc/sysconfig/vhost
+#	echo "HASH=$(openssl rand -hex 32)" >>/etc/sysconfig/vhost
+	echo "HASH=${TURN_PASS}" >>/etc/sysconfig/vhost
+
 
 RUN	echo "cli-password=$(cat /etc/sysconfig/vhost | grep HASH | sed -r 's/.*=(.*)$/\1/')" >>  /etc/coturn/turnserver.conf && \
 	echo "use-auth-secret" >>  /etc/coturn/turnserver.conf && \

@@ -25,6 +25,9 @@ services:
             - OM_DB_USER=openmeetings
             - OM_DB_PASS=openmeetings
             - OM_DB_NAME=openmeetings
+            - TURN_URL=172.16.45.14:3478
+            - TURN_USER=kurento:kurento
+            - TURN_PASS=ab0bb43687002c4533068a0a41f9c62e1c0698f410220dc4af9356ac64dd3e16
         ports:
 #            - 172.16.45.14:3478:3478
             - 172.16.45.14:443:5443
@@ -56,6 +59,8 @@ services:
             context: docker/turn/.
             dockerfile: Dockerfile
         privileged: true
+        environment:
+            - TURN_PASS=ab0bb43687002c4533068a0a41f9c62e1c0698f410220dc4af9356ac64dd3e16
         ports:
             - 172.16.45.14:3478:3478
         volumes:
