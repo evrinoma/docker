@@ -5,3 +5,4 @@ docker build -t evrinoma/kurento ../../../docker/kurento/.
 
 docker build -t evrinoma/openmeetings ../../../docker/openmeetings/.
 
+docker build -t evrinoma/turn ../../../docker/turn/.

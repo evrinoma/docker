@@ -22,22 +22,6 @@ services:
             virt:
                 ipv4_address: 172.18.22.18
 
-    centos_vnc:
-        container_name: "centos.vnc"
-        image: "evrinoma/centos.vnc"
-        build:
-            context: docker/vnc/centos/.
-            dockerfile: Dockerfile
-        privileged: true
-        ports:
-            - "172.20.1.78:5903:5901"
-        volumes:
-            - "/etc/localtime:/etc/localtime:rw"
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.25.1
-
     mssql_db:
         container_name: "mssqldb.db"
         image: "microsoft/mssql-server-linux:2017-latest"

@@ -677,6 +677,22 @@ services:
             virt:
                 ipv4_address: 172.18.40.6
 
+    turn:
+        container_name: "turn"
+        image: "evrinoma/turn"
+        build:
+            context: docker/turn/.
+            dockerfile: Dockerfile
+        privileged: true
+        ports:
+            - "3478:3478"
+        volumes:
+            - "/etc/localtime:/etc/localtime:rw"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.40.7
+
     php53:
         container_name: "php53"
         image: "evrinoma/php53"
