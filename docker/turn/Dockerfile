@@ -13,6 +13,8 @@ LABEL \
 
 ONBUILD ARG	EXTERNAL_IP=''
 ONBUILD ARG	TURN_PASS=''
+ARG	EXTERNAL_IP=''
+ARG	TURN_PASS=''
 
 RUN	yum -y install mc wget && \
 	yum -y install iproute && \
@@ -66,7 +68,10 @@ RUN	echo "cli-password=$(cat /etc/sysconfig/vhost | grep HASH | sed -r 's/.*=(.*
 	echo "use-auth-secret" >>  /etc/coturn/turnserver.conf && \
 	echo "static-auth-secret=$(cat /etc/sysconfig/vhost | grep HASH | sed -r 's/.*=(.*)$/\1/')" >>  /etc/coturn/turnserver.conf && \
 	echo "user=kurento:kurento" >>  /etc/coturn/turnserver.conf && \
-	echo "realm=ite-ng.ru" >>  /etc/coturn/turnserver.conf && \
+	echo "fingerprint" >>  /etc/coturn/turnserver.conf && \
+	echo "lt-cred-mech" >>  /etc/coturn/turnserver.conf && \
+#	echo "realm=ite-ng.ru" >>  /etc/coturn/turnserver.conf && \
+	echo "realm=kurento.org" >>  /etc/coturn/turnserver.conf && \
 	if [ ! -z "${EXTERNAL_IP}" ]; then  echo "external-ip=${EXTERNAL_IP}" >> /etc/coturn/turnserver.conf ; fi
 
 
