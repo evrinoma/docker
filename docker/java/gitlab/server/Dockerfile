@@ -11,8 +11,7 @@ LABEL \
 	license="MIT" \
 	build-date="2019-12-18"
 
-ONBUILD
-ARG	GITLAB_HOST=''
+ONBUILD ARG	GITLAB_HOST=''
 ARG	SMTP_ADDRESS=''
 ARG	SMTP_PORT=''
 ARG	SMTP_USER_NAME=''
@@ -33,9 +32,8 @@ RUN export GITLAB_HOST=$(cat /etc/sysconfig/vhost | grep GITLAB_HOST | sed -r 's
     export SMTP_PORT=$(cat /etc/sysconfig/vhost | grep SMTP_PORT | sed -r 's/.*=(.*)$/\1/') && \
     export SMTP_USER_NAME=$(cat /etc/sysconfig/vhost | grep SMTP_USER_NAME | sed -r 's/.*=(.*)$/\1/') && \
     export SMTP_PASSWORD=$(cat /etc/sysconfig/vhost | grep SMTP_PASSWORD | sed -r 's/.*=(.*)$/\1/') && \
-    export SMTP_DOMAIN=$(cat /etc/sysconfig/vhost | grep SMTP_DOMAIN | sed -r 's/.*=(.*)$/\1/')
-
-RUN	sed -i -e "s/gitlab\.example\.com/${GITLAB_HOST}/" /etc/gitlab/gitlab.rb && \
+    export SMTP_DOMAIN=$(cat /etc/sysconfig/vhost | grep SMTP_DOMAIN | sed -r 's/.*=(.*)$/\1/') && \
+    sed -i -e "s/gitlab\.example\.com/${GITLAB_HOST}/" /etc/gitlab/gitlab.rb && \
     sed -i -e "s@# gitlab_rails\['smtp_enable'\]@gitlab_rails\['smtp_enable'\]@" /etc/gitlab/gitlab.rb && \
     sed -i -e "s@# gitlab_rails\['smtp_authentication'\]@gitlab_rails\['smtp_authentication'\]@" /etc/gitlab/gitlab.rb && \
     sed -i -e "s@# gitlab_rails\['smtp_enable_starttls_auto'\]@gitlab_rails\['smtp_enable_starttls_auto'\]@" /etc/gitlab/gitlab.rb && \
