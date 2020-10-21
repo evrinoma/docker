@@ -1,0 +1,4 @@
+#!/bin/bash
+docker build -t evrinoma/php72 ../../../docker/php72/.
+docker build -t evrinoma/centos.vnc ../../../docker/vnc/centos/.
+docker build -t evrinoma/primavera.18.8 ../../../docker/primavera/18.8/.

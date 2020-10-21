@@ -25,22 +25,6 @@ services:
 #            virt:
 #                ipv4_address: 172.18.22.18
 
-    mssql_db:
-        container_name: "mssqldb.db"
-        image: "microsoft/mssql-server-linux:2017-latest"
-        hostname: "mssqldb.ite-ng.ru"
-        ports:
-            - "1433:1433"
-        environment:
-            SA_PASSWORD: "Q1w2e3r4t5y6"
-            ACCEPT_EULA: "Y"
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/db/mssql.db/:/var/opt/mssql"
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.2.3
-
     php72_sqladmin:
         container_name: "php72.sqladmin"
         image: "evrinoma/php72.sqladmin"
@@ -55,31 +39,13 @@ services:
             virt:
                 ipv4_address: 172.18.72.10
 
-    centos_vnc:
-        container_name: "centos.vnc"
-        image: "evrinoma/centos.vnc"
-        build:
-            context: docker/vnc/centos/.
-            dockerfile: Dockerfile
-        privileged: true
-        ports:
-            - "172.20.1.78:5903:5901"
-        volumes:
-            - "/etc/localtime:/etc/localtime:rw"
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.25.1
-
 networks:
     virt:
         driver: bridge
         driver_opts:
             com.docker.network.bridge.enable_icc: "true"
             com.docker.network.bridge.enable_ip_masquerade: "true"
-#           com.docker.network.bridge.host_binding_ipv4: "172.20.1.78"
-#           com.docker.network.enable_ipv6: "false"
-#           com.docker.network.bridge.name: "docker_primavera"
+           com.docker.network.bridge.name: "docker_primavera"
         ipam:
             driver: default
             config:

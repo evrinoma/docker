@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#bridge=$(brctl show | grep -e "br" | grep -e "veth" | awk {'print $1'})
+bridge=$(ip link show type bridge | grep -e 'br' | grep -e 'UP' | awk {'print $2'})
+bridge=${bridge%*:}
+
+echo $bridge
+
+exit 0
+IP_SRC=172.20.1.32
+IP_DST=172.20.1.78
+echo '['$IP_SRC']'
+echo '['$IP_DST']'
+
+iptables -A INPUT -i enp3s0 -p tcp -d $IP_DST --destination-port 7001 -j DROP
+iptables -A INPUT -i enp3s0 -p tcp -d $IP_DST --destination-port 7002 -j DROP
+
+#httpPort
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp -d $IP_DST --dport 80 -j DNAT --to-destination $IP_SRC:7001
+iptables -t filter -A DOCKER -d $IP_SRC/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 7001 -j ACCEPT
+#httpsPort
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp -d $IP_DST --dport 443 -j DNAT --to-destination $IP_SRC:7002
+iptables -t filter -A DOCKER -d $IP_SRC/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 7002 -j ACCEPT
+#rmiPort
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp -d $IP_DST --dport 9001 -j DNAT --to-destination $IP_SRC:9001
+iptables -t filter -A DOCKER -d $IP_SRC/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 9001 -j ACCEPT
+#rmiPort
+iptables -t nat -A DOCKER ! -i $bridge -p tcp -m tcp -d $IP_DST --dport 9099 -j DNAT --to-destination $IP_SRC:9099
+iptables -t filter -A DOCKER -d $IP_SRC/32 ! -i $bridge -o $bridge -p tcp -m tcp --dport 9099 -j ACCEPT
+
+echo 'done'
