@@ -412,18 +412,16 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.22.18
+
     centos_vnc:
         container_name: "centos.vnc"
         image: "evrinoma/centos.vnc"
-        build:
-            context: docker/vnc/centos/.
-            dockerfile: Dockerfile
-        privileged: true
+        hostname: "centos.vnc"
         ports:
-            - "172.20.1.78:5903:5901"
+            - 172.20.1.22:5904:5901
         volumes:
             - "/etc/localtime:/etc/localtime:rw"
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.25.1
@@ -451,10 +449,11 @@ services:
         container_name: "ubuntu.vnc.deploy"
         image: "evrinoma/ubuntu.vnc:latest"
         hostname: "ubuntu.vnc"
-        extra_hosts:
-            - "php53.kis.ite-ng:172.18.53.3"
         ports:
-            - 5901:5901
+            - 172.20.1.22:5903:5901
+        volumes:
+            - "/etc/localtime:/etc/localtime:rw"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.25.3

@@ -8,11 +8,11 @@ services:
 #rmi server unsupport port forwarding
         network_mode: 'host'
 #        ports:
-#            - "172.20.1.78:80:7001"
-#            - "172.20.1.78:443:7002"
-#            - "172.20.1.78:9001:9001"
-#            - "172.20.1.78:9099:9099"
-#            - "172.20.1.78:5901:5901"
+#            - "172.20.1.22:80:7001"
+#            - "172.20.1.22:443:7002"
+#            - "172.20.1.22:9001:9001"
+#            - "172.20.1.22:9099:9099"
+#            - "172.20.1.22:5901:5901"
         extra_hosts:
             - "iteng26:172.20.1.26"
         build:
@@ -22,7 +22,7 @@ services:
             - "/etc/localtime:/etc/localtime:rw"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
 #        networks:
-#            virt:
+#           virt:
 #                ipv4_address: 172.18.22.18
 
     php72_sqladmin:
@@ -45,7 +45,7 @@ networks:
         driver_opts:
             com.docker.network.bridge.enable_icc: "true"
             com.docker.network.bridge.enable_ip_masquerade: "true"
-           com.docker.network.bridge.name: "docker_primavera"
+            com.docker.network.bridge.name: "docker_prima"
         ipam:
             driver: default
             config:
