@@ -79,6 +79,19 @@ node {
             remote.allowAnyHosts = true
             sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerScriptDir} && ./build.prod\""
         }
+         stage('Build Primavera Docker') {
+                    def dockerName = 'primavera'
+                    def dockerRootDir = '/opt/docker'
+                    def dockerScriptDir = "${dockerRootDir}/scripts"
+                    def remote = [:]
+                    remote.name = dockerName
+                    remote.host = '172.20.1.22'
+                    remote.user = 'nikolns'
+                    remote.port = 749
+                    remote.password = '0631'
+                    remote.allowAnyHosts = true
+                    sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${dockerScriptDir} && ./build.prod\""
+                }
         // stage('Build BUNDLE Docker') {
         //     def dockerName = 'bundle'
         //     def dockerRootDir = '/opt/docker'
