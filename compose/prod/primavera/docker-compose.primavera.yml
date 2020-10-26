@@ -20,7 +20,7 @@ services:
             dockerfile: Dockerfile
         volumes:
             - "/etc/localtime:/etc/localtime:rw"
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
 #        networks:
 #           virt:
 #                ipv4_address: 172.18.22.18
@@ -34,7 +34,7 @@ services:
             args:
                 - MODE=prod
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.10
