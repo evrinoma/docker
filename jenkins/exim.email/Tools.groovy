@@ -21,6 +21,9 @@ node {
             print gitHeadRemote
         }
         if (gitHeadLocal!=gitHeadRemote) {
+            stage('Git Stash') {
+                sshCommand remote: remote, command: "cd ${toolsDir} && git add . && git stash"
+            }
             stage('Git Pull') {
                 sshCommand remote: remote, command: "cd ${toolsDir} && git pull"
             }
