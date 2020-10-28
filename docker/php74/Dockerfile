@@ -253,8 +253,6 @@ RUN	dnf install -y php-ldap \
 RUN	wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo && \
 	yum -y install yarn npm;
 
-RUN	yum install redis -y
-
 RUN	yum -y autoremove && \
 	yum clean metadata && \
 	yum clean all;

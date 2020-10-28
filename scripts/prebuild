@@ -44,6 +44,8 @@
 docker build -t evrinoma/php74 ../docker/php74/.
 #docker build -t evrinoma/php80 ../docker/php80/.
 
+docker build -t evrinoma/redis ../docker/redis/.
+
 #docker build -t evrinoma/php74.exchange ../docker/php74/sites/exchange/.
 #docker build -t evrinoma/php74.supply ../docker/php74/sites/supply/.
 

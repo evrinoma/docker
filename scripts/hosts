@@ -16,6 +16,7 @@ GITBLIT=$SUBNET"1.10"
 GITLAB=$SUBNET"1.11"
 JENKINS=$SUBNET"1.11"
 BACKUP=$SUBNET"1.13"
+REDIS=$SUBNET"1.14"
 
 SQL=$SUBNET"2."
 MAIL=$SUBNET"4."
@@ -76,6 +77,7 @@ echo $NODE"1	clone" >> /etc/hosts
 echo $RABBIT"	rabbitmq" >> /etc/hosts
 echo $SQUID77"	squid.77" >> /etc/hosts
 echo $SAMBA"	samba.kis" >> /etc/hosts
+echo $REDIS"	redis" >> /etc/hosts
 
 echo $DANTE"	dante" >> /etc/hosts
 echo $WOWZA"77	wowza.477" >> /etc/hosts
