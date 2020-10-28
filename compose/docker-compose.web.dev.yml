@@ -59,6 +59,9 @@ services:
         build:
             context: docker/php72/sites/tools/.
             dockerfile: Dockerfile
+        ports:
+#            - 172.20.1.78:80:80
+            - 80:80
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
@@ -152,7 +155,8 @@ services:
         extra_hosts:
             - "php53.kis.ite-ng:172.18.53.3"
         ports:
-            - 5902:5901
+#            - 172.20.1.78:5902:5901
+            - 5901:5901
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -166,6 +170,8 @@ services:
         build:
             context: docker/php74/sites/exchange/.
             dockerfile: Dockerfile
+        environment:
+            - NODE_MODE=dev
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"

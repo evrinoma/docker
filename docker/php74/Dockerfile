@@ -104,7 +104,8 @@ RUN	dnf install -y php-ldap \
     php-libvirt \
     php-opcache \
     php-pecl-apcu-bc \
-    php-pecl-memcache
+    php-pecl-memcache \
+    php-pecl-redis5
 #    php-pecl-ds \
 #    php-pecl-ev \
 #    php-pecl-pq \
@@ -252,6 +253,8 @@ RUN	dnf install -y php-ldap \
 RUN	wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo && \
 	yum -y install yarn npm;
 
+RUN	yum install redis -y
+
 RUN	yum -y autoremove && \
 	yum clean metadata && \
 	yum clean all;
@@ -271,8 +274,9 @@ RUN	/usr/bin/phpize && \
 
 WORKDIR /
 
-#composer
-RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+#The "symfony/flex" plugin was skipped because it is not compatible with Composer 2+.
+#RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+RUN	wget https://getcomposer.org/composer-1.phar -O /usr/local/bin/composer && chmod 755 /usr/local/bin/composer
 RUN	ls /usr/local/bin/
 RUN     ln -s /opt/WWW/container.ite-ng.ru/.composer /root/.composer
 
