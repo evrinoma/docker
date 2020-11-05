@@ -19,6 +19,8 @@ services:
         build:
             context: docker/redis/.
             dockerfile: Dockerfile
+        ports:
+            - 6379:6379
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
