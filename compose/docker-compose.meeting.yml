@@ -1,0 +1,102 @@
+version: '2'
+services:
+    maria_db:
+        container_name: "maria.db"
+        image: "evrinoma/db.maria"
+        hostname: "maria.db"
+        build:
+            context: docker/db/maria/.
+            dockerfile: Dockerfile
+        ports:
+            - 172.20.1.78:3306:3306/tcp
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
+
+    open_meeting:
+        container_name: "evrinoma.openmeeting"
+        image: "evrinoma/openmeetings:latest"
+        build:
+            context: docker/openmeetings/.
+            dockerfile: Dockerfile
+            args:
+                - OM_KURENTO_WS_URL=ws://172.18.40.6:8888/kurento
+                - OM_DB_HOST=172.18.2.1
+                - OM_DB_USER=root
+                - OM_DB_PASS=116ip4
+                - OM_DB_NAME=openmeetings
+                - TURN_URL=172.20.1.78:3478?transport=tcp
+                - TURN_USER=kurento:kurento
+                - TURN_PASS=ab0bb43687002c4533068a0a41f9c62e1c0698f410220dc4af9356ac64dd3e16
+        environment:
+            - OM_KURENTO_WS_URL=ws://172.18.40.6:8888/kurento
+            - OM_DB_HOST=172.18.2.1
+            - OM_DB_USER=root
+            - OM_DB_PASS=116ip4
+            - OM_DB_NAME=openmeetings
+            - TURN_URL=172.20.1.78:3478?transport=tcp
+            - TURN_USER=kurento:kurento
+            - TURN_PASS=ab0bb43687002c4533068a0a41f9c62e1c0698f410220dc4af9356ac64dd3e16
+        ports:
+#            - 172.16.45.14:3478:3478
+            - 172.20.1.78:443:5443
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.40.5
+
+    kurento:
+        container_name: "evrinoma.kms"
+        image: "evrinoma/kurento:latest"
+        environment:
+            - KMS_MIN_PORT=5000
+            - KMS_MAX_PORT=5050
+            - KMS_STUN_IP=172.20.1.78
+            - KMS_STUN_PORT=3478
+            - KMS_TURN_URL=kurento:kurento@172.20.1.78?transport=tcp
+#            - KMS_STUN_IP=172.16.45.14
+#            - KMS_STUN_PORT=3478
+#            - KMS_TURN_URL=kurento:kurento@172.16.45.14?transport=tcp
+        ports:
+            - 172.20.1.78:8888:8888/tcp
+            - 172.20.1.78:5000-5050:5000-5050/udp
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/omdata/kms:/opt/WWW/container.ite-ng.ru/omdata/kms"
+        networks:
+            virt:
+                ipv4_address: 172.18.40.6
+
+    turn:
+        container_name: "turn"
+        image: "evrinoma/turn"
+        build:
+            context: docker/turn/.
+            dockerfile: Dockerfile
+            args:
+                - EXTERNAL_IP=172.20.1.34
+                - TURN_PASS=ab0bb43687002c4533068a0a41f9c62e1c0698f410220dc4af9356ac64dd3e16
+        privileged: true
+        ports:
+            - 172.20.1.78:3478:3478
+        volumes:
+            - "/etc/localtime:/etc/localtime:rw"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.40.7
+
+networks:
+    virt:
+        driver: bridge
+    #    driver_opts:
+    #        com.docker.network.enable_ipv6: "false"
+    #        com.docker.network.bridge.name: "docker_meeting"
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1

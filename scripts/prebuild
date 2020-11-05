@@ -41,10 +41,10 @@
 #docker build -t evrinoma/php72.owncloud ../docker/php72/sites/cloud/servers/owncloud/.
 #docker build -t evrinoma/php72.kiscloud ../docker/php72/sites/cloud/servers/kiscloud/.
 
-docker build -t evrinoma/php74 ../docker/php74/.
+#docker build -t evrinoma/php74 ../docker/php74/.
 #docker build -t evrinoma/php80 ../docker/php80/.
 
-docker build -t evrinoma/redis ../docker/redis/.
+#docker build -t evrinoma/redis ../docker/redis/.
 
 #docker build -t evrinoma/php74.exchange ../docker/php74/sites/exchange/.
 #docker build -t evrinoma/php74.supply ../docker/php74/sites/supply/.
@@ -60,5 +60,6 @@ docker build -t evrinoma/redis ../docker/redis/.
 #docker build -t evrinoma/php72.asterisk17 ../docker/php72/sites/freepbx/asterisk17/.
 #docker build -t evrinoma/php72.asterisk13 ../docker/php72/sites/freepbx/asterisk13/.
 
-#docker build -t evrinoma/kurento ../docker/kurento/.
-#docker build -t evrinoma/openmeetings ../docker/openmeetings/.
+docker build -t evrinoma/kurento ../docker/kurento/.
+docker build -t evrinoma/openmeetings ../docker/openmeetings/.
+docker build -t evrinoma/turn ../docker/turn/.
