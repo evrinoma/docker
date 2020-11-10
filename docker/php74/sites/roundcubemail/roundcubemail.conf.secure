@@ -48,7 +48,7 @@
 		</IfModule>
 	</Directory>
 	
-	php_admin_value upload_max_filesize     20M
-	php_admin_value post_max_size           20M
+#	php_admin_value upload_max_filesize     20M
+#	php_admin_value post_max_size           20M
 	BrowserMatch "MSIE [2-5]" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
 </VirtualHost>

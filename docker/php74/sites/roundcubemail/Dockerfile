@@ -41,7 +41,10 @@ RUN	chmod -R 640 /var/tmp
 RUN	if [ "${VERSION}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
 RUN	sed -i -e "s@VERSION@${VERSION}@g" /etc/httpd/conf.d/vhost.conf && \
 	sed -i -e "s@VERSION@${VERSION}@g" /usr/local/bin/init.sql && \
-    sed -i -e "s@VERSION@${VERSION}@g" /usr/local/bin/init.install && \
-    sed -i -e "s@VERSION@${VERSION}@g" /usr/local/bin/init.conf
+	sed -i -e "s@VERSION@${VERSION}@g" /usr/local/bin/init.install && \
+	sed -i -e "s@VERSION@${VERSION}@g" /usr/local/bin/init.conf
+
+RUN	sed -i -e "s@upload_max_filesize = 4096M@upload_max_filesize = 64M@g" /etc/php.ini && \
+	sed -i -e "s@post_max_size = 4096M@post_max_size = 64M@g" /etc/php.ini
 
 EXPOSE 443
