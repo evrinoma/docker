@@ -136,7 +136,6 @@ echo $PHP71"5	$PREFIX_PHP71.adbook" >> /etc/hosts
 echo $PHP71"6	$PREFIX_PHP71.cont" >> /etc/hosts
 
 echo $PHP72"3	$PREFIX_PHP72.empty" >> /etc/hosts
-echo $PHP72"4	$PREFIX_PHP72.tools" >> /etc/hosts
 echo $PHP72"5	$PREFIX_PHP72.adbook" >> /etc/hosts
 echo $PHP72"6	$PREFIX_PHP72.cont.prod" >> /etc/hosts
 echo $PHP72"7	$PREFIX_PHP72.portal" >> /etc/hosts

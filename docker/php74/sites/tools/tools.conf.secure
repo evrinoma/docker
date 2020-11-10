@@ -5,8 +5,8 @@
 	
 	SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA
 	
-	SSLCertificateFile /etc/pki/CA/certs/ca.pem
-	SSLCertificateKeyFile /etc/pki/CA/certs/ca.key
+	SSLCertificateFile /etc/httpd/CA/certs/ca.pem
+	SSLCertificateKeyFile /etc/httpd/CA/certs/ca.key
 	
 	Alias /tools /opt/WWW/container.ite-ng.ru/projects/tools/public
 	ServerAdmin nikolns@ite-ng.ru
