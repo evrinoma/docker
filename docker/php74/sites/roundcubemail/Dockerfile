@@ -29,7 +29,7 @@ ADD	roundcubemail/init.install /usr/local/bin
 ADD	roundcubemail/init.sql /usr/local/bin
 ADD	roundcubemail/${VERSION}/init.conf /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
-
+RUN	mkdir -p /etc/pki/httpd/certs/
 RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.key /etc/pki/httpd/certs/ && \
 	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.pem /etc/pki/httpd/certs/
 
