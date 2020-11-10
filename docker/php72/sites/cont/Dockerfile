@@ -18,6 +18,12 @@ ARG	database_name=''
 ARG	database_user=''
 ARG	database_password=''
 
+RUN	rm -rf /var/cache/yum && \
+	yum remove -y nodejs && \
+	yum clean all && \
+	curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -  && \
+	yum install -y nodejs yarn
+
 RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
 	echo "VHOST=${VHOST}" >> /etc/sysconfig/vhost && \
 	echo "database_host=${database_host}" >> /etc/sysconfig/vhost && \
@@ -45,3 +51,4 @@ RUN	echo "*/30    *       *       *       *       /usr/bin/php /opt/WWW/containe
 	crontab -u apache -l
 
 RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
+
