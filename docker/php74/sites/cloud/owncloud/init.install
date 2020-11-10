@@ -1,0 +1,44 @@
+#!/bin/bash
+pass=$1
+passOwnCloud=$2
+
+###CLOUD_INSERT
+
+if [ ! -z "$pass" ]; then
+    if [ ! -z "$passOwnCloud" ]; then
+        DIR="/opt/WWW/container.ite-ng.ru/projects/"$projectName
+        if [ ! -d "$DIR" ]; then
+            mkdir -p $DIR
+            wget https://download.owncloud.org/community/owncloud-latest.tar.bz2 -P /tmp/
+            tar -xvf /tmp/owncloud-latest.tar.bz2 -C $DIR
+            mv $DIR/owncloud/*  $DIR/owncloud/.[^.]* $DIR/
+            rm -rf $DIR/owncloud
+            chown apache:apache -R $DIR
+            cd $DIR
+
+            mariaInstall=`yum list installed | grep "mariadb\."`
+            if [ -z "$mariaInstall" ]; then
+                yum install mysql -y
+            fi
+
+            chmod +x /usr/local/bin/init.sql
+            chmod +x /usr/local/bin/init.conf
+            chmod +x /usr/local/bin/init.ldap.sql
+            chmod +x /usr/local/bin/init.sftp.sql
+
+            init.sql $pass $serverSql $base $user $basePass
+            init.conf $serverSql $base $user $basePass $serverName $passOwnCloud $DIR $projectName $patchExtend
+            init.ldap.sql $pass $serverSql $base $user $basePass
+            init.sftp.sql $pass $serverSql $base $user $basePass
+
+            chmod -x /usr/local/bin/init.sql
+            chmod -x /usr/local/bin/init.conf
+            chmod -x /usr/local/bin/init.ldap.sql
+            chmod -x /usr/local/bin/init.sftp.sql
+
+            if [ -z "$mariaInstall" ]; then
+                yum remove mysql -y
+            fi
+        fi
+    fi
+fi

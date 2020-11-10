@@ -1,0 +1,11 @@
+#!/bin/bash
+###CLOUD_INSERT
+
+if [ ! -z "$projectName" ]; then
+    mkdir -p /opt/WWW/container.ite-ng.ru/data/$projectName && \
+    chmod 770 /opt/WWW/container.ite-ng.ru/data/$projectName/ && \
+    chown -R apache.apache /opt/WWW/container.ite-ng.ru/data/$projectName/
+
+    ln -s /opt/WWW/container.ite-ng.ru/conf/php74/sites/$projectName/certs/ca.key /etc/pki/httpd/certs/ && \
+    ln -s /opt/WWW/container.ite-ng.ru/conf/php74/sites/$projectName/certs/ca.pem /etc/pki/httpd/certs/
+fi

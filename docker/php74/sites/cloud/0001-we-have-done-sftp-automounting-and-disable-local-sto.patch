@@ -1,0 +1,393 @@
+From 8fd9a5bc63382828771133b1b1257e2e72a569dc Mon Sep 17 00:00:00 2001
+From: Nikolay Nikolaev <evrinoma@gmail.com>
+Date: Mon, 11 Nov 2019 16:35:31 +0000
+Subject: [PATCH] we have done sftp automounting and disable local storage
+
+---
+ .gitignore                                         |   2 +
+ apps-external/firstlogin/appinfo/app.php           |   4 +
+ apps-external/firstlogin/appinfo/info.xml          |  19 +++
+ apps-external/firstlogin/appinfo/install.php       |   5 +
+ apps-external/firstlogin/appinfo/routes.php        |   2 +
+ .../firstlogin/lib/AppInfo/Application.php         |  61 +++++++++
+ apps-external/firstlogin/lib/FirstLogin.php        | 136 +++++++++++++++++++++
+ .../lib/Service/CustomUserStoragesService.php      |  33 +++++
+ lib/private/Files/Storage/Local.php                |   7 +-
+ lib/private/Files/Storage/Wrapper/Wrapper.php      |   4 +
+ lib/private/Files/View.php                         |   7 ++
+ 11 files changed, 279 insertions(+), 1 deletion(-)
+ create mode 100644 .gitignore
+ create mode 100644 apps-external/firstlogin/appinfo/app.php
+ create mode 100644 apps-external/firstlogin/appinfo/info.xml
+ create mode 100644 apps-external/firstlogin/appinfo/install.php
+ create mode 100644 apps-external/firstlogin/appinfo/routes.php
+ create mode 100644 apps-external/firstlogin/lib/AppInfo/Application.php
+ create mode 100644 apps-external/firstlogin/lib/FirstLogin.php
+ create mode 100644 apps-external/firstlogin/lib/Service/CustomUserStoragesService.php
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..c6ef218
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++.idea
++
+diff --git a/apps-external/firstlogin/appinfo/app.php b/apps-external/firstlogin/appinfo/app.php
+new file mode 100644
+index 0000000..89b4265
+--- /dev/null
++++ b/apps-external/firstlogin/appinfo/app.php
+@@ -0,0 +1,4 @@
++<?php
++
++$application = new OCA\FirstLogin\AppInfo\Application();
++$application->registerListner();
+diff --git a/apps-external/firstlogin/appinfo/info.xml b/apps-external/firstlogin/appinfo/info.xml
+new file mode 100644
+index 0000000..4959ced
+--- /dev/null
++++ b/apps-external/firstlogin/appinfo/info.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0"?>
++<info>
++	<id>firstlogin</id>
++	<name>firstlogin</name>
++	<summary>update settings first login</summary>
++	<description>
++	</description>
++	<licence>AGPL</licence>
++	<author>Nikolay Nikolaev</author>
++	<version>0.0.1</version>
++	<types>
++		<authentication/>
++	</types>
++	<category>integration</category>
++	<namespace>FirstLogin</namespace>
++	<dependencies>
++		<owncloud min-version="10.2" max-version="10" />
++	</dependencies>
++</info>
+diff --git a/apps-external/firstlogin/appinfo/install.php b/apps-external/firstlogin/appinfo/install.php
+new file mode 100644
+index 0000000..748c76f
+--- /dev/null
++++ b/apps-external/firstlogin/appinfo/install.php
+@@ -0,0 +1,5 @@
++<?php
++$state = \OC::$server->getConfig()->getSystemValue('ldapIgnoreNamingRules', 'doSet');
++if ($state === 'doSet') {
++//	\OC::$server->getConfig()->setSystemValue('ldapIgnoreNamingRules', false);
++}
+diff --git a/apps-external/firstlogin/appinfo/routes.php b/apps-external/firstlogin/appinfo/routes.php
+new file mode 100644
+index 0000000..881ab67
+--- /dev/null
++++ b/apps-external/firstlogin/appinfo/routes.php
+@@ -0,0 +1,2 @@
++<?php
++return [];
+diff --git a/apps-external/firstlogin/lib/AppInfo/Application.php b/apps-external/firstlogin/lib/AppInfo/Application.php
+new file mode 100644
+index 0000000..f07dca3
+--- /dev/null
++++ b/apps-external/firstlogin/lib/AppInfo/Application.php
+@@ -0,0 +1,61 @@
++<?php
++
++namespace OCA\FirstLogin\AppInfo;
++
++
++use OCA\FirstLogin\FirstLogin;
++use OCP\AppFramework\IAppContainer;
++use Symfony\Component\EventDispatcher\GenericEvent;
++
++class Application extends \OCP\AppFramework\App
++{
++//region SECTION: Constructor
++    /**
++     * @param array $urlParams
++     */
++    public function __construct($urlParams = [])
++    {
++        parent::__construct('firstlogin', $urlParams);
++        $this->registerService();
++    }
++//endregion Constructor
++
++//region SECTION: Public
++    public function registerListner()
++    {
++        $repairListener = function (GenericEvent $event) {
++            if ($event && $event->getArgument('user')) {
++                $di    = $this->getContainer();
++                $logic = $di->query(FirstLogin::class);
++                $logic->setUser($event->getArgument('user'))->setPass($event->getArgument('password'));
++                $logic->init();
++            }
++        };
++
++        $eventDispatcher = \OC::$server->getEventDispatcher();
++
++        $eventDispatcher->addListener('user.afterlogin', $repairListener);
++    }
++//endregion Public
++
++//region SECTION: Private
++    private function registerService()
++    {
++        $container = $this->getContainer();
++        $container->registerService(
++            FirstLogin::class,
++            function (IAppContainer $c) {
++                return new FirstLogin(
++                    FirstLogin::class,
++                    $c->query('OCP\\IRequest'),
++                    $c->query('OCP\\IL10N'),
++                    $c->query('OCA\FirstLogin\Service\CustomUserStoragesService'),
++                    $c->query('OCP\\IUserSession'),
++                    $c->query('OCP\\ILogger'),
++                    $c->query('OCP\\Files\\IRootFolder')
++                );
++            }
++        );
++    }
++//endregion Private
++}
+diff --git a/apps-external/firstlogin/lib/FirstLogin.php b/apps-external/firstlogin/lib/FirstLogin.php
+new file mode 100644
+index 0000000..d9cc393
+--- /dev/null
++++ b/apps-external/firstlogin/lib/FirstLogin.php
+@@ -0,0 +1,136 @@
++<?php
++/**
++ * Created by PhpStorm.
++ * User: evrinoma@gmail.com
++ * Date: 11/6/19
++ * Time: 11:17 AM
++ */
++
++namespace OCA\FirstLogin;
++
++use OC\Files\Node\Root;
++use OC\User\User;
++use OCA\Files_External\Controller\UserStoragesController;
++use OCA\FirstLogin\Service\CustomUserStoragesService;
++use OCP\Files\IRootFolder;
++use OCP\IL10N;
++use OCP\ILogger;
++use OCP\IRequest;
++use OCP\IUserSession;
++
++class FirstLogin extends UserStoragesController
++{
++//region SECTION: Fields
++    /**
++     * @var User
++     */
++    private $user;
++    /**
++     * @var String
++     */
++    private $pass;
++    /**
++     * @var OC\Files\Node|Root
++     */
++    private $rootFolder;
++//endregion Fields
++
++//region SECTION: Constructor
++    public function __construct(
++        $AppName,
++        IRequest $request,
++        IL10N $l10n,
++        CustomUserStoragesService $userStoragesService,
++        IUserSession $userSession,
++        ILogger $logger,
++        IRootFolder $rootFolder
++    ) {
++        parent::__construct($AppName, $request, $l10n, $userStoragesService, $userSession, $logger);
++        $this->rootFolder = $rootFolder;
++    }
++//endregion Constructor
++
++//region SECTION: Public
++    public function init()
++    {
++        if ($this->user->getBackendClassName() === 'LDAP') {
++            $rootView = $this->rootFolder->getView();
++            $userFolder = '/' . $this->user->getUID();
++            if (!$rootView->file_exists($userFolder. '/files')) {
++                $rootView->mkdir($userFolder. '/files');
++            }
++            $rootView->chmod($userFolder. '/files', 0444);
++
++            if ($rootView->file_exists($userFolder . '/uploads')) {
++                $rootView->rmdir($userFolder. '/uploads');
++            }
++
++            $this->createSftp();
++        }
++    }
++
++//region SECTION: Private
++    private function createSftp()
++    {
++        $mountPoint     = '/disk';
++        $authMechanism  = 'password::password';
++        $backend        = 'sftp';
++        $backendOptions = [
++            'host'     => '172.18.20.1',
++            'root'     => 'disk',
++            'user'     => $this->user->getUserName(),
++            'password' => $this->pass,
++        ];
++        $mountOptions   = [
++            'encrypt'                  => true,
++            'previews'                 => true,
++            'enable_sharing'           => true,
++            'filesystem_check_changes' => 1,
++            'encoding_compatibility'   => false,
++        ];
++        /** @var \OC\Files\External\StorageConfig $storage */
++        foreach ($this->service->getStorages() as $storage) {
++            if ($storage->getMountPoint() === $mountPoint
++                && $storage->getBackendOption('host') === $backendOptions['host']
++                && $storage->getBackendOption('root') === $backendOptions['root']
++                && $storage->getBackendOption('user') === $backendOptions['user']
++                && $storage->getBackendOption('password') === $backendOptions['password']) {
++                return false;
++            }
++        }
++        $this->create(
++            $mountPoint,
++            $backend,
++            $authMechanism,
++            $backendOptions,
++            $mountOptions
++        );
++        return true;
++    }
++//endregion Private
++
++//region SECTION: Getters/Setters
++    /**
++     * @param $user
++     *
++     * @return $this
++     */
++    public function setUser($user)
++    {
++        $this->user = $user;
++
++        return $this;
++    }
++    /**
++     * @param $pass
++     *
++     * @return $this
++     */
++    public function setPass($pass)
++    {
++        $this->pass = $pass;
++
++        return $this;
++    }
++//endregion Getters/Setters
++}
+\ No newline at end of file
+diff --git a/apps-external/firstlogin/lib/Service/CustomUserStoragesService.php b/apps-external/firstlogin/lib/Service/CustomUserStoragesService.php
+new file mode 100644
+index 0000000..87af8fa
+--- /dev/null
++++ b/apps-external/firstlogin/lib/Service/CustomUserStoragesService.php
+@@ -0,0 +1,33 @@
++<?php
++/**
++ * Created by PhpStorm.
++ * User: nikolns
++ * Date: 11/6/19
++ * Time: 4:40 PM
++ */
++
++namespace OCA\FirstLogin\Service;
++
++
++use OC\Files\Config\UserMountCache;
++use OC\Files\External\Service\DBConfigService;
++use OC\Files\External\Service\UserStoragesService;
++use OC\Files\External\StoragesBackendService;
++use OCP\IUserSession;
++
++class CustomUserStoragesService extends UserStoragesService
++{
++//region SECTION: Constructor
++    /**
++     * CustomUserStoragesService constructor.
++     */
++    public function __construct(
++        StoragesBackendService $backendService,
++        DBConfigService $dbConfig,
++        IUserSession $userSession,
++        UserMountCache $userMountCache
++    ) {
++        parent::__construct($backendService, $dbConfig, $userSession, $userMountCache);
++    }
++//endregion Constructor
++}
+\ No newline at end of file
+diff --git a/lib/private/Files/Storage/Local.php b/lib/private/Files/Storage/Local.php
+index d5ae0e3..6709b8a 100644
+--- a/lib/private/Files/Storage/Local.php
++++ b/lib/private/Files/Storage/Local.php
+@@ -78,7 +78,12 @@ class Local extends Common {
+ 		return @\mkdir($this->getSourcePath($path), 0777, true);
+ 	}
+ 
+-	public function rmdir($path) {
++    public function chmod($path, $permission) {
++        return @\chmod($this->getSourcePath($path), $permission);
++    }
++
++
++    public function rmdir($path) {
+ 		if (!$this->isDeletable($path)) {
+ 			return false;
+ 		}
+diff --git a/lib/private/Files/Storage/Wrapper/Wrapper.php b/lib/private/Files/Storage/Wrapper/Wrapper.php
+index 11d2259..5cfd433 100644
+--- a/lib/private/Files/Storage/Wrapper/Wrapper.php
++++ b/lib/private/Files/Storage/Wrapper/Wrapper.php
+@@ -79,6 +79,10 @@ class Wrapper implements \OC\Files\Storage\Storage, ILockingStorage, IPersistent
+ 		return $this->getWrapperStorage()->mkdir($path);
+ 	}
+ 
++    public function chmod($path, $permission) {
++        return $this->getWrapperStorage()->chmod($path, $permission);
++    }
++
+ 	/**
+ 	 * see http://php.net/manual/en/function.rmdir.php
+ 	 *
+diff --git a/lib/private/Files/View.php b/lib/private/Files/View.php
+index 0dd4567..673d2d8 100644
+--- a/lib/private/Files/View.php
++++ b/lib/private/Files/View.php
+@@ -281,6 +281,13 @@ class View {
+ 		}, ['before' => ['path' => $this->getAbsolutePath($path)], 'after' => ['path' => $this->getAbsolutePath($path)]], 'file', 'create');
+ 	}
+ 
++    public function chmod($path, $permission) {
++        return $this->emittingCall(function () use (&$path, &$permission) {
++            $result = $this->basicOperation('chmod', $path, [], $permission);
++            return $result;
++        }, ['before' => ['path' => $this->getAbsolutePath($path)], 'after' => ['path' => $this->getAbsolutePath($path)]], 'file', 'create');
++    }
++
+ 	/**
+ 	 * remove mount point
+ 	 *
+-- 
+1.8.3.1
+

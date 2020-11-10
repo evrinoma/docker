@@ -1,0 +1,26 @@
+#!/bin/bash
+pass=$1
+
+###CLOUD_INSERT
+
+storeDir=/opt/WWW/container.ite-ng.ru/conf/php74/sites/$projectName/certs/
+keyFile=ca.key
+pemFile=ca.pem
+certHttpd=/etc/pki/httpd/certs
+certOwncloud=/etc/pki/httpd/$projectName
+mkdir -p $certOwncloud
+if [ ! -z "$pass" ]; then
+	sed -i -e "s/\= owncloudPassword/\= $pass/" $certHttpd/ca.cnf
+	sed -i -e "s/\= owncloudPassword/\= $pass/" $certHttpd/server.cnf
+	sed -i -e "s/\= owncloudPassword/\= $pass/" $certHttpd/client.cnf
+	cd $certHttpd && make ca && cp $certHttpd/$pemFile $certOwncloud/$pemFile && \
+	openssl rsa -in $certHttpd/$keyFile -out $certHttpd/ca.rsa.key -passin 'pass:'$pass
+	cp $certHttpd/ca.rsa.key $certOwncloud/$keyFile
+	mkdir -p $storeDir
+	cp $certOwncloud/$pemFile $storeDir
+	cp $certOwncloud/$keyFile $storeDir
+fi
+if [ -d "$storeDir" ]  && [ -e "$storeDir/$pemFile" ] && [ -e "$storeDir/$pemFile" ]; then
+	cp $storeDir/$pemFile $certOwncloud/
+	cp $storeDir/$keyFile $certOwncloud/
+fi
