@@ -1089,15 +1089,15 @@ services:
             virt:
                 ipv4_address: 172.18.72.10
 
-    php72_roundcubemail:
-        container_name: "php72.roundcubemail"
-        image: "evrinoma/php72.roundcubemail"
+    php74_roundcubemail:
+        container_name: "php74.roundcubemail"
+        image: "evrinoma/php74.roundcubemail"
         hostname: "email.ite-ng.ru"
         ports:
             - "172.16.45.4:80:80/tcp"
             - "172.16.45.4:443:443/tcp"
         build:
-            context: docker/php72/sites/roundcubemail/.
+            context: docker/php74/sites/roundcubemail/.
             dockerfile: Dockerfile
             args:
                 - VERSION=1.4.3
@@ -1105,7 +1105,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.11
+                ipv4_address: 172.18.74.11
 
     php72_kodexplorer:
         container_name: "php72.kodexplorer"
