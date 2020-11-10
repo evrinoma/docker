@@ -1,12 +1,12 @@
 FROM \
-	evrinoma/php72:latest
+	evrinoma/php74:latest
 
 MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma PHP 7.2 roundcubemail" \
-	image="php72.roundcubemail" \
+	name="evrinoma PHP 7.4 roundcubemail" \
+	image="php74.roundcubemail" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-09-17"
@@ -30,8 +30,8 @@ ADD	roundcubemail/init.sql /usr/local/bin
 ADD	roundcubemail/${VERSION}/init.conf /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
-RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.key /etc/pki/CA/certs/ && \
-	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.pem /etc/pki/CA/certs/
+RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.key /etc/pki/httpd/certs/ && \
+	ln -s /opt/WWW/container.ite-ng.ru/conf/mail/dovecot/servers/email/certs/ca.pem /etc/pki/httpd/certs/
 
 RUN	touch /var/spool/cron/apache && chown root.root /var/spool/cron/apache  && chmod 400 /var/spool/cron/apache
 #RUN	chmod -R 640 /tmp && \
