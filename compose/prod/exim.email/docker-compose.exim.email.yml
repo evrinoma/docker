@@ -52,15 +52,15 @@ services:
             virt:
                 ipv4_address: 172.18.4.1
 
-    php72_tools:
-        container_name: "php72.tools"
-        image: "evrinoma/php72.tools"
+    php74_tools:
+        container_name: "php74.tools"
+        image: "evrinoma/php74.tools"
         ports:
             - "172.16.45.5:80:80/tcp"
             - "172.16.45.5:443:443/tcp"
             - "172.16.45.5:12000:22/tcp"
         build:
-            context: docker/php72/sites/tools/.
+            context: docker/php74/sites/tools/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
@@ -68,7 +68,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.4
+                ipv4_address: 172.18.74.4
 
     wowza_4_7_7:
         container_name: "wowza.4.7.7"

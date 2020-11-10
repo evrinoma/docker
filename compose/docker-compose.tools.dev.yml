@@ -13,17 +13,17 @@ services:
             virt:
                 ipv4_address: 172.18.2.1
 
-    php72_tools:
-        container_name: "php72.tools"
-        image: "evrinoma/php72.tools"
+    php74_tools:
+        container_name: "php74.tools"
+        image: "evrinoma/php74.tools"
         build:
-            context: docker/php72/sites/tools/.
+            context: docker/php74/sites/tools/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.4
+                ipv4_address: 172.18.74.4
 
 networks:
     virt:

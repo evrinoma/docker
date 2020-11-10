@@ -67,11 +67,11 @@ services:
             virt:
                 ipv4_address: 172.18.72.25
 
-    php72_tools:
-        container_name: "php72.tools"
-        image: "evrinoma/php72.tools"
+    php74_tools:
+        container_name: "php74.tools"
+        image: "evrinoma/php74.tools"
         build:
-            context: docker/php72/sites/tools/.
+            context: docker/php74/sites/tools/.
             dockerfile: Dockerfile
         ports:
 #            - 172.20.1.78:80:80
@@ -81,7 +81,7 @@ services:
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
         networks:
             virt:
-                ipv4_address: 172.18.72.4
+                ipv4_address: 172.18.74.4
 
     php53_kis_ite-ng_ru:
         container_name: "php53.kis.ite-ng"

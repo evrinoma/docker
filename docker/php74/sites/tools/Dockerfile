@@ -1,12 +1,12 @@
 FROM \
-	evrinoma/php72:latest
+	evrinoma/php74:latest
 
 MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma PHP 7.2 tools" \
-	image="php72.tools" \
+	name="evrinoma PHP 7.4 tools" \
+	image="php74.tools" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2019-11-22"
@@ -37,8 +37,8 @@ RUN	yum -y install mod_ssl && \
 	mv -v /etc/httpd/conf.d/welcome.conf{,.bak} && \
 	echo  -e "<?php\\n header('Location: https://'.\$_SERVER['HTTP_HOST'].'/');\\n "  > /var/www/html/index.php
 
-RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/php72/sites/tools/certs/ca.key /etc/pki/CA/certs/ && \
-	ln -s /opt/WWW/container.ite-ng.ru/conf/php72/sites/tools/certs/ca.pem /etc/pki/CA/certs/
+RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/php74/sites/tools/certs/ca.key /etc/pki/httpd/certs/ && \
+	ln -s /opt/WWW/container.ite-ng.ru/conf/php74/sites/tools/certs/ca.pem /etc/pki/httpd/certs/
 
 ADD	init.container.part /usr/local/bin
 RUN	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
