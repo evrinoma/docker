@@ -98,9 +98,11 @@ RUN	/usr/bin/phpize && \
 WORKDIR /
 
 #composer
-RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+#RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+RUN	wget https://getcomposer.org/composer-1.phar -O /usr/local/bin/composer && chmod 755 /usr/local/bin/composer
 RUN	ls /usr/local/bin/
-RUN     ln -s /opt/WWW/container.ite-ng.ru/.composer /root/.composer
+RUN	mkdir -p /opt/WWW/container.ite-ng.ru/.composer
+RUN	ln -s /opt/WWW/container.ite-ng.ru/.composer /root/.composer
 
 #git
 RUN	git config --global user.email "evrinoma@gmail.com" && \
