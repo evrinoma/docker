@@ -28,7 +28,7 @@ node {
                 sshCommand remote: remote, command: "cd ${contDir} && git pull ${gitRemote}"
             }
             stage('Composer') {
-                sshCommand remote: remote, command: "mkdir -p /root/.composer && echo -e '{\n    \"http-basic\": {\n        \"git.ite-ng.ru\": {\n            \"username\": \"${gitUser}\",\n            \"password\": \"${gitPass}\"\n        }\n    }\n}'> /root/.composer/auth.json"
+                sshCommand remote: remote, command: "rm -rf /root/.composer && mkdir -p /root/.composer && echo -e '{\n    \"http-basic\": {\n        \"git.ite-ng.ru\": {\n            \"username\": \"${gitUser}\",\n            \"password\": \"${gitPass}\"\n        }\n    }\n}'> /root/.composer/auth.json"
                 sshCommand remote: remote, command: "cd ${contDir} && composer install"
             }
             stage('Migration') {
