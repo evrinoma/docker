@@ -37,10 +37,6 @@ function loopOverArray(){
     done
 }
 
-if [ ! -d "$pathDiskRalus" ]; then
-	mkdir -p $pathDiskRalus
-fi
-
 if [ ! -d "$pathToStamp" ]; then
 	mkdir -p $pathToStamp
 fi
