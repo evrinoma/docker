@@ -25,7 +25,7 @@ pathToStamp=$pathSqlDump/$timeStamp
 log=$pathToStamp/$statusLog
 
 function loopOverArray(){
-    jq -c '.[]' $servers/$fileName | while read i; do
+    jq -c '.[]' $servers | while read i; do
 	# Do stuff here
 	user=$(echo "$i" | jq -r '.user')
 	pass=$(echo "$i" | jq -r '.pass')
@@ -41,11 +41,11 @@ if [ ! -d "$pathToStamp" ]; then
 	mkdir -p $pathToStamp
 fi
 
-if [ -f "$servers/$fileName" ]; then
-	cp $servers/$fileName $pathToStamp
+if [ -f "$servers" ]; then
+	cp $servers $pathToStamp
 	echo "[$timeStamp]" > $log
 	date >> $log
-	echo "json config with servers found at [$servers/$fileName]"  >> $log
+	echo "json config with servers found at [$servers]"  >> $log
 	echo 'begin' >> $log
 	loopOverArray
 	date >> $log
