@@ -4,8 +4,6 @@ statusLog=time.txt
 fileName=servers.json
 servers=/opt/WWW/container.ite-ng.ru/conf/backup
 timeStamp=$(date +"%d-%m-%Y_%H-%M")
-pathToStamp=$pathSqlDump/$timeStamp
-log=$pathToStamp/$statusLog
 
 while : ; do
   case "$1" in
@@ -23,7 +21,8 @@ while : ; do
 done
 
 servers=$servers/$fileName
-
+pathToStamp=$pathSqlDump/$timeStamp
+log=$pathToStamp/$statusLog
 
 function loopOverArray(){
     jq -c '.[]' $servers/$fileName | while read i; do
