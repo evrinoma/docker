@@ -1,0 +1,35 @@
+#!/bin/bash
+
+ROOT_DIR='/opt/WWW/backup/sqldump'
+
+while : ; do
+  case "$1" in
+        -d)
+        ROOT_DIR="$2"
+        shift 2
+        ;;
+        *) break
+        ;;
+  esac
+done
+
+for DIR in $(ls $ROOT_DIR)
+do
+        if [ -d "$ROOT_DIR/$DIR" ]; then
+                echo $DIR
+                for FILE in $(ls $ROOT_DIR/$DIR)
+                do
+                        if [ ! -d "$ROOT_DIR/$DIR/$FILE" ]; then
+
+                                case "$FILE" in
+                                        *.sql)
+                                                echo "  "$FILE
+                                                cd $ROOT_DIR/$DIR/
+                                                zip $FILE.zip $FILE
+                                                rm -rf $FILE
+                                        ;;
+                                esac
+                        fi
+                done
+        fi
+done

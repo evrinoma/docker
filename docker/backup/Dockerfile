@@ -67,9 +67,11 @@ RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 COPY	init.container /usr/local/bin/
 COPY	reconfig /usr/local/bin/
 COPY	backupexec /usr/local/bin/
+COPY	zypper /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container && \
 	chmod 700 /usr/local/bin/reconfig && \
-	chmod 700 /usr/local/bin/backupexec
+	chmod 700 /usr/local/bin/backupexec && \
+	chmod 700 /usr/local/bin/zypper
 
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
