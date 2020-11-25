@@ -1,13 +1,32 @@
 #!/bin/bash
 pathSqlDump=/opt/WWW/backup/sqldump
 statusLog=time.txt
-servers=/opt/WWW/container.ite-ng.ru/conf/backup/servers.json
+fileName=servers.json
+servers=/opt/WWW/container.ite-ng.ru/conf/backup
 timeStamp=$(date +"%d-%m-%Y_%H-%M")
 pathToStamp=$pathSqlDump/$timeStamp
 log=$pathToStamp/$statusLog
 
+while : ; do
+  case "$1" in
+        -f)
+        fileName="$2"
+        shift 2
+        ;;
+        -d)
+        pathSqlDump="$2"
+        shift 2
+        ;;
+        *) break
+        ;;
+  esac
+done
+
+servers=$servers/$fileName
+
+
 function loopOverArray(){
-    jq -c '.[]' $servers | while read i; do
+    jq -c '.[]' $servers/$fileName | while read i; do
 	# Do stuff here
 	user=$(echo "$i" | jq -r '.user')
 	pass=$(echo "$i" | jq -r '.pass')
@@ -27,11 +46,11 @@ if [ ! -d "$pathToStamp" ]; then
 	mkdir -p $pathToStamp
 fi
 
-if [ -f "$servers" ]; then
-	cp $servers $pathToStamp
+if [ -f "$servers/$fileName" ]; then
+	cp $servers/$fileName $pathToStamp
 	echo "[$timeStamp]" > $log
 	date >> $log
-	echo "json config with servers found at [$servers]"  >> $log
+	echo "json config with servers found at [$servers/$fileName]"  >> $log
 	echo 'begin' >> $log
 	loopOverArray
 	date >> $log
