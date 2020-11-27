@@ -163,6 +163,8 @@ echo $PHP74"4	$PREFIX_PHP74.tools" >> /etc/hosts
 echo $PHP74"11	$PREFIX_PHP74.roundcubemail" >> /etc/hosts
 echo $PHP74"29	$PREFIX_PHP74.exchange" >> /etc/hosts
 echo $PHP74"30	$PREFIX_PHP74.supply" >> /etc/hosts
+echo $PHP74"31	$PREFIX_PHP74.cont.api" >> /etc/hosts
+
 
 echo $PHP80"29	$PREFIX_PHP80.exchange" >> /etc/hosts
 

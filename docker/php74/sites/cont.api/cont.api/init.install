@@ -1,0 +1,26 @@
+#!/bin/bash
+pass=$1
+serverSql=172.18.2.1
+base=cont
+user=cont
+basepass=supply
+if [ ! -z "$pass" ]; then
+		DIR="/opt/WWW/container.ite-ng.ru/projects/supply"
+		if [ ! -d "$DIR" ]; then
+        mkdir -p $DIR
+        chown apache:apache -R $DIR
+        cd $DIR
+        mariaInstall=`yum list installed | grep "mariadb\."`
+        if [ -z "$mariaInstall" ]; then
+            yum install mariadb -y
+        fi
+        chmod +x /usr/local/bin/init.sql
+
+        init.sql $pass $serverSql $base $user $basepass
+
+        chmod -x /usr/local/bin/init.sql
+        if [ -z "$mariaInstall" ]; then
+            yum remove mariadb -y
+        fi
+		fi
+fi
