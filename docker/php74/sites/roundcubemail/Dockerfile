@@ -47,4 +47,7 @@ RUN	sed -i -e "s@VERSION@${VERSION}@g" /etc/httpd/conf.d/vhost.conf && \
 RUN	sed -i -e "s@upload_max_filesize = 4096M@upload_max_filesize = 64M@g" /etc/php.ini && \
 	sed -i -e "s@post_max_size = 4096M@post_max_size = 64M@g" /etc/php.ini
 
+RUN	sed -i "s@pm.max_children =\(.*\)@pm.max_children = 500@g" /etc/php-fpm.d/www.conf
+
+
 EXPOSE 443
