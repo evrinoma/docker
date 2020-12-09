@@ -98,6 +98,7 @@ services:
         ports:
             - "172.20.1.177:80:8080"
         volumes:
+            - "/opt/DISK/Develop/Docker/src/projects/jira/:/opt/atlassian/jira/"
             - "/opt/docker/src/data/jira/:/var/atlassian/jira"
         networks:
             virt:
