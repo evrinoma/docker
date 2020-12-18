@@ -157,6 +157,7 @@ echo $PHP72"24	$PREFIX_PHP72.freepbx" >> /etc/hosts
 echo $PHP72"26	$PREFIX_PHP72.clean" >> /etc/hosts
 echo $PHP72"27	$PREFIX_PHP72.cont.debug" >> /etc/hosts
 echo $PHP72"28	$PREFIX_PHP72.cont.qsurv" >> /etc/hosts
+echo $PHP72"29	$PREFIX_PHP72.adbook_c2m" >> /etc/hosts
 #echo $PHP72"3	pma" >> /etc/hosts
 
 echo $PHP74"4	$PREFIX_PHP74.tools" >> /etc/hosts

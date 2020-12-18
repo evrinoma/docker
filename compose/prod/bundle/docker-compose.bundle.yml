@@ -169,6 +169,38 @@ services:
             dockerfile: Dockerfile
             args:
                 - MODE=prod
+                - VHOST=adbook
+                - database_host=172.18.2.1
+                - database_name=adbook
+                - database_port=3306
+                - database_user=adbook
+                - database_password=adbook
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.72.5
+
+    php72_adbook_c2m:
+        container_name: "php72.adbook.c2m"
+        image: "evrinoma/php72.adbook"
+        ports:
+            - "172.20.1.179:80:80/tcp"
+            - "172.20.1.179:22:22/tcp"
+        extra_hosts:
+            - "iteng13.ite-ng.ru:172.20.1.13"
+            - "iteng20.ite-ng.ru:172.20.1.20"
+        build:
+            context: docker/php72/sites/adbook/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=adbook_c2m
+                - database_host=172.18.2.1
+                - database_name=adbook_c2m
+                - database_port=3306
+                - database_user=adbook_c2m
+                - database_password=adbook_c2m
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
