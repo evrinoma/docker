@@ -206,7 +206,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.5
+                ipv4_address: 172.18.72.28
 
     php72_portal:
         container_name: "php72.portal"
