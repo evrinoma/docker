@@ -1,11 +1,20 @@
 #!/bin/bash
 pass=$1
-serverSql=172.18.2.1
-base=adbook
-user=adbook
-basepass=adbook
+
+MODE=$(cat /etc/sysconfig/vhost | grep MODE | sed -r 's/.*=(.*)$/\1/')
+VHOST=$(cat /etc/sysconfig/vhost | grep VHOST | sed -r 's/.*=(.*)$/\1/')
+
+database_host=$(cat /etc/sysconfig/vhost | grep database_host | sed -r 's/.*=(.*)$/\1/')
+database_port=$(cat /etc/sysconfig/vhost | grep database_port | sed -r 's/.*=(.*)$/\1/')
+database_name=$(cat /etc/sysconfig/vhost | grep database_name | sed -r 's/.*=(.*)$/\1/')
+database_user=$(cat /etc/sysconfig/vhost | grep database_user | sed -r 's/.*=(.*)$/\1/')
+database_password=$(cat /etc/sysconfig/vhost | grep database_password | sed -r 's/.*=(.*)$/\1/')
+
 if [ ! -z "$pass" ]; then
-		DIR="/opt/WWW/container.ite-ng.ru/projects/adbook"
+		DIR="/opt/WWW/container.ite-ng.ru/projects/"$VHOST
+		if [ -z "$database_host" ]; then
+		  database_host=172.18.2.1
+		fi
 		if [ ! -d "$DIR" ]; then
         mkdir -p $DIR
         git clone http://grishvv@git.ite-ng.ru/root/adbook.git $DIR
@@ -20,8 +29,8 @@ if [ ! -z "$pass" ]; then
         npm install
         yarn encore production
         sed -i -e "s/APP_ENV\=dev/APP_ENV\=prod /" $DIR/.env
-        sed -i -e "s/db_user\:db_password\@127.0.0.1\:3306\/db_name/$user\:$basepass\@$serverSql\:\/$base/" $DIR/.env
-        init.sql $pass $serverSql $base $user $basepass
+        sed -i -e "s/db_user\:db_password\@127.0.0.1\:3306\/db_name/$database_user\:$database_password\@$database_host\:\/$database_name/" $DIR/.env
+        init.sql $pass $database_host $database_name $database_user $database_password
         php bin/console --no-interaction doctrine:migrations:migrate
         chown apache:apache -R $DIR
 
