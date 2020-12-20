@@ -184,7 +184,7 @@ services:
 
     php72_adbook_c2m:
         container_name: "php72.adbook.c2m"
-        image: "evrinoma/php72.adbook"
+        image: "evrinoma/php72.adbook.c2m"
         ports:
             - "172.20.1.179:80:80/tcp"
             - "172.20.1.179:22:22/tcp"
