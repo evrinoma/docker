@@ -593,6 +593,44 @@ services:
             virt:
                 ipv4_address: 172.18.83.160
 
+    1c_83_17_1549_deploy:
+        container_name: "1c.83.17.1549.deploy"
+        image: "evrinoma/1c.83.17.1549.deploy"
+        hostname: "deploy.1c.ite-ng.ru"
+        cap_add:
+            - SYS_ADMIN
+        security_opt:
+            - apparmor:unconfined
+        build:
+            context: /opt/docker/docker/1c/servers/83.17.1549/deploy/.
+            dockerfile: Dockerfile
+        extra_hosts:
+            - "iteng26:172.20.1.26"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.83.17
+
+    1c_83_17_1549_api:
+        container_name: "1c.83.17.1549.api"
+        image: "evrinoma/1c.83.17.1549.api"
+        hostname: "api.1c.ite-ng.ru"
+#        ports:
+#            - "172.20.1.11:80:80/tcp"
+#            - "172.20.1.11:12000:22/tcp"
+        build:
+            context: docker/1c/servers/83.17.1549/api/.
+            dockerfile: Dockerfile
+        extra_hosts:
+            - "iteng26:172.20.1.26"
+            - "1cdebug:172.20.1.94"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.83.170
+
     open_mcu_image:
         container_name: "evrinoma.openmcu"
         image: "johannrichard/openmcu"
