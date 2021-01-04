@@ -1,0 +1,4 @@
+#!/bin/bash
+docker build -t evrinoma/postgre.1c ../../../../docker/db/postgre/1c/.
+docker build -t evrinoma/1c ../../../../docker/1c/.
+docker build -t evrinoma/1c.83.17.1549 ../../../../docker/1c/servers/83.17.1549/.
