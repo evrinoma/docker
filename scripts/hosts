@@ -32,7 +32,6 @@ BUNDLE=$SUBNET"24."
 
 LINUX=$SUBNET"25."
 
-
 MEETING=$SUBNET"40."
 
 PHP53=$SUBNET"53."
@@ -48,7 +47,6 @@ PREFIX_PHP71=$PREFIX_PHP"71"
 PREFIX_PHP72=$PREFIX_PHP"72"
 PREFIX_PHP74=$PREFIX_PHP"74"
 PREFIX_PHP80=$PREFIX_PHP"80"
-
 
 C1_83=$SUBNET"83."
 
@@ -166,13 +164,14 @@ echo $PHP74"29	$PREFIX_PHP74.exchange" >> /etc/hosts
 echo $PHP74"30	$PREFIX_PHP74.supply" >> /etc/hosts
 echo $PHP74"31	$PREFIX_PHP74.cont.api" >> /etc/hosts
 
-
 echo $PHP80"29	$PREFIX_PHP80.exchange" >> /etc/hosts
-
 
 echo $C1_83"13	deploy.13.1644" >> /etc/hosts
 echo $C1_83"130	api.13.1644" >> /etc/hosts
 echo $C1_83"15	deploy.15.1700" >> /etc/hosts
 echo $C1_83"150	api.15.1700" >> /etc/hosts
-
+echo $C1_83"16	deploy.16.1148" >> /etc/hosts
+echo $C1_83"160	api.16.1148" >> /etc/hosts
+echo $C1_83"17	deploy.17.1549" >> /etc/hosts
+echo $C1_83"170	api.17.1549" >> /etc/hosts
 
