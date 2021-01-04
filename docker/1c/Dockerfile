@@ -49,7 +49,7 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
 RUN	yum -y install bzip2 unzip patch
-RUN	yum install fontconfig -y
+RUN	yum install fontconfig libunwind-devel -y
 #1c configs
 RUN	touch /etc/httpd/conf.d/1c.conf
 
