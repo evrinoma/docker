@@ -16,9 +16,9 @@ services:
             virt:
                 ipv4_address: 172.18.2.5
 
-    1c_83_15_1700_deploy:
-        container_name: "1c.83.15.1700.deploy"
-        image: "evrinoma/1c.83.15.1700.deploy"
+    1c_83_17_1549_deploy:
+        container_name: "1c.83.17.1549.deploy"
+        image: "evrinoma/1c.83.17.1549.deploy"
         hostname: "deploy.1c.ite-ng.ru"
         ports:
             - "172.16.45.55:22:22"
@@ -31,7 +31,7 @@ services:
         security_opt:
             - apparmor:unconfined
         build:
-            context: /opt/docker/docker/1c/servers/83.15.1700/deploy/.
+            context: /opt/docker/docker/1c/servers/83.17.1549/deploy/.
             dockerfile: Dockerfile
         extra_hosts:
             - "iteng26:172.20.1.26"
@@ -40,7 +40,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.83.15
+                ipv4_address: 172.18.83.17
 
 networks:
     virt:
