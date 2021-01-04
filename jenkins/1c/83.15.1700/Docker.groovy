@@ -3,7 +3,7 @@ node {
     try {
         def dockerName = 'debug1C'
         def dockerRootDir = '/opt/docker'
-        def dockerComposeDir = "${dockerRootDir}/compose/prod/1c/1700"
+        def dockerComposeDir = "${dockerRootDir}/compose/prod/1c/83.15.1700"
         def gitHeadLocal = ''
         def gitHeadRemote = ''
         def remote = [:]
