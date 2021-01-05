@@ -14,7 +14,7 @@
 #docker build -t evrinoma/java.jenkins ../docker/java/jenkins/.
 #docker build -t evrinoma/backup ../docker/backup/.
 
-docker build -t evrinoma/samba ../docker/samba/.
+#docker build -t evrinoma/samba ../docker/samba/.
 #docker build -t evrinoma/squid ../docker/squid/.
 #docker build -t evrinoma/postgre.1c ../docker/db/postgre/1c/.
 
@@ -24,7 +24,7 @@ docker build -t evrinoma/samba ../docker/samba/.
 #docker build -t evrinoma/1c.83.16.1148 ../docker/1c/servers/83.16.1148/.
 #docker build -t evrinoma/1c.83.17.1549 ../docker/1c/servers/83.17.1549/.
 
-docker build -t evrinoma/db.maria ../docker/db/maria/.
+#docker build -t evrinoma/db.maria ../docker/db/maria/.
 
 #docker build -t evrinoma/bind ../docker/bind/.
 #docker build -t evrinoma/exim ../docker/mail/exim/.
@@ -58,7 +58,7 @@ docker build -t evrinoma/php53 ../docker/php53/.
 #docker build -t evrinoma/sftp.cloud  ../docker/sftp/servers/cloud/. --no-cache
 #docker build -t evrinoma/sftp.kis  ../docker/sftp/servers/kis/. --no-cache
 
-docker build -t evrinoma/node ../docker/node/.
+#docker build -t evrinoma/node ../docker/node/.
 
 #docker build -t evrinoma/php72.asterisk17 ../docker/php72/sites/freepbx/asterisk17/.
 #docker build -t evrinoma/php72.asterisk13 ../docker/php72/sites/freepbx/asterisk13/.

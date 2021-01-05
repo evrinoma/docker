@@ -9,17 +9,17 @@ LABEL \
 	image="php53" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2019-05-21"
+	build-date="2021-01-05"
 
 ONBUILD	ARG	MODE=''
 
-RUN	yum -y install mc wget && \
-	yum -y install httpd && \
-	yum -y install iproute && \
+RUN	sed -i -e "s@mirrorlist\=@#mirrorlist\=@g" /etc/yum.repos.d/CentOS-Base.repo && \
+	sed -i -e "s@#baseurl=http://mirror.centos.org/centos/\$releasever/@baseurl=https://vault.centos.org/6.10/@g" /etc/yum.repos.d/CentOS-Base.repo
+
+RUN	yum -y install mc wget  httpd iproute epel-release && \
 	yum -y update;
 
-RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm && \
-	rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm;
+RUN	rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm;
 
 RUN	yum -y install gcc \
 	make;
