@@ -154,9 +154,9 @@ services:
 ############################## Start ##################################
 ####### @todo this deploy should be removed to another server##########
 #######################################################################
-    node:
-        container_name: "node.clone"
-        image: "evrinoma/node.clone"
+    node_nekeng:
+        container_name: "node.clone.nekeng"
+        image: "evrinoma/node.clone.nekeng"
         build:
             context: docker/node/clone/.
             dockerfile: Dockerfile
@@ -238,10 +238,10 @@ services:
             virt:
                 ipv4_address: 172.18.53.6
 
-    samba_kis:
-        container_name: "samba.kis"
-        image: "evrinoma/samba.kis"
-        hostname: "DOCK_SMB_KIS"
+    samba_kis_nekeng:
+        container_name: "samba.kis.nekeng"
+        image: "evrinoma/samba.kis.nekeng"
+        hostname: "DOCK_SMB_KIS_NEKENG"
         ports:
             - "172.20.1.174:22:22/tcp"
             - "172.20.1.174:137:137/udp"

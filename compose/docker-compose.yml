@@ -62,10 +62,10 @@ services:
             virt:
                 ipv4_address: 172.18.1.77
 
-    samba_kis:
-        container_name: "samba.kis"
-        image: "evrinoma/samba.kis"
-        hostname: "DOCK_SMB_KIS"
+    samba_kis_nekeng:
+        container_name: "samba.kis.nekeng"
+        image: "evrinoma/samba.kis.nekeng"
+        hostname: "DOCK_SMB_KIS_NEKENG"
         ports:
             - "172.20.1.174:22:22/tcp"
             - "172.20.1.174:137:137/udp"
@@ -171,6 +171,27 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.1.14
+
+
+    samba_kis:
+        container_name: "samba.kis"
+        image: "evrinoma/samba.kis"
+        hostname: "DOCK_SMB_KIS"
+        ports:
+            - "172.20.1.180:22:22/tcp"
+            - "172.20.1.180:137:137/udp"
+            - "172.20.1.180:138:138/udp"
+            - "172.20.1.180:139:139/tcp"
+            - "172.20.1.180:445:445/tcp"
+        build:
+            context: docker/samba/servers/kis/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/docker/src/data/external/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.1.18
 
     maria_db:
         container_name: "maria.db"
@@ -335,9 +356,9 @@ services:
             virt:
                 ipv4_address: 172.18.5.2
 
-    node:
-        container_name: "node.clone"
-        image: "evrinoma/node.clone"
+    node_nekeng:
+        container_name: "node.clone.nekeng"
+        image: "evrinoma/node.clone.nekeng"
         build:
             context: docker/node/clone/.
             dockerfile: Dockerfile
@@ -350,6 +371,21 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.6.1
+
+    node:
+        container_name: "node.clone.ite-ng"
+        image: "evrinoma/node.clone.ite-ng.ru"
+        build:
+            context: docker/node/clone/.
+            dockerfile: Dockerfile
+            args:
+                - BASE_PATH=/opt/WWW/container.ite-ng.ru/data/external/exchange1C/kis.ite-ng.ru
+                - BASE_TARGET=out
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.6.2
 
     wowza_4_7_7:
         container_name: "wowza.4.7.7"
@@ -769,10 +805,11 @@ services:
             args:
                 - VHOST=ite-ng
         ports:
-            - "172.20.1.78:80:80/tcp"
+            - "172.20.1.9:80:80/tcp"
+            - "172.20.1.9:22:22/tcp"
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+            - "/opt/DISK/Develop/Docker/src/data/external/:/opt/WWW/external/"
         networks:
             virt:
                 ipv4_address: 172.18.53.3
@@ -796,13 +833,13 @@ services:
             - SYS_ADMIN
         security_opt:
             - apparmor:unconfined
-#        ports:
-#            - "172.20.1.173:80:80/tcp"
-#            - "172.20.1.173:22:22/tcp"
+        ports:
+            - "172.20.1.179:80:80/tcp"
+            - "172.20.1.179:22:22/tcp"
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+            - "/opt/DISK/Develop/Docker/src/data/external/:/opt/WWW/external/"
         networks:
             virt:
                 ipv4_address: 172.18.53.4
@@ -820,7 +857,8 @@ services:
             args:
                 - VHOST=nekeng
         ports:
-            - "172.20.1.78:80:80/tcp"
+            - "172.20.1.172:80:80/tcp"
+            - "172.20.1.172:22:22/tcp"
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
