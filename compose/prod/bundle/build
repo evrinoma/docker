@@ -3,7 +3,7 @@ docker build -t evrinoma/db.maria ../../../docker/db/maria/.
 docker build -t evrinoma/php72 ../../../docker/php72/.
 docker build -t evrinoma/php53 ../../../docker/php53/.
 docker build -t evrinoma/1c ../../../docker/1c/.
-docker build -t evrinoma/1c.83.16.1148 ../../../docker/1c/servers/83.16.1148/.
+docker build -t evrinoma/1c.83.17.1549 ../../../docker/1c/servers/83.17.1459/.
 docker build -t evrinoma/samba ../../../docker/samba/.
 docker build -t evrinoma/squid ../../../docker/squid/. --no-cache
 docker build -t evrinoma/backup ../../../docker/backup/.
@@ -11,4 +11,4 @@ docker build -t evrinoma/ruby265 ../../../docker/ruby265/.
 docker build -t evrinoma/redmine ../../../docker/ruby265/servers/redmine/.
 docker build -t evrinoma/java ../../../docker/java/.
 docker build -t evrinoma/java.jenkins ../../../docker/java/jenkins/. --no-cache
-docker build -t evrinoma/java.gitlab ../../../docker/java/gitlab/version/13.7.1/.
+docker build -t evrinoma/java.gitlab ../../../docker/java/gitlab/version/12.10.0/.
