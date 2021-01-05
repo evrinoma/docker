@@ -10,11 +10,11 @@
 #docker build -t evrinoma/java ../docker/java/.
 #docker build -t evrinoma/java.gitlab ../docker/java/gitlab/version/12.5.5/.
 #docker build -t evrinoma/java.gitlab ../docker/java/gitlab/version/12.10.0/.
-docker build -t evrinoma/java.gitlab ../docker/java/gitlab/version/13.7.1/.
+#docker build -t evrinoma/java.gitlab ../docker/java/gitlab/version/13.7.1/.
 #docker build -t evrinoma/java.jenkins ../docker/java/jenkins/.
 #docker build -t evrinoma/backup ../docker/backup/.
 
-#docker build -t evrinoma/samba ../docker/samba/.
+docker build -t evrinoma/samba ../docker/samba/.
 #docker build -t evrinoma/squid ../docker/squid/.
 #docker build -t evrinoma/postgre.1c ../docker/db/postgre/1c/.
 
@@ -24,13 +24,13 @@ docker build -t evrinoma/java.gitlab ../docker/java/gitlab/version/13.7.1/.
 #docker build -t evrinoma/1c.83.16.1148 ../docker/1c/servers/83.16.1148/.
 #docker build -t evrinoma/1c.83.17.1549 ../docker/1c/servers/83.17.1549/.
 
-#docker build -t evrinoma/db.maria ../docker/db/maria/.
+docker build -t evrinoma/db.maria ../docker/db/maria/.
 
 #docker build -t evrinoma/bind ../docker/bind/.
 #docker build -t evrinoma/exim ../docker/mail/exim/.
 #docker build -t evrinoma/dovecot ../docker/mail/dovecot/.
 
-#docker build -t evrinoma/php53 ../docker/php53/.
+docker build -t evrinoma/php53 ../docker/php53/.
 #docker build -t evrinoma/php53.new.ite-ng.ru ../docker/php53/sites/kisnew.ite-ng.ru/.
 #docker build -t evrinoma/php53.kisnew.ite-ng.ru ../docker/php53/sites/kisnew.ite-ng.ru/.
 #docker build -t evrinoma/php53.h.kisnew.ite-ng.ru ../docker/hidden/servers/kisnew.ite-ng.ru/.
@@ -58,7 +58,7 @@ docker build -t evrinoma/java.gitlab ../docker/java/gitlab/version/13.7.1/.
 #docker build -t evrinoma/sftp.cloud  ../docker/sftp/servers/cloud/. --no-cache
 #docker build -t evrinoma/sftp.kis  ../docker/sftp/servers/kis/. --no-cache
 
-#docker build -t evrinoma/node ../docker/node/.
+docker build -t evrinoma/node ../docker/node/.
 
 #docker build -t evrinoma/php72.asterisk17 ../docker/php72/sites/freepbx/asterisk17/.
 #docker build -t evrinoma/php72.asterisk13 ../docker/php72/sites/freepbx/asterisk13/.
