@@ -1,19 +1,9 @@
 #!/bin/bash
 docker build -t evrinoma/db.maria ../../../docker/db/maria/.
 
-docker build -t evrinoma/bind ../../../docker/bind/.
-
-docker build -t evrinoma/sftp  ../../../docker/sftp/.
-docker build -t evrinoma/sftp.cloud  ../../../docker/sftp/servers/cloud/.
-docker build -t evrinoma/sftp.kis  ../../../docker/sftp/servers/kis/.
-
-docker build -t evrinoma/php72 ../../../docker/php72/.
-docker build -t evrinoma/php72.cloud ../../../docker/php72/sites/cloud/.
-docker build -t evrinoma/php72.owncloud ../../../docker/php72/sites/cloud/servers/owncloud/.
-docker build -t evrinoma/php72.kiscloud ../../../docker/php72/sites/cloud/servers/kiscloud/.
-
 docker build -t evrinoma/php53 ../../../docker/php53/.
 
 docker build -t evrinoma/node ../../../docker/node/.
 
 docker build -t evrinoma/samba ../../../docker/samba/.
+
