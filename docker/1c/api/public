@@ -6,7 +6,7 @@ VRD_PATTERN='default.vrd'
 APACHE_VERSION='apache24'
 APACHE_CONFIG='/etc/httpd/conf.d/1c.conf'
 WEBINST_PATH='/opt/1C/v8.3/x86_64'
-WEB_PATH='/opt/WWW/container.ite-ng.ru/1c'
+WEB_PATH='/opt/WWW/container.ite-ng.ru/conf/1c'
 GIT_PATH='/opt/WWW/container.ite-ng.ru/projects/web1C'
 if [ ! -d "$GIT_PATH" ]; then
   git clone http://$REPO_USERNAME:$REPO_PASSWORD@git.ite-ng.ru/root/web1C.git $GIT_PATH
