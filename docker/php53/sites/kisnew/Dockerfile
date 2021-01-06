@@ -28,11 +28,8 @@ RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
 	echo "database_password=${database_password}" >> /etc/sysconfig/vhost && \
 	echo "exchange=${exchange}" >> /etc/sysconfig/vhost
 
-ADD	init.container.part /usr/local/bin
 ADD	init.container.cron.part /usr/local/bin
-RUN cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
-	rm -rf /usr/local/bin/init.container.part && \
-	cat /usr/local/bin/init.container.cron.part >> /usr/local/bin/init.container && \
+RUN cat /usr/local/bin/init.container.cron.part >> /usr/local/bin/init.container && \
 	rm -rf /usr/local/bin/init.container.cron.part && \
 	chmod 700 /usr/local/bin/init.container
 
