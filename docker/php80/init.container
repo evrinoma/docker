@@ -1,4 +1,5 @@
 #!/bin/bash
 
 chown -R apache.apache /var/log/httpd/
-chown -R apache.apache /opt/WWW/container.ite-ng.ru/projects/
+chown -R apache.apache /opt/WWW/container.ite-ng.ru/projects/httpd/
+
