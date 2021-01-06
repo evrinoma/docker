@@ -2,7 +2,7 @@
 SQUID_LOG_PATH=/var/log
 SQUID_SPOOL_PATH=/var/spool
 SQUID_LOG=/opt/WWW/container.ite-ng.ru/logs/squid
-SQUID_SPOOL=/opt/WWW/container.ite-ng.ru/spool
+SQUID_SPOOL=/opt/WWW/container.ite-ng.ru/data/squid/spool
 storeDir=/opt/WWW/container.ite-ng.ru/conf/squid
 
 NAME="init.squid"
