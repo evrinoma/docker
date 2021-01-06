@@ -25,19 +25,19 @@ services:
 #           virt:
 #                ipv4_address: 172.18.22.18
 
-    php72_sqladmin:
-        container_name: "php72.sqladmin"
-        image: "evrinoma/php72.sqladmin"
-        build:
-            context: docker/php72/sites/sqladmin/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-        volumes:
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.72.10
+#    php72_sqladmin:
+#        container_name: "php72.sqladmin"
+#        image: "evrinoma/php72.sqladmin"
+#        build:
+#            context: docker/php72/sites/sqladmin/.
+#            dockerfile: Dockerfile
+#            args:
+#                - MODE=prod
+#        volumes:
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.10
 
 networks:
     virt:
