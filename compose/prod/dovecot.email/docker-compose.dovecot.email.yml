@@ -32,7 +32,7 @@ services:
             dockerfile: Dockerfile
             args:
                 - MODE=slave
-                - INSTALL_DIR=/opt/bind
+                - INSTALL_DIR=/opt/WWW/container.ite-ng.ru/conf
                 - GIT_IP=172.20.1.169
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
