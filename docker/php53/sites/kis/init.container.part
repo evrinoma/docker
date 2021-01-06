@@ -5,11 +5,9 @@ EXCHANGE=exchange1C
 DOCS=docs
 LINK_EXCHANGE=/opt/WWW/container.ite-ng.ru/projects/httpd/kis.VHOST.ru/content/1c
 LINK_DOCS=/opt/WWW/container.ite-ng.ru/projects/httpd/kis.VHOST.ru/content/docs
-for folder in $(ls $BASE)
+for folder in $(ls -d $BASE/*/)
 do
-if [ -d $DEST/$folder ] ; then
-    ln -s $BASE/$folder/ $DEST
-fi
+    ln -s $folder $DEST
 done
 
 if [ -d /opt/WWW/$EXCHANGE/ ] ; then
