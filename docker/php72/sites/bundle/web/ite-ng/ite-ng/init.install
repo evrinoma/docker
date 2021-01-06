@@ -5,7 +5,7 @@ base=ite-ng
 user=ite-ng
 basepass=ite-ng
 if [ ! -z "$pass" ]; then
-	DIR="/opt/WWW/container.ite-ng.ru/projects/ite-ng.ru"
+	DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/ite-ng.ru"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
 		tar -zxf /root/ite-ng.sql.tar.gz -C /root

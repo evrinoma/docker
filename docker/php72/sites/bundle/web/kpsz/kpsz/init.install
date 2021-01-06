@@ -5,7 +5,7 @@ base=kpsz
 user=kpsz
 basepass=kpsz
 if [ ! -z "$pass" ]; then
-	DIR="/opt/WWW/container.ite-ng.ru/projects/kpsz.ru"
+	DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/kpsz.ru"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
 		tar -zxf /root/kpsz.sql.tar.gz -C /root

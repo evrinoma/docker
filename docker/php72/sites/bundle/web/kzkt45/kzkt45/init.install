@@ -5,7 +5,7 @@ base=kzkt45
 user=kzkt45
 basepass=kzkt45
 if [ ! -z "$pass" ]; then
-	DIR="/opt/WWW/container.ite-ng.ru/projects/kzkt45.ru"
+	DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/kzkt45.ru"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
 		tar -zxf /root/kzkt45.sql.tar.gz -C /root

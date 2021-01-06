@@ -8,12 +8,12 @@
 	SSLCertificateFile /etc/pki/CA/certs/ca.pem
 	SSLCertificateKeyFile /etc/pki/CA/certs/ca.key
 
-	Alias /email /opt/WWW/container.ite-ng.ru/projects/kiscloud
+	Alias /email /opt/WWW/container.ite-ng.ru/projects/httpd/kiscloud
 	ServerAdmin nikolns@ite-ng.ru
 
 	ServerName cloud.ite-ng.ru
 
-	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/kiscloud"
+	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/httpd/kiscloud"
 
 	ServerAlias /kiscloud
 	ErrorLog /var/log/httpd/error-kiscloud.log
@@ -22,7 +22,7 @@
     SSLOptions +StdEnvVars
     </Files>
 
-	<Directory "/opt/WWW/container.ite-ng.ru/projects/kiscloud/">
+	<Directory "/opt/WWW/container.ite-ng.ru/projects/httpd/kiscloud/">
 		SSLOptions +StdEnvVars
 		AllowOverride All
 		Options -Indexes +FollowSymLinks

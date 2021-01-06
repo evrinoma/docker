@@ -6,7 +6,7 @@ passOwnCloud=$2
 
 if [ ! -z "$pass" ]; then
     if [ ! -z "$passOwnCloud" ]; then
-        DIR="/opt/WWW/container.ite-ng.ru/projects/"$projectName
+        DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/"$projectName
         if [ ! -d "$DIR" ]; then
             mkdir -p $DIR
             wget https://download.owncloud.org/community/owncloud-latest.tar.bz2 -P /tmp/

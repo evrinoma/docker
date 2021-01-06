@@ -5,7 +5,7 @@ base=nekeng
 user=nekeng
 basepass=nekeng
 if [ ! -z "$pass" ]; then
-	DIR="/opt/WWW/container.ite-ng.ru/projects/nekeng.ru"
+	DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/nekeng.ru"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
 		tar -zxf /root/nekeng.sql.tar.gz -C /root

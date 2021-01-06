@@ -5,7 +5,7 @@ base=portal
 user=portal
 basepass=portal
 if [ ! -z "$pass" ]; then
-		DIR="/opt/WWW/container.ite-ng.ru/projects/portal"
+		DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/portal"
 		CONFIG="wp-config.php"
 		if [ ! -d "$DIR" ]; then
         mkdir -p $DIR

@@ -40,7 +40,7 @@ RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
 	sed -i -e "s@VHOST@${VHOST}@g" /usr/local/bin/init.container
 
 ADD	supervisor.conf /etc/supervisord.d/cron.conf
-RUN	echo "0 0  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/${VHOST}/bin/console legio:webldap:update_from_ldap > /dev/null 2>&1" >> /etc/crontab.apache && \
+RUN	echo "0 0  *  *  * /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/httpd/${VHOST}/bin/console legio:webldap:update_from_ldap > /dev/null 2>&1" >> /etc/crontab.apache && \
 	crontab -u apache /etc/crontab.apache && \
 	crontab -u apache -l
 

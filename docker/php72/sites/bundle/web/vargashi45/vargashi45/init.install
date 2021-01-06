@@ -5,7 +5,7 @@ base=vargashi45
 user=vargashi45
 basepass=vargashi45
 if [ ! -z "$pass" ]; then
-	DIR="/opt/WWW/container.ite-ng.ru/projects/vargashi45.ru"
+	DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/vargashi45.ru"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
 		tar -zxf /root/vargashi45.sql.tar.gz -C /root

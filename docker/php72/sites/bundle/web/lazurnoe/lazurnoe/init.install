@@ -1,5 +1,5 @@
 #!/bin/bash
-	DIR="/opt/WWW/container.ite-ng.ru/projects/lazurnoe.net"
+	DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/lazurnoe.net"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
 		tar -zxf /root/lazurnoe.tar.gz -C $DIR

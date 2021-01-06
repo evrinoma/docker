@@ -2,14 +2,14 @@
 ### owncloud
 ####################################################
 <VirtualHost *:80>
-	Alias /owncloud /opt/WWW/container.ite-ng.ru/projects/owncloud
+	Alias /owncloud /opt/WWW/container.ite-ng.ru/projects/httpd/owncloud
 	ServerName php72.owncloud
 	ServerAdmin nikolns@ite-ng.ru
-	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/owncloud"
+	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/httpd/owncloud"
 	ErrorLog /var/log/httpd/error-owncloud.log
 	CustomLog /var/log/httpd/access-owncloud.log combined
 	DirectoryIndex index.php
-	<Directory "/opt/WWW/container.ite-ng.ru/projects/owncloud/">
+	<Directory "/opt/WWW/container.ite-ng.ru/projects/httpd/owncloud/">
 		AllowOverride All
 		Require all granted
 	</Directory>

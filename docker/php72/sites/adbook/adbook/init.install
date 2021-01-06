@@ -11,7 +11,7 @@ database_user=$(cat /etc/sysconfig/vhost | grep database_user | sed -r 's/.*=(.*
 database_password=$(cat /etc/sysconfig/vhost | grep database_password | sed -r 's/.*=(.*)$/\1/')
 
 if [ ! -z "$pass" ]; then
-		DIR="/opt/WWW/container.ite-ng.ru/projects/"$VHOST
+		DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/"$VHOST
 		if [ -z "$database_host" ]; then
 		  database_host=172.18.2.1
 		fi
