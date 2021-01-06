@@ -19,7 +19,7 @@ node {
         remoteSql.allowAnyHosts = true
         def gitUser = 'admin'
         def gitPass = 'pass'
-        def contDir = '/opt/WWW/container.ite-ng.ru/projects/cont/debug'
+        def contDir = '/opt/WWW/container.ite-ng.ru/projects/httpd/cont/debug'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
         def gitRemote='http://${gitUser}:${gitPass}@git.ite-ng.ru/root/cont.git'

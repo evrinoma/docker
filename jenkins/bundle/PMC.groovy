@@ -4,7 +4,7 @@ node {
         def gitUser = 'user'
         def gitPass = 'pass'
         def pmcDir = 'ite-ng'
-        def checkDir = '/opt/WWW/container.ite-ng.ru/projects/pmc/'+pmcDir
+        def checkDir = '/opt/WWW/container.ite-ng.ru/projects/httpd/pmc/'+pmcDir
         def gitHeadLocal = ''
         def gitHeadRemote = ''
         def gitRemote='http://${gitUser}:${gitPass}@git.ite-ng.ru/root/PMC.git'

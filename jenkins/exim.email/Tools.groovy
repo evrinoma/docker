@@ -1,7 +1,7 @@
 node {
     try {
         def gitOauth = 'see https://github.com/settings/tokens'
-        def toolsDir = '/opt/WWW/container.ite-ng.ru/projects/tools'
+        def toolsDir = '/opt/WWW/container.ite-ng.ru/projects/httpd/tools'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
         def remote = [:]

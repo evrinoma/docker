@@ -3,7 +3,7 @@ node {
     try {
         def gitUser = 'user'
         def gitPass = 'pass'
-        def checkDir = '/opt/WWW/container.ite-ng.ru/projects/web1C'
+        def checkDir = '/opt/WWW/container.ite-ng.ru/projects/httpd/web1C'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
         def gitRemote="http://${gitUser}:${gitPass}@git.ite-ng.ru/root/web1C.git"
