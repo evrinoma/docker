@@ -11,5 +11,5 @@
     fi
     echo "GRANT ALL PRIVILEGES ON \`roundcubemail_VERSION\`. * TO 'roundcubemail'@'172.18.0.0/255.255.0.0';" >> $INIT_SQL
 	mysql -h$serverSql -uroot -p$pass  < $INIT_SQL
-	mysql -h$serverSql -uroot -p$pass roundcubemail_VERSION < /opt/WWW/container.ite-ng.ru/projects/roundcubemail/VERSION/SQL/mysql.initial.sql
+	mysql -h$serverSql -uroot -p$pass roundcubemail_VERSION < /opt/WWW/container.ite-ng.ru/projects/httpd/roundcubemail/VERSION/SQL/mysql.initial.sql
 	#rm -f $INIT_SQL

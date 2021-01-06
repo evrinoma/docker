@@ -3,7 +3,7 @@ pass=$1
 srcLink="https://github.com/roundcube/roundcubemail/releases/download/VERSION/roundcubemail-VERSION-complete.tar.gz"
 serverSql=172.18.2.1
 serverSmtp=172.18.4.2
-DIR="/opt/WWW/container.ite-ng.ru/projects/roundcubemail/VERSION"
+DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/roundcubemail/VERSION"
 if [ ! -z "$pass" ]; then
 	if [ ! -d "$DIR" ]; then
       mkdir -vp $DIR

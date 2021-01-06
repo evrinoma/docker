@@ -5,7 +5,7 @@ base=tools
 user=tools
 basepass=tools
 if [ ! -z "$pass" ]; then
-		DIR="/opt/WWW/container.ite-ng.ru/projects/tools"
+		DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/tools"
 		if [ ! -d "$DIR" ]; then
         mkdir -p $DIR
         chown apache:apache -R $DIR

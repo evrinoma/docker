@@ -10,7 +10,7 @@ database_user=$(cat /etc/sysconfig/vhost | grep database_user | sed -r 's/.*=(.*
 database_password=$(cat /etc/sysconfig/vhost | grep database_password | sed -r 's/.*=(.*)$/\1/')
 
 if [ ! -z "$pass" ]; then
-    DIR="/opt/WWW/container.ite-ng.ru/projects/cont"
+    DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/cont"
     if [ -z "$MODE" ]; then
       MODE="dev"
     fi

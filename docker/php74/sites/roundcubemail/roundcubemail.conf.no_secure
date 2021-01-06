@@ -1,5 +1,5 @@
 <Virtualhost *:80>
-	Alias /email /opt/WWW/container.ite-ng.ru/projects/roundcubemail
+	Alias /email /opt/WWW/container.ite-ng.ru/projects/httpd/roundcubemail
 	ServerAdmin nikolns@ite-ng.ru
 	ServerName email.ite-ng.ru
 	ServerAlias email.citypoint-mf.ru
@@ -11,13 +11,13 @@
 	ServerAlias email.lazurnoe.net
 	ServerAlias email.nekeng.ru
 
-	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/roundcubemail/VERSION"
+	DocumentRoot "/opt/WWW/container.ite-ng.ru/projects/httpd/roundcubemail/VERSION"
 	
 #	Alias /roundcubemail
 	ErrorLog /var/log/httpd/error-roundcubemail.log
 	CustomLog /var/log/httpd/access-roundcubemail.log combined
 
-	<Directory "/opt/WWW/container.ite-ng.ru/projects/roundcubemail/VERSION/">
+	<Directory "/opt/WWW/container.ite-ng.ru/projects/httpd/roundcubemail/VERSION/">
 		AllowOverride All
 		Options -Indexes +FollowSymLinks
 		<IfModule mod_authz_core.c>
