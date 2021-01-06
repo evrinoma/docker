@@ -5,7 +5,7 @@ EXCHANGE=exchange1C
 LINK=/opt/WWW/container.ite-ng.ru/projects/httpd/kis.VHOST.ru/content/1c
 for folder in $(ls $BASE)
 do
-if [ ! -L $DEST/$folder ] ; then
+if [[ ! -L $DEST/$folder ||  -e $DEST/$folder ]] ; then
     ln -s $BASE/$folder/ $DEST
 fi
 done
