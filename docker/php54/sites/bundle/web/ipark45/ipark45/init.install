@@ -5,7 +5,7 @@ base=ipark45
 user=ipark45
 basepass=ipark45
 if [ ! -z "$pass" ]; then
-	DIR="/opt/WWW/container.ite-ng.ru/projects/ipark45.ru"
+	DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/ipark45.ru"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
 		tar -zxf /root/ipark45.sql.tar.gz -C /root
