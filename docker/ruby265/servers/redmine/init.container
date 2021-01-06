@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR="/opt/WWW/container.ite-ng.ru/projects/redmine"
+DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/redmine"
 cd $DIR
 bundle install --without development test
 
