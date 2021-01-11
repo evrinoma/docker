@@ -99,6 +99,11 @@ services:
         build:
             context: docker/samba/servers/kis/.
             dockerfile: Dockerfile
+            args:
+                - netbios_name=SMB_KIS
+                - server_string=KIS_DOCKER
+                - server_IP=172.20.1.6, 172.20.1.20
+                - server_domain=ITE-NG.RU
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/data/external/:/opt/WWW/container.ite-ng.ru/"

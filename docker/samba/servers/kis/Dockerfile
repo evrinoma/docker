@@ -11,5 +11,20 @@ LABEL \
 	license="MIT" \
 	build-date="2019-06-13"
 
+ARG	netbios_name=''
+ARG	server_string=''
+ARG	server_IP=''
+ARG	server_domain=''
+
+RUN	echo "netbios_name=${netbios_name}" > /etc/sysconfig/vhost && \
+	echo "server_string=${server_string}" >> /etc/sysconfig/vhost && \
+	echo "server_domain=${server_domain}" >> /etc/sysconfig/vhost && \
+	echo "server_IP=${server_IP}" >> /etc/sysconfig/vhost
+
 RUN	mv -v /etc/samba/smb.conf{,.bak}
 COPY	smb.conf /etc/samba/smb.conf
+
+RUN	sed -i -e "s@netbios_name@${netbios_name}@g" /etc/samba/smb.conf
+RUN	sed -i -e "s@server_string@${server_string}@g" /etc/samba/smb.conf
+RUN	sed -i -e "s@server_domain@${server_domain}@g" /etc/samba/smb.conf
+RUN	sed -i -e "s@server_IP@${server_IP}@g" /etc/samba/smb.conf
