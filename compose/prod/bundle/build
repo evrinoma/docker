@@ -11,4 +11,4 @@ docker build -t evrinoma/ruby265 ../../../docker/ruby265/.
 docker build -t evrinoma/redmine ../../../docker/ruby265/servers/redmine/.
 docker build -t evrinoma/java ../../../docker/java/.
 docker build -t evrinoma/java.jenkins ../../../docker/java/jenkins/. --no-cache
-docker build -t evrinoma/java.gitlab ../../../docker/java/gitlab/version/13.7.1/.
+docker build -t evrinoma/java.gitlab ../../../docker/java/gitlab/version/13.7.3/.
