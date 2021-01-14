@@ -165,6 +165,7 @@ echo $PHP74"32	$PREFIX_PHP74.bc" >> /etc/hosts
 
 echo $PHP80"4	$PREFIX_PHP80.tools" >> /etc/hosts
 echo $PHP80"29	$PREFIX_PHP80.exchange" >> /etc/hosts
+echo $PHP80"32	$PREFIX_PHP80.bc" >> /etc/hosts
 
 echo $C1_83"13	deploy.13.1644" >> /etc/hosts
 echo $C1_83"130	api.13.1644" >> /etc/hosts
