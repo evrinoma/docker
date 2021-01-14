@@ -37,8 +37,8 @@ RUN	yum -y install mod_ssl && \
 	mv -v /etc/httpd/conf.d/welcome.conf{,.bak} && \
 	echo  -e "<?php\\n header('Location: https://'.\$_SERVER['HTTP_HOST'].'/');\\n "  > /var/www/html/index.php
 
-RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/php74/sites/tools/certs/ca.key /etc/pki/httpd/certs/ && \
-	ln -s /opt/WWW/container.ite-ng.ru/conf/php74/sites/tools/certs/ca.pem /etc/pki/httpd/certs/
+RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/php80/sites/tools/certs/ca.key /etc/pki/httpd/certs/ && \
+	ln -s /opt/WWW/container.ite-ng.ru/conf/php80/sites/tools/certs/ca.pem /etc/pki/httpd/certs/
 
 ADD	init.container.part /usr/local/bin
 RUN	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
