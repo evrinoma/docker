@@ -249,6 +249,21 @@ services:
             virt:
                 ipv4_address: 172.18.74.32
 
+    php80_tools:
+        container_name: "php80.tools"
+        image: "evrinoma/php80.tools"
+        build:
+            context: docker/php80/sites/tools/.
+            dockerfile: Dockerfile
+#        ports:
+#            - 172.20.1.78:80:80
+#            - 80:80
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.80.4
 networks:
     virt:
         driver: bridge
