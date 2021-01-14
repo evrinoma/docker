@@ -1,0 +1,8 @@
+
+#DIR="/opt/WWW/container.ite-ng.ru/logs/exim"
+#DIR_EXIM="$DIR/var/log/"
+#DIR_CLAMAV="$DIR/tmp/"
+
+#setfacl -m g:apache:rwx -R $DIR_EXIM
+#setfacl -m g:apache:rwx -R $DIR_CLAMAV
+
