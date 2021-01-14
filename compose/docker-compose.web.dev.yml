@@ -73,9 +73,9 @@ services:
         build:
             context: docker/php74/sites/tools/.
             dockerfile: Dockerfile
-        ports:
+#        ports:
 #            - 172.20.1.78:80:80
-            - 80:80
+#            - 80:80
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
@@ -218,6 +218,24 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.74.31
+
+    1c_83_17_1851_api:
+        container_name: "1c.83.17.1851.api"
+        image: "evrinoma/1c.83.17.1851.api"
+        hostname: "api.1c.ite-ng.ru"
+        ports:
+            - "172.20.1.78:80:80/tcp"
+        build:
+            context: docker/1c/servers/83.17.1851/api/.
+            dockerfile: Dockerfile
+        extra_hosts:
+            - "iteng26:172.20.1.26"
+            - "1cdebug:172.20.1.94"
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.83.171
 
 networks:
     virt:

@@ -18,11 +18,12 @@
 #docker build -t evrinoma/squid ../docker/squid/.
 #docker build -t evrinoma/postgre.1c ../docker/db/postgre/1c/.
 
-#docker build -t evrinoma/1c ../docker/1c/.
+docker build -t evrinoma/1c ../docker/1c/.
 #docker build -t evrinoma/1c.83.13.1644 ../docker/1c/servers/83.13.1644/.
 #docker build -t evrinoma/1c.83.15.1700 ../docker/1c/servers/83.15.1700/.
 #docker build -t evrinoma/1c.83.16.1148 ../docker/1c/servers/83.16.1148/.
 #docker build -t evrinoma/1c.83.17.1549 ../docker/1c/servers/83.17.1549/.
+docker build -t evrinoma/1c.83.17.1851 ../docker/1c/servers/83.17.1851/.
 
 #docker build -t evrinoma/db.maria ../docker/db/maria/.
 
@@ -30,8 +31,8 @@
 #docker build -t evrinoma/exim ../docker/mail/exim/.
 #docker build -t evrinoma/dovecot ../docker/mail/dovecot/.
 
-docker build -t evrinoma/php53 ../docker/php53/.
-docker build -t evrinoma/php53.new.ite-ng.ru ../docker/php53/sites/kisnew/.
+#docker build -t evrinoma/php53 ../docker/php53/.
+#docker build -t evrinoma/php53.new.ite-ng.ru ../docker/php53/sites/kisnew/.
 #docker build -t evrinoma/php53.kisnew.ite-ng.ru ../docker/php53/sites/kisnew.ite-ng.ru/.
 #docker build -t evrinoma/php53.h.kisnew.ite-ng.ru ../docker/hidden/servers/kisnew.ite-ng.ru/.
 
