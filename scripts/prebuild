@@ -45,7 +45,9 @@
 #docker build -t evrinoma/php72.kiscloud ../docker/php72/sites/cloud/servers/kiscloud/.
 
 #docker build -t evrinoma/php74 ../docker/php74/.
+
 docker build -t evrinoma/php80 ../docker/php80/.
+docker build -t evrinoma/php80.bc ../docker/php80/sites/bc/.
 
 #docker build -t evrinoma/redis ../docker/redis/.
 
