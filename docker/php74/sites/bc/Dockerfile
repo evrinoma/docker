@@ -5,11 +5,11 @@ MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma PHP 7.4 exchange" \
-	image="php74.exchange" \
+	name="evrinoma PHP 7.4 bc" \
+	image="php74.bc" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2020-09-17"
+	build-date="2021-01-14"
 
 RUN	rm -rf /var/cache/yum && \
 	yum remove -y nodejs && \
@@ -17,11 +17,11 @@ RUN	rm -rf /var/cache/yum && \
 	curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -  && \
 	yum install -y nodejs yarn
 
-ADD	exchange/init.install /usr/local/bin
-ADD	exchange/init.sql /usr/local/bin
+ADD	bc/init.install /usr/local/bin
+ADD	bc/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
-COPY	exchange.conf /etc/httpd/conf.d/vhost.conf
+COPY	bc.conf /etc/httpd/conf.d/vhost.conf
 
 RUN	touch /var/spool/cron/apache && chown root.root /var/spool/cron/apache  && chmod 400 /var/spool/cron/apache
 RUN	chmod -R 640 /tmp && \
