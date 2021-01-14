@@ -1601,7 +1601,7 @@ services:
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
         networks:
             virt:
-                ipv4_address: 172.18.74.31
+                ipv4_address: 172.18.74.32
 
 networks:
     virt:

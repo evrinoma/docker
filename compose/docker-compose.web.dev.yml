@@ -237,6 +237,18 @@ services:
             virt:
                 ipv4_address: 172.18.83.171
 
+    php74_bc:
+        container_name: "php74.bc"
+        image: "evrinoma/php74.bc"
+        build:
+            context: docker/php74/sites/bc/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.32
+
 networks:
     virt:
         driver: bridge
