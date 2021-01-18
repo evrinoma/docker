@@ -1,12 +1,12 @@
 FROM \
-	evrinoma/php74:latest
+	evrinoma/php80:latest
 
 MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma PHP 7.4 bc" \
-	image="php74.bc" \
+	name="evrinoma PHP 80 bc" \
+	image="php80.bc" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2021-01-14"
@@ -17,11 +17,11 @@ RUN	rm -rf /var/cache/yum && \
 	curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -  && \
 	yum install -y nodejs yarn
 
-ADD	bc/init.install /usr/local/bin
-ADD	bc/init.sql /usr/local/bin
+ADD	businesscenter/init.install /usr/local/bin
+ADD	businesscenter/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
-COPY	bc.conf /etc/httpd/conf.d/vhost.conf
+COPY	businesscenter.conf /etc/httpd/conf.d/vhost.conf
 
 RUN	touch /var/spool/cron/apache && chown root.root /var/spool/cron/apache  && chmod 400 /var/spool/cron/apache
 RUN	chmod -R 640 /tmp && \

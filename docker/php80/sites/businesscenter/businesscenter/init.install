@@ -1,9 +1,9 @@
 #!/bin/bash
 pass=$1
 serverSql=172.18.2.1
-base=bc
-user=bc
-basepass=bc
+base=businesscenter
+user=businesscenter
+basepass=businesscenter
 if [ ! -z "$pass" ]; then
 		DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/bc"
 		if [ ! -d "$DIR" ]; then
