@@ -241,6 +241,21 @@ services:
             virt:
                 ipv4_address: 172.18.72.19
 
+    php80_businesscenter:
+        container_name: "php80.businesscenter"
+        image: "evrinoma/php80.businesscenter"
+        build:
+            context: docker/php80/sites/businesscenter/.
+            dockerfile: Dockerfile
+        ports:
+            - "172.20.1.181:80:80/tcp"
+            - "172.20.1.181:22:22/tcp"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.80.32
+
     php72_pmc_kzkt45_ru:
         container_name: "php72.pmc.kzkt45"
         image: "evrinoma/php72.pmc.kzkt45"

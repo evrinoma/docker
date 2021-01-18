@@ -1590,11 +1590,11 @@ services:
             virt:
                 ipv4_address: 172.18.74.30
 
-    php74_bc:
-        container_name: "php74.bc"
-        image: "evrinoma/php74.bc"
+    php74_businesscenter:
+        container_name: "php74.businesscenter"
+        image: "evrinoma/php74.businesscenter"
         build:
-            context: docker/php74/sites/bc/.
+            context: docker/php74/sites/businesscenter/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -1619,11 +1619,11 @@ services:
             virt:
                 ipv4_address: 172.18.80.4
 
-    php80_bc:
-        container_name: "php80.bc"
-        image: "evrinoma/php80.bc"
+    php80_businesscenter:
+        container_name: "php80.businesscenter"
+        image: "evrinoma/php80.businesscenter"
         build:
-            context: docker/php80/sites/bc/.
+            context: docker/php80/sites/businesscenter/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
