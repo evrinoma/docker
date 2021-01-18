@@ -322,8 +322,8 @@ RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/http
 	echo 'Header always append X-Frame-Options ite-ng.ru' >> /etc/httpd/conf/httpd.conf && \
 	echo 'Header set X-XSS-Protection "1; mode=block"' >> /etc/httpd/conf/httpd.conf && \
 	echo 'Header set X-Content-Type-Options nosniff' >> /etc/httpd/conf/httpd.conf && \
-	echo 'IncludeOptional conf.d/*.conf' >> /etc/httpd/conf/httpd.conf
-
+	echo 'IncludeOptional conf.d/*.conf' >> /etc/httpd/conf/httpd.conf && \
+	echo 'TimeOut 600' >> /etc/httpd/conf/httpd.conf
 ##php extension
 RUN	touch /etc/php.d/xdebug.ini && \
 	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
@@ -365,6 +365,25 @@ COPY	exim.conf /etc/exim/exim.conf
 
 #webpack
 RUN	npm install -g webpack webpack-cli;
+
+#mssql php
+RUN	curl https://packages.microsoft.com/config/rhel/8/prod.repo > /etc/yum.repos.d/mssql-release.repo && \
+	ACCEPT_EULA=Y yum install msodbcsql17 -y && \
+	ACCEPT_EULA=Y yum install mssql-tools -y
+RUN yum install -y unixODBC-devel php-sqlsrv
+RUN	echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile && \
+	echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc && \
+	source ~/.bashrc
+RUN mv /etc/pki/tls/openssl.cnf{,.bak} && \
+    echo "openssl_conf = default_conf" >> /etc/pki/tls/openssl.cnf && \
+    echo "[default_conf]" >> /etc/pki/tls/openssl.cnf && \
+    echo "ssl_conf = ssl_sect" >> /etc/pki/tls/openssl.cnf && \
+    echo "" >> /etc/pki/tls/openssl.cnf && \
+    echo "[ssl_sect]" >> /etc/pki/tls/openssl.cnf && \
+    echo "system_default = system_default_sect" >> /etc/pki/tls/openssl.cnf && \
+    echo "" >> /etc/pki/tls/openssl.cnf && \
+    echo "[system_default_sect]" >> /etc/pki/tls/openssl.cnf && \
+    echo "CipherString = DEFAULT@SECLEVEL=1" >> /etc/pki/tls/openssl.cnf
 
 RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
 	chown -R apache.apache /var/log/httpd/
