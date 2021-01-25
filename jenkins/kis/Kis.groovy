@@ -24,7 +24,7 @@ node {
         }
         if (gitHeadLocal!=gitHeadRemote) {
             stage('Git Pull') {
-                sshCommand remote: remote, command: "cd ${kisDir} && git pull ${gitRemote}"
+                sshCommand remote: remote, command: "cd ${kisDir} && git pull ${gitRemote} master"
             }
             stage('Send email') {
                 def mailRecipients = "nikolns@ite-ng.ru"
