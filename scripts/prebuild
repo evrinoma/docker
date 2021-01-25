@@ -46,8 +46,8 @@
 
 #docker build -t evrinoma/php74 ../docker/php74/.
 
-docker build -t evrinoma/php80 ../docker/php80/.
-docker build -t evrinoma/php80.businesscenter ../docker/php80/sites/businesscenter/.
+#docker build -t evrinoma/php80 ../docker/php80/.
+#docker build -t evrinoma/php80.businesscenter ../docker/php80/sites/businesscenter/.
 
 #docker build -t evrinoma/redis ../docker/redis/.
 
@@ -69,3 +69,6 @@ docker build -t evrinoma/php80.businesscenter ../docker/php80/sites/businesscent
 #docker build -t evrinoma/kurento ../docker/kurento/.
 #docker build -t evrinoma/openmeetings ../docker/openmeetings/.
 #docker build -t evrinoma/turn ../docker/turn/.
+
+docker build -t evrinoma/mattermost ../docker/mattermost/.
+

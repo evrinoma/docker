@@ -52,6 +52,8 @@ C1_83=$SUBNET"83."
 
 PUBLIC=$SUBNET"100."
 
+MATTER_MOST=$SUBNET"200."
+
 sed -i -e "/^172.18/ d" /etc/hosts
 
 echo $SQL"1	maria.db" >> /etc/hosts
@@ -175,4 +177,8 @@ echo $C1_83"16	deploy.16.1148" >> /etc/hosts
 echo $C1_83"160	api.16.1148" >> /etc/hosts
 echo $C1_83"17	deploy.17.1549" >> /etc/hosts
 echo $C1_83"170	api.17.1549" >> /etc/hosts
+
+echo $MATTER_MOST"31	mattermost.31" >> /etc/hosts
+
+
 

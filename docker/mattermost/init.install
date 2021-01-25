@@ -1,0 +1,35 @@
+#!/bin/bash
+pass=$1
+VHOST=$(cat /etc/sysconfig/vhost | grep VHOST | sed -r 's/.*=(.*)$/\1/')
+VERSION=$(cat /etc/sysconfig/vhost | grep VERSION | sed -r 's/.*=(.*)$/\1/')
+database_host=$(cat /etc/sysconfig/vhost | grep database_host | sed -r 's/.*=(.*)$/\1/')
+database_port=$(cat /etc/sysconfig/vhost | grep database_port | sed -r 's/.*=(.*)$/\1/')
+database_name=$(cat /etc/sysconfig/vhost | grep database_name | sed -r 's/.*=(.*)$/\1/')
+database_user=$(cat /etc/sysconfig/vhost | grep database_user | sed -r 's/.*=(.*)$/\1/')
+database_password=$(cat /etc/sysconfig/vhost | grep database_password | sed -r 's/.*=(.*)$/\1/')
+
+if [ ! -z "$pass" ]; then
+    DIR="/opt/WWW/container.ite-ng.ru/projects/"
+    if [ ! -d "$DIR/$VHOST" ]; then
+        mkdir -p $DIR/$VHOST
+
+        mariaInstall=`yum list installed | grep "mariadb\."`
+        if [ -z "$mariaInstall" ]; then
+            yum install mysql -y
+        fi
+
+        RESULT=`mysqlshow -h$database_host -uroot -p$pass | grep -v Wildcard | grep -o $database_name`
+
+        if [ ! "$RESULT" == "$database_name" ]; then
+             chmod +x /usr/local/bin/init.sql
+             init.sql $pass $database_host $database_name $database_user $database_password
+             chmod -x /usr/local/bin/init.sql
+        fi
+
+        tar -xvzf /opt/WWW/${VERSION}/mattermost.tar.gz -C $DIR
+
+        if [ -z "$mariaInstall" ]; then
+            yum remove mysql -y
+        fi
+    fi
+fi
