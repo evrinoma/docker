@@ -280,7 +280,7 @@ services:
                 - database_user=mattermost
                 - database_password=mattermost
         ports:
-            - 172.20.1.78:80:8065
+            - 172.20.1.78:443:443
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:

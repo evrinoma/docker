@@ -31,6 +31,12 @@ if [ ! -z "$pass" ]; then
         sed -i -e '1,/"DriverName":/ s/\("DriverName": "\).*/\1mysql",/'  $DIR/$VHOST/config.json
         sed -i -e "s@\(\"DataSource\": \"\).*@\1${database_user}\:${database_password}\@tcp\(${database_host}:${database_port}\)\/${database_name}\?charset\=utf8mb4\,utf8\",@" $DIR/$VHOST/config.json
 
+        MATTERMOST_DIR="/opt/WWW/container.ite-ng.ru/project/${VHOST}/${VERSION}"
+        CLIENT_PLUGIN=$MATTERMOST_DIR/client/plugins
+        PLUGIN=$MATTERMOST_DIR/plugins
+        sed -i -e "s@\(\"ClientDirectory\": \"\).*@\1${CLIENT_PLUGIN}\",@" $DIR/$VHOST/config.json
+        sed -i -e "s@\(\"Directory\": \"\.\/plugins\").*@${PLUGIN}\",@" $DIR/$VHOST/config.json
+
         if [ -z "$mariaInstall" ]; then
             yum remove mysql -y
         fi

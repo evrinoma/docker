@@ -5,8 +5,8 @@ MAINTAINER \
 	evrinoma@gmail.com
 
 LABEL \
-	name="evrinoma Matermost Image" \
-	image="matermost" \
+	name="evrinoma MatterMost Image" \
+	image="mattermost" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2021-01-25"
@@ -19,23 +19,21 @@ ONBUILD ARG	database_name=''
 ONBUILD ARG	database_user=''
 ONBUILD ARG	database_password=''
 
-RUN	yum -y install mc wget && \
-	yum -y install httpd && \
-	yum -y install iproute;
+RUN	dnf -y install mc wget httpd  iproute nginx mod_ssl
 
 RUN	dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
 	dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 
-RUN	yum -y install gcc \
+RUN	dnf -y install gcc \
 	make \
 	glibc-langpack-en;
 
-RUN	yum -y install git \
+RUN	dnf -y install git \
 	passwd \
 	supervisor \
 	openssh-server;
 
-RUN	yum -y install \
+RUN	dnf -y install \
 	telnet \
 	exim.x86_64 \
 	mailx \
@@ -66,9 +64,21 @@ RUN	mkdir -p /run/supervisor/ && \
 ##mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
+RUN	yum -y install mod_ssl && \
+	mv /etc/httpd/conf.d/ssl.conf{,.bak} && \
+	sed -n '1,/<Virtual/ p' /etc/httpd/conf.d/ssl.conf.bak >> /etc/httpd/conf.d/ssl.conf && sed -i '$ d' /etc/httpd/conf.d/ssl.conf && \
+	sed -n '/<\/Virtual/,$ p' /etc/httpd/conf.d/ssl.conf.bak > /etc/httpd/conf.d/ssl.conf.end && sed -i '1d' /etc/httpd/conf.d/ssl.conf.end && \
+	cat /etc/httpd/conf.d/ssl.conf.end >> /etc/httpd/conf.d/ssl.conf && rm -f /etc/httpd/conf.d/ssl.conf.end && \
+	mv -v /etc/httpd/conf.d/welcome.conf{,.bak} && \
+	echo  -e "<?php\\n header('Location: https://'.\$_SERVER['HTTP_HOST'].'/');\\n "  > /var/www/html/index.php
+
+RUN mkdir -p /etc/pki/nginx/mattermost/
+
+ADD mattermost.nginx.conf /etc/nginx/conf.d
+ADD mattermost.httpd.conf /etc/httpd/conf.d/vhost.conf
 ADD init.install /usr/local/bin
 ADD init.sql /usr/local/bin
 RUN chmod +x /usr/local/bin/init.install
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
-EXPOSE 22 8065
+EXPOSE 22 80 443
