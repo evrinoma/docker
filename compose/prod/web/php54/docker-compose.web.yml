@@ -5,7 +5,7 @@ services:
         image: "evrinoma/db.maria.web"
         hostname: "maria.db.web"
         build:
-            context: docker/db/maria/web/.
+            context: docker/db/maria/web/5.5.65/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/docker/src/db/maria/:/var/lib/mysql"

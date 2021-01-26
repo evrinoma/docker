@@ -5,7 +5,7 @@ services:
         image: "evrinoma/db.maria.web"
         hostname: "maria.db.web"
         build:
-            context: docker/db/maria/web/.
+            context: docker/db/maria/5.5.65/web/.
             dockerfile: Dockerfile
         ports:
             - "172.16.45.15:3306:3306/tcp"

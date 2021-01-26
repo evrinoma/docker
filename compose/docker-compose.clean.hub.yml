@@ -5,7 +5,7 @@ services:
         image: "evrinoma/db.maria.public"
         hostname: "maria.db.public"
         build:
-            context: docker/db/maria/public/.
+            context: docker/db/maria/public/5.5.65/.
             dockerfile: Dockerfile
         networks:
             - virt

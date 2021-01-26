@@ -1,5 +1,5 @@
 #!/bin/bash
-#docker build -t evrinoma/db.maria ../../docker/db/maria/.
+#docker build -t evrinoma/db.maria ../../docker/db/maria/5.5.65/.
 #docker build -t evrinoma/php72 ../../docker/php72/.
 #docker build -t evrinoma/php72.asterisk17 ../../docker/php72/sites/freepbx/asterisk17/.
 docker build -t evrinoma/php72.asterisk13 ../../docker/php72/sites/freepbx/asterisk13/.

@@ -19,7 +19,7 @@ services:
         container_name: "db.maria"
         image: evrinoma/db.maria
 #        build:
-#            context: ../../docker/db/maria/.
+#            context: ../../docker/db/maria/5.5.65/.
 #            dockerfile: Dockerfile
         ports:
             - 0.0.0.0:3333:3306

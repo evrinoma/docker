@@ -7,7 +7,7 @@ services:
         ports:
             - "172.16.45.5:3306:3306/tcp"
         build:
-            context: docker/db/maria/.
+            context: docker/db/maria/5.5.65/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/docker/src/db/maria/:/var/lib/mysql"

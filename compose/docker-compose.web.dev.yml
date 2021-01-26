@@ -4,7 +4,7 @@ services:
         container_name: "maria.db"
         image: "evrinoma/db.maria"
         build:
-            context: docker/db/maria/.
+            context: docker/db/maria/5.5.65/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"

@@ -1,8 +1,5 @@
 #!/bin/bash
-docker build -t evrinoma/db.maria ../../../docker/db/maria/.
-
+docker build -t evrinoma/db.maria ../../../docker/db/maria/5.5.65/.
 docker build -t evrinoma/kurento ../../../docker/kurento/.
-
 docker build -t evrinoma/openmeetings ../../../docker/openmeetings/.
-
 docker build -t evrinoma/turn ../../../docker/turn/.
