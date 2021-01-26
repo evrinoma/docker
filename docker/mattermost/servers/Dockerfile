@@ -20,6 +20,12 @@ RUN	echo "VERSION=${VERSION}" >> /etc/sysconfig/vhost && \
 	echo "database_password=${database_password}" >> /etc/sysconfig/vhost
 
 #mattermost
-RUN	mkdir -p /opt/WWW/${VERSION}
-RUN	wget http://releases.mattermost.com/${VERSION}/mattermost-${VERSION}-linux-amd64.tar.gz -O /opt/WWW/${VERSION}/mattermost.tar.gz
+RUN	mkdir -p /opt/WWW/${VERSION} && \
+    ln -s /opt/WWW/${VHOST}/bin/mattermost /usr/local/bin
+
+RUN	wget http://releases.mattermost.com/${VERSION}/mattermost-${VERSION}-linux-amd64.tar.gz -O /opt/WWW/${VERSION}/mattermost.tar.gz && \
+	tar -xvzf /opt/WWW/${VERSION}/mattermost.tar.gz -C /opt/WWW/
+
+RUN	mv /opt/WWW/${VHOST}/config/config.json{,.bak} && \
+    ln -s /opt/WWW/container.ite-ng.ru/conf/${VHOST}/config.json /opt/WWW/${VHOST}/config/config.json
 

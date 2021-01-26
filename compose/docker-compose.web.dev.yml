@@ -223,8 +223,8 @@ services:
         container_name: "1c.83.17.1851.api"
         image: "evrinoma/1c.83.17.1851.api"
         hostname: "api.1c.ite-ng.ru"
-        ports:
-            - "172.20.1.78:80:80/tcp"
+#        ports:
+#            - "172.20.1.78:80:80/tcp"
         build:
             context: docker/1c/servers/83.17.1851/api/.
             dockerfile: Dockerfile
@@ -279,6 +279,8 @@ services:
                 - database_port=3306
                 - database_user=mattermost
                 - database_password=mattermost
+        ports:
+            - 172.20.1.78:80:8065
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:

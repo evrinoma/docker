@@ -9,7 +9,7 @@ database_user=$(cat /etc/sysconfig/vhost | grep database_user | sed -r 's/.*=(.*
 database_password=$(cat /etc/sysconfig/vhost | grep database_password | sed -r 's/.*=(.*)$/\1/')
 
 if [ ! -z "$pass" ]; then
-    DIR="/opt/WWW/container.ite-ng.ru/projects/"
+    DIR="/opt/WWW/container.ite-ng.ru/conf/"
     if [ ! -d "$DIR/$VHOST" ]; then
         mkdir -p $DIR/$VHOST
 
@@ -26,7 +26,10 @@ if [ ! -z "$pass" ]; then
              chmod -x /usr/local/bin/init.sql
         fi
 
-        tar -xvzf /opt/WWW/${VERSION}/mattermost.tar.gz -C $DIR
+        cp /opt/WWW/${VHOST}/config/config.json.bak $DIR/${VHOST}/config.json
+#       sed -i -e "s@\(\"DriverName\": \"\).*@\1mysql\",@" $DIR/$VHOST/config.json
+        sed -i -e '1,/"DriverName":/ s/\("DriverName": "\).*/\1mysql",/'  $DIR/$VHOST/config.json
+        sed -i -e "s@\(\"DataSource\": \"\).*@\1${database_user}\:${database_password}\@tcp\(${database_host}:${database_port}\)\/${database_name}\?charset\=utf8mb4\,utf8\",@" $DIR/$VHOST/config.json
 
         if [ -z "$mariaInstall" ]; then
             yum remove mysql -y
