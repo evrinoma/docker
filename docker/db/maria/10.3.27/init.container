@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mysql_install_db --force --user=mysql --ldata=/var/lib/mysql/
+chown -R mysql.mysql /var/log/mariadb
+chown -R mysql.mysql /var/lib/mysql
