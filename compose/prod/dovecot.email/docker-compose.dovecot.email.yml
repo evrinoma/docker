@@ -104,7 +104,7 @@ services:
         ports:
             - "172.16.45.6:443:443/tcp"
         volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.200.31
