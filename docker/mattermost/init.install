@@ -7,11 +7,25 @@ database_port=$(cat /etc/sysconfig/vhost | grep database_port | sed -r 's/.*=(.*
 database_name=$(cat /etc/sysconfig/vhost | grep database_name | sed -r 's/.*=(.*)$/\1/')
 database_user=$(cat /etc/sysconfig/vhost | grep database_user | sed -r 's/.*=(.*)$/\1/')
 database_password=$(cat /etc/sysconfig/vhost | grep database_password | sed -r 's/.*=(.*)$/\1/')
-
+STORE="/opt/WWW/container.ite-ng.ru"
 if [ ! -z "$pass" ]; then
-    DIR="/opt/WWW/container.ite-ng.ru/conf/"
+    DIR=$STORE"/conf"
     if [ ! -d "$DIR/$VHOST" ]; then
         mkdir -p $DIR/$VHOST
+
+        if [ ! -d "$DIR/$VHOST/certs" ]; then
+            mkdir -p $DIR/${VHOST}/certs
+        fi
+
+        PROJECT=$STORE"/projects"
+        mkdir -p $PROJECT/${VHOST}/${VERSION}/config
+        mkdir -p $PROJECT/${VHOST}/${VERSION}/plugins
+        chmod -R 777 $PROJECT/${VHOST}/${VERSION}/plugins
+        mkdir -p $PROJECT/${VHOST}/${VERSION}/client/plugins
+        chmod -R 777 $PROJECT/${VHOST}/${VERSION}/client/plugins
+
+       cp -ar /opt/WWW/${VHOST}/client.bak/* $PROJECT/${VHOST}/${VERSION}/client/
+       cp -ar /opt/WWW/${VHOST}/config.bak/* $PROJECT/${VHOST}/${VERSION}/config/
 
         mariaInstall=`yum list installed | grep "mariadb\."`
         if [ -z "$mariaInstall" ]; then
@@ -26,16 +40,20 @@ if [ ! -z "$pass" ]; then
              chmod -x /usr/local/bin/init.sql
         fi
 
-        cp /opt/WWW/${VHOST}/config/config.json.bak $DIR/${VHOST}/config.json
+        cp $PROJECT/${VHOST}/${VERSION}/config/config.json{,.bak}
 #       sed -i -e "s@\(\"DriverName\": \"\).*@\1mysql\",@" $DIR/$VHOST/config.json
-        sed -i -e '1,/"DriverName":/ s/\("DriverName": "\).*/\1mysql",/'  $DIR/$VHOST/config.json
-        sed -i -e "s@\(\"DataSource\": \"\).*@\1${database_user}\:${database_password}\@tcp\(${database_host}:${database_port}\)\/${database_name}\?charset\=utf8mb4\,utf8\",@" $DIR/$VHOST/config.json
+        sed -i -e '1,/"DriverName":/ s/\("DriverName": "\).*/\1mysql",/'  $PROJECT/${VHOST}/${VERSION}/config/config.json
+        sed -i -e "s@\(\"DataSource\": \"\).*@\1${database_user}\:${database_password}\@tcp\(${database_host}:${database_port}\)\/${database_name}\?charset\=utf8mb4\,utf8\",@" $PROJECT/${VHOST}/${VERSION}/config/config.json
 
-        MATTERMOST_DIR="/opt/WWW/container.ite-ng.ru/project/${VHOST}/${VERSION}"
-        CLIENT_PLUGIN=$MATTERMOST_DIR/client/plugins
-        PLUGIN=$MATTERMOST_DIR/plugins
-        sed -i -e "s@\(\"ClientDirectory\": \"\).*@\1${CLIENT_PLUGIN}\",@" $DIR/$VHOST/config.json
-        sed -i -e "s@\(\"Directory\": \"\.\/plugins\").*@${PLUGIN}\",@" $DIR/$VHOST/config.json
+        MATTERMOST="/opt/WWW/"${VHOST}
+        CLIENT_PLUGIN=$MATTERMOST/client/plugins
+        PLUGIN=$MATTERMOST/plugins
+        sed -i -e "s@\(\"ClientDirectory\": \"\).*@\1${CLIENT_PLUGIN}\",@" $PROJECT/${VHOST}/${VERSION}/config/config.json
+        sed -i -e "s@\(\"Directory\": \".\/plugins\",\).*@\"Directory\": \"${PLUGIN}\",@" $PROJECT/${VHOST}/${VERSION}/config/config.json
+
+        ln -s $PROJECT/${VHOST}/${VERSION}/config $DIR/$VHOST
+        ln -s $PROJECT/${VHOST}/${VERSION}/client $DIR/$VHOST
+        ln -s $PROJECT/${VHOST}/${VERSION}/plugins $DIR/$VHOST
 
         if [ -z "$mariaInstall" ]; then
             yum remove mysql -y
