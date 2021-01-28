@@ -1,5 +1,5 @@
 #!/bin/bash
-docker build -t evrinoma/db.maria ../../../docker/db/maria/5.5.65/.
+docker build -t evrinoma/db.maria ../../../docker/db/maria/10.3.27/.
 
 docker build -t evrinoma/bind ../../../docker/bind/.
 
