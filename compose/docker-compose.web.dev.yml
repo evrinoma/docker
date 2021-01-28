@@ -279,8 +279,8 @@ services:
                 - database_port=3306
                 - database_user=mattermost
                 - database_password=mattermost
-        ports:
-            - 172.20.1.78:443:443
+#        ports:
+#            - 172.20.1.78:443:443
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
