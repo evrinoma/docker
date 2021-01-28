@@ -105,7 +105,8 @@ RUN	dnf install -y php-ldap \
     php-opcache \
     php-pecl-apcu-bc \
     php-pecl-memcache \
-    php-pecl-redis5
+    php-pecl-redis5 \
+    php-pecl-zip
 #    php-pecl-ds \
 #    php-pecl-ev \
 #    php-pecl-pq \
@@ -130,7 +131,6 @@ RUN	dnf install -y php-ldap \
 #    php-pecl-yaf \
 #    php-pecl-yar \
 #    php-pecl-yaz \
-#    php-pecl-zip \
 #    php-pecl-zmq \
 #    php-phalcon4 \
 #    php-componere \
