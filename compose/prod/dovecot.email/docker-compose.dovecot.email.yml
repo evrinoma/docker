@@ -85,6 +85,28 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.4.2
+#
+#    mattermost:
+#        container_name: "mattermost.5.31.0"
+#        image: "evrinoma/mattermost.5.31.0"
+#        build:
+#            context: docker/mattermost/servers/.
+#            dockerfile: Dockerfile
+#            args:
+#                - VERSION=5.31.0
+#                - VHOST=mattermost
+#                - database_host=172.18.2.1
+#                - database_name=mattermost
+#                - database_port=3306
+#                - database_user=mattermost
+#                - database_password=mattermost
+#        ports:
+#            - 172.20.1.78:443:443
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.200.31
 
 networks:
     virt:
