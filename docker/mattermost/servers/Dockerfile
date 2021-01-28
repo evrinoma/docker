@@ -23,8 +23,12 @@ RUN	echo "VERSION=${VERSION}" >> /etc/sysconfig/vhost && \
 RUN	mkdir -p /opt/WWW/${VERSION} && \
     ln -s /opt/WWW/${VHOST}/bin/mattermost /usr/local/bin
 
-RUN	curl -L http://releases.mattermost.com/${VERSION}/mattermost-${VERSION}-linux-amd64.tar.gz --output /opt/WWW/${VERSION}/mattermost.tar.gz && \
-    tar -xvzf /opt/WWW/${VERSION}/mattermost.tar.gz -C /opt/WWW/
+COPY install/mattermost-${VERSION}-linux-amd64.tar.gz /opt/WWW/${VERSION}/mattermost.tar.gz
+RUN ls -la /opt/WWW/${VERSION}
+RUN	if [ ! -f "/opt/WWW/${VERSION}/mattermost.tar.gz" ]; then curl -L http://releases.mattermost.com/${VERSION}/mattermost-${VERSION}-linux-amd64.tar.gz --output /opt/WWW/${VERSION}/mattermost.tar.gz ; fi
+
+#RUN	curl -L http://releases.mattermost.com/${VERSION}/mattermost-${VERSION}-linux-amd64.tar.gz --output /opt/WWW/${VERSION}/mattermost.tar.gz && \
+RUN    tar -xvzf /opt/WWW/${VERSION}/mattermost.tar.gz -C /opt/WWW/
 
 #   mv /opt/WWW/${VHOST}/config/config.json{,.bak} && \
 #    ln -s /opt/WWW/container.ite-ng.ru/conf/${VHOST}/config.json /opt/WWW/${VHOST}/config/config.json && \
