@@ -104,6 +104,7 @@ services:
                 - database_password=mattermost
         ports:
             - "172.16.45.6:443:443/tcp"
+            - "172.16.45.6:8443:443/tcp"
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
