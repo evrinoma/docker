@@ -4,7 +4,7 @@ docker build -t evrinoma/php80 ../../../docker/php80/.
 docker build -t evrinoma/php72 ../../../docker/php72/.
 docker build -t evrinoma/php53 ../../../docker/php53/.
 docker build -t evrinoma/1c ../../../docker/1c/.
-docker build -t evrinoma/1c.83.17.1549 ../../../docker/1c/servers/83.17.1549/.
+#docker build -t evrinoma/1c.83.17.1549 ../../../docker/1c/servers/83.17.1549/.
 docker build -t evrinoma/1c.83.17.1851 ../../../docker/1c/servers/83.17.1851/.
 docker build -t evrinoma/samba ../../../docker/samba/.
 docker build -t evrinoma/squid ../../../docker/squid/. --no-cache
