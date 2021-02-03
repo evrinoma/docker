@@ -222,5 +222,8 @@ RUN	chmod +x /usr/local/bin/reconfig
 ADD	restartHttpd /usr/local/bin/
 RUN	chmod +x /usr/local/bin/restartHttpd
 
+ADD	autoDevDeploy /usr/local/bin/
+RUN	chmod +x /usr/local/bin/autoDevDeploy
+
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
