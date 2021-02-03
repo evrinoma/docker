@@ -91,6 +91,8 @@ RUN	cp /etc/nsswitch.conf{,.bak} && \
 #	echo 'KRB5CCNAME=FILE:/run/samba/krb5cc_samba' >> /etc/profile.d/samba.sh && \
 #	echo 'export $KRB5CCNAME' >> /etc/profile.d/samba.sh
 
+COPY	smb.conf /etc/samba/smb.conf
+COPY	init.samba /usr/local/bin/init.samba
 COPY	init.samba /usr/local/bin/init.samba
 COPY	install/samba.credentials /etc/sysconfig/samba.credentials
 RUN	chmod +x /usr/local/bin/init.samba
