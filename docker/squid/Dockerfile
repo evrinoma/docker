@@ -25,8 +25,6 @@ COPY	init.container /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container && \
 	chmod 700 /usr/local/bin/reconfig
 
-
-
 #SQUID
 RUN	yum install squid -y
 
