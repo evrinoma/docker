@@ -1,0 +1,28 @@
+#!/bin/bash
+
+declare -A ARGS
+
+ARGS=( [DEPLOY]= [SYMFONY]=false [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [httpd_dir]= [httpd_conf]= )
+
+for KEY in "${!ARGS[@]}"; 
+do 
+    if [ ! -z $(printenv $KEY) ] ; then
+	ARGS[$KEY]=$(printenv $KEY)
+    fi
+done
+
+for KEY in "${!ARGS[@]}"; 
+do 
+    echo [$KEY] = ${ARGS[$KEY]}; 
+done
+
+if [ "${ARGS[MODE]}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
+
+if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_dir]}" && ! -z "${ARGS[httpd_conf]}" &&  -f "${ARGS[httpd_conf]}" ]] ; then
+	echo "DEPLOYING...."
+	echo "copy ${ARGS[httpd_conf]} to /etc/httpd/conf.d/"
+	cp ${ARGS[httpd_conf]} /etc/httpd/conf.d/deploy.conf
+	echo "permission apache.apache ${ARGS[httpd_dir]}"
+	chown -R apache.apache ${ARGS[httpd_dir]}
+	restartHttpd
+fi

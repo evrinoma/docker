@@ -47,26 +47,6 @@ services:
             virt:
                 ipv4_address: 172.18.72.6
 
-    php72_cont_master:
-        container_name: "php72.cont.master"
-        image: "evrinoma/php72.master.cont.ite-ng.ru"
-        build:
-            context: docker/php72/sites/cont/.
-            dockerfile: Dockerfile
-            args:
-                - VHOST=master
-                - database_host=172.18.2.1
-                - database_name=cont_master
-                - database_port=3306
-                - database_user=cont
-                - database_password=cont
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.72.25
-
     php74_tools:
         container_name: "php74.tools"
         image: "evrinoma/php74.tools"
@@ -131,32 +111,6 @@ services:
             virt:
                 ipv4_address: 172.18.53.4
 
-    php53_kis_new_nekeng_ru:
-        container_name: "php53.kisnew.nekeng"
-        image: "evrinoma/php53.kisnew.nekeng.ru"
-        build:
-            context: docker/php53/sites/kisnew/.
-            dockerfile: Dockerfile
-            args:
-                - VHOST=nekeng
-                - exchange=true
-                - database_host=172.18.2.1
-                - database_name=mh3itgr_nek_ng
-                - database_port=3306
-                - database_user=mh3itgr_ngdb
-                - database_password=147Fort21
-        cap_add:
-            - SYS_ADMIN
-        security_opt:
-            - apparmor:unconfined
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-            - "/opt/DISK/Develop/Docker/src/data_sftp_kis/external/:/opt/WWW/external/"
-        networks:
-            virt:
-                ipv4_address: 172.18.53.6
-
     ubuntu_gnome_wine:
         container_name: "ubuntu.wine.deploy"
         image: "evrinoma/ubuntu.wine.deploy"
@@ -218,24 +172,6 @@ services:
             virt:
                 ipv4_address: 172.18.74.31
 
-    1c_83_17_1851_api:
-        container_name: "1c.83.17.1851.api"
-        image: "evrinoma/1c.83.17.1851.api"
-        hostname: "api.1c.ite-ng.ru"
-#        ports:
-#            - "172.20.1.78:80:80/tcp"
-        build:
-            context: docker/1c/servers/83.17.1851/api/.
-            dockerfile: Dockerfile
-        extra_hosts:
-            - "iteng26:172.20.1.26"
-            - "1cdebug:172.20.1.94"
-        volumes:
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.83.171
-
     php80_tools:
         container_name: "php80.tools"
         image: "evrinoma/php80.tools"
@@ -264,27 +200,24 @@ services:
             virt:
                 ipv4_address: 172.18.80.32
 
-    mattermost:
-        container_name: "mattermost.5.31.0"
-        image: "evrinoma/mattermost.5.31.0"
+    php80_kolab_syncroton:
+        container_name: "php80.syncroton"
+        image: "evrinoma/php80.syncroton"
         build:
-            context: docker/mattermost/servers/.
+            context: docker/php80/.
             dockerfile: Dockerfile
-            args:
-                - VERSION=5.31.0
-                - VHOST=mattermost
-                - database_host=172.18.2.1
-                - database_name=mattermost
-                - database_port=3306
-                - database_user=mattermost
-                - database_password=mattermost
-#        ports:
-#            - 172.20.1.78:443:443
+        environment:
+            - DEPLOY=yes
+            - MODE=dev
+#            - httpd_conf=/opt/WWW/container.ite-ng.ru/projects/httpd/kolab-syncroton/sync.conf
+#            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/kolab-syncroton
+            - httpd_conf=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/vhost.conf
+            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.200.31
+                ipv4_address: 172.18.80.33
 
 networks:
     virt:

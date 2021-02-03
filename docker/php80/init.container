@@ -1,5 +1,7 @@
 #!/bin/bash
 
+autoDevDeploy
+
 chown -R apache.apache /var/log/httpd/
 chown -R apache.apache /opt/WWW/container.ite-ng.ru/projects/httpd/
 

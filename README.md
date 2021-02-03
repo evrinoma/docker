@@ -16,9 +16,18 @@ Folder - Docker/scripts
 - iptables - Forward external IP on local IPs.
 - permissions - 
 
+## AutoDeploy
+    PHP Docker images
+    environment:
+        - DEPLOY=yes - enable mode
+        - MODE=dev - remove xdebug
+        - httpd_conf=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/vhost.conf - path to config
+        - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api - path to folder
+
 ## Licence
 This is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. See <http://www.gnu.org/licenses/>.
 
 ## Thanks
+
 
 ## Done
