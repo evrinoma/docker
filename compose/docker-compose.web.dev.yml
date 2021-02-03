@@ -73,9 +73,8 @@ services:
         build:
             context: docker/php74/sites/tools/.
             dockerfile: Dockerfile
-#        ports:
-#            - 172.20.1.78:80:80
-#            - 80:80
+        ports:
+            - 172.20.1.78:80:80
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
