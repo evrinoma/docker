@@ -23,8 +23,9 @@ RUN	echo "VERSION=${VERSION}" >> /etc/sysconfig/vhost && \
 RUN	mkdir -p /opt/WWW/${VERSION} && \
     ln -s /opt/WWW/${VHOST}/bin/mattermost /usr/local/bin
 
-COPY install/mattermost-${VERSION}-linux-amd64.tar.gz /opt/WWW/${VERSION}/mattermost.tar.gz
-RUN ls -la /opt/WWW/${VERSION}
+COPY install /opt/WWW/${VERSION}/
+RUN ls -la /opt/WWW/${VERSION} && \
+    if [ -f "/opt/WWW/${VERSION}/mattermost-${VERSION}-linux-amd64.tar.gz" ]; then mv -v /opt/WWW/${VERSION}/mattermost-${VERSION}-linux-amd64.tar.gz /opt/WWW/${VERSION}/mattermost.tar.gz ; fi
 RUN	if [ ! -f "/opt/WWW/${VERSION}/mattermost.tar.gz" ]; then curl -L http://releases.mattermost.com/${VERSION}/mattermost-${VERSION}-linux-amd64.tar.gz --output /opt/WWW/${VERSION}/mattermost.tar.gz ; fi
 
 #RUN	curl -L http://releases.mattermost.com/${VERSION}/mattermost-${VERSION}-linux-amd64.tar.gz --output /opt/WWW/${VERSION}/mattermost.tar.gz && \
