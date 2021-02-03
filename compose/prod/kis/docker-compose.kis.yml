@@ -104,6 +104,7 @@ services:
                 - server_string=KIS_DOCKER
                 - server_IP=172.20.1.6, 172.20.1.20
                 - server_domain=ITE-NG.RU
+                - cache_time=60
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/data/external/:/opt/WWW/container.ite-ng.ru/"
