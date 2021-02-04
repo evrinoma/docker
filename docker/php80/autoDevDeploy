@@ -1,28 +1,79 @@
 #!/bin/bash
 
+createHttpdConfig() {
+DST_FILE=$1
+if [ ! -z "${DST_FILE}" ] ; then
+echo '####################################################
+### container.ite-ng.ru/###HTTPD_ALIAS
+####################################################
+<VirtualHost *:80>
+	Alias /###HTTPD_ALIAS ###HTTPD_DIR
+	ServerName ###HTTPD_SERVER
+	ServerAlias ###HTTPD_SERVER_ALIAS
+	ServerAdmin ###HTTPD_ADMIN_EMAIL
+	DocumentRoot "###HTTPD_DIR"
+	ErrorLog /var/log/httpd/error-###HTTPD_ALIAS.log
+	CustomLog /var/log/httpd/access-###HTTPD_ALIAS.log combined
+	<Directory "###HTTPD_DIR/">
+		AllowOverride All
+		Require all granted
+		<IfModule mod_rewrite.c>
+			Options -MultiViews
+			RewriteEngine On
+			RewriteCond %{REQUEST_FILENAME} !-f
+			RewriteRule ^(.*)$ index.php [QSA,L]
+		</IfModule>
+	</Directory>
+</VirtualHost>
+' > $DST_FILE
+fi
+}
+
 declare -A ARGS
 
-ARGS=( [DEPLOY]= [SYMFONY]=false [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [httpd_dir]= [httpd_conf]= )
+ARGS=( [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [httpd_dir]= [httpd_conf]= [httpd_server]= [httpd_server_alias]= [httpd_alias]= [httpd_admin_email]=nikolns@ite-ng.ru )
 
-for KEY in "${!ARGS[@]}"; 
-do 
+for KEY in "${!ARGS[@]}";
+do
     if [ ! -z $(printenv $KEY) ] ; then
 	ARGS[$KEY]=$(printenv $KEY)
     fi
 done
 
-for KEY in "${!ARGS[@]}"; 
-do 
-    echo [$KEY] = ${ARGS[$KEY]}; 
+if [ -z "${ARGS[httpd_server_alias]}" ]; then
+    ARGS[httpd_server_alias]=php$(php -v | sed -e "/^PHP/!d" -e "s/.* \([0-9]\+\.[0-9]\+\.[0-9]\+\).*$/\1/" -e "s/\(.*\)[0-9])*/\1/" -e "s/[^0-9]//g").${ARGS[httpd_alias]}
+fi
+
+for KEY in "${!ARGS[@]}";
+do
+    echo [$KEY] = ${ARGS[$KEY]};
 done
 
 if [ "${ARGS[MODE]}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
 
-if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_dir]}" && ! -z "${ARGS[httpd_conf]}" &&  -f "${ARGS[httpd_conf]}" ]] ; then
-	echo "DEPLOYING...."
-	echo "copy ${ARGS[httpd_conf]} to /etc/httpd/conf.d/"
-	cp ${ARGS[httpd_conf]} /etc/httpd/conf.d/deploy.conf
-	echo "permission apache.apache ${ARGS[httpd_dir]}"
-	chown -R apache.apache ${ARGS[httpd_dir]}
-	restartHttpd
+if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_dir]}" ]] ; then
+	if [[  ! -z "${ARGS[httpd_conf]}" &&  -f "${ARGS[httpd_conf]}" ]] ; then
+		echo "DEPLOYING...."
+		echo "copy ${ARGS[httpd_conf]} to /etc/httpd/conf.d/"
+		cp ${ARGS[httpd_conf]} /etc/httpd/conf.d/vhost.conf
+		echo "permission apache.apache ${ARGS[httpd_dir]}"
+		chown -R apache.apache ${ARGS[httpd_dir]}
+		restartHttpd
+		exit 0
+	fi
+	if [[  ! -z "${ARGS[SYMFONY]}" &&  ! -z "${ARGS[httpd_server]}" && ! -z "${ARGS[httpd_alias]}" ]] ; then
+		echo "DEPLOYING SYMFONY...."
+		createHttpdConfig /etc/httpd/conf.d/vhost.conf
+		#sed -i -e "s@###HTTPD_ALIAS@${ARGS[httpd_alias]}@g" /etc/httpd/conf.d/vhost.conf
+        #sed -i -e "s@###HTTPD_SERVER_ALIAS@${ARGS[httpd_server_alias]}@g" /etc/httpd/conf.d/vhost.conf
+        #sed -i -e "s@###HTTPD_SERVER@${ARGS[httpd_server]}@g" /etc/httpd/conf.d/vhost.conf
+        #sed -i -e "s@###HTTPD_DIR@${ARGS[httpd_dir]}@g" /etc/httpd/conf.d/vhost.conf
+        #sed -i -e "s/###HTTPD_ADMIN_EMAIL/${ARGS[httpd_admin_email]}/g" /etc/httpd/conf.d/vhost.conf
+		sed -i -e "s@###HTTPD_ALIAS@${ARGS[httpd_alias]}@g" -i -e "s@###HTTPD_SERVER_ALIAS@${ARGS[httpd_server_alias]}@g" -i -e "s@###HTTPD_SERVER@${ARGS[httpd_server]}@g" -i -e "s@###HTTPD_DIR@${ARGS[httpd_dir]}@g" -i -e "s/###HTTPD_ADMIN_EMAIL/${ARGS[httpd_admin_email]}/g" /etc/httpd/conf.d/vhost.conf
+		echo "permission apache.apache ${ARGS[httpd_dir]}"
+		chown -R apache.apache ${ARGS[httpd_dir]}/..
+		restartHttpd
+		exit 0
+	fi
 fi
+
