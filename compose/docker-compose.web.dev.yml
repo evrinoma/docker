@@ -53,8 +53,8 @@ services:
         build:
             context: docker/php74/sites/tools/.
             dockerfile: Dockerfile
-        ports:
-            - 172.20.1.78:80:80
+#        ports:
+#            - 172.20.1.78:80:80
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
@@ -223,7 +223,7 @@ services:
 #                ipv4_address: 172.18.80.32
 
     php80_businesscenter:
-        container_name: "php80.businesscenter"
+        container_name: "php80.bc"
         image: "evrinoma/php80"
         environment:
             - DEPLOY=yes
@@ -238,21 +238,41 @@ services:
             virt:
                 ipv4_address: 172.18.80.32
 
-    php80_kolab_syncroton:
-        container_name: "php80.syncroton"
-        image: "evrinoma/php80"
-        environment:
-            - DEPLOY=yes
-            - MODE=dev
+#    php74_kolab_syncroton:
+#        container_name: "php74.syncroton"
+#        image: "evrinoma/php74"
+#        environment:
+#            - DEPLOY=yes
+#            - MODE=dev
 #            - httpd_conf=/opt/WWW/container.ite-ng.ru/projects/httpd/kolab-syncroton/sync.conf
 #            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/kolab-syncroton
-            - httpd_conf=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/vhost.conf
-            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api
+##            - httpd_conf=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/vhost.conf
+##            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api
+#        ports:
+#            - 172.20.1.78:80:80
+#        volumes:
+#            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.80.33
+
+
+    php74_clean:
+        container_name: "php74.clean"
+        image: "evrinoma/php74"
+        environment:
+            - DEPLOY=yes
+            - SYMFONY=yes
+            - MODE=dev
+            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/clean/public
+            - httpd_server=php74.clean
+            - httpd_alias=clean
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
         networks:
             virt:
-                ipv4_address: 172.18.80.33
+                ipv4_address: 172.18.74.26
 
 networks:
     virt:
