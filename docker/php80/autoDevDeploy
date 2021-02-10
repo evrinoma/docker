@@ -53,6 +53,16 @@ done
 if [ "${ARGS[MODE]}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
 
 if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_dir]}" ]] ; then
+  if [ ! -z "${ARGS[NODEJS]}" ] ; then
+	    STATUS=$(curl -Is https://rpm.nodesource.com/setup_${ARGS[NODEJS]}.x | head -1 | grep "200")
+	  	if [ ! -z "${STATUS}" ] ; then
+        RUN	rm -rf /var/cache/yum && \
+        yum remove -y nodejs && \
+        yum clean all && \
+        curl --silent --location https://rpm.nodesource.com/setup_${ARGS[NODEJS]}.x | bash -  && \
+        yum install -y nodejs yarn
+      fi
+	fi
 	if [[  ! -z "${ARGS[httpd_conf]}" &&  -f "${ARGS[httpd_conf]}" ]] ; then
 		echo "DEPLOYING...."
 		echo "copy ${ARGS[httpd_conf]} to /etc/httpd/conf.d/"
@@ -60,6 +70,7 @@ if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_d
 		echo "permission apache.apache ${ARGS[httpd_dir]}"
 		chown -R apache.apache ${ARGS[httpd_dir]}
 		restartHttpd
+
 		exit 0
 	fi
 	if [[  ! -z "${ARGS[SYMFONY]}" &&  ! -z "${ARGS[httpd_server]}" && ! -z "${ARGS[httpd_alias]}" ]] ; then
@@ -75,17 +86,6 @@ if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_d
 		chown -R apache.apache ${ARGS[httpd_dir]}/..
 		restartHttpd
 		exit 0
-	fi
-
-	if [ ! -z "${ARGS[NODEJS]}" ] ; then
-	    STATUS=$(curl -Is https://rpm.nodesource.com/setup_${ARGS[NODEJS]}.x | head -1 | grep "200")
-	  	if [ ! -z "${STATUS}" ] ; then
-        RUN	rm -rf /var/cache/yum && \
-        yum remove -y nodejs && \
-        yum clean all && \
-        curl --silent --location https://rpm.nodesource.com/setup_${ARGS[NODEJS]}.x | bash -  && \
-        yum install -y nodejs yarn
-      fi
 	fi
 fi
 
