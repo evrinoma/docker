@@ -19,6 +19,7 @@ services:
     php53_kis_ite-ng_ru:
         container_name: "php53.kis.ite-ng"
         image: "evrinoma/php53.kis.ite-ng.ru"
+        hostname: "kis.ite-ng.ru"
         cap_add:
             - SYS_ADMIN
         security_opt:
@@ -55,6 +56,7 @@ services:
                 - database_port=3306
                 - database_user=mh3itgr_ngdb
                 - database_password=147Fort21
+        hostname: "kis.ite-ng.local"
         cap_add:
             - SYS_ADMIN
         security_opt:
