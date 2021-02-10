@@ -187,6 +187,7 @@ services:
     php53_kis_nekeng_ru:
         container_name: "php53.kis.nekeng"
         image: "evrinoma/php53.kis.nekeng.ru"
+        hostname: "kis.nekeng.ru"
         cap_add:
             - SYS_ADMIN
         security_opt:
@@ -223,6 +224,7 @@ services:
                 - database_port=3306
                 - database_user=mh3itgr_ngdb
                 - database_password=147Fort21
+        hostname: "kis.nekeng.local"
         cap_add:
             - SYS_ADMIN
         security_opt:
