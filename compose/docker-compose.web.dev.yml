@@ -229,11 +229,13 @@ services:
             - DEPLOY=yes
             - MODE=dev
             - SYMFONY=yes
+            - NODEJS=10
             - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/businesscenter/public
             - httpd_server=php80.bc
             - httpd_alias=bc
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
         networks:
             virt:
                 ipv4_address: 172.18.80.32
@@ -264,6 +266,7 @@ services:
             - DEPLOY=yes
             - SYMFONY=yes
             - MODE=dev
+            - NODEJS=10
             - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/clean/public
             - httpd_server=php74.clean
             - httpd_alias=clean

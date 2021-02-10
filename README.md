@@ -22,6 +22,7 @@ PHP images only for developer mode
     environment:
         - DEPLOY=yes - enable mode
         - MODE=dev - remove xdebug if value prod
+        - NODEJS= - version nodejs
         - httpd_conf=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/vhost.conf - path to config
         - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api - path to folder
 
@@ -31,6 +32,7 @@ or
         - DEPLOY=yes - enable mode
         - SYMFONY=yes - only for symfony app
         - MODE=dev - remove xdebug if value prod
+        - NODEJS= - version nodejs
         - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public - path to public folder
         - httpd_server=my.dns.name - server name you could set it in /etc/hosts
         - httpd_alias=alias - short server name                        
