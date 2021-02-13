@@ -27,6 +27,10 @@
 	ServerAlias /roundcubemail
 	ErrorLog /var/log/httpd/error-roundcubemail.log
 	CustomLog /var/log/httpd/access-roundcubemail.log combined
+	
+	Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+	Header always set Expect-CT "enforce, max-age=300, report-uri='https://email.ite-ng.ru/'"
+	
 <Files ~ "\.(cgi|shtml|phtml|php3?)$">
     SSLOptions +StdEnvVars
     </Files>
