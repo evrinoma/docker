@@ -58,7 +58,11 @@ else
   done
 fi
 
-if [ "${ARGS[MODE]}" == "prod" ]; then echo "." && rm -rf /etc/php.d/xdebug.ini ; fi
+if [ "${ARGS[MODE]}" == "prod" ]; then
+  echo ".";
+  rm -rf /etc/php.d/xdebug.ini ;
+  rm -rf /root/src ;
+fi
 
 if [ ! -z "${ARGS[YUM]}" ]; then echo "." && rpm -e --nodeps yum ; fi
 
