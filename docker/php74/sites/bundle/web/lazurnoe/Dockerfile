@@ -11,8 +11,8 @@ LABEL \
 	license="MIT" \
 	build-date="2019-11-14"
 
-COPY	install/lazurnoe.tar.gz /root/
-ADD	nekeng/init.install /usr/local/bin
+COPY	install/lazurnoe.tar.gz /root/src
+COPY	nekeng/init.install /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
 COPY	lazurnoe.conf /etc/httpd/conf.d/vhost.conf
