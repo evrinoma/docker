@@ -1,0 +1,13 @@
+chown -R root.root /opt/WWW/container.ite-ng.ru/projects/httpd/ipark45.ru/.git
+chown -R root.root /opt/WWW/container.ite-ng.ru/projects/httpd/ite-ng.ru/.git
+chown -R root.root /opt/WWW/container.ite-ng.ru/projects/httpd/kzkt45.ru/.git
+chown -R root.root /opt/WWW/container.ite-ng.ru/projects/httpd/nekeng.ru/.git
+chown -R root.root /opt/WWW/container.ite-ng.ru/projects/httpd/vargashi45.ru/.git
+chown -R root.root /opt/WWW/container.ite-ng.ru/projects/httpd/kpsz.ru/.git
+
+chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/httpd/ipark45.ru/.git
+chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/httpd/ite-ng.ru/.git
+chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/httpd/kzkt45.ru/.git
+chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/httpd/nekeng.ru/.git
+chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/httpd/vargashi45.ru/.git
+chmod -R 640 /opt/WWW/container.ite-ng.ru/projects/httpd/kpsz.ru/.git
