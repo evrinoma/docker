@@ -8,8 +8,8 @@ if [ ! -z "$pass" ]; then
 	DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/vargashi45.ru"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
-		tar -zxf /root/vargashi45.sql.tar.gz -C /root
-		tar -zxf /root/vargashi45.tar.gz -C $DIR
+		tar -zxf /root/src/vargashi45.sql.tar.gz -C /root
+		tar -zxf /root/src/vargashi45.tar.gz -C $DIR
 		mv $DIR/vargashi45.ru/*  $DIR/vargashi45.ru/.[^.]* $DIR/
 		rm -rf $DIR/vargashi45.ru/
 		chown apache:apache -R $DIR

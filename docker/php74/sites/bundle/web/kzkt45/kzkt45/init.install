@@ -8,8 +8,8 @@ if [ ! -z "$pass" ]; then
 	DIR="/opt/WWW/container.ite-ng.ru/projects/httpd/kzkt45.ru"
 	if [ ! -d "$DIR" ]; then
 		mkdir -p $DIR
-		tar -zxf /root/kzkt45.sql.tar.gz -C /root
-		tar -zxf /root/kzkt45.tar.gz -C $DIR
+		tar -zxf /root/src/kzkt45.sql.tar.gz -C /root
+		tar -zxf /root/src/kzkt45.tar.gz -C $DIR
 		mv $DIR/kzkt45.ru/*  $DIR/kzkt45.ru/.[^.]* $DIR/
 		rm -rf $DIR/kzkt45.ru/
 		chown apache:apache -R $DIR

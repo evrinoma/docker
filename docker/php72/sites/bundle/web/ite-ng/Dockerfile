@@ -11,10 +11,10 @@ LABEL \
 	license="MIT" \
 	build-date="2019-11-14"
 
-COPY	install/ite-ng.sql.tar.gz /root/
-COPY	install/ite-ng.tar.gz /root/
-ADD	ite-ng/init.install /usr/local/bin
-ADD	ite-ng/init.sql /usr/local/bin
+COPY	install/ite-ng.sql.tar.gz /root/src
+COPY	install/ite-ng.tar.gz /root/src
+COPY	ite-ng/init.install /usr/local/bin
+COPY	ite-ng/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
 COPY	ite-ng.conf /etc/httpd/conf.d/vhost.conf

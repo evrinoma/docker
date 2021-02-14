@@ -4,8 +4,8 @@ serverSql=$2
 base=$3
 user=$4
 basepass=$5
-INIT_SQL="/root/init.sql"
-SERVER_SQL="/root/site_ipark45_ru_new_db.sql"
+INIT_SQL="/root/src/init.sql"
+SERVER_SQL="/root/src/site_ipark45_ru_new_db.sql"
 	echo "
 	CREATE DATABASE \`$base\`;
 	CREATE USER '$user'@'localhost' IDENTIFIED BY '$basepass';
