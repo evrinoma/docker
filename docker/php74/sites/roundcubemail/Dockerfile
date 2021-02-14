@@ -49,5 +49,6 @@ RUN	sed -i -e "s@upload_max_filesize = 4096M@upload_max_filesize = 64M@g" /etc/p
 
 RUN	sed -i "s@pm.max_children =\(.*\)@pm.max_children = 500@g" /etc/php-fpm.d/www.conf
 
+RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
 
 EXPOSE 443
