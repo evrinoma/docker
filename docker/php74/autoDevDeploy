@@ -31,8 +31,9 @@ fi
 
 declare -A ARGS
 
-ARGS=( [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [httpd_dir]= [httpd_conf]= [httpd_server]= [httpd_server_alias]= [httpd_alias]= [httpd_admin_email]=nikolns@ite-ng.ru [NODEJS]= )
+ARGS=( [SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [httpd_dir]= [httpd_conf]= [httpd_server]= [httpd_server_alias]= [httpd_alias]= [httpd_admin_email]=nikolns@ite-ng.ru [NODEJS]= )
 STATUS=''
+FILE_NAME=sys.credentials
 
 for KEY in "${!ARGS[@]}";
 do
@@ -45,12 +46,26 @@ if [ -z "${ARGS[httpd_server_alias]}" ]; then
     ARGS[httpd_server_alias]=php$(php -v | sed -e "/^PHP/!d" -e "s/.* \([0-9]\+\.[0-9]\+\.[0-9]\+\).*$/\1/" -e "s/\(.*\)[0-9])*/\1/" -e "s/[^0-9]//g").${ARGS[httpd_alias]}
 fi
 
-for KEY in "${!ARGS[@]}";
-do
-    echo [$KEY] = ${ARGS[$KEY]};
-done
+if [ ! -z "${ARGS[SHOW]}" ]; then
+  for KEY in "${!ARGS[@]}";
+  do
+      echo [$KEY] = ${ARGS[$KEY]};
+  done
+else
+  for KEY in "${!ARGS[@]}";
+  do
+      unset $KEY
+  done
+fi
 
-if [ "${ARGS[MODE]}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
+if [ "${ARGS[MODE]}" == "prod" ]; then echo "." && rm -rf /etc/php.d/xdebug.ini ; fi
+
+if [ ! -z "${ARGS[YUM]}" ]; then echo "." && rpm -e --nodeps yum ; fi
+
+if [[ ! -z "${ARGS[PASSWD]}" && -d "/root/install" && -f "/root/install/${FILE_NAME}" ]] ; then
+  echo "."
+  echo $(cat /root/install/${FILE_NAME} | grep PASSWD | sed -r 's/.*=(.*)$/\1/') | passwd --stdin root > /dev/null
+fi
 
 if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_dir]}" ]] ; then
   if [ ! -z "${ARGS[NODEJS]}" ] ; then
@@ -89,3 +104,4 @@ if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_d
 	fi
 fi
 
+rm -rf /root/install
