@@ -64,7 +64,7 @@ if [ "${ARGS[MODE]}" == "prod" ]; then
   rm -rf /root/src
   for value in "$(ls /usr/local/bin/ | grep -ve 'container' | grep 'init.')" ;
   do
-     rm -rf /root/src/$value
+     rm -rf /usr/local/bin/$value
   done
   echo '' > /root/.bash_history
 fi
