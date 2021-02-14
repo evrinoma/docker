@@ -192,17 +192,19 @@ RUN	npm config set strict-ssl false && npm install -g n && n 6.17.1
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
 	touch /etc/crontab.apache
-ADD	reconfig /usr/local/bin/
+COPY	reconfig /usr/local/bin/
 RUN	chmod +x /usr/local/bin/reconfig
 
 #webpack
 RUN	npm install -g webpack webpack-cli;
 
-ADD	restartHttpd /usr/local/bin/
+COPY	restartHttpd /usr/local/bin/
 RUN	chmod +x /usr/local/bin/restartHttpd
 
-ADD	autoDevDeploy /usr/local/bin/
+COPY	autoDevDeploy /usr/local/bin/
 RUN	chmod +x /usr/local/bin/autoDevDeploy
+
+COPY    install/ /root/install
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
