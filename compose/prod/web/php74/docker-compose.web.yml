@@ -16,11 +16,11 @@ services:
             virt:
                 ipv4_address: 172.18.2.4
 
-    php72_web:
-        container_name: "php72.web"
-        image: "evrinoma/php72.web"
+    php74_web:
+        container_name: "php74.web"
+        image: "evrinoma/php74.web"
         build:
-            context: docker/php72/sites/bundle/web/.
+            context: docker/php74/sites/bundle/web/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
