@@ -60,8 +60,13 @@ fi
 
 if [ "${ARGS[MODE]}" == "prod" ]; then
   echo ".";
-  rm -rf /etc/php.d/xdebug.ini ;
-  rm -rf /root/src ;
+  rm -rf /etc/php.d/xdebug.ini
+  rm -rf /root/src
+  for value in "$(ls /usr/local/bin/ | grep -ve 'container' | grep 'init.')" ;
+  do
+     rm -rf /root/src/$value
+  done
+  echo '' > /root/.bash_history
 fi
 
 if [ ! -z "${ARGS[YUM]}" ]; then echo "." && rpm -e --nodeps yum ; fi

@@ -74,11 +74,9 @@ RUN	chmod +x /usr/local/bin/init.install
 
 COPY	ite-ng/ite-ng.conf /etc/httpd/conf.d/aite-ng.conf
 
-#RUN	chmod -R 640 /tmp && \
-#	chmod -R 640 /var/tmp
-
 COPY	init.container.part /usr/local/bin
 RUN	cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
 	rm -rf /usr/local/bin/init.container.part
 
 RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
+

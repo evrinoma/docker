@@ -27,6 +27,7 @@ services:
         environment:
             - PASSWD=pass
             - YUM=true
+            - MODE=prod
         ports:
             - "172.16.45.15:80:80/tcp"
             - "172.16.45.15:443:443/tcp"
