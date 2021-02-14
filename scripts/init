@@ -1,0 +1,22 @@
+#!/bin/bash
+
+PREFIX=PASSWD=
+FILE_NAME=sys.credentials
+STR_LENGTH=18
+FOLDER=../docker
+
+#declare -A ARGS
+
+ARGS=( php74/install php72/install php80/install php53/install )
+
+for SUB in ${ARGS[*]} ;
+do
+  VALUE=$(openssl rand -base64 $STR_LENGTH)
+  if [ ! -d "$FOLDER/$SUB" ] ; then
+    mkdir $FOLDER/$SUB
+  fi
+  echo $PREFIX$VALUE > $FOLDER/$SUB/$FILE_NAME
+done
+
+
+
