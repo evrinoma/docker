@@ -43,21 +43,25 @@ services:
     php74_roundcubemail:
         container_name: "php74.roundcubemail"
         image: "evrinoma/php74.roundcubemail"
-        hostname: "email.ite-ng.ru"
-        ports:
-            - "172.16.45.4:80:80/tcp"
-            - "172.16.45.4:443:443/tcp"
-            - "172.16.45.4:12001:22"
         build:
             context: docker/php74/sites/roundcubemail/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
                 - VERSION=1.3.16
-#                - VERSION=1.3.15
-#                - VERSION=1.4.3
-#                - VERSION=1.4.9
-#                - VERSION=1.4.10
+        #                - VERSION=1.3.15
+        #                - VERSION=1.4.3
+        #                - VERSION=1.4.9
+        #                - VERSION=1.4.10
+        environment:
+            - PASSWD=pass
+            - YUM=true
+            - MODE=prod
+        hostname: "email.ite-ng.ru"
+        ports:
+            - "172.16.45.4:80:80/tcp"
+            - "172.16.45.4:443:443/tcp"
+            - "172.16.45.4:12001:22"
         volumes:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
@@ -67,6 +71,9 @@ services:
     mail_dovecot_email:
         container_name: "dovecot.email"
         image: "evrinoma/dovecot.email"
+        build:
+            context: docker/mail/dovecot/servers/email/.
+            dockerfile: Dockerfile
         hostname: "email.ite-ng.ru"
         dns: 172.18.5.2
         ports:
@@ -78,9 +85,6 @@ services:
             - "172.16.45.4:995:995/tcp"
             - "172.16.45.4:4190:4190/tcp"
             - "172.16.45.4:8010:80/tcp"
-        build:
-            context: docker/mail/dovecot/servers/email/.
-            dockerfile: Dockerfile
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
