@@ -62,7 +62,7 @@ if [ "${ARGS[MODE]}" == "prod" ]; then
   echo ".";
   rm -rf /etc/php.d/xdebug.ini
   rm -rf /root/src
-  for value in "$(ls /usr/local/bin/ | grep -ve 'container' | grep 'init.')" ;
+  for value in $(ls /usr/local/bin/ | grep -ve 'container' | grep 'init.') ;
   do
      rm -rf /usr/local/bin/$value
   done
