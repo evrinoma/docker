@@ -11,8 +11,8 @@ LABEL \
 	license="MIT" \
 	build-date="2019-11-14"
 
-COPY	install/vargashi45.sql.tar.gz /root/src
-COPY	install/vargashi45.tar.gz /root/src
+COPY	install/vargashi45.sql.tar.gz /root/src/
+COPY	install/vargashi45.tar.gz /root/src/
 COPY	vargashi45/init.install /usr/local/bin
 COPY	vargashi45/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install

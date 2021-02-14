@@ -11,8 +11,8 @@ LABEL \
 	license="MIT" \
 	build-date="2019-11-14"
 
-COPY	install/kpsz.sql.tar.gz /root/src
-COPY	install/kpsz.tar.gz /root/src
+COPY	install/kpsz.sql.tar.gz /root/src/
+COPY	install/kpsz.tar.gz /root/src/
 COPY	kpsz/init.install /usr/local/bin
 COPY	kpsz/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install

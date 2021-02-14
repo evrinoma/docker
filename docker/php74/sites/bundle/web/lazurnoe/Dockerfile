@@ -11,7 +11,7 @@ LABEL \
 	license="MIT" \
 	build-date="2019-11-14"
 
-COPY	install/lazurnoe.tar.gz /root/src
+COPY	install/lazurnoe.tar.gz /root/src/
 COPY	nekeng/init.install /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
