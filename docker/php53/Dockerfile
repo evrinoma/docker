@@ -99,7 +99,7 @@ RUN	ACCEPT_EULA=Y yum -y install msodbcsql17
 #composer
 RUN	curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN	ls /usr/local/bin/
-RUN	ln -s /opt/WWW/container.ite-ng.ru/.composer /root/.composer
+RUN	ln -s /opt/WWW/container.ite-ng.ru/conf/.composer /root/.composer
 
 #git
 RUN	git config --global user.email "evrinoma@gmail.com" && \
