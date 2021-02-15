@@ -69,6 +69,7 @@ if [ "${ARGS[MODE]}" == "prod" ]; then
   echo '' > /root/.bash_history
   rm -rf /opt/WWW/container.ite-ng.ru/conf/.composer
   rm -rf /root/.composer
+  rm -rf /root/.gitconfig
 fi
 
 if [ ! -z "${ARGS[YUM]}" ]; then echo "." && rpm -e --nodeps yum ; fi
