@@ -139,8 +139,8 @@ services:
             dockerfile: Dockerfile
         environment:
             - MODE=dev
-            - PASSWD=pass
-            - YUM=true
+#            - PASSWD=pass
+#            - YUM=true
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
@@ -201,8 +201,8 @@ services:
             - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public
             - httpd_server=php80.cont.api
             - httpd_alias=cont.api
-            - PASSWD=pass
-            - YUM=true
+#            - PASSWD=pass
+#            - YUM=true
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
