@@ -31,7 +31,7 @@ fi
 
 declare -A ARGS
 
-ARGS=( [SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [httpd_dir]= [httpd_conf]= [httpd_server]= [httpd_server_alias]= [httpd_alias]= [httpd_admin_email]=nikolns@ite-ng.ru [NODEJS]= )
+ARGS=( [CERTS]= SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [httpd_dir]= [httpd_conf]= [httpd_server]= [httpd_server_alias]= [httpd_alias]= [httpd_admin_email]=nikolns@ite-ng.ru [NODEJS]= )
 STATUS=''
 FILE_NAME=sys.credentials
 
@@ -67,6 +67,8 @@ if [ "${ARGS[MODE]}" == "prod" ]; then
      rm -rf /usr/local/bin/$value
   done
   echo '' > /root/.bash_history
+  rm -rf /opt/WWW/container.ite-ng.ru/conf/.composer
+  rm -rf /root/.composer
 fi
 
 if [ ! -z "${ARGS[YUM]}" ]; then echo "." && rpm -e --nodeps yum ; fi
@@ -75,6 +77,8 @@ if [[ ! -z "${ARGS[PASSWD]}" && -d "/root/install" && -f "/root/install/${FILE_N
   echo "."
   echo $(cat /root/install/${FILE_NAME} | grep PASSWD | sed -r 's/.*=(.*)$/\1/') | passwd --stdin root > /dev/null
 fi
+
+if [ ! -z "${ARGS[CERTS]}" ]; then echo "." && ln -s ${ARGS[CERTS]} /etc/pki ; fi
 
 if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_dir]}" ]] ; then
   if [ ! -z "${ARGS[NODEJS]}" ] ; then
