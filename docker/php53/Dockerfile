@@ -187,7 +187,8 @@ RUN	setcap 'cap_net_bind_service=+ep' /usr/sbin/httpd && \
 COPY	init.container /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/init.container
 
-RUN	npm config set strict-ssl false && npm install -g n && n 6.17.1
+RUN	npm config set strict-ssl false && npm install -g n && n 10
+#&& n 6.17.1
 
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
