@@ -108,6 +108,8 @@ RUN	git config --global user.email "evrinoma@gmail.com" && \
 RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
 	echo 1234 | passwd --stdin root;
+#freetds
+RUN	 if [ -f /etc/freetds.conf ]; then sed -i -e "s@.*tds version \=*@\ttds version \= @g" -i -e "s@\(tds version \=\).*@\1 7\.0@g"  /etc/freetds.conf ; fi
 #php.ini
 RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/\;date\.timezone\ \=/date\.timezone\ \=\ \"Europe\/Moscow\"/g" /etc/php.ini && \
@@ -116,7 +118,9 @@ RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/max_execution_time\ \=\ 30/max_execution_time\ \=\ 10000/g" /etc/php.ini && \
 	sed -i -e "s/post_max_size \=\ 8/post_max_size\ \=\ 4096/g" /etc/php.ini && \
 	sed -i -e "s/upload_max_filesize \=\ 2/upload_max_filesize\ \=\ 4096/g" /etc/php.ini && \
-	sed -i -e "s/session.gc_maxlifetime\ \=\ 1440/session.gc_maxlifetime\ \=\ 36000/g" /etc/php.ini
+	sed -i -e "s/session.gc_maxlifetime\ \=\ 1440/session.gc_maxlifetime\ \=\ 36000/g" /etc/php.ini && \
+    sed -i -e 's@\(;mssql.charset \= \).*@mssql.charset \= "UTF-8"@g' /etc/php.ini
+
 #apc.ini
 RUN	sed -i -e "s/apc\.shm_size\=64M/apc\.shm_size\=3G/g" /etc/php.d/apc.ini && \
 	sed -i -e "s/apc\.max_file_size\=1M/apc\.max_file_size\=64M/g" /etc/php.d/apc.ini
@@ -206,6 +210,7 @@ COPY	autoDevDeploy /usr/local/bin/
 RUN	chmod +x /usr/local/bin/autoDevDeploy
 
 COPY    install/ /root/install
+
 
 ENTRYPOINT ["/usr/bin/supervisord","-n"]
 EXPOSE 22 80
