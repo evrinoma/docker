@@ -67,6 +67,7 @@ services:
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK_ISCSI_DOC/:/opt/WWW/docs/"
 #            - "/opt/docker/src/data/external/:/opt/WWW/external/"
         networks:
             virt:
