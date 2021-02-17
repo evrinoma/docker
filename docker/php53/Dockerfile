@@ -109,7 +109,7 @@ RUN	ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 	ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
 	echo 1234 | passwd --stdin root;
 #freetds
-RUN	 if [ -f /etc/freetds.conf ]; then sed -i -e "s@.*tds version \=*@\ttds version \= @g" -i -e "s@\(tds version \=\).*@\1 7\.0@g"  /etc/freetds.conf ; fi
+RUN	if [ -f "/etc/freetds.conf" ]; then sed -i -e "s@.*tds version \=*@\ttds version \= @g" -i -e "s@\(tds version \=\).*@\1 7\.0@g"  /etc/freetds.conf ; fi
 #php.ini
 RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/\;date\.timezone\ \=/date\.timezone\ \=\ \"Europe\/Moscow\"/g" /etc/php.ini && \

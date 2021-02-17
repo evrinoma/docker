@@ -26,8 +26,8 @@ RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
 	echo "database_user=${database_user}" >> /etc/sysconfig/vhost && \
 	echo "database_password=${database_password}" >> /etc/sysconfig/vhost
 
-ADD	init.container.part /usr/local/bin
-ADD	init.container.cron.part /usr/local/bin
+COPY	init.container.part /usr/local/bin
+COPY	init.container.cron.part /usr/local/bin
 RUN cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
 	rm -rf /usr/local/bin/init.container.part && \
 	cat /usr/local/bin/init.container.cron.part >> /usr/local/bin/init.container && \
@@ -42,6 +42,6 @@ RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
     sed -i -e "s@VHOST@${VHOST}@g" /usr/local/bin/init.container
 
 #supervisor include does't work
-ADD	supervisor.conf /etc/supervisord.d/cron.conf
+COPY	supervisor.conf /etc/supervisord.d/cron.conf
 RUN	cat /etc/supervisord.d/cron.conf >> /etc/supervisord.conf
 

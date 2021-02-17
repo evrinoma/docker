@@ -28,7 +28,7 @@ RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
 	echo "database_password=${database_password}" >> /etc/sysconfig/vhost && \
 	echo "exchange=${exchange}" >> /etc/sysconfig/vhost
 
-ADD	init.container.cron.part /usr/local/bin
+COPY	init.container.cron.part /usr/local/bin
 RUN cat /usr/local/bin/init.container.cron.part >> /usr/local/bin/init.container && \
 	rm -rf /usr/local/bin/init.container.cron.part && \
 	chmod 700 /usr/local/bin/init.container
@@ -44,9 +44,9 @@ COPY	exchange.install /usr/local/bin/
 RUN	if [ ! -z "${exchange}" ]; then echo "[${exchange}]" &&  chmod +x /usr/local/bin/exchange.install && /usr/local/bin/exchange.install && chmod -x /usr/local/bin/exchange.install ; fi
 
 #supervisor include does't work
-ADD	supervisor.conf /etc/supervisord.d/cron.conf
+COPY	supervisor.conf /etc/supervisord.d/cron.conf
 RUN	cat /etc/supervisord.d/cron.conf >> /etc/supervisord.conf
 
-ADD	kisnew/init.sql /usr/local/bin
-ADD	kisnew/init.install /usr/local/bin
+COPY	kisnew/init.sql /usr/local/bin
+COPY	kisnew/init.install /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install

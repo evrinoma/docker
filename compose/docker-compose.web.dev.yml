@@ -253,6 +253,25 @@ services:
             virt:
                 ipv4_address: 172.18.80.32
 
+    php74_clean:
+        container_name: "php74.clean"
+        image: "evrinoma/php74"
+        environment:
+            - DEPLOY=yes
+            - SYMFONY=yes
+            - MODE=dev
+            - NODEJS=10
+            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/clean/public
+            - httpd_server=php74.clean
+            - httpd_alias=clean
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.26
+
+
     php80_clean:
         container_name: "php80.clean"
         image: "evrinoma/php80"
