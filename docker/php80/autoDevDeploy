@@ -81,17 +81,18 @@ fi
 
 if [ ! -z "${ARGS[CERTS]}" ]; then echo "." && ln -s ${ARGS[CERTS]} /etc/pki ; fi
 
+if [ ! -z "${ARGS[NODEJS]}" ] ; then
+    STATUS=$(curl -Is https://rpm.nodesource.com/setup_${ARGS[NODEJS]}.x | head -1 | grep "200")
+    if [ ! -z "${STATUS}" ] ; then
+        rm -rf /var/cache/yum && \
+        yum remove -y nodejs && \
+        yum clean all && \
+        curl --silent --location https://rpm.nodesource.com/setup_${ARGS[NODEJS]}.x | bash -  && \
+        yum install -y nodejs yarn
+    fi
+fi
+
 if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_dir]}" ]] ; then
-  if [ ! -z "${ARGS[NODEJS]}" ] ; then
-	    STATUS=$(curl -Is https://rpm.nodesource.com/setup_${ARGS[NODEJS]}.x | head -1 | grep "200")
-		if [ ! -z "${STATUS}" ] ; then
-		    rm -rf /var/cache/yum && \
-		    yum remove -y nodejs && \
-		    yum clean all && \
-		    curl --silent --location https://rpm.nodesource.com/setup_${ARGS[NODEJS]}.x | bash -  && \
-		    yum install -y nodejs yarn
-		fi
-	fi
 	if [[  ! -z "${ARGS[httpd_conf]}" &&  -f "${ARGS[httpd_conf]}" ]] ; then
 		echo "DEPLOYING...."
 		echo "copy ${ARGS[httpd_conf]} to /etc/httpd/conf.d/"

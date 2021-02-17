@@ -40,6 +40,9 @@ services:
                 - database_port=3306
                 - database_user=cont
                 - database_password=cont
+        environment:
+            - MODE=dev
+            - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/var/jwt
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -201,6 +204,7 @@ services:
             - DEPLOY=yes
             - SYMFONY=yes
             - MODE=dev
+#            - NODEJS=15
             - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public
             - httpd_server=php80.cont.api
             - httpd_alias=cont.api
