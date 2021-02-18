@@ -31,7 +31,7 @@ fi
 
 declare -A ARGS
 
-ARGS=( [CERTS]= SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [httpd_dir]= [httpd_conf]= [httpd_server]= [httpd_server_alias]= [httpd_alias]= [httpd_admin_email]=nikolns@ite-ng.ru [NODEJS]= )
+ARGS=( [CERTS]= [SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [httpd_dir]= [httpd_conf]= [httpd_server]= [httpd_server_alias]= [httpd_alias]= [httpd_admin_email]=nikolns@ite-ng.ru [NODEJS]= )
 STATUS=''
 FILE_NAME=sys.credentials
 
@@ -94,7 +94,7 @@ fi
 
 if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_dir]}" ]] ; then
 	if [[  ! -z "${ARGS[httpd_conf]}" &&  -f "${ARGS[httpd_conf]}" ]] ; then
-		echo "DEPLOYING...."
+		echo "DEPLOYING CONFIG...."
 		echo "copy ${ARGS[httpd_conf]} to /etc/httpd/conf.d/"
 		cp ${ARGS[httpd_conf]} /etc/httpd/conf.d/vhost.conf
 		echo "permission apache.apache ${ARGS[httpd_dir]}"
@@ -102,6 +102,8 @@ if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_d
 		restartHttpd
 
 		exit 0
+  else
+    echo "WRONG DEPLOYING CONFIG...."
 	fi
 	if [[  ! -z "${ARGS[SYMFONY]}" &&  ! -z "${ARGS[httpd_server]}" && ! -z "${ARGS[httpd_alias]}" ]] ; then
 		echo "DEPLOYING SYMFONY...."
@@ -115,8 +117,13 @@ if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_d
 		echo "permission apache.apache ${ARGS[httpd_dir]}"
 		chown -R apache.apache ${ARGS[httpd_dir]}/..
 		restartHttpd
+
 		exit 0
+	else
+	  echo "WRONG DEPLOYING SYMFONY...."
 	fi
+else
+  echo "WRONG PATH....[${ARGS[httpd_dir]}] or argument not set [${ARGS[DEPLOY]}]"
 fi
 
 rm -rf /root/install

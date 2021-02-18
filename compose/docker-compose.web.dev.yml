@@ -185,6 +185,7 @@ services:
             - DEPLOY=yes
             - SYMFONY=yes
             - MODE=dev
+            - NODEJS=14
             - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/var/jwt
             - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public
             - httpd_server=php74.cont.api
