@@ -144,10 +144,6 @@ echo $PHP72"11	$PREFIX_PHP72.roundcubemail" >> /etc/hosts
 echo $PHP72"12	$PREFIX_PHP72.kodexplorer" >> /etc/hosts
 echo $PHP72"13	$PREFIX_PHP72.elfinder" >> /etc/hosts
 echo $PHP72"14	$PREFIX_PHP72.owncloud" >> /etc/hosts
-echo $PHP72"15	$PREFIX_PHP72.ipark45" >> /etc/hosts
-echo $PHP72"16	$PREFIX_PHP72.kzkt45" >> /etc/hosts
-echo $PHP72"17	$PREFIX_PHP72.nekeng" >> /etc/hosts
-echo $PHP72"18	$PREFIX_PHP72.ite-ng" >> /etc/hosts
 echo $PHP72"19	$PREFIX_PHP72.pmc.ite-ng" >> /etc/hosts
 echo $PHP72"20	$PREFIX_PHP72.pmc.kzkt45" >> /etc/hosts
 echo $PHP72"21	$PREFIX_PHP72.kiscloud" >> /etc/hosts
@@ -159,7 +155,16 @@ echo $PHP72"27	$PREFIX_PHP72.cont.debug" >> /etc/hosts
 echo $PHP72"28	$PREFIX_PHP72.cont.qsurv" >> /etc/hosts
 
 echo $PHP74"4	$PREFIX_PHP74.tools" >> /etc/hosts
+echo $PHP74"5	$PREFIX_PHP74.adbook" >> /etc/hosts
+echo $PHP74"7	$PREFIX_PHP74.portal" >> /etc/hosts
+echo $PHP74"10	$PREFIX_PHP74.sqladmin" >> /etc/hosts
 echo $PHP74"11	$PREFIX_PHP74.roundcubemail" >> /etc/hosts
+echo $PHP74"15	$PREFIX_PHP74.ipark45" >> /etc/hosts
+echo $PHP74"16	$PREFIX_PHP74.kzkt45" >> /etc/hosts
+echo $PHP74"17	$PREFIX_PHP74.nekeng" >> /etc/hosts
+echo $PHP74"18	$PREFIX_PHP74.ite-ng" >> /etc/hosts
+echo $PHP74"19	$PREFIX_PHP74.pmc.ite-ng" >> /etc/hosts
+echo $PHP74"20	$PREFIX_PHP74.pmc.kzkt45" >> /etc/hosts
 echo $PHP74"26	$PREFIX_PHP74.clean" >> /etc/hosts
 echo $PHP74"29	$PREFIX_PHP74.exchange" >> /etc/hosts
 echo $PHP74"30	$PREFIX_PHP74.supply" >> /etc/hosts
