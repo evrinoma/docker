@@ -37,10 +37,10 @@ RUN	if [ ! -f "/opt/WWW/${VERSION}/gitlab-ee-${VERSION}-ee.0.el7.x86_64.rpm" ]; 
 RUN	chmod 700 /opt/WWW/${VERSION}/script.rpm.sh &&  /opt/WWW/${VERSION}/script.rpm.sh
 
 #RUN	wget --content-disposition https://gitlab-runner-downloads.s3.amazonaws.com/latest/rpm/gitlab-runner_amd64.rpm -P /tmp
-#RUN	wget --content-disposition https://packages.gitlab.com/gitlab/gitlab-ee/packages/el/7/gitlab-ee-13.7.3-ee.0.el7.x86_64.rpm/download.rpm -P /tmp
+#RUN	wget --content-disposition https://packages.gitlab.com/gitlab/gitlab-ee/packages/el/7/gitlab-ee-${VERSION}-ee.0.el7.x86_64.rpm/download.rpm -P /tmp
 
 RUN	rpm -ivh /opt/WWW/${VERSION}/gitlab-runner_amd64.rpm
-RUN	rpm -ivh /opt/WWW/${VERSION}/gitlab-ee-13.7.3-ee.0.el7.x86_64.rpm
+RUN	rpm -ivh /opt/WWW/${VERSION}/gitlab-ee-${VERSION}-ee.0.el7.x86_64.rpm
 
 
 
