@@ -163,9 +163,9 @@ services:
             virt:
                 ipv4_address: 172.18.83.171
 
-    php72_adbook:
-        container_name: "php72.adbook"
-        image: "evrinoma/php72.adbook"
+    php74_adbook:
+        container_name: "php74.adbook"
+        image: "evrinoma/php74.adbook"
         ports:
             - "172.20.1.161:80:80/tcp"
             - "172.20.1.161:22:22/tcp"
@@ -173,7 +173,7 @@ services:
             - "iteng13.ite-ng.ru:172.20.1.13"
             - "iteng20.ite-ng.ru:172.20.1.20"
         build:
-            context: docker/php72/sites/adbook/.
+            context: docker/php74/sites/adbook/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
@@ -189,14 +189,14 @@ services:
             virt:
                 ipv4_address: 172.18.72.5
 
-    php72_portal:
-        container_name: "php72.portal"
-        image: "evrinoma/php72.portal.ite-ng.ru"
+    php74_portal:
+        container_name: "php74.portal"
+        image: "evrinoma/php74.portal.ite-ng.ru"
         ports:
             - "172.20.1.162:80:80/tcp"
             - "172.20.1.162:22:22/tcp"
         build:
-            context: docker/php72/sites/portal/.
+            context: docker/php74/sites/portal/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
@@ -206,11 +206,11 @@ services:
             virt:
                 ipv4_address: 172.18.72.7
 
-    php72_sqladmin:
-        container_name: "php72.sqladmin"
-        image: "evrinoma/php72.sqladmin"
+    php74_sqladmin:
+        container_name: "php74.sqladmin"
+        image: "evrinoma/php74.sqladmin"
         build:
-            context: docker/php72/sites/sqladmin/.
+            context: docker/php74/sites/sqladmin/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
@@ -223,15 +223,15 @@ services:
             virt:
                 ipv4_address: 172.18.72.10
 
-    php72_pmc_ite-ng_ru:
-        container_name: "php72.pmc.ite"
-        image: "evrinoma/php72.pmc.ite"
+    php74_pmc_ite-ng_ru:
+        container_name: "php74.pmc.ite"
+        image: "evrinoma/php74.pmc.ite"
         hostname: "cmp.ite-ng.ru"
         ports:
             - "172.20.1.163:80:80/tcp"
             - "172.20.1.163:22:22/tcp"
         build:
-            context: docker/php72/sites/pmc/.
+            context: docker/php74/sites/pmc/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
@@ -247,11 +247,11 @@ services:
             virt:
                 ipv4_address: 172.18.72.19
 
-    php80_businesscenter:
-        container_name: "php80.businesscenter"
+    php74_businesscenter:
+        container_name: "php74.businesscenter"
         image: "evrinoma/php80.businesscenter"
         build:
-            context: docker/php80/sites/businesscenter/.
+            context: docker/php74/sites/businesscenter/.
             dockerfile: Dockerfile
         ports:
             - "172.20.1.181:80:80/tcp"
@@ -262,15 +262,15 @@ services:
             virt:
                 ipv4_address: 172.18.80.32
 
-    php72_pmc_kzkt45_ru:
-        container_name: "php72.pmc.kzkt45"
-        image: "evrinoma/php72.pmc.kzkt45"
+    php74_pmc_kzkt45_ru:
+        container_name: "php74.pmc.kzkt45"
+        image: "evrinoma/php74.pmc.kzkt45"
         hostname: "cmp.kzkt45.ru"
         ports:
             - "172.20.1.164:80:80/tcp"
             - "172.20.1.164:22:22/tcp"
         build:
-            context: docker/php72/sites/pmc/.
+            context: docker/php74/sites/pmc/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
