@@ -163,17 +163,19 @@ services:
             virt:
                 ipv4_address: 172.18.83.171
 
-    php74_adbook:
-        container_name: "php74.adbook"
-        image: "evrinoma/php74.adbook"
+    php72_adbook:
+        container_name: "php72.adbook"
+        image: "evrinoma/php72.adbook"
         ports:
             - "172.20.1.161:80:80/tcp"
             - "172.20.1.161:22:22/tcp"
         extra_hosts:
             - "iteng13.ite-ng.ru:172.20.1.13"
             - "iteng20.ite-ng.ru:172.20.1.20"
+#        environment:
+#            - NODEJS=8
         build:
-            context: docker/php74/sites/adbook/.
+            context: docker/php72/sites/adbook/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
@@ -187,7 +189,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.5
+                ipv4_address: 172.18.74.5
 
     php74_portal:
         container_name: "php74.portal"
@@ -204,7 +206,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.7
+                ipv4_address: 172.18.74.7
 
     php74_sqladmin:
         container_name: "php74.sqladmin"
@@ -221,7 +223,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.10
+                ipv4_address: 172.18.74.10
 
     php74_pmc_ite-ng_ru:
         container_name: "php74.pmc.ite"
@@ -245,11 +247,11 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.19
+                ipv4_address: 172.18.74.19
 
     php74_businesscenter:
         container_name: "php74.businesscenter"
-        image: "evrinoma/php80.businesscenter"
+        image: "evrinoma/php74.businesscenter"
         build:
             context: docker/php74/sites/businesscenter/.
             dockerfile: Dockerfile
@@ -284,7 +286,7 @@ services:
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.20
+                ipv4_address: 172.18.74.20
 
     php72_cont_debug:
         container_name: "php72.cont.debug"
