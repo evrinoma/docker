@@ -1,0 +1,23 @@
+#!/bin/bash
+
+dockerComposeFile=$1
+name=$2
+composerAlias=$3
+if [[ ! -z "$dockerComposeFile" && ! -z "$name" && ! -z "$composerAlias" ]]; then
+	ID=$(docker ps -a | grep $name | awk '{print $1}')
+	EXIST=$(cat $dockerComposeFile | grep $composerAlias':')
+	if [[ ! -z "$EXIST" && ! -z "$ID" ]]; then
+		echo $ID
+		docker stop $ID
+		docker rm $ID
+		docker-compose -f $dockerComposeFile up -d $composerAlias
+	else
+		echo "Container does't exist"
+	fi
+else
+	echo 'example: ./single ../docker-compose.yml php72.pmc.kzkt45 php74_pmc_kzkt45_ru'
+	echo 'Params not found'
+	echo '['$dockerComposeFile']'
+	echo '['$name']'
+	echo '['$composerAlias']'
+fi
