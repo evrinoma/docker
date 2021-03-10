@@ -28,8 +28,13 @@ RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
 	echo "database_password=${database_password}" >> /etc/sysconfig/vhost && \
 	echo "exchange=${exchange}" >> /etc/sysconfig/vhost
 
+COPY	init.container.part /usr/local/bin
 COPY	init.container.cron.part /usr/local/bin
-RUN cat /usr/local/bin/init.container.cron.part >> /usr/local/bin/init.container && \
+
+
+RUN cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
+	rm -rf /usr/local/bin/init.container.part && \
+	cat /usr/local/bin/init.container.cron.part >> /usr/local/bin/init.container && \
 	rm -rf /usr/local/bin/init.container.cron.part && \
 	chmod 700 /usr/local/bin/init.container
 
@@ -38,7 +43,7 @@ RUN	if [ ! -z "${VHOST}" ]; then echo "host=${VHOST}" > /etc/sysconfig/settings 
 
 COPY	kisnew.conf /etc/httpd/conf.d/vhost.conf
 RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
-    sed -i -e "s@VHOST@${VHOST}@g" /usr/local/bin/init.container
+	sed -i -e "s@VHOST@${VHOST}@g" /usr/local/bin/init.container
 
 COPY	exchange.install /usr/local/bin/
 RUN	if [ ! -z "${exchange}" ]; then echo "[${exchange}]" &&  chmod +x /usr/local/bin/exchange.install && /usr/local/bin/exchange.install && chmod -x /usr/local/bin/exchange.install ; fi
