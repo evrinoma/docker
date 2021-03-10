@@ -29,7 +29,8 @@ node {
             }
             stage('Composer update') {
                 sshCommand remote: remote, command: "rm -rf /root/.composer && mkdir -p /root/.composer && echo -e '{\n    \"github-oauth\": {\n        \"github.com\": \"${gitOauth}\"\n    }\n}'> /root/.composer/auth.json"
-                sshCommand remote: remote, command: "cd ${toolsDir} && composer update evrinoma/shell-bundle evrinoma/dashboard-bundle evrinoma/utils-bundle evrinoma/dto-bundle evrinoma/settings-bundle evrinoma/delta8-bundle evrinoma/exim-bundle evrinoma/livevideo-bundle evrinoma/menu-bundle evrinoma/grid-bundle evrinoma/contragent-bundle evrinoma/project-bundle"
+                sshCommand remote: remote, command: "cd ${toolsDir} && composer install"
+//                sshCommand remote: remote, command: "cd ${toolsDir} && composer update evrinoma/shell-bundle evrinoma/dashboard-bundle evrinoma/utils-bundle evrinoma/dto-bundle evrinoma/settings-bundle evrinoma/delta8-bundle evrinoma/exim-bundle evrinoma/livevideo-bundle evrinoma/menu-bundle evrinoma/grid-bundle evrinoma/contragent-bundle evrinoma/project-bundle"
             }
             stage('Migration') {
                 sshCommand remote: remote, command: "/usr/bin/php ${toolsDir}/bin/console --no-interaction doctrine:migrations:migrate --env=prod"
@@ -41,6 +42,8 @@ node {
                 sshCommand remote: remote, command: "cd ${toolsDir} && php bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json --env=prod"
             }
             stage('WebPack') {
+                sshCommand remote: remote, command: "cd ${toolsDir} && yarn install"
+                sshCommand remote: remote, command: "cd ${toolsDir} && npm install"
                 sshCommand remote: remote, command: "cd ${toolsDir} && webpack --env=prod"
             }
             stage('Remove Cache') {
