@@ -171,6 +171,9 @@ echo $PHP74"29	$PREFIX_PHP74.exchange" >> /etc/hosts
 echo $PHP74"30	$PREFIX_PHP74.supply" >> /etc/hosts
 echo $PHP74"31	$PREFIX_PHP74.cont.api" >> /etc/hosts
 echo $PHP74"32	$PREFIX_PHP74.bc" >> /etc/hosts
+echo $PHP74"33	$PREFIX_PHP74.cont.api.test" >> /etc/hosts
+echo $PHP74"34	$PREFIX_PHP74.cont.api.qsurv" >> /etc/hosts
+
 
 echo $PHP80"4	$PREFIX_PHP80.tools" >> /etc/hosts
 echo $PHP80"26	$PREFIX_PHP80.clean" >> /etc/hosts

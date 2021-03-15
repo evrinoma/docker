@@ -147,11 +147,35 @@ services:
             virt:
                 ipv4_address: 172.18.74.31
 
-    php72_cont_test:
-        container_name: "php72.cont.test"
-        image: "evrinoma/php72.test.cont.ite-ng.ru"
+#    php72_cont_test:
+#        container_name: "php72.cont.test"
+#        image: "evrinoma/php72.test.cont.ite-ng.ru"
+#        build:
+#            context: docker/php72/sites/cont/.
+#            dockerfile: Dockerfile
+#            args:
+#                - MODE=prod
+#                - VHOST=test
+#                - database_host=172.18.2.1
+#                - database_name=cont_test
+#                - database_port=3306
+#                - database_user=cont
+#                - database_password=cont
+#        ports:
+#            - "172.20.1.171:80:80/tcp"
+#            - "172.20.1.171:22:22/tcp"
+#        volumes:
+#            - "/etc/localtime:/etc/localtime:ro"
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.72.22
+
+    php74_cont_test:
+        container_name: "php74.cont.test"
+        image: "evrinoma/php74.test.cont.ite-ng.ru"
         build:
-            context: docker/php72/sites/cont/.
+            context: docker/php74/sites/cont/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
@@ -161,16 +185,42 @@ services:
                 - database_port=3306
                 - database_user=cont
                 - database_password=cont
+                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/test/var/jwt
         ports:
             - "172.20.1.171:80:80/tcp"
-            - "172.20.1.171:443:443/tcp"
             - "172.20.1.171:22:22/tcp"
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.22
+                ipv4_address: 172.18.74.22
+
+    php74_cont_api_test:
+        container_name: "php74.cont.api.test"
+        image: "evrinoma/php74.test.cont.api.ite-ng.ru"
+        build:
+            context: docker/php74/sites/cont.api/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=test
+                - database_host=172.18.2.1
+                - database_name=cont_test
+                - database_port=3306
+                - database_user=cont
+                - database_password=cont
+                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/test/var/jwt
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        ports:
+            - "172.20.1.171:81:80/tcp"
+            - "172.20.1.171:23:22/tcp"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.33
+
 
     php72_cont_qsurv:
         container_name: "php72.cont.qsurv"
@@ -196,6 +246,57 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.72.28
+
+    php74_cont_qsurv:
+        container_name: "php74.cont.qsurv"
+        image: "evrinoma/php74.qsurv.cont.ite-ng.ru"
+        build:
+            context: docker/php74/sites/cont/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=qsurv
+                - database_host=172.18.2.1
+                - database_name=cont_qsurv
+                - database_port=3306
+                - database_user=cont
+                - database_password=cont
+                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/qsurv/var/jwt
+        ports:
+            - "172.20.1.176:80:80/tcp"
+            - "172.20.1.176:22:22/tcp"
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.28
+
+    php74_cont_api_qsurv:
+        container_name: "php74.cont.api.test"
+        image: "evrinoma/php74.qsurv.cont.api.ite-ng.ru"
+        build:
+            context: docker/php74/sites/cont.api/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=qsurv
+                - database_host=172.18.2.1
+                - database_name=cont_qsurv
+                - database_port=3306
+                - database_user=cont
+                - database_password=cont
+                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/qsurv/var/jwt
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        ports:
+            - "172.20.1.176:81:80/tcp"
+            - "172.20.1.176:23:22/tcp"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.34
+
 
 #######################################################################
 ############################## Start ##################################
