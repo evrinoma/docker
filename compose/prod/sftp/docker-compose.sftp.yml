@@ -272,7 +272,7 @@ services:
                 ipv4_address: 172.18.74.28
 
     php74_cont_api_qsurv:
-        container_name: "php74.cont.api.test"
+        container_name: "php74.cont.api.qsurv"
         image: "evrinoma/php74.qsurv.cont.api.ite-ng.ru"
         build:
             context: docker/php74/sites/cont.api/.
