@@ -11,6 +11,14 @@ LABEL \
 	license="MIT" \
 	build-date="2020-11-27"
 
+ARG	VHOST=''
+ARG	database_host=''
+ARG	database_port=''
+ARG	database_name=''
+ARG	database_user=''
+ARG	database_password=''
+ARG	CERTS=''
+
 RUN	rm -rf /var/cache/yum && \
 	yum remove -y nodejs && \
 	yum clean all && \

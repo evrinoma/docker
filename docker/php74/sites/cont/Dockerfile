@@ -17,6 +17,7 @@ ARG	database_port=''
 ARG	database_name=''
 ARG	database_user=''
 ARG	database_password=''
+ARG	CERTS=''
 
 RUN	rm -rf /var/cache/yum && \
 	yum remove -y nodejs && \
