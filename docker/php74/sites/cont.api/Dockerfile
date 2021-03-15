@@ -23,7 +23,8 @@ RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
 	echo "database_port=${database_port}" >> /etc/sysconfig/vhost && \
 	echo "database_name=${database_name}" >> /etc/sysconfig/vhost && \
 	echo "database_user=${database_user}" >> /etc/sysconfig/vhost && \
-	echo "database_password=${database_password}" >> /etc/sysconfig/vhost
+	echo "database_password=${database_password}" >> /etc/sysconfig/vhost && \
+	echo "CERTS=${CERTS}" >> /etc/sysconfig/vhost
 
 COPY	cont.api.conf /etc/httpd/conf.d/vhost.conf
 
@@ -39,6 +40,6 @@ RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
 COPY	supervisor.conf /etc/supervisord.d/cron.conf
 
 RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
+RUN	if [ ! -z "${CERTS}" ] ; then ln -s ${CERTS} /etc/pki ; fi
 
-RUN ln -s /opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/var/jwt /etc/pki
 

@@ -30,7 +30,8 @@ RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
 	echo "database_port=${database_port}" >> /etc/sysconfig/vhost && \
 	echo "database_name=${database_name}" >> /etc/sysconfig/vhost && \
 	echo "database_user=${database_user}" >> /etc/sysconfig/vhost && \
-	echo "database_password=${database_password}" >> /etc/sysconfig/vhost
+	echo "database_password=${database_password}" >> /etc/sysconfig/vhost && \
+	echo "CERTS=${CERTS}" >> /etc/sysconfig/vhost
 
 COPY	cont.conf /etc/httpd/conf.d/vhost.conf
 
@@ -51,4 +52,6 @@ RUN	echo "*/30    *       *       *       *       /usr/bin/php /opt/WWW/containe
 	crontab -u apache -l
 
 RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
+RUN	if [ ! -z "${CERTS}" ] ; then ln -s ${CERTS} /etc/pki ; fi
+
 

@@ -111,6 +111,7 @@ services:
                 - database_port=3306
                 - database_user=cont
                 - database_password=cont
+                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/prod/var/jwt
 #        ports:
 #            - "172.20.1.165:80:80/tcp"
 #            - "172.20.1.165:22:22/tcp"
@@ -135,6 +136,7 @@ services:
                 - database_port=3306
                 - database_user=cont
                 - database_password=cont
+                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/prod/var/jwt
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
