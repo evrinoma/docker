@@ -34,9 +34,9 @@ RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
 
 COPY	cont.conf /etc/httpd/conf.d/vhost.conf
 
-ADD	init.container.cron.part /usr/local/bin
-ADD	cont/init.install /usr/local/bin
-ADD	cont/init.sql /usr/local/bin
+COPY	init.container.cron.part /usr/local/bin
+COPY	cont/init.install /usr/local/bin
+COPY	cont/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install && \
 	cat /usr/local/bin/init.container.cron.part >> /usr/local/bin/init.container && \
 	rm -rf /usr/local/bin/init.container.cron.part && \
@@ -45,7 +45,7 @@ RUN	chmod +x /usr/local/bin/init.install && \
 RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
 	sed -i -e "s@VHOST@${VHOST}@g" /usr/local/bin/init.container
 
-ADD	supervisor.conf /etc/supervisord.d/cron.conf
+COPY	supervisor.conf /etc/supervisord.d/cron.conf
 RUN	echo "*/30    *       *       *       *       /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/httpd/cont/${VHOST}/bin/console legio:cont:delivery_load_command --env=prod > /dev/null 2>&1" >> /etc/crontab.apache && \
 	crontab -u apache /etc/crontab.apache && \
 	crontab -u apache -l

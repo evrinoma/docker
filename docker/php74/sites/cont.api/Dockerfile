@@ -6,7 +6,7 @@ MAINTAINER \
 
 LABEL \
 	name="evrinoma PHP 7.4 cont.api" \
-	image="php74.supply" \
+	image="php74.cont.api" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
 	build-date="2020-11-27"
@@ -14,17 +14,31 @@ LABEL \
 RUN	rm -rf /var/cache/yum && \
 	yum remove -y nodejs && \
 	yum clean all && \
-	curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -  && \
+	curl --silent --location https://rpm.nodesource.com/setup_14.x | bash -  && \
 	yum install -y nodejs yarn
 
-ADD	cont.api/init.install /usr/local/bin
-ADD	cont.api/init.sql /usr/local/bin
-RUN	chmod +x /usr/local/bin/init.install
+RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
+	echo "VHOST=${VHOST}" >> /etc/sysconfig/vhost && \
+	echo "database_host=${database_host}" >> /etc/sysconfig/vhost && \
+	echo "database_port=${database_port}" >> /etc/sysconfig/vhost && \
+	echo "database_name=${database_name}" >> /etc/sysconfig/vhost && \
+	echo "database_user=${database_user}" >> /etc/sysconfig/vhost && \
+	echo "database_password=${database_password}" >> /etc/sysconfig/vhost
 
 COPY	cont.api.conf /etc/httpd/conf.d/vhost.conf
 
-RUN	touch /var/spool/cron/apache && chown root.root /var/spool/cron/apache  && chmod 400 /var/spool/cron/apache
-RUN	chmod -R 640 /tmp && \
-	chmod -R 640 /var/tmp
+COPY	init.container.cron.part /usr/local/bin
+
+RUN	cat /usr/local/bin/init.container.cron.part >> /usr/local/bin/init.container && \
+	rm -rf /usr/local/bin/init.container.cron.part && \
+	chmod 700 /usr/local/bin/init.container
+
+RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
+	sed -i -e "s@VHOST@${VHOST}@g" /usr/local/bin/init.container
+
+COPY	supervisor.conf /etc/supervisord.d/cron.conf
 
 RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
+
+RUN ln -s /opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/var/jwt /etc/pki
+

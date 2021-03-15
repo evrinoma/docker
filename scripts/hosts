@@ -156,6 +156,7 @@ echo $PHP72"28	$PREFIX_PHP72.cont.qsurv" >> /etc/hosts
 
 echo $PHP74"4	$PREFIX_PHP74.tools" >> /etc/hosts
 echo $PHP74"5	$PREFIX_PHP74.adbook" >> /etc/hosts
+echo $PHP74"6	$PREFIX_PHP74.cont.prod" >> /etc/hosts
 echo $PHP74"7	$PREFIX_PHP74.portal" >> /etc/hosts
 echo $PHP74"10	$PREFIX_PHP74.sqladmin" >> /etc/hosts
 echo $PHP74"11	$PREFIX_PHP74.roundcubemail" >> /etc/hosts

@@ -41,6 +41,7 @@ services:
                 - database_user=cont
                 - database_password=cont
         environment:
+            - NODEJS=10
             - MODE=dev
             - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/var/jwt
         volumes:
@@ -294,6 +295,57 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.80.26
+
+
+    php74_adbook:
+        container_name: "php74.adbook"
+        image: "evrinoma/php74.adbook"
+        extra_hosts:
+            - "iteng13.ite-ng.ru:172.20.1.13"
+            - "iteng20.ite-ng.ru:172.20.1.20"
+#        environment:
+#            - NODEJS=8
+        build:
+            context: docker/php74/sites/adbook/.
+            dockerfile: Dockerfile
+            args:
+                - MODE=prod
+                - VHOST=adbook
+                - database_host=172.18.2.1
+                - database_name=adbook
+                - database_port=3306
+                - database_user=adbook
+                - database_password=adbook
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.5
+
+    php74_cont:
+        container_name: "php74.cont.prod"
+        image: "evrinoma/php74.prod.cont.ite-ng.ru"
+        build:
+            context: docker/php74/sites/cont/.
+            dockerfile: Dockerfile
+            args:
+                - VHOST=prod
+                - database_host=172.18.2.1
+                - database_name=cont
+                - database_port=3306
+                - database_user=cont
+                - database_password=cont
+        environment:
+#            - NODEJS=10
+            - MODE=dev
+            - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/var/jwt
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.6
 
 networks:
     virt:
