@@ -3,15 +3,15 @@ node {
     try {
         def gitUser = 'user'
         def gitPass = 'pass'
-        def contDir = '/opt/WWW/container.ite-ng.ru/projects/httpd/cont/prod'
+        def contDir = '/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/prod'
         def gitHeadLocal = ''
         def gitHeadRemote = ''
-        def gitRemote="http://${gitUser}:${gitPass}@git.ite-ng.ru/root/cont.git"
+        def gitRemote="http://${gitUser}:${gitPass}@git.ite-ng.ru/root/cont.api.git"
         def remote = [:]
         remote.name = 'sftp'
         remote.host = '172.20.1.165'
         remote.user = 'root'
-        remote.port = 22
+        remote.port = 23
         remote.password = '1234'
         remote.allowAnyHosts = true
         stage('Remote SSH') {
@@ -41,7 +41,7 @@ node {
                 sshCommand remote: remote, command: "/usr/bin/php ${contDir}/bin/console --no-interaction doctrine:migrations:migrate --env=prod"
             }
             stage('JsRoutes') {
-                sshCommand remote: remote, command: "cd ${contDir} && php bin/console fos:js-routing:dump --env=prod"
+                sshCommand remote: remote, command: "cd ${contDir} && php bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json --env=prod"
             }
             stage('WebPack') {
                 sshCommand remote: remote, command: "cd ${contDir} && yarn && webpack --env=prod"
