@@ -48,9 +48,9 @@ RUN	sed -i -e "s@VHOST@${VHOST}@g" /etc/httpd/conf.d/vhost.conf && \
 	sed -i -e "s@VHOST@${VHOST}@g" /usr/local/bin/init.container
 
 COPY	supervisor.conf /etc/supervisord.d/cron.conf
-RUN	echo "*/30    *       *       *       *       /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/httpd/cont/${VHOST}/bin/console legio:cont:delivery_load_command --env=prod > /dev/null 2>&1" >> /etc/crontab.apache && \
-	crontab -u apache /etc/crontab.apache && \
-	crontab -u apache -l
+#RUN	echo "*/30    *       *       *       *       /usr/bin/php /opt/WWW/container.ite-ng.ru/projects/httpd/cont/${VHOST}/bin/console legio:cont:delivery_load_command --env=prod > /dev/null 2>&1" >> /etc/crontab.apache && \
+#	crontab -u apache /etc/crontab.apache && \
+#	crontab -u apache -l
 
 RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi
 RUN	if [ ! -z "${CERTS}" ] ; then ln -s ${CERTS} /etc/pki ; fi
