@@ -168,12 +168,14 @@ echo $PHP74"18	$PREFIX_PHP74.ite-ng" >> /etc/hosts
 echo $PHP74"19	$PREFIX_PHP74.pmc.ite-ng" >> /etc/hosts
 echo $PHP74"20	$PREFIX_PHP74.pmc.kzkt45" >> /etc/hosts
 echo $PHP74"26	$PREFIX_PHP74.clean" >> /etc/hosts
+echo $PHP74"27	$PREFIX_PHP74.cont.debug" >> /etc/hosts
 echo $PHP74"29	$PREFIX_PHP74.exchange" >> /etc/hosts
 echo $PHP74"30	$PREFIX_PHP74.supply" >> /etc/hosts
 echo $PHP74"31	$PREFIX_PHP74.cont.api" >> /etc/hosts
 echo $PHP74"32	$PREFIX_PHP74.bc" >> /etc/hosts
 echo $PHP74"33	$PREFIX_PHP74.cont.api.test" >> /etc/hosts
 echo $PHP74"34	$PREFIX_PHP74.cont.api.qsurv" >> /etc/hosts
+echo $PHP74"35	$PREFIX_PHP74.cont.api.debug" >> /etc/hosts
 
 
 echo $PHP80"4	$PREFIX_PHP80.tools" >> /etc/hosts

@@ -286,11 +286,11 @@ services:
             virt:
                 ipv4_address: 172.18.74.20
 
-    php72_cont_debug:
-        container_name: "php72.cont.debug"
-        image: "evrinoma/php72.debug.cont.ite-ng.ru"
+    php74_cont_debug:
+        container_name: "php74.cont.debug"
+        image: "evrinoma/php74.debug.cont.ite-ng.ru"
         build:
-            context: docker/php72/sites/cont/.
+            context: docker/php74/sites/cont/.
             dockerfile: Dockerfile
             args:
                 - MODE=prod
@@ -300,16 +300,41 @@ services:
                 - database_port=3306
                 - database_user=cont
                 - database_password=cont
+                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/prod/var/jwt
         ports:
             - "172.20.1.175:80:80/tcp"
-            - "172.20.1.175:443:443/tcp"
             - "172.20.1.175:22:22/tcp"
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.27
+                ipv4_address: 172.18.74.27
+
+    php74_cont_api_debug:
+      container_name: "php74.cont.api.debug"
+      image: "evrinoma/php74.debug.cont.api.ite-ng.ru"
+      build:
+        context: docker/php74/sites/cont.api/.
+        dockerfile: Dockerfile
+        args:
+          - MODE=prod
+          - VHOST=prod
+          - database_host=172.18.2.1
+          - database_name=cont
+          - database_port=3306
+          - database_user=cont
+          - database_password=cont
+          - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/prod/var/jwt
+      volumes:
+        - "/etc/localtime:/etc/localtime:ro"
+        - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+      ports:
+        - "172.20.1.175:81:80/tcp"
+        - "172.20.1.175:23:22/tcp"
+      networks:
+        virt:
+          ipv4_address: 172.18.74.35
 
     php53_kis_new_ru_debug:
         container_name: "php53.kisnew.debug"
