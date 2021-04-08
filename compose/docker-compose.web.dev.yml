@@ -27,31 +27,6 @@ services:
             virt:
                 ipv4_address: 172.18.1.14
 
-    php72_cont:
-        container_name: "php72.cont.prod"
-        image: "evrinoma/php72.prod.cont.ite-ng.ru"
-        build:
-            context: docker/php72/sites/cont/.
-            dockerfile: Dockerfile
-            args:
-                - VHOST=prod
-                - database_host=172.18.2.1
-                - database_name=cont
-                - database_port=3306
-                - database_user=cont
-                - database_password=cont
-        environment:
-            - NODEJS=10
-            - MODE=dev
-            - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/var/jwt
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
-            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
-        networks:
-            virt:
-                ipv4_address: 172.18.72.6
-
     php74_tools:
         container_name: "php74.tools"
         image: "evrinoma/php74.tools"
@@ -346,6 +321,23 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.74.6
+
+    php74_owncloud:
+        container_name: "php74.owncloud"
+        image: "evrinoma/php74.owncloud"
+        build:
+            context: docker/php74/sites/cloud/servers/owncloud/.
+            dockerfile: Dockerfile
+#            args:
+#                - MODE=prod
+#        ports:
+#            - "172.20.1.160:80:80/tcp"
+#            - "172.20.1.160:443:443/tcp"
+        volumes:
+            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.14
 
 networks:
     virt:

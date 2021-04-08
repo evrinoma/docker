@@ -160,6 +160,7 @@ echo $PHP74"6	$PREFIX_PHP74.cont.prod" >> /etc/hosts
 echo $PHP74"7	$PREFIX_PHP74.portal" >> /etc/hosts
 echo $PHP74"10	$PREFIX_PHP74.sqladmin" >> /etc/hosts
 echo $PHP74"11	$PREFIX_PHP74.roundcubemail" >> /etc/hosts
+echo $PHP74"14	$PREFIX_PHP74.owncloud" >> /etc/hosts
 echo $PHP74"15	$PREFIX_PHP74.ipark45" >> /etc/hosts
 echo $PHP74"16	$PREFIX_PHP74.kzkt45" >> /etc/hosts
 echo $PHP74"17	$PREFIX_PHP74.nekeng" >> /etc/hosts

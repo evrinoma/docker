@@ -9,18 +9,18 @@ LABEL \
 	image="php74.cloud" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2020-02-03"
+	build-date="2021-04-07"
 
-ADD	0001-we-have-done-sftp-automounting-and-disable-local-sto.patch /opt/
-ADD	owncloud/init.install /usr/local/bin
-ADD	owncloud/init.sql /usr/local/bin
-ADD	owncloud/init.ldap.sql /usr/local/bin
-ADD	owncloud/init.sftp.sql /usr/local/bin
-ADD	owncloud/init.conf /usr/local/bin
+COPY	0001-we-have-done-sftp-automounting-and-disable-local-sto.patch /opt/
+COPY	owncloud/init.install /usr/local/bin
+COPY	owncloud/init.sql /usr/local/bin
+COPY	owncloud/init.ldap.sql /usr/local/bin
+COPY	owncloud/init.sftp.sql /usr/local/bin
+COPY	owncloud/init.conf /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
-ADD	init.container.part /usr/local/bin
-ADD	create.struct /usr/local/bin
+COPY	init.container.part /usr/local/bin
+COPY	create.struct /usr/local/bin
 RUN	chmod +x /usr/local/bin/create.struct && \
     cat /usr/local/bin/init.container.part >> /usr/local/bin/init.container && \
 	rm -rf /usr/local/bin/init.container.part
