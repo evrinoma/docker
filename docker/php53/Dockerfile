@@ -196,8 +196,9 @@ RUN	npm config set strict-ssl false && npm install -g n && n 10
 
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
-	if [ -f "/etc/security/limits.d/90-nproc.conf" ] ; then sed -i 's/1024/4096/g' /etc/security/limits.d/90-nproc.conf ; else echo '*          soft    nproc     4096' >  /etc/security/limits.d/90-nproc.conf && echo 'root       soft    nproc     unlimited' >>  /etc/security/limits.d/90-nproc.conf; fi; && \
 	touch /etc/crontab.apache
+RUN	if [ -f "/etc/security/limits.d/90-nproc.conf" ] ; then sed -i 's/1024/4096/g' /etc/security/limits.d/90-nproc.conf ; else echo '*          soft    nproc     4096' >  /etc/security/limits.d/90-nproc.conf && echo 'root       soft    nproc     unlimited' >>  /etc/security/limits.d/90-nproc.conf; fi;
+
 COPY	reconfig /usr/local/bin/
 RUN	chmod +x /usr/local/bin/reconfig
 
