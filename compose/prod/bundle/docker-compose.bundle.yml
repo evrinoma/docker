@@ -319,7 +319,7 @@ services:
         dockerfile: Dockerfile
         args:
           - MODE=prod
-          - VHOST=prod
+          - VHOST=debug
           - database_host=172.18.2.1
           - database_name=cont_debug
           - database_port=3306
