@@ -1,5 +1,5 @@
 FROM \
-	centos:centos7
+	centos:centos8
 
 MAINTAINER \
 	evrinoma@gmail.com
@@ -9,25 +9,20 @@ LABEL \
 	image="exim" \
 	vendor="evrinoma@gmail.com" \
 	license="MIT" \
-	build-date="2019-10-07"
+	build-date="2021-04-13"
 
-RUN	yum -y install mc wget && \
-	yum -y install iproute && \
-	yum -y update;
+RUN	dnf -y install mc wget iproute &&\
+	dnf -y update;
 
-RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
-	rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
+RUN	rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+	rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-8.rpm;
 
-RUN	yum -y install gcc \
-	make;
+RUN	dnf -y install gcc gcc-c++ make;
 
-RUN	yum -y install git \
-	supervisor \
-	openssh-server;
+RUN	dnf -y install git supervisor passwd openssh-server;
 
-RUN	yum -y install \
-	telnet \
-	patch.x86_64;
+RUN	dnf -y install telnet patch.x86_64;
+
 
 #git
 RUN	git config --global user.email "evrinoma@gmail.com" && \
@@ -48,13 +43,13 @@ RUN	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 
 #exim
-RUN	yum -y install sqlite-devel.i686 sqlite-devel.x86_64 \
+RUN	dnf -y install sqlite-devel.i686 sqlite-devel.x86_64 \
 	pcre.i686 pcre.x86_64 \
 	pcre-devel.i686 pcre-devel.x86_64 \
 	libXt-devel.i686 libXt-devel.x86_64 \
 	libXaw-devel.i686 libXaw-devel.x86_64 \
-	firebird-devel.i686 firebird-devel.x86_64 \
-	mariadb-devel.i686 mariadb-devel.x86_64 mariadb.x86_64 \
+	firebird-devel.x86_64 \
+	mariadb-devel.x86_64 mariadb.x86_64 \
 	libdb-devel.x86_64 libdb-devel.i686 libdb.x86_64 \
 	openssl-devel.x86_64 openssl.x86_64 openssl-libs.x86_64 \
 	tcltls.x86_64 tcltls-devel.x86_64
@@ -84,7 +79,7 @@ RUN	setcap 'cap_net_bind_service=+ep' /opt/exim/bin/$(ls -la /opt/exim/bin |grep
 WORKDIR /
 
 #spamassassin
-RUN	yum install spamassassin.x86_64 -y && \
+RUN	dnf install spamassassin.x86_64 -y && \
 	mv -v /etc/sysconfig/spamassassin{,.bak} && \
 	ls -la /etc/sysconfig/ && \
 	echo 'SPAMDOPTIONS="-d -c -m5 -H -s /opt/exim/tmp/spamd.log"' > /etc/sysconfig/spamassassin && \
@@ -111,7 +106,6 @@ RUN	mkdir -p /opt/dcc/src && \
 	mv /opt/dcc/src/dcc*/*  /opt/dcc/src/dcc*/.[^.]* /opt/dcc/
 
 WORKDIR /opt/dcc/
-RUN	ls -la
 RUN	./configure && \
 	make && \
 	make install
@@ -120,15 +114,33 @@ WORKDIR /
 RUN	adduser --user-group --system --no-create-home --shell /bin/false clamav && \
 	usermod -L clamav
 
+#build cmake
+RUN	mkdir -p /opt/cmake/src
+RUN	wget -P /opt/cmake https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3.tar.gz && \
+	tar -zxvf /opt/cmake/cmake-3.17.3.tar.gz -C /opt/cmake/src
+WORKDIR /opt/cmake/src/cmake-3.17.3
+RUN	./bootstrap && \
+	make && \
+	make install
+WORKDIR /
+
 #build clamav
-RUN	yum -y install gcc gcc-c++ libxml2 json-c-devel libxml2-devel bzip2 file libcurl libcurl-devel bzip2-devel
+RUN	dnf --enablerepo=powertools -y install json-c-devel
+RUN	dnf -y install libxml2 libxml2-devel bzip2 file libcurl-devel bzip2-devel check check-devel pcre2 pcre2-devel ncurses-devel
 RUN	mkdir /opt/clamav && \
 	git clone https://github.com/Cisco-Talos/clamav-devel.git /opt/clamav/src
 
 WORKDIR /opt/clamav/src
-RUN	./configure --prefix=/opt/clamav/ --disable-clamonacc && \
-	make && \
-	make install
+#RUN	./configure --prefix=/opt/clamav/ --disable-clamonacc && \
+#	make && \
+#	make install
+RUN	mkdir build && cd build
+WORKDIR /opt/clamav/src/build
+RUN	cmake .. -DENABLE_CLAMONACC=OFF -DCMAKE_INSTALL_PREFIX=/opt/clamav -DCMAKE_BUILD_TYPE="Release" -DENABLE_MILTER=OFF
+RUN	cmake --build . --config Release
+RUN	cmake --build . --config Release --target install
+WORKDIR /
+
 RUN	mkdir -p /opt/clamav/etc/ /var/log/clamav/ && \
 	mkdir -p /var/run/clamd.scan/ && chown -R clamav.clamav /var/run/clamd.scan && \
 	mkdir -p /var/lib/clamav/tmp && chown -R clamav.clamav /var/lib/clamav  && \
@@ -161,13 +173,13 @@ WORKDIR /
 #logrotate
 COPY	exim.logrotate.conf /etc/logrotate.d/exim
 COPY	spam.logrotate.conf /etc/logrotate.d/spam
-RUN	yum install logrotate -y
+RUN	dnf install logrotate -y
 
-RUN	yum install cronie -y && \
+RUN	dnf install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
 
-RUN	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab.exim && \
-	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/spam > /dev/null 2>&1" >> /etc/crontab.exim && \
+RUN	echo "0   0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab.exim && \
+	echo "0   0  *  *  * logrotate -f /etc/logrotate.d/spam > /dev/null 2>&1" >> /etc/crontab.exim && \
 	echo "*/1 *  *  *  * /usr/bin/date > /tmp/status.cron" >> /etc/crontab.exim && \
 	crontab -u exim /etc/crontab.exim
 
