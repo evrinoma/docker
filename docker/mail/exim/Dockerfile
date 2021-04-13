@@ -55,7 +55,7 @@ RUN	dnf -y install sqlite-devel.i686 sqlite-devel.x86_64 \
 	tcltls.x86_64 tcltls-devel.x86_64
 
 RUN	adduser --user-group --system --no-create-home --shell /bin/false exim && \
-	usermod -L exim
+	usermod -L exim && mkdir /home/exim && chown -R exim.exim /home/exim
 
 #exim
 RUN	mkdir -p /opt/exim/tmp /opt/exim/var/spool/exim /opt/exim/etc /opt/exim/build
@@ -79,7 +79,7 @@ RUN	setcap 'cap_net_bind_service=+ep' /opt/exim/bin/$(ls -la /opt/exim/bin |grep
 WORKDIR /
 
 #spamassassin
-RUN	dnf install spamassassin.x86_64 -y && \
+RUN	dnf install spamassassin.x86_64 portreserve -y && \
 	mv -v /etc/sysconfig/spamassassin{,.bak} && \
 	ls -la /etc/sysconfig/ && \
 	echo 'SPAMDOPTIONS="-d -c -m5 -H -s /opt/exim/tmp/spamd.log"' > /etc/sysconfig/spamassassin && \
