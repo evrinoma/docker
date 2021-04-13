@@ -166,9 +166,9 @@ RUN	yum install logrotate -y
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
 
-RUN	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab && \
-	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/spam > /dev/null 2>&1" >> /etc/crontab && \
-	crontab -u root /etc/crontab
+RUN	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab.exim && \
+	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/spam > /dev/null 2>&1" >> /etc/crontab.exim && \
+	crontab -u exim /etc/crontab.exim
 
 #supervisor
 COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
