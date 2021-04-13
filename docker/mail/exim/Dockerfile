@@ -168,6 +168,7 @@ RUN	yum install cronie -y && \
 
 RUN	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab.exim && \
 	echo "0 0  *  *  * logrotate -f /etc/logrotate.d/spam > /dev/null 2>&1" >> /etc/crontab.exim && \
+	echo "*/1 *  *  *  * /usr/bin/date > /tmp/status.cron" >> /etc/crontab.exim && \
 	crontab -u exim /etc/crontab.exim
 
 #supervisor
