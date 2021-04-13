@@ -42,6 +42,7 @@ services:
             - "172.16.45.5:993:993/tcp"
             - "172.16.45.5:995:995/tcp"
             - "172.16.45.5:8010:80/tcp"
+            - "172.16.45.5:12001:22/tcp"
         build:
             context: docker/mail/exim/servers/mail/.
             dockerfile: Dockerfile
