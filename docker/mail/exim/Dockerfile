@@ -167,6 +167,7 @@ RUN	mkdir -p  /var/tmp/clamav/ &&\
 
 COPY	spamlearn /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/spamlearn
+RUN	dnf -y install portreserve
 
 WORKDIR /
 
