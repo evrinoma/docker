@@ -11,7 +11,7 @@ node {
             remote.port = 12001
             remote.password = '1234'
             remote.allowAnyHosts = true
-            sshCommand remote: remote, command: "cd ${dockerScriptDir} && ./exim -q -v"
+            sshCommand remote: remote, command: "rm -fr /opt/exim/var/spool/exim/db/* && cd ${dockerScriptDir} && ./exim -q -v"
         }
         stage('Send email') {
             def mailRecipients = "nikolns@ite-ng.ru"
