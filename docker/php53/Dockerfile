@@ -152,9 +152,9 @@ RUN	sed -i -e "s/Require\ ip\ 127\.0\.0\.1/Require\ ip\ 172\.20\.0\.0\/16\ 172\.
 	sed -i -e "s/Allow\ from\ 127\.0\.0\.1/Allow\ from\ 172\.20\.0\.0\/16\ 172\.18\.0\.0\/16\ 127\.0\.0\.1/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/'localhost'\;/'172\.18\.2\.1'\;/" /etc/phpMyAdmin/config.inc.php && \
 	sed -i -e "s/\?>//" /etc/phpMyAdmin/config.inc.php && \
-	echo "?>" >> /etc/phpMyAdmin/config.inc.php && \
-	sed -i -e "s/\?>/\$cfg\['Servers'\]\[\$i\]\['LoginCookieValidity'\]\ = 36000\;/" /etc/phpMyAdmin/config.inc.php && \
-	sed -i -e "s/\?>/\$cfg\['ExecTimeLimit'\]\ = 0\;/" /etc/phpMyAdmin/config.inc.php && \
+	echo "\$cfg['LoginCookieValidity'] = 1440;" >> /etc/phpMyAdmin/config.inc.php && \
+	echo "\$cfg['ExecTimeLimit'] = 0;" >> /etc/phpMyAdmin/config.inc.php && \
+	sed -i -e "s@\['LoginCookieValidity'\] \= 1440@\['LoginCookieValidity'\] \= 36000@" /etc/phpMyAdmin/config.inc.php && \
 	sed -i -e "s/Alias\ \/phpMyAdmin\ \/usr\/share\/phpMyAdmin//" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	sed -i -e "s/phpMyAdmin/hidden/" /etc/httpd/conf.d/phpMyAdmin.conf && \
 	mv /usr/share/phpMyAdmin /usr/share/hidden && \
