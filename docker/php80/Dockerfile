@@ -76,10 +76,10 @@ RUN	yum -y autoremove && \
 	yum clean all;
 #build xdebug
 RUN	mkdir /opt/xdebug && \
-	wget -P /opt/xdebug https://pecl.php.net/get/xdebug-3.0.2.tgz && \
-	tar -xvf  /opt/xdebug/xdebug-3.0.2.tgz -C  /opt/xdebug;
+	wget -P /opt/xdebug https://pecl.php.net/get/xdebug-3.0.4.tgz && \
+	tar -xvf  /opt/xdebug/xdebug-3.0.4.tgz -C  /opt/xdebug;
 
-WORKDIR /opt/xdebug/xdebug-3.0.2
+WORKDIR /opt/xdebug/xdebug-3.0.4
 
 RUN	/usr/bin/phpize && \
 	./configure --enable-xdebug && \
@@ -143,16 +143,13 @@ RUN	sed -i -e "s/DirectoryIndex \(.\+\)/DirectoryIndex index.php \1/g" /etc/http
 ##php extension
 RUN	touch /etc/php.d/xdebug.ini && \
 	echo "zend_extension=xdebug.so" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_host = 172.18.80.80" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_enable = 1" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_connect_back=1" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.remote_port = 9000" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.extended_info = 1" >> /etc/php.d/xdebug.ini && \
-#	echo "xdebug.scream = 1" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.var_display_max_depth = 16" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.var_display_max_children = 256" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.max_nesting_level = 1024" >> /etc/php.d/xdebug.ini && \
-	echo "xdebug.idekey="PHPSTORM"" >> /etc/php.d/xdebug.ini;
+	echo "xdebug.start_upon_error = yes" >> /etc/php.d/xdebug.ini && \
+	echo "xdebug.start_with_request=yes" >> /etc/php.d/xdebug.ini && \
+	echo "xdebug.client_port = 9003" >> /etc/php.d/xdebug.ini && \
+	echo "xdebug.mode = debug" >> /etc/php.d/xdebug.ini && \
+	echo "xdebug.client_host = 172.18.80.80" >> /etc/php.d/xdebug.ini && \
+	echo "xdebug.idekey=PHPSTORM" >> /etc/php.d/xdebug.ini && \
+	echo "xdebug.discover_client_host=1" >> /etc/php.d/xdebug.ini
 
 RUN	sed -i -e "s/Options\ Indexes\ MultiViews\ FollowSymlinks/#&/" /etc/httpd/conf.d/autoindex.conf  && \
 	sed -i -e "s/AllowOverride None/AllowOverride All/" /etc/httpd/conf.d/autoindex.conf && \
@@ -215,6 +212,9 @@ RUN	chmod +x /usr/local/bin/reconfig
 
 COPY	restartHttpd /usr/local/bin/
 RUN	chmod +x /usr/local/bin/restartHttpd
+
+COPY	restartPhpFpm /usr/local/bin/
+RUN	chmod +x /usr/local/bin/restartPhpFpm
 
 COPY	autoDevDeploy /usr/local/bin/
 RUN	chmod +x /usr/local/bin/autoDevDeploy

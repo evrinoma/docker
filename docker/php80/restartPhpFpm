@@ -1,0 +1,2 @@
+#!/bin/bash
+kill -kill $(ps aux | grep -v grep | grep 'php-fpm' | awk '{print $2}')

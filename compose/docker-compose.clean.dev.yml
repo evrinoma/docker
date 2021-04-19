@@ -4,7 +4,7 @@ services:
         container_name: "maria.db"
         image: "evrinoma/db.maria"
         build:
-            context: docker/db/maria/5.5.65/.
+            context: docker/db/maria/10.3.27/.
             dockerfile: Dockerfile
         volumes:
             - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
@@ -13,25 +13,77 @@ services:
             virt:
                 ipv4_address: 172.18.2.1
 
-    php72_clean:
-        container_name: "php72.clean"
-        image: "evrinoma/php72.clean"
+    redis:
+        container_name: "redis"
+        image: "evrinoma/redis"
         build:
-            context: docker/php72/sites/clean/.
+            context: docker/redis/.
             dockerfile: Dockerfile
-            args:
-                - VHOST=clean
-                - database_host=172.18.2.1
-                - database_name=clean
-                - database_port=3306
-                - database_user=clean
-                - database_password=clean
-#                - RUN=init.install 1234
+        ports:
+            - 6379:6379
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
-                ipv4_address: 172.18.72.26
+                ipv4_address: 172.18.1.14
+
+    ubuntu_gnome_wine:
+        container_name: "ubuntu.wine.deploy"
+        image: "evrinoma/ubuntu.wine.deploy"
+        privileged: true
+        build:
+            context: docker/wine/ubuntu/.
+            dockerfile: Dockerfile
+        hostname: "ubuntu.wine"
+        extra_hosts:
+            - "php53.kis.ite-ng:172.18.53.3"
+        ports:
+#            - 172.20.1.78:5902:5901
+            - 5901:5901
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+        networks:
+            virt:
+                ipv4_address: 172.18.25.2
+
+    php80_cont_api:
+        container_name: "php80.cont.api"
+        image: "evrinoma/php80"
+        environment:
+            - DEPLOY=yes
+            - SYMFONY=yes
+            - MODE=dev
+#            - NODEJS=15
+            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public
+            - httpd_server=php80.cont.api
+            - httpd_alias=cont.api
+#            - PASSWD=pass
+#            - YUM=true
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.80.31
+
+    php80_clean:
+        container_name: "php80.clean"
+        image: "evrinoma/php80"
+        environment:
+            - DEPLOY=yes
+            - SYMFONY=yes
+            - MODE=dev
+            - NODEJS=10
+            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/clean.php80/public
+            - httpd_server=php80.clean
+            - httpd_alias=clean
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.80.26
 
 networks:
     virt:
