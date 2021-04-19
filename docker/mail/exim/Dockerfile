@@ -179,9 +179,11 @@ RUN	dnf install logrotate -y
 RUN	dnf install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
 
+RUN	echo "0   0  *  *  * logrotate -f /etc/logrotate.d/spam > /dev/null 2>&1" >> /etc/crontab && \
+	echo "*/1 *  *  *  * /usr/bin/date > /tmp/status.cron" >> /etc/crontab && \
+	crontab -u root /etc/crontab
+
 RUN	echo "0   0  *  *  * logrotate -f /etc/logrotate.d/exim > /dev/null 2>&1" >> /etc/crontab.exim && \
-	echo "0   0  *  *  * logrotate -f /etc/logrotate.d/spam > /dev/null 2>&1" >> /etc/crontab.exim && \
-	echo "*/1 *  *  *  * /usr/bin/date > /tmp/status.cron" >> /etc/crontab.exim && \
 	crontab -u exim /etc/crontab.exim
 
 #supervisor
