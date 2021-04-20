@@ -1,6 +1,6 @@
 #!/bin/bash
 docker login
-#docker push evrinoma/db.maria:latest
+docker push evrinoma/db.maria:latest
 #docker push evrinoma/php72.cont.ite-ng.ru:latest
 #docker push evrinoma/php53.kisnew.ite-ng.ru:latest
 #docker push evrinoma/php72:latest

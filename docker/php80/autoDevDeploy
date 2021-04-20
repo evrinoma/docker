@@ -12,7 +12,8 @@ echo '####################################################
 	ServerAlias ###WEB_SERVER_ALIAS
 	ServerAdmin ###WEB_ADMIN_EMAIL
 	DocumentRoot "###WEB_DIR"
-	ErrorLog /var/log/httpd/error-###WEB_ALIAS.log
+	ErrorLog /var/log/
+	httpd/error-###WEB_ALIAS.log
 	CustomLog /var/log/httpd/access-###WEB_ALIAS.log combined
 	<Directory "###WEB_DIR/">
 		AllowOverride All
@@ -58,20 +59,31 @@ echo 'server {
 fi
 }
 
+runInstall() {
+  RUN=$1
+  sleep 1;
+  if [ ! -z "${RUN}" ] ; then
+     echo $RUN
+     eval ${RUN[@]}
+  fi
+}
 
 declare -A ARGS
 
-ARGS=( [ENGINE]=httpd [NODEJS]= [CERTS]= [SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= \
+ARGS=( [ENGINE]=httpd [NODEJS]= [CERTS]= [SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [XDEBUG_CLIENT]= \
        [git_clone_link]= [git_clone_dir]=  \
        [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= \
+       [console]= \
        [web_dir]= [web_conf]= [web_server]= [web_server_alias]= [web_alias]= [web_admin_email]=nikolns@ite-ng.ru  )
 STATUS=''
 FILE_NAME=sys.credentials
-
+TMP=''
 for KEY in "${!ARGS[@]}";
 do
-    if [ ! -z $(printenv $KEY) ] ; then
-	    ARGS[$KEY]=$(printenv $KEY)
+    TMP=$(echo $(printenv $KEY))
+    if [ ! -z "$TMP" ] ; then
+            ARGS[$KEY]=$TMP
+            echo $TMP
     fi
 done
 
@@ -103,6 +115,10 @@ if [ "${ARGS[MODE]}" == "prod" ]; then
   rm -rf /opt/WWW/container.ite-ng.ru/conf/.composer
   rm -rf /root/.composer
   rm -rf /root/.gitconfig
+else
+  if [[ ! -z "${ARGS[XDEBUG_CLIENT]}" ]] ; then
+    sed -i -e "s@xdebug.client_host = .*@xdebug.client_host = ${ARGS[XDEBUG_CLIENT]}@g" /etc/php.d/xdebug.ini
+  fi
 fi
 
 if [ ! -z "${ARGS[YUM]}" ]; then echo "." && rpm -e --nodeps yum ; fi
@@ -141,10 +157,11 @@ case ${ARGS[ENGINE]} in
               echo "permission apache.apache ${ARGS[web_dir]}"
               chown -R apache.apache ${ARGS[web_dir]}
               restartHttpd
+              runInstall "${ARGS[console]}"
 
               exit 0
             else
-              echo "WRONG DEPLOYING CONFIG...."
+              echo "WRONG DEPLOYING CONFIG....${ARGS[ENGINE]}"
             fi
             if [[  ! -z "${ARGS[SYMFONY]}" &&  ! -z "${ARGS[web_server]}" && ! -z "${ARGS[web_alias]}" ]] ; then
               echo "DEPLOYING SYMFONY...."
@@ -153,10 +170,11 @@ case ${ARGS[ENGINE]} in
               echo "permission apache.apache ${ARGS[web_dir]}"
               chown -R apache.apache ${ARGS[web_dir]}/..
               restartHttpd
+              runInstall "${ARGS[console]}"
 
               exit 0
             else
-              echo "WRONG DEPLOYING SYMFONY...."
+              echo "WRONG DEPLOYING SYMFONY....${ARGS[ENGINE]}"
             fi
           else
             echo "WRONG PATH....[${ARGS[web_dir]}] or argument not set [${ARGS[DEPLOY]}]"
@@ -165,17 +183,31 @@ case ${ARGS[ENGINE]} in
     "nginx" )
           echo -e 'start nginx\n' | supervisorctl -i 2>&1
           if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[web_dir]}" &&  -d "${ARGS[web_dir]}" ]] ; then
-            if [[  ! -z "${ARGS[SYMFONY]}" &&  ! -z "${ARGS[web_server]}" && ! -z "${ARGS[web_alias]}" ]] ; then
+            if [[  ! -z "${ARGS[web_conf]}" &&  -f "${ARGS[web_conf]}" ]] ; then
+              echo "DEPLOYING CONFIG...."
+              echo "copy ${ARGS[web_conf]} to /etc/nginx/conf.d/"
+              cp ${ARGS[web_conf]} /etc/nginx/conf.d/vhost.conf
+              echo "permission nginx.nginx ${ARGS[web_dir]}"
+              chown -R nginx.nginx ${ARGS[web_dir]}
+              restartHttpd
+              runInstall "${ARGS[console]}"
+
+              exit 0
+            else
+              echo "WRONG DEPLOYING CONFIG....${ARGS[ENGINE]}"
+            fi
+            if [[  ! -z "${ARGS[SYMFONY]}" &&  ! -z "${ARGS[web_server]}" ]] ; then
                 echo "DEPLOYING SYMFONY...."
                 createNginxConfig /etc/nginx/conf.d/vhost.conf
                 sed -i -e "s@###WEB_SERVER@${ARGS[web_server]}@g" -i -e "s@###WEB_DIR@${ARGS[web_dir]}@g" /etc/nginx/conf.d/vhost.conf
-                echo "permission apache.apache ${ARGS[web_dir]}"
+                echo "permission nginx.nginx ${ARGS[web_dir]}"
                 chown -R nginx.nginx ${ARGS[web_dir]}/..
                 restartNginx
+                runInstall "${ARGS[console]}"
 
                 exit 0
               else
-                echo "WRONG DEPLOYING SYMFONY...."
+                echo "WRONG DEPLOYING SYMFONY....${ARGS[ENGINE]}"
               fi
           else
             echo "WRONG PATH....[${ARGS[web_dir]}] or argument not set [${ARGS[DEPLOY]}]"
