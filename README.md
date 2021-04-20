@@ -24,6 +24,8 @@ PHP images only for developer mode
         - DEPLOY=yes - enable mode
         - MODE=dev - remove xdebug if value prod
         - NODEJS= - version nodejs
+        - git_clone_link=https://github.com/evrinoma/cont.api.git
+        - git_clone_dir=/opt/WWW/container.ite-ng.ru/projects/httpd
         - web_conf=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/vhost.conf - path to config
         - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api - path to folder
 
@@ -35,6 +37,8 @@ or
         - SYMFONY=yes - only for symfony app
         - MODE=dev - remove xdebug if value prod
         - NODEJS= - version nodejs
+        - git_clone_link=https://github.com/evrinoma/cont.api.git
+        - git_clone_dir=/opt/WWW/container.ite-ng.ru/projects/httpd 
         - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public - path to public folder
         - web_server=my.dns.name - server name you could set it in /etc/hosts
         - web_alias=alias - short server name                        

@@ -61,7 +61,10 @@ fi
 
 declare -A ARGS
 
-ARGS=( [ENGINE]=httpd [git_link]= [CERTS]= [SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [web_dir]= [web_conf]= [web_server]= [web_server_alias]= [web_alias]= [web_admin_email]=nikolns@ite-ng.ru [NODEJS]= )
+ARGS=( [ENGINE]=httpd [NODEJS]= [CERTS]= [SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= \
+       [git_clone_link]= [git_clone_dir]=  \
+       [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= \
+       [web_dir]= [web_conf]= [web_server]= [web_server_alias]= [web_alias]= [web_admin_email]=nikolns@ite-ng.ru  )
 STATUS=''
 FILE_NAME=sys.credentials
 
@@ -120,6 +123,11 @@ if [ ! -z "${ARGS[NODEJS]}" ] ; then
         curl --silent --location https://rpm.nodesource.com/setup_${ARGS[NODEJS]}.x | bash -  && \
         yum install -y nodejs yarn
     fi
+fi
+
+if [[ ! -z "${ARGS[git_clone_link]}" && ! -z "${ARGS[git_clone_dir]}" &&  -d "${ARGS[git_clone_dir]}" ]] ; then
+  echo "GIT.... cloning to [${ARGS[git_clone_dir]}] from  [${ARGS[git_clone_link]}]"
+  git -C ${ARGS[git_clone_dir]} clone ${ARGS[git_clone_link]}
 fi
 
 case ${ARGS[ENGINE]} in
