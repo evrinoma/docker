@@ -15,6 +15,7 @@ ONBUILD	ARG	MODE=''
 
 RUN	yum -y install mc wget && \
 	yum -y install httpd && \
+	yum -y install nginx && \
 	yum -y install iproute;
 
 RUN	dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
@@ -293,11 +294,14 @@ RUN	ln -s /opt/WWW/container.ite-ng.ru/history /root/.bash_history
 #supervisor
 COPY	supervisor.conf /etc/supervisord.d/supervisor.conf
 RUN	mkdir -p /run/supervisor/ && \
-	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
-	sed -i -e "s/^files\ =\ supervisord\.d\/\*\.ini/files\ =\ supervisord\.d\/\*\.conf/" /etc/supervisord.conf && \
-	sed -i -e "s/^\[unix_http_server\]/;\[unix_http_server\]/" /etc/supervisord.conf && \
-	sed -i -e "s/^file\=\/run\/supervisor\/supervisor.sock/;&/" /etc/supervisord.conf
-
+	#sed -i -e "s@^nodaemon=false@nodaemon=true@" /etc/supervisord.conf && \
+	sed -i -e "s@^files\ =\ supervisord\.d\/\*\.ini@files\ =\ supervisord\.d\/\*\.conf@" /etc/supervisord.conf && \
+	sed -i -e "s@^\[unix_http_server\]@;\[unix_http_server\]@" /etc/supervisord.conf && \
+	sed -i -e "s@^file\=\/run\/supervisor\/supervisor.sock@;&@" /etc/supervisord.conf && \
+    sed -i -e "s@^;\[inet_http_server\]@\[inet_http_server\]@" /etc/supervisord.conf && \
+    sed -i -e "s@^;port=127\.0\.0\.1\:9001@port=127\.0\.0\.1\:9001@" /etc/supervisord.conf && \
+	sed -i -e "s@^serverurl=unix\:@;&@" /etc/supervisord.conf && \
+	sed -i -e "s@^;serverurl=http:@serverurl=http:@" /etc/supervisord.conf
 
 ##mount
 RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
@@ -394,8 +398,12 @@ RUN	chmod 700 /usr/local/bin/init.container
 RUN	yum install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond && \
 	touch /etc/crontab.apache
+
 COPY	reconfig /usr/local/bin/
 RUN	chmod +x /usr/local/bin/reconfig
+
+COPY	restartNginx /usr/local/bin/
+RUN	chmod +x /usr/local/bin/restartNginx
 
 COPY	restartHttpd /usr/local/bin/
 RUN	chmod +x /usr/local/bin/restartHttpd
@@ -405,5 +413,5 @@ RUN	chmod +x /usr/local/bin/autoDevDeploy
 
 COPY    install/ /root/install
 
-ENTRYPOINT ["/usr/bin/supervisord","-n"]
+ENTRYPOINT ["/usr/bin/supervisord"]
 EXPOSE 22 80
