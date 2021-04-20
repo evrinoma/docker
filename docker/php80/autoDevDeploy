@@ -4,17 +4,17 @@ createHttpdConfig() {
 DST_FILE=$1
 if [ ! -z "${DST_FILE}" ] ; then
 echo '####################################################
-### container.ite-ng.ru/###HTTPD_ALIAS
+### container.ite-ng.ru/###WEB_ALIAS
 ####################################################
 <VirtualHost *:80>
-	Alias /###HTTPD_ALIAS ###HTTPD_DIR
-	ServerName ###HTTPD_SERVER
-	ServerAlias ###HTTPD_SERVER_ALIAS
-	ServerAdmin ###HTTPD_ADMIN_EMAIL
-	DocumentRoot "###HTTPD_DIR"
-	ErrorLog /var/log/httpd/error-###HTTPD_ALIAS.log
-	CustomLog /var/log/httpd/access-###HTTPD_ALIAS.log combined
-	<Directory "###HTTPD_DIR/">
+	Alias /###WEB_ALIAS ###WEB_DIR
+	ServerName ###WEB_SERVER
+	ServerAlias ###WEB_SERVER_ALIAS
+	ServerAdmin ###WEB_ADMIN_EMAIL
+	DocumentRoot "###WEB_DIR"
+	ErrorLog /var/log/httpd/error-###WEB_ALIAS.log
+	CustomLog /var/log/httpd/access-###WEB_ALIAS.log combined
+	<Directory "###WEB_DIR/">
 		AllowOverride All
 		Require all granted
 		<IfModule mod_rewrite.c>
@@ -29,9 +29,39 @@ echo '####################################################
 fi
 }
 
+createNginxConfig() {
+DST_FILE=$1
+if [ ! -z "${DST_FILE}" ] ; then
+echo 'server {
+    listen 8080;
+    server_name ###WEB_SERVER;
+
+    error_log  /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+    root ###WEB_DIR;
+
+    location / {
+        # try to serve file directly, fallback to index.php
+        try_files $uri /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        fastcgi_pass unix:/var/run/php-fpm/www.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+}' > $DST_FILE
+fi
+}
+
+
 declare -A ARGS
 
-ARGS=( [CERTS]= [SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [httpd_dir]= [httpd_conf]= [httpd_server]= [httpd_server_alias]= [httpd_alias]= [httpd_admin_email]=nikolns@ite-ng.ru [NODEJS]= )
+ARGS=( [ENGINE]=httpd [git_link]= [CERTS]= [SHOW]= [PASSWD]= [YUM]= [DEPLOY]= [SYMFONY]= [MODE]=dev [VHOST]= [database_host]= [database_name]= [database_port]= [database_user]= [database_password]= [web_dir]= [web_conf]= [web_server]= [web_server_alias]= [web_alias]= [web_admin_email]=nikolns@ite-ng.ru [NODEJS]= )
 STATUS=''
 FILE_NAME=sys.credentials
 
@@ -42,8 +72,8 @@ do
     fi
 done
 
-if [ -z "${ARGS[httpd_server_alias]}" ]; then
-    ARGS[httpd_server_alias]=php$(php -v | sed -e "/^PHP/!d" -e "s/.* \([0-9]\+\.[0-9]\+\.[0-9]\+\).*$/\1/" -e "s/\(.*\)[0-9])*/\1/" -e "s/[^0-9]//g").${ARGS[httpd_alias]}
+if [ -z "${ARGS[web_server_alias]}" ]; then
+    ARGS[web_server_alias]=php$(php -v | sed -e "/^PHP/!d" -e "s/.* \([0-9]\+\.[0-9]\+\.[0-9]\+\).*$/\1/" -e "s/\(.*\)[0-9])*/\1/" -e "s/[^0-9]//g").${ARGS[web_alias]}
 fi
 
 if [ ! -z "${ARGS[SHOW]}" ]; then
@@ -92,38 +122,58 @@ if [ ! -z "${ARGS[NODEJS]}" ] ; then
     fi
 fi
 
-if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[httpd_dir]}" &&  -d "${ARGS[httpd_dir]}" ]] ; then
-	if [[  ! -z "${ARGS[httpd_conf]}" &&  -f "${ARGS[httpd_conf]}" ]] ; then
-		echo "DEPLOYING CONFIG...."
-		echo "copy ${ARGS[httpd_conf]} to /etc/httpd/conf.d/"
-		cp ${ARGS[httpd_conf]} /etc/httpd/conf.d/vhost.conf
-		echo "permission apache.apache ${ARGS[httpd_dir]}"
-		chown -R apache.apache ${ARGS[httpd_dir]}
-		restartHttpd
+case ${ARGS[ENGINE]} in
+    "httpd" )
+          echo -e 'start apache2\n' | supervisorctl -i 2>&1
+          if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[web_dir]}" &&  -d "${ARGS[web_dir]}" ]] ; then
+            if [[  ! -z "${ARGS[web_conf]}" &&  -f "${ARGS[web_conf]}" ]] ; then
+              echo "DEPLOYING CONFIG...."
+              echo "copy ${ARGS[web_conf]} to /etc/httpd/conf.d/"
+              cp ${ARGS[web_conf]} /etc/httpd/conf.d/vhost.conf
+              echo "permission apache.apache ${ARGS[web_dir]}"
+              chown -R apache.apache ${ARGS[web_dir]}
+              restartHttpd
 
-		exit 0
-  else
-    echo "WRONG DEPLOYING CONFIG...."
-	fi
-	if [[  ! -z "${ARGS[SYMFONY]}" &&  ! -z "${ARGS[httpd_server]}" && ! -z "${ARGS[httpd_alias]}" ]] ; then
-		echo "DEPLOYING SYMFONY...."
-		createHttpdConfig /etc/httpd/conf.d/vhost.conf
-		#sed -i -e "s@###HTTPD_ALIAS@${ARGS[httpd_alias]}@g" /etc/httpd/conf.d/vhost.conf
-        #sed -i -e "s@###HTTPD_SERVER_ALIAS@${ARGS[httpd_server_alias]}@g" /etc/httpd/conf.d/vhost.conf
-        #sed -i -e "s@###HTTPD_SERVER@${ARGS[httpd_server]}@g" /etc/httpd/conf.d/vhost.conf
-        #sed -i -e "s@###HTTPD_DIR@${ARGS[httpd_dir]}@g" /etc/httpd/conf.d/vhost.conf
-        #sed -i -e "s/###HTTPD_ADMIN_EMAIL/${ARGS[httpd_admin_email]}/g" /etc/httpd/conf.d/vhost.conf
-		sed -i -e "s@###HTTPD_ALIAS@${ARGS[httpd_alias]}@g" -i -e "s@###HTTPD_SERVER_ALIAS@${ARGS[httpd_server_alias]}@g" -i -e "s@###HTTPD_SERVER@${ARGS[httpd_server]}@g" -i -e "s@###HTTPD_DIR@${ARGS[httpd_dir]}@g" -i -e "s/###HTTPD_ADMIN_EMAIL/${ARGS[httpd_admin_email]}/g" /etc/httpd/conf.d/vhost.conf
-		echo "permission apache.apache ${ARGS[httpd_dir]}"
-		chown -R apache.apache ${ARGS[httpd_dir]}/..
-		restartHttpd
+              exit 0
+            else
+              echo "WRONG DEPLOYING CONFIG...."
+            fi
+            if [[  ! -z "${ARGS[SYMFONY]}" &&  ! -z "${ARGS[web_server]}" && ! -z "${ARGS[web_alias]}" ]] ; then
+              echo "DEPLOYING SYMFONY...."
+              createHttpdConfig /etc/httpd/conf.d/vhost.conf
+              sed -i -e "s@###WEB_ALIAS@${ARGS[web_alias]}@g" -i -e "s@###WEB_SERVER_ALIAS@${ARGS[web_server_alias]}@g" -i -e "s@###WEB_SERVER@${ARGS[web_server]}@g" -i -e "s@###WEB_DIR@${ARGS[web_dir]}@g" -i -e "s/###WEB_ADMIN_EMAIL/${ARGS[web_admin_email]}/g" /etc/httpd/conf.d/vhost.conf
+              echo "permission apache.apache ${ARGS[web_dir]}"
+              chown -R apache.apache ${ARGS[web_dir]}/..
+              restartHttpd
 
-		exit 0
-	else
-	  echo "WRONG DEPLOYING SYMFONY...."
-	fi
-else
-  echo "WRONG PATH....[${ARGS[httpd_dir]}] or argument not set [${ARGS[DEPLOY]}]"
-fi
+              exit 0
+            else
+              echo "WRONG DEPLOYING SYMFONY...."
+            fi
+          else
+            echo "WRONG PATH....[${ARGS[web_dir]}] or argument not set [${ARGS[DEPLOY]}]"
+          fi
+        ;;
+    "nginx" )
+          echo -e 'start nginx\n' | supervisorctl -i 2>&1
+          if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[web_dir]}" &&  -d "${ARGS[web_dir]}" ]] ; then
+            if [[  ! -z "${ARGS[SYMFONY]}" &&  ! -z "${ARGS[web_server]}" && ! -z "${ARGS[web_alias]}" ]] ; then
+                echo "DEPLOYING SYMFONY...."
+                createNginxConfig /etc/nginx/conf.d/vhost.conf
+                sed -i -e "s@###WEB_SERVER@${ARGS[web_server]}@g" -i -e "s@###WEB_DIR@${ARGS[web_dir]}@g" /etc/nginx/conf.d/vhost.conf
+                echo "permission apache.apache ${ARGS[web_dir]}"
+                chown -R nginx.nginx ${ARGS[web_dir]}/..
+                restartNginx
+
+                exit 0
+              else
+                echo "WRONG DEPLOYING SYMFONY...."
+              fi
+          else
+            echo "WRONG PATH....[${ARGS[web_dir]}] or argument not set [${ARGS[DEPLOY]}]"
+          fi
+        ;;
+esac
+
 
 rm -rf /root/install
