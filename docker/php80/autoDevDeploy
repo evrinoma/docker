@@ -141,9 +141,12 @@ if [ ! -z "${ARGS[NODEJS]}" ] ; then
     fi
 fi
 
-if [[ ! -z "${ARGS[git_clone_link]}" && ! -z "${ARGS[git_clone_dir]}" &&  -d "${ARGS[git_clone_dir]}" ]] ; then
-  echo "GIT.... cloning to [${ARGS[git_clone_dir]}] from  [${ARGS[git_clone_link]}]"
-  git -C ${ARGS[git_clone_dir]} clone ${ARGS[git_clone_link]}
+if [[ ! -z "${ARGS[git_clone_link]}" && ! -z "${ARGS[git_clone_dir]}" ]] ; then
+    if [[ ! -d "${ARGS[git_clone_dir]}" ]] ; then
+    mkdir -p ${ARGS[git_clone_dir]}
+    fi
+        echo "GIT.... cloning to [${ARGS[git_clone_dir]}] from  [${ARGS[git_clone_link]}]"
+    git -C ${ARGS[git_clone_dir]} clone ${ARGS[git_clone_link]}
 fi
 
 case ${ARGS[ENGINE]} in
