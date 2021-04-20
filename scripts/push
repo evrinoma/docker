@@ -15,7 +15,7 @@ docker login
 #docker push evrinoma/redis:latest
 #docker push evrinoma/php74.cont.api:latest
 #docker push evrinoma/php80.businesscenter:latest
-docker push evrinoma/php53:latest
-docker push evrinoma/php72:latest
+#docker push evrinoma/php53:latest
+#docker push evrinoma/php72:latest
 docker push evrinoma/php74:latest
 docker push evrinoma/php80:latest
