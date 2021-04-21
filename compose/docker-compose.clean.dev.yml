@@ -75,12 +75,12 @@ services:
             - SYMFONY=yes
             - MODE=dev
             - NODEJS=10
-            - git_clone_link=https://github.com/evrinoma/MenuBundle.git
-            - git_clone_dir=/opt/WWW/container.ite-ng.ru/projects/httpd
+            - _git_clone_link=https://github.com/evrinoma/MenuBundle.git
+            - _git_clone_dir=/opt/WWW/container.ite-ng.ru/projects/httpd
             - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/clean.php80/public
             - web_server=php80.clean
             - web_alias=clean
-            - install=cd /opt/WWW/container.ite-ng.ru/projects/httpd/clean.php80 && composer install && ./bin/phpunit
+            - _console=cd /opt/WWW/container.ite-ng.ru/projects/httpd/clean.php80 && composer install && ./bin/phpunit
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"

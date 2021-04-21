@@ -12,8 +12,7 @@ echo '####################################################
 	ServerAlias ###WEB_SERVER_ALIAS
 	ServerAdmin ###WEB_ADMIN_EMAIL
 	DocumentRoot "###WEB_DIR"
-	ErrorLog /var/log/
-	httpd/error-###WEB_ALIAS.log
+	ErrorLog /var/log/httpd/error-###WEB_ALIAS.log
 	CustomLog /var/log/httpd/access-###WEB_ALIAS.log combined
 	<Directory "###WEB_DIR/">
 		AllowOverride All
@@ -151,7 +150,8 @@ fi
 
 case ${ARGS[ENGINE]} in
     "httpd" )
-          echo -e 'start apache2\n' | supervisorctl -i 2>&1
+          nohup echo -e 'start apache2\n' | supervisorctl -i 2>&1 &
+          sleep 1 && kill -kill $(ps aux | grep supervisorctl | grep -v grep | awk '{print $2}')
           if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[web_dir]}" &&  -d "${ARGS[web_dir]}" ]] ; then
             if [[  ! -z "${ARGS[web_conf]}" &&  -f "${ARGS[web_conf]}" ]] ; then
               echo "DEPLOYING CONFIG...."
@@ -184,7 +184,8 @@ case ${ARGS[ENGINE]} in
           fi
         ;;
     "nginx" )
-          echo -e 'start nginx\n' | supervisorctl -i 2>&1
+          nohup echo -e 'start nginx\n' | supervisorctl -i 2>&1 &
+          sleep 1 && kill -kill $(ps aux | grep supervisorctl | grep -v grep | awk '{print $2}')
           if [[ ! -z "${ARGS[DEPLOY]}" && ! -z "${ARGS[web_dir]}" &&  -d "${ARGS[web_dir]}" ]] ; then
             if [[  ! -z "${ARGS[web_conf]}" &&  -f "${ARGS[web_conf]}" ]] ; then
               echo "DEPLOYING CONFIG...."
