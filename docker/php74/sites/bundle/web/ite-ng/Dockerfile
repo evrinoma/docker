@@ -17,4 +17,6 @@ COPY	ite-ng/init.install /usr/local/bin
 COPY	ite-ng/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
+RUN sed -i -e "s@.*\;httpd autostart@autostart=true@" /etc/supervisord.d/supervisor.conf
+
 COPY	ite-ng.conf /etc/httpd/conf.d/vhost.conf

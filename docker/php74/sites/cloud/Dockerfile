@@ -31,7 +31,8 @@ RUN	chmod +x /usr/local/bin/init.openssl
 
 RUN	sed -i '1s/^/\n/' /etc/supervisord.d/supervisor.conf && \
 	sed -i '1s/^/command=init.openssl\n/' /etc/supervisord.d/supervisor.conf && \
-	sed -i '1s/^/[program:init.openssl]\n/' /etc/supervisord.d/supervisor.conf
+	sed -i '1s/^/[program:init.openssl]\n/' /etc/supervisord.d/supervisor.conf && \
+    sed -i -e "s@.*\;httpd autostart@autostart=true@" /etc/supervisord.d/supervisor.conf
 
 RUN	yum -y install mod_ssl && \
 	mv /etc/httpd/conf.d/ssl.conf{,.bak} && \

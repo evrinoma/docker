@@ -22,6 +22,8 @@ RUN	yum -y install mod_ssl && \
 	mv -v /etc/httpd/conf.d/welcome.conf{,.bak} && \
 	echo  -e "<?php\\n header('Location: https://'.\$_SERVER['HTTP_HOST'].'/');\\n "  > /var/www/html/index.php
 
+RUN sed -i -e "s@.*\;httpd autostart@autostart=true@" /etc/supervisord.d/supervisor.conf
+
 COPY	roundcubemail.conf /etc/httpd/conf.d/vhost.conf
 COPY	ite-ng.ru /opt/WWW/ite-ng.ru
 

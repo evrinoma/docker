@@ -34,6 +34,8 @@ RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
 	echo "database_password=${database_password}" >> /etc/sysconfig/vhost && \
 	echo "CERTS=${CERTS}" >> /etc/sysconfig/vhost
 
+RUN sed -i -e "s@.*\;httpd autostart@autostart=true@" /etc/supervisord.d/supervisor.conf
+
 COPY	cont.conf /etc/httpd/conf.d/vhost.conf
 
 COPY	init.container.cron.part /usr/local/bin

@@ -26,6 +26,8 @@ RUN	echo "MODE=${MODE}" > /etc/sysconfig/vhost && \
 	echo "database_user=${database_user}" >> /etc/sysconfig/vhost && \
 	echo "database_password=${database_password}" >> /etc/sysconfig/vhost
 
+RUN sed -i -e "s@.*\;httpd autostart@autostart=true@" /etc/supervisord.d/supervisor.conf
+
 COPY	adbook.conf /etc/httpd/conf.d/vhost.conf
 
 ADD	init.container.cron.part /usr/local/bin

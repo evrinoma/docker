@@ -11,6 +11,8 @@ LABEL \
 	license="MIT" \
 	build-date="2020-02-14"
 
+RUN sed -i -e "s@.*\;httpd autostart@autostart=true@" /etc/supervisord.d/supervisor.conf
+
 COPY	nekeng/install/nekeng.sql.tar.gz /root/src/
 COPY	nekeng/install/nekeng.tar.gz /root/src/
 COPY	nekeng/nekeng/init.install /usr/local/bin/init.install.nekeng

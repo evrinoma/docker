@@ -17,4 +17,6 @@ COPY	kpsz/init.install /usr/local/bin
 COPY	kpsz/init.sql /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
+RUN sed -i -e "s@.*\;httpd autostart@autostart=true@" /etc/supervisord.d/supervisor.conf
+
 COPY	kpsz.conf /etc/httpd/conf.d/vhost.conf

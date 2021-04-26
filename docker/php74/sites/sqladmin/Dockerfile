@@ -11,5 +11,8 @@ LABEL \
 	license="MIT" \
 	build-date="2021-03-02"
 
+RUN sed -i -e "s@.*\;httpd autostart@autostart=true@" /etc/supervisord.d/supervisor.conf
+
 COPY	sqladmin.conf /etc/httpd/conf.d/vhost.conf
+
 RUN	if [ "${MODE}" == "prod" ]; then rm -rf /etc/php.d/xdebug.ini ; fi

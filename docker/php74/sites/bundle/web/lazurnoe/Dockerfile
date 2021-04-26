@@ -15,4 +15,6 @@ COPY	install/lazurnoe.tar.gz /root/src/
 COPY	nekeng/init.install /usr/local/bin
 RUN	chmod +x /usr/local/bin/init.install
 
+RUN sed -i -e "s@.*\;httpd autostart@autostart=true@" /etc/supervisord.d/supervisor.conf
+
 COPY	lazurnoe.conf /etc/httpd/conf.d/vhost.conf
