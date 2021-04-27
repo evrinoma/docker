@@ -1,54 +1,54 @@
 version: '2'
 services:
-    maria_db_web:
-        container_name: "maria.db.web"
-        image: "evrinoma/db.maria.web"
-        hostname: "maria.db.web"
-        build:
-            context: docker/db/maria/5.5.65/web/.
-            dockerfile: Dockerfile
-        ports:
-            - "172.16.45.15:3306:3306/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/db/maria/:/var/lib/mysql"
-            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
-        networks:
-            virt:
-                ipv4_address: 172.18.2.4
+  maria_db_web:
+    container_name: "maria.db.web"
+    image: "evrinoma/db.maria.web"
+    hostname: "maria.db.web"
+    build:
+      context: docker/db/maria/5.5.65/web/.
+      dockerfile: Dockerfile
+    ports:
+      - "172.16.45.15:3306:3306/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/db/maria/:/var/lib/mysql"
+      - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+    networks:
+      virt:
+        ipv4_address: 172.18.2.4
 
-    php74_web:
-        container_name: "php74.web"
-        image: "evrinoma/php74.web"
-        build:
-            context: docker/php74/sites/bundle/web/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-        environment:
-            - PASSWD=pass
-            - YUM=true
-            - MODE=prod
-        ports:
-            - "172.16.45.15:80:80/tcp"
-            - "172.16.45.15:443:443/tcp"
-            - "172.16.45.15:22:22/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.24.2
+  php74_web:
+    container_name: "php74.web"
+    image: "evrinoma/php74.web"
+    build:
+      context: docker/php74/sites/bundle/web/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+    environment:
+      - PASSWD=pass
+      - YUM=true
+      - MODE=prod
+    ports:
+      - "172.16.45.15:80:80/tcp"
+      - "172.16.45.15:443:443/tcp"
+      - "172.16.45.15:22:22/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.24.2
 
 networks:
-    virt:
-        driver: bridge
-        driver_opts:
-            com.docker.network.enable_ipv6: "false"
-            com.docker.network.bridge.name: "docker_web"
-        ipam:
-            driver: default
-            config:
-                - subnet: 172.18.0.0/16
-                  gateway: 172.18.0.1
+  virt:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+      com.docker.network.bridge.name: "docker_web"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
 

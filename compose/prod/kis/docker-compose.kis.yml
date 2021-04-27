@@ -1,131 +1,131 @@
 version: '2'
 services:
-    maria_db:
-        container_name: "maria.db"
-        image: "evrinoma/db.maria"
-        hostname: "maria.db"
-        build:
-            context: docker/db/maria/5.5.65/.
-            dockerfile: Dockerfile
-        ports:
-            - "172.20.1.9:3306:3306/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/db/maria/:/var/lib/mysql"
-            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
-        networks:
-            virt:
-                ipv4_address: 172.18.2.1
+  maria_db:
+    container_name: "maria.db"
+    image: "evrinoma/db.maria"
+    hostname: "maria.db"
+    build:
+      context: docker/db/maria/5.5.65/.
+      dockerfile: Dockerfile
+    ports:
+      - "172.20.1.9:3306:3306/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/db/maria/:/var/lib/mysql"
+      - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+    networks:
+      virt:
+        ipv4_address: 172.18.2.1
 
-    php53_kis_ite-ng_ru:
-        container_name: "php53.kis.ite-ng"
-        image: "evrinoma/php53.kis.ite-ng.ru"
-        hostname: "kis.ite-ng.ru"
-        cap_add:
-            - SYS_ADMIN
-        security_opt:
-            - apparmor:unconfined
-        build:
-            context: docker/php53/sites/kis/.
-            dockerfile: Dockerfile
-            args:
-                - VHOST=ite-ng
-        ports:
-            - "172.20.1.9:80:80/tcp"
-            - "172.20.1.9:22:22/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-            - "/opt/docker/src/data/external/:/opt/WWW/external/"
-            - "/opt/DISK_ISCSI_DOC/:/opt/WWW/docs/"
-        networks:
-            virt:
-                ipv4_address: 172.18.53.3
+  php53_kis_ite-ng_ru:
+    container_name: "php53.kis.ite-ng"
+    image: "evrinoma/php53.kis.ite-ng.ru"
+    hostname: "kis.ite-ng.ru"
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    build:
+      context: docker/php53/sites/kis/.
+      dockerfile: Dockerfile
+      args:
+        - VHOST=ite-ng
+    ports:
+      - "172.20.1.9:80:80/tcp"
+      - "172.20.1.9:22:22/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+      - "/opt/docker/src/data/external/:/opt/WWW/external/"
+      - "/opt/DISK_ISCSI_DOC/:/opt/WWW/docs/"
+    networks:
+      virt:
+        ipv4_address: 172.18.53.3
 
-    php53_kis_new_ite-ng_ru:
-        container_name: "php53.kisnew.ite-ng"
-        image: "evrinoma/php53.kisnew.ite-ng.ru"
-        build:
-            context: docker/php53/sites/kisnew/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-                - VHOST=ite-ng
-                - exchange=true
-                - database_host=172.18.2.1
-                - database_name=mh3itgr_ng
-                - database_port=3306
-                - database_user=mh3itgr_ngdb
-                - database_password=147Fort21
-        hostname: "kis.ite-ng.local"
-        cap_add:
-            - SYS_ADMIN
-        security_opt:
-            - apparmor:unconfined
-        ports:
-            - "172.20.1.179:80:80/tcp"
-            - "172.20.1.179:22:22/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-            - "/opt/DISK_ISCSI_DOC/:/opt/WWW/docs/"
-            - "/opt/docker/src/data/external/:/opt/WWW/external/"
-        networks:
-            virt:
-                ipv4_address: 172.18.53.4
+  php53_kis_new_ite-ng_ru:
+    container_name: "php53.kisnew.ite-ng"
+    image: "evrinoma/php53.kisnew.ite-ng.ru"
+    build:
+      context: docker/php53/sites/kisnew/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+        - VHOST=ite-ng
+        - exchange=true
+        - database_host=172.18.2.1
+        - database_name=mh3itgr_ng
+        - database_port=3306
+        - database_user=mh3itgr_ngdb
+        - database_password=147Fort21
+    hostname: "kis.ite-ng.local"
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    ports:
+      - "172.20.1.179:80:80/tcp"
+      - "172.20.1.179:22:22/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+      - "/opt/DISK_ISCSI_DOC/:/opt/WWW/docs/"
+      - "/opt/docker/src/data/external/:/opt/WWW/external/"
+    networks:
+      virt:
+        ipv4_address: 172.18.53.4
 
-    node:
-        container_name: "node.clone.ite-ng"
-        image: "evrinoma/node.clone.ite-ng.ru"
-        build:
-            context: docker/node/clone/.
-            dockerfile: Dockerfile
-            args:
-                - BASE_PATH=/opt/WWW/container.ite-ng.ru/data/external/exchange1C/kis.ite-ng.ru
-                - BASE_TARGET=out
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.6.2
+  node:
+    container_name: "node.clone.ite-ng"
+    image: "evrinoma/node.clone.ite-ng.ru"
+    build:
+      context: docker/node/clone/.
+      dockerfile: Dockerfile
+      args:
+        - BASE_PATH=/opt/WWW/container.ite-ng.ru/data/external/exchange1C/kis.ite-ng.ru
+        - BASE_TARGET=out
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.6.2
 
 
-    samba_kis:
-        container_name: "samba.kis"
-        image: "evrinoma/samba.kis"
-        hostname: "DOCK_SMB_KIS"
-        ports:
-            - "172.20.1.180:22:22/tcp"
-            - "172.20.1.180:137:137/udp"
-            - "172.20.1.180:138:138/udp"
-            - "172.20.1.180:139:139/tcp"
-            - "172.20.1.180:445:445/tcp"
-        build:
-            context: docker/samba/servers/kis/.
-            dockerfile: Dockerfile
-            args:
-                - netbios_name=SMB_KIS
-                - server_string=KIS_DOCKER
-                - server_IP=172.20.1.6, 172.20.1.20
-                - server_domain=ITE-NG.RU
-                - cache_time=60
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/data/external/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.1.18
+  samba_kis:
+    container_name: "samba.kis"
+    image: "evrinoma/samba.kis"
+    hostname: "DOCK_SMB_KIS"
+    ports:
+      - "172.20.1.180:22:22/tcp"
+      - "172.20.1.180:137:137/udp"
+      - "172.20.1.180:138:138/udp"
+      - "172.20.1.180:139:139/tcp"
+      - "172.20.1.180:445:445/tcp"
+    build:
+      context: docker/samba/servers/kis/.
+      dockerfile: Dockerfile
+      args:
+        - netbios_name=SMB_KIS
+        - server_string=KIS_DOCKER
+        - server_IP=172.20.1.6, 172.20.1.20
+        - server_domain=ITE-NG.RU
+        - cache_time=60
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/data/external/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.1.18
 
 networks:
-    virt:
-        driver: bridge
-        driver_opts:
-            com.docker.network.enable_ipv6: "false"
-            com.docker.network.bridge.name: "docker_kis"
-        ipam:
-            driver: default
-            config:
-                - subnet: 172.18.0.0/16
-                  gateway: 172.18.0.1
+  virt:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+      com.docker.network.bridge.name: "docker_kis"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
 

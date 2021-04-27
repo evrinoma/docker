@@ -1,132 +1,132 @@
 version: '2'
 services:
-    maria_db:
-        container_name: "maria.db"
-        image: "evrinoma/db.maria"
-        hostname: "maria.db"
-        ports:
-            - "172.16.45.4:3306:3306/tcp"
-        build:
-            context: docker/db/maria/10.3.27/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/db/maria/:/var/lib/mysql"
-            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
-        networks:
-            virt:
-                ipv4_address: 172.18.2.1
+  maria_db:
+    container_name: "maria.db"
+    image: "evrinoma/db.maria"
+    hostname: "maria.db"
+    ports:
+      - "172.16.45.4:3306:3306/tcp"
+    build:
+      context: docker/db/maria/10.3.27/.
+      dockerfile: Dockerfile
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/db/maria/:/var/lib/mysql"
+      - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+    networks:
+      virt:
+        ipv4_address: 172.18.2.1
 
-    bind_slave:
-        container_name: "bind.slave"
-        image: "evrinoma/bind.slave"
-        hostname: "bind.slave"
-        extra_hosts:
-            - "git.ite-ng.ru:172.20.1.169"
-        ports:
-            - "172.16.45.4:53:53/tcp"
-            - "172.16.45.4:53:53/udp"
-            - "172.16.45.4:8953:8953"
-            - "172.16.45.4:12000:22"
-        build:
-            context: docker/bind/servers/mail/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=slave
-                - INSTALL_DIR=/opt/WWW/container.ite-ng.ru/conf/bind
-                - GIT_IP=172.20.1.169
-        volumes:
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.5.2
+  bind_slave:
+    container_name: "bind.slave"
+    image: "evrinoma/bind.slave"
+    hostname: "bind.slave"
+    extra_hosts:
+      - "git.ite-ng.ru:172.20.1.169"
+    ports:
+      - "172.16.45.4:53:53/tcp"
+      - "172.16.45.4:53:53/udp"
+      - "172.16.45.4:8953:8953"
+      - "172.16.45.4:12000:22"
+    build:
+      context: docker/bind/servers/mail/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=slave
+        - INSTALL_DIR=/opt/WWW/container.ite-ng.ru/conf/bind
+        - GIT_IP=172.20.1.169
+    volumes:
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.5.2
 
-    php74_roundcubemail:
-        container_name: "php74.roundcubemail"
-        image: "evrinoma/php74.roundcubemail"
-        build:
-            context: docker/php74/sites/roundcubemail/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-                - VERSION=1.3.16
-        #                - VERSION=1.3.15
-        #                - VERSION=1.4.3
-        #                - VERSION=1.4.9
-        #                - VERSION=1.4.10
-        environment:
-            - PASSWD=pass
-            - YUM=true
-            - MODE=prod
-        hostname: "email.ite-ng.ru"
-        ports:
-            - "172.16.45.4:80:80/tcp"
-            - "172.16.45.4:443:443/tcp"
-            - "172.16.45.4:12001:22"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.74.11
+  php74_roundcubemail:
+    container_name: "php74.roundcubemail"
+    image: "evrinoma/php74.roundcubemail"
+    build:
+      context: docker/php74/sites/roundcubemail/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+        - VERSION=1.3.16
+    #                - VERSION=1.3.15
+    #                - VERSION=1.4.3
+    #                - VERSION=1.4.9
+    #                - VERSION=1.4.10
+    environment:
+      - PASSWD=pass
+      - YUM=true
+      - MODE=prod
+    hostname: "email.ite-ng.ru"
+    ports:
+      - "172.16.45.4:80:80/tcp"
+      - "172.16.45.4:443:443/tcp"
+      - "172.16.45.4:12001:22"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.74.11
 
-    mail_dovecot_email:
-        container_name: "dovecot.email"
-        image: "evrinoma/dovecot.email"
-        build:
-            context: docker/mail/dovecot/servers/email/.
-            dockerfile: Dockerfile
-        hostname: "email.ite-ng.ru"
-        dns: 172.18.5.2
-        ports:
-            - "172.16.45.4:25:25/tcp"
-            - "172.16.45.4:110:110/tcp"
-            - "172.16.45.4:143:143/tcp"
-            - "172.16.45.4:465:465/tcp"
-            - "172.16.45.4:993:993/tcp"
-            - "172.16.45.4:995:995/tcp"
-            - "172.16.45.4:4190:4190/tcp"
-            - "172.16.45.4:8010:80/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.4.2
+  mail_dovecot_email:
+    container_name: "dovecot.email"
+    image: "evrinoma/dovecot.email"
+    build:
+      context: docker/mail/dovecot/servers/email/.
+      dockerfile: Dockerfile
+    hostname: "email.ite-ng.ru"
+    dns: 172.18.5.2
+    ports:
+      - "172.16.45.4:25:25/tcp"
+      - "172.16.45.4:110:110/tcp"
+      - "172.16.45.4:143:143/tcp"
+      - "172.16.45.4:465:465/tcp"
+      - "172.16.45.4:993:993/tcp"
+      - "172.16.45.4:995:995/tcp"
+      - "172.16.45.4:4190:4190/tcp"
+      - "172.16.45.4:8010:80/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.4.2
 
-    mattermost:
-        container_name: "mattermost.5.31.0"
-        image: "evrinoma/mattermost.5.31.0"
-        build:
-            context: docker/mattermost/servers/.
-            dockerfile: Dockerfile
-            args:
-                - VERSION=5.31.0
-                - VHOST=mattermost
-                - database_host=172.18.2.1
-                - database_name=mattermost
-                - database_port=3306
-                - database_user=mattermost
-                - database_password=mattermost
-        ports:
-            - "172.16.45.6:443:443/tcp"
-            - "172.16.45.6:8443:443/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.200.31
+  mattermost:
+    container_name: "mattermost.5.31.0"
+    image: "evrinoma/mattermost.5.31.0"
+    build:
+      context: docker/mattermost/servers/.
+      dockerfile: Dockerfile
+      args:
+        - VERSION=5.31.0
+        - VHOST=mattermost
+        - database_host=172.18.2.1
+        - database_name=mattermost
+        - database_port=3306
+        - database_user=mattermost
+        - database_password=mattermost
+    ports:
+      - "172.16.45.6:443:443/tcp"
+      - "172.16.45.6:8443:443/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.200.31
 
 networks:
-    virt:
-        driver: bridge
-        driver_opts:
-            com.docker.network.enable_ipv6: "false"
-            com.docker.network.bridge.name: "docker_dovecot"
-        ipam:
-            driver: default
-            config:
-                - subnet: 172.18.0.0/16
-                  gateway: 172.18.0.1
+  virt:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+      com.docker.network.bridge.name: "docker_dovecot"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
 

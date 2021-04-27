@@ -1,370 +1,370 @@
 version: '2'
 services:
-    maria_db:
-        container_name: "maria.db"
-        image: "evrinoma/db.maria"
-        hostname: "maria.db"
-        build:
-            context: docker/db/maria/5.5.65/.
-            dockerfile: Dockerfile
-        ports:
-            - "172.20.1.160:3306:3306/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/db/maria/:/var/lib/mysql"
-            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
-        networks:
-            virt:
-                ipv4_address: 172.18.2.1
+  maria_db:
+    container_name: "maria.db"
+    image: "evrinoma/db.maria"
+    hostname: "maria.db"
+    build:
+      context: docker/db/maria/5.5.65/.
+      dockerfile: Dockerfile
+    ports:
+      - "172.20.1.160:3306:3306/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/db/maria/:/var/lib/mysql"
+      - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+    networks:
+      virt:
+        ipv4_address: 172.18.2.1
 
-    bind_master:
-        container_name: "bind.master"
-        image: "evrinoma/bind.master"
-        hostname: "bind.master"
-        extra_hosts:
-            - "git.ite-ng.ru:172.20.1.169"
-        build:
-            context: docker/bind/servers/mail/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=master
-                - INSTALL_DIR=/opt/WWW/container.ite-ng.ru/conf/bind
-                - GIT_IP=172.20.1.169
-        ports:
-            - "172.20.1.5:53:53/tcp"
-            - "172.20.1.5:53:53/udp"
-            - "172.20.1.5:8953:8953"
-            - "172.20.1.5:12000:22"
-        volumes:
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.5.1
+  bind_master:
+    container_name: "bind.master"
+    image: "evrinoma/bind.master"
+    hostname: "bind.master"
+    extra_hosts:
+      - "git.ite-ng.ru:172.20.1.169"
+    build:
+      context: docker/bind/servers/mail/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=master
+        - INSTALL_DIR=/opt/WWW/container.ite-ng.ru/conf/bind
+        - GIT_IP=172.20.1.169
+    ports:
+      - "172.20.1.5:53:53/tcp"
+      - "172.20.1.5:53:53/udp"
+      - "172.20.1.5:8953:8953"
+      - "172.20.1.5:12000:22"
+    volumes:
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.5.1
 
-    sftp:
-        container_name: "sftp.cloud"
-        image: "evrinoma/sftp.cloud"
-        dns: 172.20.1.6
-        build:
-            context: docker/sftp/servers/cloud/.
-            dockerfile: Dockerfile
-        ports:
-            - "172.20.1.160:22:22/tcp"
-        volumes:
-            - "/opt/DISK_ISCSI/data/sftp/:/home/"
-        networks:
-            virt:
-                ipv4_address: 172.18.20.1
+  sftp:
+    container_name: "sftp.cloud"
+    image: "evrinoma/sftp.cloud"
+    dns: 172.20.1.6
+    build:
+      context: docker/sftp/servers/cloud/.
+      dockerfile: Dockerfile
+    ports:
+      - "172.20.1.160:22:22/tcp"
+    volumes:
+      - "/opt/DISK_ISCSI/data/sftp/:/home/"
+    networks:
+      virt:
+        ipv4_address: 172.18.20.1
 
-    php72_owncloud:
-        container_name: "php72.owncloud"
-        image: "evrinoma/php72.owncloud"
-        build:
-            context: docker/php72/sites/cloud/servers/owncloud/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-        ports:
-            - "172.20.1.160:80:80/tcp"
-            - "172.20.1.160:443:443/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.72.14
+  php72_owncloud:
+    container_name: "php72.owncloud"
+    image: "evrinoma/php72.owncloud"
+    build:
+      context: docker/php72/sites/cloud/servers/owncloud/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+    ports:
+      - "172.20.1.160:80:80/tcp"
+      - "172.20.1.160:443:443/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.72.14
 
-#    php74_owncloud:
-#        container_name: "php74.owncloud"
-#        image: "evrinoma/php74.owncloud"
-#        build:
-#            context: docker/php74/sites/cloud/servers/owncloud/.
-#            dockerfile: Dockerfile
-#            args:
-#                - MODE=prod
-##        ports:
-##            - "172.20.1.160:80:80/tcp"
-##            - "172.20.1.160:443:443/tcp"
-#        volumes:
-#            - "/etc/localtime:/etc/localtime:ro"
-#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.74.14
+  #    php74_owncloud:
+  #        container_name: "php74.owncloud"
+  #        image: "evrinoma/php74.owncloud"
+  #        build:
+  #            context: docker/php74/sites/cloud/servers/owncloud/.
+  #            dockerfile: Dockerfile
+  #            args:
+  #                - MODE=prod
+  ##        ports:
+  ##            - "172.20.1.160:80:80/tcp"
+  ##            - "172.20.1.160:443:443/tcp"
+  #        volumes:
+  #            - "/etc/localtime:/etc/localtime:ro"
+  #            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+  #        networks:
+  #            virt:
+  #                ipv4_address: 172.18.74.14
 
-#######################################################################
+  #######################################################################
 
-    php74_cont:
-        container_name: "php74.cont.prod"
-        image: "evrinoma/php74.prod.cont.ite-ng.ru"
-        build:
-            context: docker/php74/sites/cont/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-                - VHOST=prod
-                - database_host=172.18.2.1
-                - database_name=cont
-                - database_port=3306
-                - database_user=cont
-                - database_password=cont
-                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/prod/var/jwt
-        ports:
-            - "172.20.1.165:80:80/tcp"
-            - "172.20.1.165:22:22/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.74.6
+  php74_cont:
+    container_name: "php74.cont.prod"
+    image: "evrinoma/php74.prod.cont.ite-ng.ru"
+    build:
+      context: docker/php74/sites/cont/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+        - VHOST=prod
+        - database_host=172.18.2.1
+        - database_name=cont
+        - database_port=3306
+        - database_user=cont
+        - database_password=cont
+        - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/prod/var/jwt
+    ports:
+      - "172.20.1.165:80:80/tcp"
+      - "172.20.1.165:22:22/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.74.6
 
-    php74_cont_api:
-        container_name: "php74.cont.api.prod"
-        image: "evrinoma/php74.prod.cont.api.ite-ng.ru"
-        build:
-            context: docker/php74/sites/cont.api/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-                - VHOST=prod
-                - database_host=172.18.2.1
-                - database_name=cont
-                - database_port=3306
-                - database_user=cont
-                - database_password=cont
-                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/prod/var/jwt
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        ports:
-            - "172.20.1.165:81:80/tcp"
-            - "172.20.1.165:23:22/tcp"
-        networks:
-            virt:
-                ipv4_address: 172.18.74.31
+  php74_cont_api:
+    container_name: "php74.cont.api.prod"
+    image: "evrinoma/php74.prod.cont.api.ite-ng.ru"
+    build:
+      context: docker/php74/sites/cont.api/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+        - VHOST=prod
+        - database_host=172.18.2.1
+        - database_name=cont
+        - database_port=3306
+        - database_user=cont
+        - database_password=cont
+        - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/prod/var/jwt
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    ports:
+      - "172.20.1.165:81:80/tcp"
+      - "172.20.1.165:23:22/tcp"
+    networks:
+      virt:
+        ipv4_address: 172.18.74.31
 
-#######################################################################
+  #######################################################################
 
-    php74_cont_test:
-        container_name: "php74.cont.test"
-        image: "evrinoma/php74.test.cont.ite-ng.ru"
-        build:
-            context: docker/php74/sites/cont/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-                - VHOST=test
-                - database_host=172.18.2.1
-                - database_name=cont_test
-                - database_port=3306
-                - database_user=cont
-                - database_password=cont
-                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/test/var/jwt
-        ports:
-            - "172.20.1.171:80:80/tcp"
-            - "172.20.1.171:22:22/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.74.22
+  php74_cont_test:
+    container_name: "php74.cont.test"
+    image: "evrinoma/php74.test.cont.ite-ng.ru"
+    build:
+      context: docker/php74/sites/cont/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+        - VHOST=test
+        - database_host=172.18.2.1
+        - database_name=cont_test
+        - database_port=3306
+        - database_user=cont
+        - database_password=cont
+        - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/test/var/jwt
+    ports:
+      - "172.20.1.171:80:80/tcp"
+      - "172.20.1.171:22:22/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.74.22
 
-    php74_cont_api_test:
-        container_name: "php74.cont.api.test"
-        image: "evrinoma/php74.test.cont.api.ite-ng.ru"
-        build:
-            context: docker/php74/sites/cont.api/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-                - VHOST=test
-                - database_host=172.18.2.1
-                - database_name=cont_test
-                - database_port=3306
-                - database_user=cont
-                - database_password=cont
-                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/test/var/jwt
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        ports:
-            - "172.20.1.171:81:80/tcp"
-            - "172.20.1.171:23:22/tcp"
-        networks:
-            virt:
-                ipv4_address: 172.18.74.33
+  php74_cont_api_test:
+    container_name: "php74.cont.api.test"
+    image: "evrinoma/php74.test.cont.api.ite-ng.ru"
+    build:
+      context: docker/php74/sites/cont.api/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+        - VHOST=test
+        - database_host=172.18.2.1
+        - database_name=cont_test
+        - database_port=3306
+        - database_user=cont
+        - database_password=cont
+        - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/test/var/jwt
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    ports:
+      - "172.20.1.171:81:80/tcp"
+      - "172.20.1.171:23:22/tcp"
+    networks:
+      virt:
+        ipv4_address: 172.18.74.33
 
-#######################################################################
+  #######################################################################
 
-    php74_cont_qsurv:
-        container_name: "php74.cont.qsurv"
-        image: "evrinoma/php74.qsurv.cont.ite-ng.ru"
-        build:
-            context: docker/php74/sites/cont/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-                - VHOST=qsurv
-                - database_host=172.18.2.1
-                - database_name=cont_qsurv
-                - database_port=3306
-                - database_user=cont
-                - database_password=cont
-                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/qsurv/var/jwt
-        ports:
-            - "172.20.1.176:80:80/tcp"
-            - "172.20.1.176:22:22/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.74.28
+  php74_cont_qsurv:
+    container_name: "php74.cont.qsurv"
+    image: "evrinoma/php74.qsurv.cont.ite-ng.ru"
+    build:
+      context: docker/php74/sites/cont/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+        - VHOST=qsurv
+        - database_host=172.18.2.1
+        - database_name=cont_qsurv
+        - database_port=3306
+        - database_user=cont
+        - database_password=cont
+        - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/qsurv/var/jwt
+    ports:
+      - "172.20.1.176:80:80/tcp"
+      - "172.20.1.176:22:22/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.74.28
 
-    php74_cont_api_qsurv:
-        container_name: "php74.cont.api.qsurv"
-        image: "evrinoma/php74.qsurv.cont.api.ite-ng.ru"
-        build:
-            context: docker/php74/sites/cont.api/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-                - VHOST=qsurv
-                - database_host=172.18.2.1
-                - database_name=cont_qsurv
-                - database_port=3306
-                - database_user=cont
-                - database_password=cont
-                - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/qsurv/var/jwt
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        ports:
-            - "172.20.1.176:81:80/tcp"
-            - "172.20.1.176:23:22/tcp"
-        networks:
-            virt:
-                ipv4_address: 172.18.74.34
+  php74_cont_api_qsurv:
+    container_name: "php74.cont.api.qsurv"
+    image: "evrinoma/php74.qsurv.cont.api.ite-ng.ru"
+    build:
+      context: docker/php74/sites/cont.api/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+        - VHOST=qsurv
+        - database_host=172.18.2.1
+        - database_name=cont_qsurv
+        - database_port=3306
+        - database_user=cont
+        - database_password=cont
+        - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/qsurv/var/jwt
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    ports:
+      - "172.20.1.176:81:80/tcp"
+      - "172.20.1.176:23:22/tcp"
+    networks:
+      virt:
+        ipv4_address: 172.18.74.34
 
 
-#######################################################################
-############################## Start ##################################
-####### @todo this deploy should be removed to another server##########
-#######################################################################
-    node_nekeng:
-        container_name: "node.clone.nekeng"
-        image: "evrinoma/node.clone.nekeng"
-        build:
-            context: docker/node/clone/.
-            dockerfile: Dockerfile
-            args:
-                - BASE_PATH=/opt/WWW/container.ite-ng.ru/data_sftp_kis/external/exchange1C/kis.nekeng.ru
-                - BASE_TARGET=out
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.6.1
+  #######################################################################
+  ############################## Start ##################################
+  ####### @todo this deploy should be removed to another server##########
+  #######################################################################
+  node_nekeng:
+    container_name: "node.clone.nekeng"
+    image: "evrinoma/node.clone.nekeng"
+    build:
+      context: docker/node/clone/.
+      dockerfile: Dockerfile
+      args:
+        - BASE_PATH=/opt/WWW/container.ite-ng.ru/data_sftp_kis/external/exchange1C/kis.nekeng.ru
+        - BASE_TARGET=out
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.6.1
 
-#    sftp_kis:
-#        container_name: "sftp.kis"
-#        image: "evrinoma/sftp.kis"
-#        dns: 172.20.1.6
-#        build:
-#            context: docker/sftp/servers/kis/.
-#            dockerfile: Dockerfile
-#        ports:
-#            - "172.20.1.174:22:22/tcp"
-#        volumes:
-#            - "/opt/docker/src/data_sftp_kis/:/home/"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.20.2
+  #    sftp_kis:
+  #        container_name: "sftp.kis"
+  #        image: "evrinoma/sftp.kis"
+  #        dns: 172.20.1.6
+  #        build:
+  #            context: docker/sftp/servers/kis/.
+  #            dockerfile: Dockerfile
+  #        ports:
+  #            - "172.20.1.174:22:22/tcp"
+  #        volumes:
+  #            - "/opt/docker/src/data_sftp_kis/:/home/"
+  #        networks:
+  #            virt:
+  #                ipv4_address: 172.18.20.2
 
-    php53_kis_nekeng_ru:
-        container_name: "php53.kis.nekeng"
-        image: "evrinoma/php53.kis.nekeng.ru"
-        hostname: "kis.nekeng.ru"
-        cap_add:
-            - SYS_ADMIN
-        security_opt:
-            - apparmor:unconfined
-        build:
-            context: docker/php53/sites/kis/.
-            dockerfile: Dockerfile
-            args:
-                - VHOST=nekeng
-        ports:
-            - "172.20.1.172:80:80/tcp"
-            - "172.20.1.172:22:22/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-            - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/external/"
-            - "/opt/DISK_ISCSI_DOC/:/opt/WWW/docs/"
-        networks:
-            virt:
-                ipv4_address: 172.18.53.5
+  php53_kis_nekeng_ru:
+    container_name: "php53.kis.nekeng"
+    image: "evrinoma/php53.kis.nekeng.ru"
+    hostname: "kis.nekeng.ru"
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    build:
+      context: docker/php53/sites/kis/.
+      dockerfile: Dockerfile
+      args:
+        - VHOST=nekeng
+    ports:
+      - "172.20.1.172:80:80/tcp"
+      - "172.20.1.172:22:22/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+      - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+      - "/opt/DISK_ISCSI_DOC/:/opt/WWW/docs/"
+    networks:
+      virt:
+        ipv4_address: 172.18.53.5
 
-    php53_kis_new_nekeng_ru:
-        container_name: "php53.kisnew.nekeng"
-        image: "evrinoma/php53.kisnew.nekeng.ru"
-        build:
-            context: docker/php53/sites/kisnew/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-                - VHOST=nekeng
-                - exchange=true
-                - database_host=172.18.2.1
-                - database_name=mh3itgr_nek_ng
-                - database_port=3306
-                - database_user=mh3itgr_ngdb
-                - database_password=147Fort21
-        hostname: "kis.nekeng.local"
-        cap_add:
-            - SYS_ADMIN
-        security_opt:
-            - apparmor:unconfined
-        ports:
-            - "172.20.1.173:80:80/tcp"
-            - "172.20.1.173:22:22/tcp"
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-#            - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/external/"
-        networks:
-            virt:
-                ipv4_address: 172.18.53.6
+  php53_kis_new_nekeng_ru:
+    container_name: "php53.kisnew.nekeng"
+    image: "evrinoma/php53.kisnew.nekeng.ru"
+    build:
+      context: docker/php53/sites/kisnew/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+        - VHOST=nekeng
+        - exchange=true
+        - database_host=172.18.2.1
+        - database_name=mh3itgr_nek_ng
+        - database_port=3306
+        - database_user=mh3itgr_ngdb
+        - database_password=147Fort21
+    hostname: "kis.nekeng.local"
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    ports:
+      - "172.20.1.173:80:80/tcp"
+      - "172.20.1.173:22:22/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    #            - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/external/"
+    networks:
+      virt:
+        ipv4_address: 172.18.53.6
 
-    samba_kis_nekeng:
-        container_name: "samba.kis.nekeng"
-        image: "evrinoma/samba.kis.nekeng"
-        hostname: "DOCK_SMB_KIS_NEKENG"
-        ports:
-            - "172.20.1.174:22:22/tcp"
-            - "172.20.1.174:137:137/udp"
-            - "172.20.1.174:138:138/udp"
-            - "172.20.1.174:139:139/tcp"
-            - "172.20.1.174:445:445/tcp"
-        build:
-            context: docker/samba/servers/kis/.
-            dockerfile: Dockerfile
-            args:
-                - netbios_name=SMB_KIS_NEKENG
-                - server_string=KIS_DOCKER_NEKENG
-                - server_IP=172.20.1.6, 172.20.1.20
-                - server_domain=ITE-NG.RU
-                - cache_time=60
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.1.8
+  samba_kis_nekeng:
+    container_name: "samba.kis.nekeng"
+    image: "evrinoma/samba.kis.nekeng"
+    hostname: "DOCK_SMB_KIS_NEKENG"
+    ports:
+      - "172.20.1.174:22:22/tcp"
+      - "172.20.1.174:137:137/udp"
+      - "172.20.1.174:138:138/udp"
+      - "172.20.1.174:139:139/tcp"
+      - "172.20.1.174:445:445/tcp"
+    build:
+      context: docker/samba/servers/kis/.
+      dockerfile: Dockerfile
+      args:
+        - netbios_name=SMB_KIS_NEKENG
+        - server_string=KIS_DOCKER_NEKENG
+        - server_IP=172.20.1.6, 172.20.1.20
+        - server_domain=ITE-NG.RU
+        - cache_time=60
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/data_sftp_kis/external/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.1.8
 
 #    php72_kiscloud:
 #        container_name: "php72.kiscloud"
@@ -390,14 +390,14 @@ services:
 #######################################################################
 
 networks:
-    virt:
-        driver: bridge
-        driver_opts:
-            com.docker.network.enable_ipv6: "false"
-            com.docker.network.bridge.name: "docker_sftp"
-        ipam:
-            driver: default
-            config:
-                - subnet: 172.18.0.0/16
-                  gateway: 172.18.0.1
+  virt:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+      com.docker.network.bridge.name: "docker_sftp"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
 

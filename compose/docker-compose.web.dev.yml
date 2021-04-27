@@ -163,9 +163,11 @@ services:
             - MODE=dev
             - NODEJS=14
             - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/var/jwt
-            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public
-            - httpd_server=php74.cont.api
-            - httpd_alias=cont.api
+            - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public
+            - web_server=php74.cont.api
+            - web_alias=cont.api
+#        ports:
+#            - "172.20.1.78:80:80/tcp"
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -182,9 +184,9 @@ services:
             - SYMFONY=yes
             - MODE=dev
 #            - NODEJS=15
-            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public
-            - httpd_server=php80.cont.api
-            - httpd_alias=cont.api
+            - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public
+            - web_server=php80.cont.api
+            - web_alias=cont.api
 #            - PASSWD=pass
 #            - YUM=true
         volumes:
@@ -218,15 +220,15 @@ services:
 #            - MODE=dev
 #            - SYMFONY=yes
 #            - NODEJS=10
-#            - httpd_conf=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/vhost.conf
-#            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api
+#            - web_conf=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/vhost.conf
+#            - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api
             - DEPLOY=yes
             - MODE=dev
             - SYMFONY=yes
             - NODEJS=10
-            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/businesscenter/public
-            - httpd_server=php80.bc
-            - httpd_alias=bc
+            - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/businesscenter/public
+            - web_server=php80.bc
+            - web_alias=bc
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
@@ -242,9 +244,9 @@ services:
             - SYMFONY=yes
             - MODE=dev
             - NODEJS=10
-            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/clean/public
-            - httpd_server=php74.clean
-            - httpd_alias=clean
+            - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/clean/public
+            - web_server=php74.clean
+            - web_alias=clean
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
@@ -261,9 +263,9 @@ services:
             - SYMFONY=yes
             - MODE=dev
             - NODEJS=10
-            - httpd_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/clean/public
-            - httpd_server=php80.clean
-            - httpd_alias=clean
+            - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/clean/public
+            - web_server=php80.clean
+            - web_alias=clean
         volumes:
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
             - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
@@ -321,6 +323,24 @@ services:
         networks:
             virt:
                 ipv4_address: 172.18.74.6
+
+    php74_myhammer:
+        container_name: "php74.myhammer"
+        image: "evrinoma/php74"
+        environment:
+            - DEPLOY=yes
+            - SYMFONY=yes
+            - MODE=dev
+            - _NODEJS=10
+            - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/myhammer-task/jobs/web
+            - web_server=php74.myhammer
+            - web_alias=clean
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.36
 
 #    php74_owncloud:
 #        container_name: "php74.owncloud"

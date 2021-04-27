@@ -1,104 +1,104 @@
 version: '2'
 services:
-    maria_db:
-        container_name: "maria.db"
-        image: "evrinoma/db.maria"
-        hostname: "maria.db"
-        ports:
-            - "172.16.45.5:3306:3306/tcp"
-        build:
-            context: docker/db/maria/10.3.27/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/db/maria/:/var/lib/mysql"
-            - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
-        networks:
-            virt:
-                ipv4_address: 172.18.2.1
+  maria_db:
+    container_name: "maria.db"
+    image: "evrinoma/db.maria"
+    hostname: "maria.db"
+    ports:
+      - "172.16.45.5:3306:3306/tcp"
+    build:
+      context: docker/db/maria/10.3.27/.
+      dockerfile: Dockerfile
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/db/maria/:/var/lib/mysql"
+      - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
+    networks:
+      virt:
+        ipv4_address: 172.18.2.1
 
-#    bind_master:
-#        container_name: "bind.master"
-#        image: "evrinoma/bind.master"
-#        hostname: "bind.master"
-#        build:
-#            context: docker/bind/servers/mail/.
-#            dockerfile: Dockerfile
-#        volumes:
-#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-#        networks:
-#            virt:
-#                ipv4_address: 172.18.5.1
+  #    bind_master:
+  #        container_name: "bind.master"
+  #        image: "evrinoma/bind.master"
+  #        hostname: "bind.master"
+  #        build:
+  #            context: docker/bind/servers/mail/.
+  #            dockerfile: Dockerfile
+  #        volumes:
+  #            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+  #        networks:
+  #            virt:
+  #                ipv4_address: 172.18.5.1
 
-    mail_exim_mail:
-        container_name: "exim.mail"
-        image: "evrinoma/exim.mail"
-        hostname: "mail.ite-ng.ru"
-        dns: 172.16.45.4
-        ports:
-            - "172.16.45.5:25:25/tcp"
-            - "172.16.45.5:110:110/tcp"
-            - "172.16.45.5:143:143/tcp"
-            - "172.16.45.5:465:465/tcp"
-            - "172.16.45.5:993:993/tcp"
-            - "172.16.45.5:995:995/tcp"
-            - "172.16.45.5:8010:80/tcp"
-            - "172.16.45.5:12001:22/tcp"
-        build:
-            context: docker/mail/exim/servers/mail/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.4.1
+  mail_exim_mail:
+    container_name: "exim.mail"
+    image: "evrinoma/exim.mail"
+    hostname: "mail.ite-ng.ru"
+    dns: 172.16.45.4
+    ports:
+      - "172.16.45.5:25:25/tcp"
+      - "172.16.45.5:110:110/tcp"
+      - "172.16.45.5:143:143/tcp"
+      - "172.16.45.5:465:465/tcp"
+      - "172.16.45.5:993:993/tcp"
+      - "172.16.45.5:995:995/tcp"
+      - "172.16.45.5:8010:80/tcp"
+      - "172.16.45.5:12001:22/tcp"
+    build:
+      context: docker/mail/exim/servers/mail/.
+      dockerfile: Dockerfile
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.4.1
 
-    php74_tools:
-        container_name: "php74.tools"
-        image: "evrinoma/php74.tools"
-        ports:
-            - "172.16.45.5:80:80/tcp"
-            - "172.16.45.5:443:443/tcp"
-            - "172.16.45.5:12000:22/tcp"
-        build:
-            context: docker/php74/sites/tools/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-        volumes:
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.74.4
+  php74_tools:
+    container_name: "php74.tools"
+    image: "evrinoma/php74.tools"
+    ports:
+      - "172.16.45.5:80:80/tcp"
+      - "172.16.45.5:443:443/tcp"
+      - "172.16.45.5:12000:22/tcp"
+    build:
+      context: docker/php74/sites/tools/.
+      dockerfile: Dockerfile
+      args:
+        - MODE=prod
+    volumes:
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.74.4
 
-    wowza_4_7_7:
-        container_name: "wowza.4.7.7"
-        image: "evrinoma/wowza.versions.4.7.7"
-        ports:
-            - "172.16.45.5:8084-8086:8084-8086/tcp"
-            - "172.16.45.5:8088:8088/tcp"
-            - "172.16.45.5:1935:1935/tcp"
-#            - "172.16.45.5:6970-9999:6970-9999/udp"
-        build:
-            context: docker/wowza/versions/4.7.7/.
-            dockerfile: Dockerfile
-        volumes:
-            - "/etc/localtime:/etc/localtime:ro"
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.14.77
+  wowza_4_7_7:
+    container_name: "wowza.4.7.7"
+    image: "evrinoma/wowza.versions.4.7.7"
+    ports:
+      - "172.16.45.5:8084-8086:8084-8086/tcp"
+      - "172.16.45.5:8088:8088/tcp"
+      - "172.16.45.5:1935:1935/tcp"
+    #            - "172.16.45.5:6970-9999:6970-9999/udp"
+    build:
+      context: docker/wowza/versions/4.7.7/.
+      dockerfile: Dockerfile
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+    networks:
+      virt:
+        ipv4_address: 172.18.14.77
 
 networks:
-    virt:
-        driver: bridge
-        driver_opts:
-            com.docker.network.enable_ipv6: "false"
-            com.docker.network.bridge.name: "docker_exim"
-        ipam:
-            driver: default
-            config:
-                - subnet: 172.18.0.0/16
-                  gateway: 172.18.0.1
+  virt:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+      com.docker.network.bridge.name: "docker_exim"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
 
