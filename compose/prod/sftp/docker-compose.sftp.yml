@@ -10,6 +10,7 @@ services:
         ports:
             - "172.20.1.160:3306:3306/tcp"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/db/maria/:/var/lib/mysql"
             - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
@@ -67,27 +68,29 @@ services:
             - "172.20.1.160:80:80/tcp"
             - "172.20.1.160:443:443/tcp"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
                 ipv4_address: 172.18.72.14
 
-    php74_owncloud:
-        container_name: "php74.owncloud"
-        image: "evrinoma/php74.owncloud"
-        build:
-            context: docker/php74/sites/cloud/servers/owncloud/.
-            dockerfile: Dockerfile
-            args:
-                - MODE=prod
-#        ports:
-#            - "172.20.1.160:80:80/tcp"
-#            - "172.20.1.160:443:443/tcp"
-        volumes:
-            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
-        networks:
-            virt:
-                ipv4_address: 172.18.74.14
+#    php74_owncloud:
+#        container_name: "php74.owncloud"
+#        image: "evrinoma/php74.owncloud"
+#        build:
+#            context: docker/php74/sites/cloud/servers/owncloud/.
+#            dockerfile: Dockerfile
+#            args:
+#                - MODE=prod
+##        ports:
+##            - "172.20.1.160:80:80/tcp"
+##            - "172.20.1.160:443:443/tcp"
+#        volumes:
+#            - "/etc/localtime:/etc/localtime:ro"
+#            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+#        networks:
+#            virt:
+#                ipv4_address: 172.18.74.14
 
 #######################################################################
 
@@ -260,6 +263,7 @@ services:
                 - BASE_PATH=/opt/WWW/container.ite-ng.ru/data_sftp_kis/external/exchange1C/kis.nekeng.ru
                 - BASE_TARGET=out
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -374,6 +378,7 @@ services:
 #            - "172.20.1.174:80:80/tcp"
 #            - "172.20.1.174:443:443/tcp"
 #        volumes:
+#            - "/etc/localtime:/etc/localtime:ro"
 #            - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
 #        networks:
 #            virt:
