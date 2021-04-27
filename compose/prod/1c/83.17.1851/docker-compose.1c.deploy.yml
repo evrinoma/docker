@@ -9,6 +9,7 @@ services:
             context: docker/db/postgre/1c/11.5.1/.
             dockerfile: Dockerfile
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
             - "/opt/docker/src/db/postgre/1c/:/var/lib/pgsql"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
@@ -37,6 +38,7 @@ services:
             - "iteng26:172.20.1.26"
             - "deploy.1c.ite-ng.ru:172.16.45.55"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
