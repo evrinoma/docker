@@ -10,6 +10,7 @@ services:
             context: docker/db/maria/10.3.27/.
             dockerfile: Dockerfile
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/db/maria/:/var/lib/mysql"
             - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
@@ -63,6 +64,7 @@ services:
             - "172.16.45.4:443:443/tcp"
             - "172.16.45.4:12001:22"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
@@ -110,6 +112,7 @@ services:
             - "172.16.45.6:443:443/tcp"
             - "172.16.45.6:8443:443/tcp"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
