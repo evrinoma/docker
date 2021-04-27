@@ -10,6 +10,7 @@ services:
         ports:
             - "172.20.1.9:3306:3306/tcp"
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/db/maria/:/var/lib/mysql"
             - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
@@ -83,6 +84,7 @@ services:
                 - BASE_PATH=/opt/WWW/container.ite-ng.ru/data/external/exchange1C/kis.ite-ng.ru
                 - BASE_TARGET=out
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
