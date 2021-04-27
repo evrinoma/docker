@@ -10,6 +10,7 @@ services:
             context: docker/db/maria/10.3.27/.
             dockerfile: Dockerfile
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/db/maria/:/var/lib/mysql"
             - "/opt/docker/src/logs/mariadb/:/var/log/mariadb"
         networks:
@@ -83,6 +84,7 @@ services:
             context: docker/wowza/versions/4.7.7/.
             dockerfile: Dockerfile
         volumes:
+            - "/etc/localtime:/etc/localtime:ro"
             - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
         networks:
             virt:
