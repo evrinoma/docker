@@ -97,10 +97,11 @@ RUN	mkdir -p /opt/WWW/container.ite-ng.ru/
 #php.ini
 RUN	sed -i -e "s/^\(short_open_tag =\).*$/\1 On/g" /etc/php.ini && \
 	sed -i -e "s/\;date\.timezone\ \=/date\.timezone\ \=\ \"Europe\/Moscow\"/g" /etc/php.ini && \
+	sed -i -e "s/\;max_input_vars\ \=/max_input_vars\ \=\ 16000 \n\;/g" /etc/php.ini && \
 	sed -i -e "s/memory_limit\ \=\ 128M/memory_limit\ \=\ -1/g" /etc/php.ini && \
 	sed -i -e "s/max_input_time\ \=\ 60/max_input_time\ \=\ -1/g" /etc/php.ini && \
 	sed -i -e "s/max_execution_time\ \=\ 30/max_execution_time\ \=\ 10000/g" /etc/php.ini && \
-	sed -i -e "s/post_max_size \=\ 8/post_max_size\ \=\ 4096/g" /etc/php.ini && \
+	sed -i -e "s/post_max_size \=\ 8/post_max_size\ \=\ 8192/g" /etc/php.ini && \
 	sed -i -e "s/upload_max_filesize \=\ 2/upload_max_filesize\ \=\ 4096/g" /etc/php.ini && \
 	sed -i -e "s/session.gc_maxlifetime\ \=\ 1440/session.gc_maxlifetime\ \=\ 36000/g" /etc/php.ini && \
 	sed -i -e "s/expose_php\ \=\ On/expose_php\ \=\ off/" /etc/php.ini

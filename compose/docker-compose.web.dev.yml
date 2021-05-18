@@ -166,8 +166,8 @@ services:
             - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/public
             - web_server=php74.cont.api
             - web_alias=cont.api
-#        ports:
-#            - "172.20.1.78:80:80/tcp"
+        ports:
+            - "172.20.1.78:80:80/tcp"
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
