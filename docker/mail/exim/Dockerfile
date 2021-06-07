@@ -174,7 +174,9 @@ WORKDIR /
 #logrotate
 COPY	exim.logrotate.conf /etc/logrotate.d/exim
 COPY	spam.logrotate.conf /etc/logrotate.d/spam
-RUN	dnf install logrotate -y
+RUN	dnf install logrotate -y && \
+    sed -i -e '/dateext/s/^/#/' /etc/logrotate.conf && \
+    echo "dateformat ''" >> /etc/logrotate.conf
 
 RUN	dnf install cronie -y && \
 	sed -i -e '/pam_loginuid.so/s/^/#/' /etc/pam.d/crond
