@@ -169,6 +169,9 @@ COPY	spamlearn /usr/local/bin/
 RUN	chmod 700 /usr/local/bin/spamlearn
 RUN	dnf -y install portreserve
 
+COPY	rename /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/rename
+
 WORKDIR /
 
 #logrotate

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+SCAN="/opt/WWW/container.ite-ng.ru/logs/exim/var/log"
+declare -p logPrefixes=("main" "panic" "reject")
+declare -A renameFiles=()
+declare -a renameCommands=()
+
+echo 'rotate renaming'
+for prefix in ${logPrefixes[@]}
+do
+    count=0
+    FOLDER=$(ls -tA $SCAN | grep $prefix)
+    for name in ${FOLDER[@]}
+    do
+        if [ $count -gt 0 ]; then
+            renameFiles+=([$prefix.$count]=$name)
+            renameCommands+=( "$name  $prefix.$count" )
+        fi
+        ((count=count+1))
+
+    done
+done
+
+cd $SCAN
+for (( i=${#renameCommands[@]}-1; i>=0; i-- ));
+do
+    printf %s\\n "${renameCommands[$i]}"
+    mv ${renameCommands[$i]}
+done
