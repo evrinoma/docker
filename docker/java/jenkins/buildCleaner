@@ -1,0 +1,14 @@
+#!/bin/bash
+
+FOLDER="/opt/DISK/data/jenkins/jobs"
+PREFIX_BUILD="/builds"
+
+for job in $(ls $FOLDER)
+do
+    echo $FOLDER/$job$PREFIX_BUILD
+    for build in $(ls -lA $FOLDER/$job$PREFIX_BUILD | grep -v 'total' | grep 'drwx' | grep -v $(date +%b) | awk '{print $9}')
+    do
+        echo  $FOLDER/$job$PREFIX_BUILD/$build
+        rm -rf $FOLDER/$job$PREFIX_BUILD/$build
+    done
+done

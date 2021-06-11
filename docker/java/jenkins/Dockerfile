@@ -20,3 +20,6 @@ RUN	wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.
 	yum -y install jenkins
 
 RUN	yum -y install sshpass
+COPY	buildCleaner /usr/local/bin/
+RUN	chmod 700 /usr/local/bin/buildCleaner
+
