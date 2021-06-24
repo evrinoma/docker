@@ -8,7 +8,7 @@ services:
       context: docker/db/maria/10.3.27/.
       dockerfile: Dockerfile
     ports:
-      - "172.20.1.160:3306:3306/tcp"
+      - "172.20.1.161:3306:3306/tcp"
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/docker/src/db/maria/:/var/lib/mysql"
@@ -16,6 +16,23 @@ services:
     networks:
       virt:
         ipv4_address: 172.18.2.1
+
+  mysql_db:
+    container_name: "mysql.db"
+    image: "evrinoma/db.mysql"
+    hostname: "mysql.db"
+    build:
+      context: docker/db/maria/5.5.65/.
+      dockerfile: Dockerfile
+    ports:
+      - "172.20.1.172:3306:3306/tcp"
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/opt/docker/src/db/mysql/:/var/lib/mysql"
+      - "/opt/docker/src/logs/mysql/:/var/log/mariadb"
+    networks:
+      virt:
+        ipv4_address: 172.18.2.4
 
   bind_master:
     container_name: "bind.master"
