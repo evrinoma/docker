@@ -1,0 +1,59 @@
+version: '2'
+services:
+    maria_db:
+        container_name: "maria.db"
+        image: "evrinoma/db.maria"
+        build:
+            context: docker/db/maria/10.3.27/.
+            dockerfile: Dockerfile
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/db/maria/:/var/lib/mysql"
+            - "/opt/DISK/Develop/Docker/src/logs/mariadb/:/var/log/mariadb"
+        networks:
+            virt:
+                ipv4_address: 172.18.2.1
+
+    php74_ite_back:
+        container_name: "php74.ite_back"
+        image: "evrinoma/php74"
+        ports:
+            - 172.20.1.78:8080:8080/tcp
+        environment:
+            - ENGINE=nginx
+            - DEPLOY=yes
+            - SYMFONY=yes
+            - MODE=dev
+            - _NODEJS=10
+            - web_dir=/opt/WWW/container.ite-ng.ru/projects/httpd/ite-ng/ite_back/src/public
+            - web_server=php74.ite_back
+            - web_alias=ite_back
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.37
+
+    php74_ite_front:
+        container_name: "php74.ite_front"
+        image: "evrinoma/php74"
+        ports:
+            - 172.20.1.78:80:3000/tcp
+        environment:
+            - MODE=dev
+            - NODEJS=14
+        volumes:
+            - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
+            - "/opt/DISK/Develop/PhpStorm/PhpstormProjects/:/opt/WWW/container.ite-ng.ru/PhpstormProjects/"
+        networks:
+            virt:
+                ipv4_address: 172.18.74.38
+
+networks:
+    virt:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
