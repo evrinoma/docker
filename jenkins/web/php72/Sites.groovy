@@ -1,5 +1,5 @@
 node {
-    def mailRecipients = "nikolns@ite-ng.ru"
+    def mailRecipients = "vasilav@ite-ng.ru,nikolns@ite-ng.ru"
     try {
         def dockerName = 'web'
         def baseDir = "/opt/DISK/projects/httpd/"
@@ -36,7 +36,7 @@ node {
                 }
                 stage('Check Status')
                 {
-                    gitStatusLocal = sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c \"cd ${trackingDocDir} && if [ -z \\\"git status | grep 'clean'\\\" ]; then echo 'attack'; else echo 'clean'; fi;\""
+                    gitStatusLocal = sshCommand remote: remote, command: "echo -e \"${remote.password}\" | sudo -S bash -c 'if [ -z \"\$(cd /opt/DISK/projects/httpd/ite-ng.ru/ && git status | grep 'clean')\" ] ; then  echo \"attack\"; else echo \"clean\"; fi;'"
                     print gitStatusLocal
                 }
                 if ((gitHeadLocal!=gitHeadRemote)||(gitStatusLocal=='attack')) {
