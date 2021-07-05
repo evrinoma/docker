@@ -315,7 +315,7 @@ services:
         environment:
 #            - NODEJS=10
             - MODE=dev
-            - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont.api/var/jwt
+            - CERTS=/opt/WWW/container.ite-ng.ru/projects/httpd/cont/prod/var/jwt
         volumes:
             - "/etc/localtime:/etc/localtime:ro"
             - "/opt/DISK/Develop/Docker/src/:/opt/WWW/container.ite-ng.ru/"
