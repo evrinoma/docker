@@ -90,6 +90,7 @@ services:
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
       - "/opt/docker/src/:/opt/WWW/container.ite-ng.ru/"
+      - "/opt/DISK_2/:/opt/DISK_2/"
     networks:
       virt:
         ipv4_address: 172.18.4.2
