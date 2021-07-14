@@ -7,6 +7,15 @@
 	force group = apache
 	valid users = @"ITE-NG_NT\1c_adm"
 
+[maintenanceAndRepair1C]
+	comment = kis.ite-ng.ru maintenanceAndRepair 1C
+	path = /opt/WWW/container.ite-ng.ru/maintenanceAndRepair1C
+	browseable = yes
+	writeable = yes
+	force user = apache
+	force group = apache
+	valid users = @"ITE-NG_NT\1c_adm"
+
 [exchangeBankClient]
 	comment = KIS Exchange 2
 	path = /opt/WWW/container.ite-ng.ru/exchangeBankClient
