@@ -47,13 +47,13 @@
 #docker build -t evrinoma/php72.asterisk17 ../docker/php72/sites/freepbx/asterisk17/.
 #docker build -t evrinoma/php72.asterisk13 ../docker/php72/sites/freepbx/asterisk13/.
 
-docker build -t evrinoma/php74 ../docker/php74/.
+#docker build -t evrinoma/php74 ../docker/php74/.
 #docker build -t evrinoma/php74.exchange ../docker/php74/sites/exchange/.
 #docker build -t evrinoma/php74.supply ../docker/php74/sites/supply/.
 #docker build -t evrinoma/php74.cont.api ../docker/php74/sites/cont.api/.
 #docker build -t evrinoma/php74.cloud ../docker/php74/sites/cloud/.
 
-docker build -t evrinoma/php80 ../docker/php80/.
+#docker build -t evrinoma/php80 ../docker/php80/.
 #docker build -t evrinoma/php80.businesscenter ../docker/php80/sites/businesscenter/.
 
 #docker build -t evrinoma/redis ../docker/redis/.
